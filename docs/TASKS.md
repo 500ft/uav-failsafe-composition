@@ -1,0 +1,286 @@
+# UAV Recovery Contracts — tasks to completion
+
+> **Objective.** Produce the strongest, most honestly packaged evidence—not a completed
+> fleet. Priority flows from leverage, falsifiability, and executability. It does not flow
+> from the project's most ambitious possible demonstration.
+
+Generated from a graph audit of commit `a43d9e1`. The graph contains 196 nodes across 14
+communities and identifies the authority-loss pilot as the bridge between the research plan,
+evidence governance, and later recovery-tube claims. Every task below is anchored to that
+dependency structure. No dates or estimates appear, by design.
+
+## Two finish lines
+
+**Ceiling.** Configuration-specific recovery contracts retain their registered coverage in
+SITL, HITL, and contained single-vehicle tests; offline fleet composition shows lower mission
+cost than one global envelope; a limited two-vehicle demonstration agrees with the registered
+prediction.
+
+**Floor.** A citable, pinned PX4–ArduPilot SITL conformance benchmark with held-out recovery-
+tube coverage and an honest global-versus-individual comparison. A null result—one global
+envelope is sufficient—is a completed floor, not a failed project.
+
+The floor is the finish line this repository can reach without flight hardware or a facility.
+Hardware work remains visible but cannot outrank executable software evidence.
+
+_15 project tasks · 8 Tier 0 · 10 executable now._
+
+**Gate types.** `preregister` — commit a decision before the data it judges; `external` —
+requires a person, facility, or resource outside this repository; `build` — new implementation
+or analysis; `hygiene` — reproducibility, search, or packaging debt.
+
+**Tiers.** 0 finish · 1 package · 2 park. A task whose required resource or positive result is
+not secured cannot be Tier 0, however impressive its eventual output might be.
+
+---
+
+## Tier 0 — finish
+
+### URC-01 · Close the exact-gap and tooling search
+
+`hygiene` · executable now
+
+**Why it matters.** The source map proves that generic failsafes, cross-stack testing,
+capability-aware safety, health contracts, contingency trajectories, and spatial reservations
+already exist. It does not yet prove that configuration-specific native recovery traces and
+reconnection semantics remain distinctive.
+
+**What it adds.** A dated, reproducible boundary around the only claim this project can own.
+
+**Done when.** `docs/prior-art.md` carries database and patent search strings, inclusion and
+exclusion criteria, a source table for equivalent-intent PX4/ArduPilot benchmarks and failsafe-
+configuration compilers, and a conclusion written as “supported candidate gap” or “prior art
+found”—never “no one has done this.”
+
+### URC-02 · Pin the configured-vehicle matrix and equivalent recovery intentions
+
+`preregister` · executable now · after URC-01
+
+**Why it matters.** “PX4 versus ArduPilot” is not an experiment. Without pinned firmware,
+vehicle dynamics, full parameters, and an equivalence rule for Hold, Land, and RTL, any
+difference can be explained after the fact as a configuration mismatch.
+
+**What it adds.** Stable experimental identities and a defensible cross-stack comparison.
+
+**Done when.** One committed matrix names both firmware identifiers, simulator and vehicle
+model, complete parameter exports, recovery intentions, equivalence rules, unsupported cases,
+and configuration hashes; the example manifest validates against the resulting contract.
+
+### URC-03 · Freeze authority-loss, logging, and coordinate semantics
+
+`preregister` · executable now · after URC-02
+
+**Why it matters.** Setpoint timeout, process termination, mode transition, recovery completion,
+and reconnection are currently prose concepts. A timestamp or coordinate-frame disagreement
+would make trace alignment and tube coverage uninterpretable.
+
+**What it adds.** One event vocabulary and one analysis-ready trace schema across both stacks.
+
+**Done when.** A committed protocol defines the last valid setpoint, authority-loss timestamp,
+native-transition timestamp, terminal state, reconnect event, sampling and clock rules,
+coordinate transform, units, missing-data behavior, and invalid-run policy—with schema tests for
+one valid and multiple invalid fixtures.
+
+### URC-04 · Build the deterministic cross-stack SITL harness
+
+`build` · executable now · after URC-02, URC-03
+
+**Why it matters.** The repository currently has a protocol but no mechanism that can produce a
+trace. Manual simulator operation would introduce different command histories and termination
+timing across stacks.
+
+**What it adds.** The first executable research apparatus: the same registered scenario can be
+run against both configured vehicles.
+
+**Done when.** One command launches each pinned stack, applies the registered pre-failure
+setpoints, triggers both authority-loss mechanisms, records the required channels, saves a
+manifest beside every log, and reproduces an identical no-fault control trajectory from a fixed
+seed.
+
+### URC-05 · Implement trace normalization and conformance checks
+
+`build` · executable now · after URC-04
+
+**Why it matters.** Native logs use platform-specific modes, fields, clocks, and frames. A model
+cannot compare or cover traces until that variation is normalized without erasing real semantic
+differences.
+
+**What it adds.** A common authority automaton and auditable path from raw logs to comparison
+tables.
+
+**Done when.** Tested code maps raw traces into the frozen schema, preserves original mode
+labels, emits normalized authority states, rejects incomplete provenance, detects impossible
+transition order, and passes positive and negative synthetic fixtures for both stacks.
+
+### URC-06 · Execute the pilot and estimate variability
+
+`build` · executable now · after URC-05
+
+**Why it matters.** The current 5%, 10%, and 20% values are engineering gates, not empirically
+justified scientific thresholds. Confirmatory sample size and tube calibration cannot be frozen
+until run-to-run variability and invalid-run frequency are known.
+
+**What it adds.** The variance, failure modes, and effect scale needed to design a confirmatory
+test without tuning it on the final data.
+
+**Done when.** A balanced pilot covers both stacks and all valid recovery intentions, raw and
+normalized traces retain full provenance, invalid runs are accounted for, and a pilot report
+quantifies transition latency, braking response, envelope volume, missingness, and seed
+sensitivity without calling the pilot held-out evidence.
+
+### URC-07 · Freeze the confirmatory contract before generating validation traces
+
+`preregister` · executable now · after URC-06
+
+**Why it matters.** Choosing the coverage target, horizon, tube construction, volume
+integration, split, or practical effect threshold after viewing confirmation data would turn the
+main result into a post-hoc description.
+
+**What it adds.** A result that can reject individualized recovery contracts rather than merely
+fit them.
+
+**Done when.** A dated commit fixes the calibration and held-out identities, random seeds,
+sample unit, tube method, target and interval for coverage, horizon, coordinate frame,
+integrated-volume calculation, global-envelope baseline, practical-effect rule, abstention rule,
+and missing/invalid-run treatment; no confirmatory trace exists in the repository at that commit.
+
+### URC-08 · Run the held-out contract test and take the registered branch
+
+`build` · executable now · after URC-07
+
+**Why it matters.** This is the project's decisive question. Fleet algorithms are unjustified
+until individualized tubes retain coverage and save meaningful volume outside their calibration
+set.
+
+**What it adds.** Either evidence for configuration-specific contracts or evidence that the
+simpler global envelope wins.
+
+**Done when.** The frozen pipeline reports held-out full-trajectory coverage with uncertainty,
+integrated reserved volume at matched coverage, transition and reconnection findings, and every
+registered sensitivity; the decision log records positive, null, or conformance-failure outcome
+without moving a gate.
+
+---
+
+## Tier 1 — package
+
+### URC-09 · Release the versioned conformance benchmark
+
+`build` · executable now · after URC-08
+
+**Why it matters.** Whether individualized tubes win or lose, the pinned configurations, event
+semantics, and trace corpus are independently useful. Leaving them as an internal experiment
+throws away the project's most robust contribution.
+
+**What it adds.** A citable artifact that survives a null fleet-allocation result.
+
+**Done when.** A release contains configuration manifests, normalized traces or a documented
+external archive, schemas, checksums, environment lockfiles, reproduction commands, data
+dictionary, license, limitations, and the exact code commit used for the reported analysis.
+
+### URC-10 · Compare offline fleet composition only if individualization passes
+
+`build` · **blocked-on-positive-gate** · after URC-08
+
+**Why it matters.** Neighbor evacuation is the system-level idea, but implementing it before
+the single-vehicle contract proves useful would optimize a premise that may be false.
+
+**What it adds.** A controlled comparison of native recovery, one global tube,
+configuration-specific tubes, and configuration-specific tubes with cooperative evacuation.
+
+**Done when.** Paired encounter scenarios replay held-out native traces; all methods use the
+same failures and task weights; coverage, minimum margin, integrated reservation, and mission
+cost are reported together; an oracle appears only as a bound.
+
+### URC-11 · Write the positive-or-null research package
+
+`build` · executable now · after URC-08, URC-09
+
+**Why it matters.** A code and data release does not explain the novelty boundary, estimand,
+negative result, or operational meaning to a research reviewer.
+
+**What it adds.** The floor: a paper-style report and portfolio case study that remain honest
+under every registered branch.
+
+**Done when.** The package states the configured-vehicle unit, prior-art exclusions, protocol,
+pilot/confirmation separation, effect sizes and uncertainty, failure branch, and evidence state;
+every number and figure links to a committed generator and input.
+
+---
+
+## Tier 2 — park
+
+### URC-12 · Secure an advisor, hardware path, facility, and safety ownership
+
+`external` · **blocked-on-lab-access** · after URC-08
+
+**Why it matters.** HITL and flight evidence require equipment, contained space, risk ownership,
+and experienced review that this repository cannot grant itself.
+
+**What it adds.** Legitimate authority and resources for leaving simulation.
+
+**Done when.** A named advisor or responsible operator approves the hardware matrix, contained
+test location, risk assessment, independent kill path, roles, stop conditions, and data-
+ownership/publication terms in writing.
+
+### URC-13 · Replicate the decisive result in HITL
+
+`build` · **blocked-on-hardware** · after URC-08, URC-12
+
+**Why it matters.** SITL timing does not establish flight-controller timing, scheduler jitter,
+or real I/O behavior.
+
+**What it adds.** A hardware-timing boundary on the recovery contract without yet exposing a
+vehicle to flight risk.
+
+**Done when.** Both pinned stacks run on documented flight controllers, decisive pilot and
+held-out cases are repeated under the frozen semantics, timing distributions and conformance are
+reported, and the SITL conclusion is retained or explicitly revised.
+
+### URC-14 · Run contained single-airframe validation
+
+`external` · **blocked-on-facility** · after URC-12, URC-13
+
+**Why it matters.** A recovery tube becomes physical evidence only when native vehicle motion
+is observed under an approved operating envelope.
+
+**What it adds.** The first measured trajectory comparison, with airframe variation controlled
+by flashing one matched vehicle alternately before using a second vehicle for external validity.
+
+**Done when.** Approved tests capture Hold and Land before any RTL condition, every run has a
+complete manifest and synchronized external reference, registered margins are scored without
+gate changes, and anomalies remain in the dataset.
+
+### URC-15 · Attempt a two-vehicle composition demonstration
+
+`build` · **blocked-on-positive-gate-and-facility** · after URC-10, URC-14
+
+**Why it matters.** The ceiling claim concerns composition, not two isolated recovery traces.
+The demonstration has no value until both the offline algorithm and contained single-vehicle
+contract are credible.
+
+**What it adds.** A bounded physical example of one vehicle entering native recovery while a
+cooperative neighbor exits its reserved space-time tube.
+
+**Done when.** A preregistered, low-speed, contained scenario runs under independent safety
+oversight; video, onboard logs, external tracking, minimum margin, and contract-conformance
+verdict are committed; no claim extends beyond that tested envelope.
+
+---
+
+## Cross-cutting
+
+This task is not included in the 15 project-task count.
+
+### XC-01 · Reconcile the repository, portfolio, resume, and any paper abstract
+
+`hygiene` · executable after URC-08
+
+**Why it matters.** A null result or changed threshold must propagate to every public surface.
+Conflicting claims look like carelessness rather than scientific iteration.
+
+**What it adds.** One evidence state and one set of headline findings everywhere a reviewer can
+encounter the project.
+
+**Done when.** Every public claim and number traces to the same committed artifact and evidence
+label, and all planned-only language is replaced only when the corresponding evidence exists.
