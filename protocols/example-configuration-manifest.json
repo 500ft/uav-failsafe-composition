@@ -1,0 +1,30 @@
+{
+  "manifest_version": "0.1-draft",
+  "study_id": "experiment-01",
+  "run_id": "planned-example-not-executed",
+  "evidence_state": "planned-example",
+  "autopilot": "PX4",
+  "firmware_identifier": "TBD-pin-before-data-collection",
+  "airframe_id": "matched-sitl-multirotor",
+  "configuration_hash": "TBD-after-parameter-export",
+  "recovery_intention": "hold",
+  "test_environment": {
+    "kind": "SITL",
+    "version": "TBD-pin-before-data-collection",
+    "seed": null
+  },
+  "authority_loss_event": {
+    "kind": "setpoint-stream-stop",
+    "scheduled_time_s": 20.0
+  },
+  "initial_condition": {
+    "altitude_m": 20.0,
+    "horizontal_speed_mps": 2.0,
+    "battery_fraction": 0.75
+  },
+  "recording": {
+    "coordinate_frame": "TBD-registered-frame",
+    "sample_rate_hz": 50.0,
+    "log_path": "data/raw/experiment-01/configured-vehicle/run-id/"
+  }
+}

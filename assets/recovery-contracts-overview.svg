@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="600" viewBox="0 0 1280 600" role="img" aria-labelledby="title desc">
+  <title id="title">Proposed UAV recovery-contract research pipeline</title>
+  <desc id="desc">A conceptual diagram showing a configured vehicle, offboard authority loss, observed native recovery, empirical tube calibration, and fleet response. It is a plan, not a result.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b132b"/>
+      <stop offset="1" stop-color="#1c2541"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#78c6d0"/>
+    </marker>
+    <style>
+      .eyebrow{font:600 18px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:2px;fill:#78c6d0}
+      .heading{font:700 38px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
+      .sub{font:400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#cbd5e1}
+      .step{font:700 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
+      .small{font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#cbd5e1}
+      .num{font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#0b132b}
+    </style>
+  </defs>
+  <rect width="1280" height="600" rx="24" fill="url(#bg)"/>
+  <text x="70" y="72" class="eyebrow">RESEARCH CONCEPT · NO RESULTS YET</text>
+  <text x="70" y="122" class="heading">What happens after command authority disappears?</text>
+  <text x="70" y="158" class="sub">Measure the configured autopilot first; compose fleet recovery second.</text>
+
+  <g transform="translate(70 228)">
+    <rect width="230" height="190" rx="18" fill="#172554" stroke="#4f78d1" stroke-width="2"/>
+    <circle cx="34" cy="34" r="18" fill="#78c6d0"/><text x="29" y="40" class="num">1</text>
+    <text x="26" y="86" class="step">Configured vehicle</text>
+    <text x="26" y="120" class="small">Autopilot + firmware</text>
+    <text x="26" y="147" class="small">Airframe + parameters</text>
+    <text x="26" y="174" class="small">Recovery intention</text>
+  </g>
+  <line x1="310" y1="323" x2="350" y2="323" stroke="#78c6d0" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(365 228)">
+    <rect width="230" height="190" rx="18" fill="#3f1d2e" stroke="#f59e8b" stroke-width="2" stroke-dasharray="8 6"/>
+    <circle cx="34" cy="34" r="18" fill="#f59e8b"/><text x="29" y="40" class="num">2</text>
+    <text x="26" y="86" class="step">Authority loss</text>
+    <text x="26" y="120" class="small">Stop setpoint stream</text>
+    <text x="26" y="147" class="small">Stop companion process</text>
+    <text x="26" y="174" class="small">Bounded initial state</text>
+  </g>
+  <line x1="605" y1="323" x2="645" y2="323" stroke="#78c6d0" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(660 228)">
+    <rect width="230" height="190" rx="18" fill="#163044" stroke="#78c6d0" stroke-width="2"/>
+    <circle cx="34" cy="34" r="18" fill="#78c6d0"/><text x="29" y="40" class="num">3</text>
+    <text x="26" y="86" class="step">Native recovery</text>
+    <text x="26" y="120" class="small">Mode sequence</text>
+    <text x="26" y="147" class="small">Transition latency</text>
+    <text x="26" y="174" class="small">Trajectory + reconnect</text>
+  </g>
+  <line x1="900" y1="323" x2="940" y2="323" stroke="#78c6d0" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(955 228)">
+    <rect width="255" height="190" rx="18" fill="#243b2d" stroke="#b7d89a" stroke-width="2"/>
+    <circle cx="34" cy="34" r="18" fill="#b7d89a"/><text x="29" y="40" class="num">4</text>
+    <text x="26" y="86" class="step">Contract + response</text>
+    <text x="26" y="120" class="small">Held-out tube coverage</text>
+    <text x="26" y="147" class="small">Reserve recovery volume</text>
+    <text x="26" y="174" class="small">Neighbors evacuate</text>
+  </g>
+
+  <rect x="70" y="478" width="1140" height="70" rx="14" fill="#111827" stroke="#526175"/>
+  <text x="96" y="509" class="small">Decision rule</text>
+  <text x="96" y="535" class="sub">If individualized behavior is not meaningfully different, keep the global envelope and stop.</text>
+</svg>

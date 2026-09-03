@@ -1,0 +1,48 @@
+# Data and Figure Contract
+
+## Current state
+
+There are no experimental or simulation traces in this repository. The only image is an authored conceptual method diagram.
+
+## Planned data stages
+
+```text
+data/raw/<study>/<configured-vehicle>/<run-id>/
+data/processed/<study>/<analysis-version>/
+results/generated/<study>/<analysis-version>/
+```
+
+Raw logs remain immutable. Processed data record the source run IDs, processing commit, environment, and command. Large binary flight logs are stored in a versioned external archive rather than committed directly.
+
+## Required trace metadata
+
+- Study and run identifiers
+- Evidence state: simulation, HITL, or measured
+- Autopilot and firmware identifier
+- Complete configuration hash
+- Airframe identity and dynamics model
+- Test environment and random seed
+- Recovery intention and authority-loss event
+- Initial condition and terminal condition
+- Logging clock, sampling rate, units, and coordinate frame
+- Software commit that produced processed output
+
+## Figure rules
+
+Every future figure must state:
+
+1. The claim it supports
+2. Evidence state
+3. Conditions and sample unit
+4. Input artifacts
+5. Generator command and commit
+6. Uncertainty representation
+7. Output path
+
+Color is never the only semantic channel. Measured or held-out traces use solid lines with markers; model or calibration traces use dashed lines; thresholds are directly labeled.
+
+## Current figure manifest
+
+| ID | Artifact | Claim | Evidence state |
+| --- | --- | --- | --- |
+| URC-00 | [`assets/recovery-contracts-overview.svg`](../assets/recovery-contracts-overview.svg) | Explains the proposed method only | Planned / conceptual |

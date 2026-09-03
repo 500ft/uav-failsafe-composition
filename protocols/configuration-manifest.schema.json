@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/500ft/UAV-Recovery-Contracts/protocols/configuration-manifest.schema.json",
+  "title": "Configured UAV authority-loss run manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version",
+    "study_id",
+    "run_id",
+    "evidence_state",
+    "autopilot",
+    "firmware_identifier",
+    "airframe_id",
+    "configuration_hash",
+    "recovery_intention",
+    "test_environment",
+    "authority_loss_event",
+    "initial_condition",
+    "recording"
+  ],
+  "properties": {
+    "manifest_version": {"type": "string"},
+    "study_id": {"type": "string"},
+    "run_id": {"type": "string"},
+    "evidence_state": {
+      "enum": ["planned-example", "simulation", "HITL", "measured"]
+    },
+    "autopilot": {"enum": ["PX4", "ArduPilot"]},
+    "firmware_identifier": {"type": "string", "minLength": 1},
+    "airframe_id": {"type": "string", "minLength": 1},
+    "configuration_hash": {"type": "string", "minLength": 1},
+    "recovery_intention": {"enum": ["hold", "land", "rtl"]},
+    "test_environment": {
+      "type": "object",
+      "required": ["kind", "version", "seed"],
+      "properties": {
+        "kind": {"enum": ["SITL", "HITL", "contained-flight"]},
+        "version": {"type": "string"},
+        "seed": {"type": ["integer", "null"]}
+      }
+    },
+    "authority_loss_event": {
+      "type": "object",
+      "required": ["kind", "scheduled_time_s"],
+      "properties": {
+        "kind": {"enum": ["setpoint-stream-stop", "companion-process-stop"]},
+        "scheduled_time_s": {"type": "number", "minimum": 0}
+      }
+    },
+    "initial_condition": {
+      "type": "object",
+      "required": ["altitude_m", "horizontal_speed_mps", "battery_fraction"],
+      "properties": {
+        "altitude_m": {"type": "number"},
+        "horizontal_speed_mps": {"type": "number", "minimum": 0},
+        "battery_fraction": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "recording": {
+      "type": "object",
+      "required": ["coordinate_frame", "sample_rate_hz", "log_path"],
+      "properties": {
+        "coordinate_frame": {"type": "string"},
+        "sample_rate_hz": {"type": "number", "exclusiveMinimum": 0},
+        "log_path": {"type": "string"}
+      }
+    }
+  }
+}
