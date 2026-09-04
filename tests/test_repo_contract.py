@@ -30,6 +30,19 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertEqual(example["evidence_state"], "planned-example")
         self.assertIn("not-executed", example["run_id"])
 
+    def test_research_dependency_graph_has_no_dangling_endpoints(self) -> None:
+        graph = json.loads(
+            (ROOT / "docs/research-dependency-graph.json").read_text(encoding="utf-8")
+        )
+        node_ids = {node["id"] for node in graph["nodes"]}
+        self.assertTrue(graph["directed"])
+        self.assertEqual(graph["token_usage"]["status"], "unavailable")
+        self.assertIsNone(graph["token_usage"]["input_tokens"])
+        self.assertIsNone(graph["token_usage"]["output_tokens"])
+        for edge in graph["edges"]:
+            self.assertIn(edge["source"], node_ids)
+            self.assertIn(edge["target"], node_ids)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,65 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="600" viewBox="0 0 1280 600" role="img" aria-labelledby="title desc">
-  <title id="title">Proposed UAV recovery-contract research pipeline</title>
-  <desc id="desc">A conceptual diagram showing a configured vehicle, offboard authority loss, observed native recovery, empirical tube calibration, and fleet response. It is a plan, not a result.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Proposed UAV recovery-contract decision pipeline</title>
+  <desc id="desc">A planned study flows from configured vehicle identity through authority-loss injection, observed native recovery, and recovery-contract calibration. A held-out gate sends useful individualized contracts to neighbor evacuation and sends null results to the global envelope. No study results are shown.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b132b"/>
-      <stop offset="1" stop-color="#1c2541"/>
-    </linearGradient>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#78c6d0"/>
+      <path d="M0 0 L10 5 L0 10 Z" fill="#64748b"/>
     </marker>
     <style>
-      .eyebrow{font:600 18px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:2px;fill:#78c6d0}
-      .heading{font:700 38px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
-      .sub{font:400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#cbd5e1}
-      .step{font:700 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f8fafc}
-      .small{font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#cbd5e1}
-      .num{font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#0b132b}
+      .eyebrow{font:700 16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:1.8px;fill:#2563a6}
+      .heading{font:700 34px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#1f2937}
+      .sub{font:400 19px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#526071}
+      .label{font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#1f2937;text-anchor:middle}
+      .small{font:400 14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#526071;text-anchor:middle}
+      .branch{font:700 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#526071}
+      .legend{font:500 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}
+      .edge{stroke:#64748b;stroke-width:3;fill:none;marker-end:url(#arrow)}
     </style>
   </defs>
-  <rect width="1280" height="600" rx="24" fill="url(#bg)"/>
-  <text x="70" y="72" class="eyebrow">RESEARCH CONCEPT · NO RESULTS YET</text>
-  <text x="70" y="122" class="heading">What happens after command authority disappears?</text>
-  <text x="70" y="158" class="sub">Measure the configured autopilot first; compose fleet recovery second.</text>
 
-  <g transform="translate(70 228)">
-    <rect width="230" height="190" rx="18" fill="#172554" stroke="#4f78d1" stroke-width="2"/>
-    <circle cx="34" cy="34" r="18" fill="#78c6d0"/><text x="29" y="40" class="num">1</text>
-    <text x="26" y="86" class="step">Configured vehicle</text>
-    <text x="26" y="120" class="small">Autopilot + firmware</text>
-    <text x="26" y="147" class="small">Airframe + parameters</text>
-    <text x="26" y="174" class="small">Recovery intention</text>
-  </g>
-  <line x1="310" y1="323" x2="350" y2="323" stroke="#78c6d0" stroke-width="4" marker-end="url(#arrow)"/>
-  <g transform="translate(365 228)">
-    <rect width="230" height="190" rx="18" fill="#3f1d2e" stroke="#f59e8b" stroke-width="2" stroke-dasharray="8 6"/>
-    <circle cx="34" cy="34" r="18" fill="#f59e8b"/><text x="29" y="40" class="num">2</text>
-    <text x="26" y="86" class="step">Authority loss</text>
-    <text x="26" y="120" class="small">Stop setpoint stream</text>
-    <text x="26" y="147" class="small">Stop companion process</text>
-    <text x="26" y="174" class="small">Bounded initial state</text>
-  </g>
-  <line x1="605" y1="323" x2="645" y2="323" stroke="#78c6d0" stroke-width="4" marker-end="url(#arrow)"/>
-  <g transform="translate(660 228)">
-    <rect width="230" height="190" rx="18" fill="#163044" stroke="#78c6d0" stroke-width="2"/>
-    <circle cx="34" cy="34" r="18" fill="#78c6d0"/><text x="29" y="40" class="num">3</text>
-    <text x="26" y="86" class="step">Native recovery</text>
-    <text x="26" y="120" class="small">Mode sequence</text>
-    <text x="26" y="147" class="small">Transition latency</text>
-    <text x="26" y="174" class="small">Trajectory + reconnect</text>
-  </g>
-  <line x1="900" y1="323" x2="940" y2="323" stroke="#78c6d0" stroke-width="4" marker-end="url(#arrow)"/>
-  <g transform="translate(955 228)">
-    <rect width="255" height="190" rx="18" fill="#243b2d" stroke="#b7d89a" stroke-width="2"/>
-    <circle cx="34" cy="34" r="18" fill="#b7d89a"/><text x="29" y="40" class="num">4</text>
-    <text x="26" y="86" class="step">Contract + response</text>
-    <text x="26" y="120" class="small">Held-out tube coverage</text>
-    <text x="26" y="147" class="small">Reserve recovery volume</text>
-    <text x="26" y="174" class="small">Neighbors evacuate</text>
-  </g>
+  <rect width="1280" height="640" fill="#f8fafc"/>
+  <text x="48" y="48" class="eyebrow">RESEARCH DESIGN · EVIDENCE STATE: PLANNED</text>
+  <text x="48" y="91" class="heading">Compose recovery before offboard authority disappears</text>
+  <text x="48" y="124" class="sub">Measure a configured vehicle first; individualize only when held-out evidence justifies it.</text>
 
-  <rect x="70" y="478" width="1140" height="70" rx="14" fill="#111827" stroke="#526175"/>
-  <text x="96" y="509" class="small">Decision rule</text>
-  <text x="96" y="535" class="sub">If individualized behavior is not meaningfully different, keep the global envelope and stop.</text>
+  <polygon points="68,184 248,184 228,326 48,326" fill="#e7f0fa" stroke="#2563a6" stroke-width="2.5"/>
+  <text x="148" y="226" class="label">Configured vehicle</text>
+  <text x="148" y="257" class="small">autopilot + firmware</text>
+  <text x="148" y="281" class="small">airframe + parameters</text>
+  <text x="148" y="305" class="small">recovery intention</text>
+
+  <path d="M258 255 H289" class="edge"/>
+
+  <rect x="300" y="184" width="205" height="142" rx="14" fill="#ffffff" stroke="#64748b" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <text x="402" y="226" class="label">Authority loss</text>
+  <text x="402" y="257" class="small">stop setpoint stream</text>
+  <text x="402" y="281" class="small">or companion process</text>
+  <text x="402" y="305" class="small">bounded initial state</text>
+
+  <path d="M515 255 H546" class="edge"/>
+
+  <rect x="557" y="184" width="205" height="142" rx="14" fill="#ffffff" stroke="#64748b" stroke-width="2.5"/>
+  <text x="659" y="226" class="label">Observe recovery</text>
+  <text x="659" y="257" class="small">mode + authority trace</text>
+  <text x="659" y="281" class="small">latency + braking</text>
+  <text x="659" y="305" class="small">trajectory + reconnect</text>
+
+  <path d="M772 255 H803" class="edge"/>
+
+  <polygon points="830,184 982,184 1008,255 982,326 830,326 804,255" fill="#e8f5f2" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="906" y="226" class="label">Calibrate contract</text>
+  <text x="906" y="257" class="small">training traces only</text>
+  <text x="906" y="281" class="small">trajectory tube</text>
+  <text x="906" y="305" class="small">coverage + volume</text>
+
+  <path d="M1018 255 H1034" class="edge"/>
+
+  <polygon points="1132,174 1232,255 1132,336 1032,255" fill="#fff4d6" stroke="#b7791f" stroke-width="2.5"/>
+  <text x="1132" y="225" class="label">Held-out gate</text>
+  <text x="1132" y="253" class="small">coverage retained?</text>
+  <text x="1132" y="277" class="small">volume reduced?</text>
+  <text x="1132" y="301" class="small">inside domain?</text>
+
+  <path d="M1090 326 V385 H907 V418" class="edge"/>
+  <text x="1021" y="375" class="branch">PASS</text>
+  <rect x="785" y="430" width="245" height="98" rx="22" fill="#e8f5f2" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="907" y="468" class="label">Individual tube</text>
+  <text x="907" y="497" class="small">reserve recovery volume</text>
+  <text x="907" y="519" class="small">neighbors evacuate</text>
+
+  <path d="M1174 326 V418" class="edge"/>
+  <text x="1186" y="375" class="branch">NULL / OOD</text>
+  <rect x="1052" y="430" width="180" height="98" rx="22" fill="#eef1f4" stroke="#64748b" stroke-width="2.5"/>
+  <text x="1142" y="468" class="label">Global envelope</text>
+  <text x="1142" y="497" class="small">abstain from</text>
+  <text x="1142" y="519" class="small">individualization</text>
+
+  <line x1="48" y1="574" x2="1232" y2="574" stroke="#d7dde5"/>
+  <text x="48" y="605" class="legend">Shape encodes role · dashed border = intervention · amber diamond = decision · no simulation, HITL, or flight result is shown</text>
 </svg>

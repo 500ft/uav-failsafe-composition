@@ -4,10 +4,11 @@
 > fleet. Priority flows from leverage, falsifiability, and executability. It does not flow
 > from the project's most ambitious possible demonstration.
 
-Generated from a graph audit of commit `a43d9e1`. The graph contains 196 nodes across 14
-communities and identifies the authority-loss pilot as the bridge between the research plan,
-evidence governance, and later recovery-tube claims. Every task below is anchored to that
-dependency structure. No dates or estimates appear, by design.
+Informed by a [source-reviewed directed dependency audit](research-dependency-audit.md) of
+commit `a43d9e1`. Graphify supplied candidate relationships; only manually verified research
+dependencies were retained. Repository navigation, CI, schemas, generated tasks, and raw
+centrality counts are excluded from the published map. Novelty remains unresolved until URC-01
+closes. No dates or estimates appear, by design.
 
 ## Two finish lines
 
@@ -270,11 +271,11 @@ verdict are committed; no claim extends beyond that tested envelope.
 
 ## Cross-cutting
 
-This task is not included in the 15 project-task count.
+These tasks are not included in the 15 project-task count.
 
 ### XC-01 · Reconcile the repository, portfolio, resume, and any paper abstract
 
-`hygiene` · executable after URC-08
+`hygiene` · executable later · after URC-08
 
 **Why it matters.** A null result or changed threshold must propagate to every public surface.
 Conflicting claims look like carelessness rather than scientific iteration.
@@ -284,3 +285,20 @@ encounter the project.
 
 **Done when.** Every public claim and number traces to the same committed artifact and evidence
 label, and all planned-only language is replaced only when the corresponding evidence exists.
+
+### XC-02 · Record the publication and disclosure path before adding implementation-sensitive detail
+
+`external` · executable now · before implementation-sensitive public disclosure
+
+**Why it matters.** This repository is public. A website publication can affect patent options,
+especially outside the United States, while ownership and disclosure obligations can depend on
+where and how future work is performed. Making a repository private later does not erase an
+earlier public disclosure.
+
+**What it adds.** A deliberate public-first, publication-first, or counsel-reviewed path instead
+of letting repository activity make the decision accidentally.
+
+**Done when.** The owner records the repository's first-public date and either records that no
+patent review is being pursued or consults the appropriate university technology-transfer office
+or qualified counsel before adding potentially enabling control, hardware, or configuration
+detail. This task is a process gate, not legal advice.

@@ -2,7 +2,8 @@
 
 ## Current state
 
-There are no experimental or simulation traces in this repository. The only image is an authored conceptual method diagram.
+There are no experimental or simulation traces in this repository. The current visuals are an
+authored conceptual decision diagram and a source-reviewed dependency map; neither is a result.
 
 ## Planned data stages
 
@@ -46,3 +47,4 @@ Color is never the only semantic channel. Measured or held-out traces use solid 
 | ID | Artifact | Claim | Evidence state |
 | --- | --- | --- | --- |
 | URC-00 | [`assets/recovery-contracts-overview.svg`](../assets/recovery-contracts-overview.svg) | Explains the proposed method only | Planned / conceptual |
+| URC-AUDIT-01 | [`docs/research-dependency-audit.md`](research-dependency-audit.md#directed-dependency-map) | Explains the source-reviewed task and gate order | Planned / source-reviewed |

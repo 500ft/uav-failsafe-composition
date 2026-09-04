@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "graph_kind": "source-reviewed-research-dependency-map",
+  "source_baseline": "a43d9e1",
+  "directed": true,
+  "generated_tasks_excluded": true,
+  "token_usage": {
+    "status": "unavailable",
+    "input_tokens": null,
+    "output_tokens": null
+  },
+  "nodes": [
+    {"id": "candidate-gap", "label": "Candidate gap closeout", "task": "URC-01", "source": "docs/prior-art.md"},
+    {"id": "configured-identity", "label": "Configured-vehicle identity", "task": "URC-02", "source": "docs/research-plan.md"},
+    {"id": "event-semantics", "label": "Authority-loss semantics", "task": "URC-03", "source": "docs/experiment-01-authority-loss.md"},
+    {"id": "sitl-harness", "label": "Cross-stack SITL harness", "task": "URC-04", "source": "docs/experiment-01-authority-loss.md"},
+    {"id": "trace-conformance", "label": "Trace normalization and conformance", "task": "URC-05", "source": "docs/research-plan.md"},
+    {"id": "pilot", "label": "Variability pilot", "task": "URC-06", "source": "docs/experiment-01-authority-loss.md"},
+    {"id": "confirmatory-freeze", "label": "Confirmatory contract freeze", "task": "URC-07", "source": "docs/research-plan.md"},
+    {"id": "held-out-gate", "label": "Held-out coverage and volume gate", "task": "URC-08", "source": "docs/research-plan.md"},
+    {"id": "benchmark", "label": "Versioned conformance benchmark", "task": "URC-09", "source": "docs/research-plan.md"},
+    {"id": "fleet-composition", "label": "Offline fleet composition", "task": "URC-10", "source": "docs/research-plan.md"},
+    {"id": "research-package", "label": "Positive-or-null research package", "task": "URC-11", "source": "docs/research-plan.md"}
+  ],
+  "edges": [
+    {"source": "candidate-gap", "target": "configured-identity", "relation": "bounds"},
+    {"source": "configured-identity", "target": "event-semantics", "relation": "precedes"},
+    {"source": "configured-identity", "target": "sitl-harness", "relation": "configures"},
+    {"source": "event-semantics", "target": "sitl-harness", "relation": "specifies"},
+    {"source": "sitl-harness", "target": "trace-conformance", "relation": "produces-input-for"},
+    {"source": "trace-conformance", "target": "pilot", "relation": "enables"},
+    {"source": "pilot", "target": "confirmatory-freeze", "relation": "sizes-without-confirming"},
+    {"source": "confirmatory-freeze", "target": "held-out-gate", "relation": "preregisters"},
+    {"source": "held-out-gate", "target": "benchmark", "relation": "always-packages"},
+    {"source": "held-out-gate", "target": "fleet-composition", "relation": "positive-gate"},
+    {"source": "held-out-gate", "target": "research-package", "relation": "selects-result-branch"},
+    {"source": "benchmark", "target": "research-package", "relation": "supports"},
+    {"source": "fleet-composition", "target": "research-package", "relation": "optionally-strengthens"}
+  ]
+}

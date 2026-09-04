@@ -1,17 +1,17 @@
 # UAV Recovery Contracts
 
+**Measure the native recovery of a completely configured UAV after offboard authority disappears, then test whether those behaviors can be composed into tighter fleet-safety constraints.**
+
 [![CI](https://github.com/500ft/UAV-Recovery-Contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/500ft/UAV-Recovery-Contracts/actions/workflows/ci.yml)
 ![Status: research design](https://img.shields.io/badge/status-research%20design-415a77)
 ![Evidence: no results yet](https://img.shields.io/badge/evidence-no%20results%20yet-6b7280)
 [![License: MIT](https://img.shields.io/badge/license-MIT-276c6b)](LICENSE)
 
-**A research plan for measuring what configured UAV autopilots do after offboard control is lost, then composing those native recovery behaviors into fleet-level safety constraints.**
+**[Research question](#research-question) · [First experiment](#first-experiment) · [Evidence boundary](#evidence-boundary) · [Dependency audit](docs/research-dependency-audit.md) · [Roadmap](ROADMAP.md)**
 
-**[Research question](#research-question) · [First experiment](#first-experiment) · [Evidence boundary](#evidence-boundary) · [Roadmap](ROADMAP.md)**
+![The planned method measures a configured vehicle after authority loss, calibrates a recovery contract, and keeps the global envelope when individualized tubes do not pass the held-out gate](assets/recovery-contracts-overview.svg)
 
-![Conceptual pipeline from authority loss to an empirical recovery contract and fleet response](assets/recovery-contracts-overview.svg)
-
-*Conceptual method diagram—not a result. Evidence state: **planned**. No simulation, HITL, or flight results have been generated for this repository.*
+*Conceptual decision diagram—not a result. Condition: proposed post-authority-loss study. Evidence state: **planned**. No simulation, HITL, or flight results have been generated for this repository.*
 
 ## Overview
 
@@ -26,13 +26,15 @@ When a companion computer stops providing setpoints, a vehicle's native autopilo
 | **Current evidence** | Literature and protocol design only |
 | **Physical testing** | Not started; requires supervised, contained facilities |
 
+**Novelty status:** unresolved. The existing literature map is sufficient to define a candidate gap, but [`URC-01`](docs/TASKS.md#urc-01--close-the-exact-gap-and-tooling-search) must close the systematic literature and patent search before any novelty claim is strengthened.
+
 ## Research question
 
 > At matched held-out coverage, can empirical recovery contracts for completely configured vehicles reduce reserved space-time volume and fleet conflicts relative to one global worst-case recovery envelope?
 
 The working hypothesis is deliberately conditional: configuration-specific contracts are useful only if observed transition semantics or recovery trajectories differ by more than run-to-run uncertainty. If they do not, the simpler global envelope wins.
 
-## Proposed method
+## How the study works
 
 1. Record exact firmware, airframe, parameters, environment, and initial condition.
 2. Remove offboard command authority at randomized but bounded states.
@@ -85,6 +87,10 @@ python scripts/check_repo_contract.py
 python -m unittest discover -s tests -v
 ```
 
+## Status and next gate
+
+The research-design package and its integrity checks exist; the SITL apparatus and every study result remain pending. The next gate is the exact-gap and tooling search in [`URC-01`](docs/TASKS.md#urc-01--close-the-exact-gap-and-tooling-search), followed by pinned configured-vehicle identities and event semantics. The [directed dependency audit](docs/research-dependency-audit.md) explains why fleet composition cannot start before the held-out single-vehicle contract test.
+
 ## Documentation
 
 | Document | Purpose |
@@ -95,6 +101,8 @@ python -m unittest discover -s tests -v
 | [`docs/claim-ledger.md`](docs/claim-ledger.md) | Permitted language for each evidence state |
 | [`docs/data-and-figures.md`](docs/data-and-figures.md) | Planned data lineage and figure rules |
 | [`docs/decision-log.md`](docs/decision-log.md) | Decisions, rejected framings, and rationale |
+| [`docs/research-dependency-audit.md`](docs/research-dependency-audit.md) | Source-reviewed directed claim and gate map, including graph limitations |
+| [`docs/TASKS.md`](docs/TASKS.md) | Tiered execution plan with positive, null, and parked branches |
 | [`ROADMAP.md`](ROADMAP.md) | Gate-driven path from protocol to possible contained flight |
 
 ## Repository map
