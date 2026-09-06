@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-06",
+  "environment": "Clean Python3.11 venv /private/tmp/research-sprint-contract-consumer-20260906; not system-site-packages",
+  "installation": "python -m venv then isolated pip install -r requirements.txt; initial sandbox DNS failure, authorized retry exit0",
+  "resolved_packages": [
+    "attrs==26.1.0",
+    "jsonschema==4.26.0",
+    "jsonschema-specifications==2025.9.1",
+    "referencing==0.37.0",
+    "rpds-py==2026.6.3",
+    "typing_extensions==4.16.0"
+  ],
+  "checks": [
+    {
+      "command": "/private/tmp/research-sprint-contract-consumer-20260906/bin/python /Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts/scripts/check_repo_contract.py",
+      "working_directory": "/private/tmp",
+      "chunk_id": "f80b22",
+      "wall_time_seconds": 0.023630083,
+      "exit_code": 0,
+      "original_token_count": 19,
+      "output": "Repository contract: PASS\nEvidence state: research design; no study results\n"
+    },
+    {
+      "command": "/private/tmp/research-sprint-contract-consumer-20260906/bin/python -m unittest discover -s /Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts/tests -v",
+      "working_directory": "/private/tmp",
+      "chunk_id": "14dda6",
+      "wall_time_seconds": 0.131829625,
+      "exit_code": 0,
+      "original_token_count": 265,
+      "output": "test_declared_example_remains_valid (test_manifest_validation.ManifestValidationTests.test_declared_example_remains_valid) ... ok\ntest_nested_required_field_is_enforced (test_manifest_validation.ManifestValidationTests.test_nested_required_field_is_enforced) ... ok\ntest_schema_rejects_invalid_nested_values (test_manifest_validation.ManifestValidationTests.test_schema_rejects_invalid_nested_values) ... ok\ntest_unknown_top_level_field_is_rejected (test_manifest_validation.ManifestValidationTests.test_unknown_top_level_field_is_rejected) ... ok\ntest_contract_script_passes (test_repo_contract.RepositoryContractTests.test_contract_script_passes) ... ok\ntest_example_is_unambiguously_not_a_result (test_repo_contract.RepositoryContractTests.test_example_is_unambiguously_not_a_result) ... ok\ntest_research_dependency_graph_has_no_dangling_endpoints (test_repo_contract.RepositoryContractTests.test_research_dependency_graph_has_no_dangling_endpoints) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.150s\n\nOK\n"
+    }
+  ]
+}

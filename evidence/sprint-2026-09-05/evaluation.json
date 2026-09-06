@@ -1,0 +1,10 @@
+{
+  "recorded_on_local": "2026-09-06",
+  "command": "python evidence/sprint-2026-09-05/evaluate_candidate.py",
+  "working_directory": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+  "chunk_id": "918d32",
+  "wall_time_seconds": 0.063488042,
+  "exit_code": 0,
+  "original_token_count": 354,
+  "output": "{\n  \"kind\": \"developer software counterexamples\",\n  \"cases\": [\n    {\n      \"id\": \"battery_zero\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    },\n    {\n      \"id\": \"battery_one\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    },\n    {\n      \"id\": \"sample_rate_zero\",\n      \"expected_accept\": false,\n      \"observed_accept\": false,\n      \"matches\": true,\n      \"errors\": [\n        \"manifest recording/sample_rate_hz: 0 is less than or equal to the minimum of 0\"\n      ]\n    },\n    {\n      \"id\": \"null_seed\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    },\n    {\n      \"id\": \"empty_firmware\",\n      \"expected_accept\": false,\n      \"observed_accept\": false,\n      \"matches\": true,\n      \"errors\": [\n        \"manifest firmware_identifier: '' should be non-empty\"\n      ]\n    },\n    {\n      \"id\": \"uppercase_recovery\",\n      \"expected_accept\": false,\n      \"observed_accept\": false,\n      \"matches\": true,\n      \"errors\": [\n        \"manifest recovery_intention: 'RTL' is not one of ['hold', 'land', 'rtl']\"\n      ]\n    },\n    {\n      \"id\": \"negative_altitude_schema_allows\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    }\n  ],\n  \"denominator\": 7,\n  \"all_matched\": true\n}\n"
+}

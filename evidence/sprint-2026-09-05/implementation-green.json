@@ -1,0 +1,42 @@
+{
+  "recorded_on_local": "2026-09-06",
+  "kind": "development verification; not independent evaluation",
+  "results": [
+    {
+      "command": "python -m compileall -q scripts tests",
+      "cwd": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "edaee1",
+      "wall_time_seconds": 0.0000025,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "cwd": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "2b313e",
+      "wall_time_seconds": 0.178857084,
+      "exit_code": 0,
+      "original_token_count": 265,
+      "output": "test_declared_example_remains_valid (test_manifest_validation.ManifestValidationTests.test_declared_example_remains_valid) ... ok\ntest_nested_required_field_is_enforced (test_manifest_validation.ManifestValidationTests.test_nested_required_field_is_enforced) ... ok\ntest_schema_rejects_invalid_nested_values (test_manifest_validation.ManifestValidationTests.test_schema_rejects_invalid_nested_values) ... ok\ntest_unknown_top_level_field_is_rejected (test_manifest_validation.ManifestValidationTests.test_unknown_top_level_field_is_rejected) ... ok\ntest_contract_script_passes (test_repo_contract.RepositoryContractTests.test_contract_script_passes) ... ok\ntest_example_is_unambiguously_not_a_result (test_repo_contract.RepositoryContractTests.test_example_is_unambiguously_not_a_result) ... ok\ntest_research_dependency_graph_has_no_dangling_endpoints (test_repo_contract.RepositoryContractTests.test_research_dependency_graph_has_no_dangling_endpoints) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.157s\n\nOK\n"
+    },
+    {
+      "command": "python scripts/check_repo_contract.py",
+      "cwd": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "808826",
+      "wall_time_seconds": 0.000003625,
+      "exit_code": 0,
+      "original_token_count": 19,
+      "output": "Repository contract: PASS\nEvidence state: research design; no study results\n"
+    },
+    {
+      "command": "git diff --check",
+      "cwd": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "dfb851",
+      "wall_time_seconds": 0.000003,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}
