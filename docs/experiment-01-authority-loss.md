@@ -54,8 +54,8 @@ The pilot and confirmatory sets use different random seeds. Pilot runs may set t
 
 - Plot aligned mode timelines and velocity/position traces.
 - Estimate latency and braking-response distributions by configured identity.
-- Calibrate a recovery tube without held-out traces.
-- Evaluate full-trajectory held-out coverage.
+- Use pilot traces only to design tube construction, sample size and uncertainty.
+- Freeze the method and split before new confirmatory traces; calibrate and evaluate full-trajectory held-out coverage on separate run groups.
 - Compare integrated tube volume with one global envelope at the same coverage target.
 - Report sensitivity to horizon, state bin, and recovery intention.
 
@@ -66,6 +66,14 @@ These numbers guide project continuation and are not validated scientific thresh
 - **Continue to HITL:** held-out coverage reaches its registered target and individual tubes reduce integrated reserved volume by at least 10%.
 - **Strong continuation signal:** the reduction reaches approximately 20% without a coverage penalty.
 - **Pivot:** reduction is below 5%, mode traces are functionally equivalent, or tube calibration is unstable across seeds.
+
+- **Indeterminate:** reduction from 5% to below 10%, or an interval spanning a
+  decision boundary. Do not expand to fleet work; preregister at most one bounded
+  additional confirmation or close with the benchmark result.
+
+These continuation judgments use separate confirmation, not pilot-only estimates.
+Positive SITL confirmation can authorize explicitly simulated offline composition;
+HITL remains necessary before hardware-timing claims.
 
 ## Safety and interpretation limits
 

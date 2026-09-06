@@ -1,4 +1,10 @@
-# UAV Recovery Contracts — tasks to completion
+# UAV Recovery Contracts — long-term research backlog
+
+The active 2026-09-05 integrity sprint is governed by [SPRINT_ROADMAP.md](SPRINT_ROADMAP.md)
+and the sole status ledger [SPRINT_TASKS.csv](SPRINT_TASKS.csv). This document
+retains long-term research dependencies; “executable now” means no intrinsic
+hardware dependency, not that every predecessor is complete. It is not the
+active ready queue.
 
 > **Objective.** Produce the strongest, most honestly packaged evidence—not a completed
 > fleet. Priority flows from leverage, falsifiability, and executability. It does not flow
@@ -24,7 +30,7 @@ envelope is sufficient—is a completed floor, not a failed project.
 The floor is the finish line this repository can reach without flight hardware or a facility.
 Hardware work remains visible but cannot outrank executable software evidence.
 
-_15 project tasks · 8 Tier 0 · 10 executable now._
+_15 long-term project tasks · 8 Tier 0 · readiness requires completed predecessors._
 
 **Gate types.** `preregister` — commit a decision before the data it judges; `external` —
 requires a person, facility, or resource outside this repository; `build` — new implementation

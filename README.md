@@ -41,7 +41,7 @@ The working hypothesis is deliberately conditional: configuration-specific contr
 3. Measure mode transitions, response latency, braking, descent, recovery trajectory, and reconnection behavior.
 4. Calibrate recovery tubes on one trace set and test coverage on held-out traces.
 5. Compare native recovery, a global tube, configuration-specific tubes, and neighbor evacuation.
-6. Fall back to the global envelope whenever online conformance leaves the calibrated domain.
+6. Use the global envelope only inside its separately established validity domain. Outside both domains, abstain from a safety claim and invoke a separately approved operational response.
 
 The full questions, estimands, baselines, and failure branches are frozen only when a dated preregistration commit is created. Until then, the thresholds in this repository are engineering gates, not publication claims.
 
@@ -55,10 +55,14 @@ The first experiment is a one- to two-week SITL conformance pilot—not a swarm 
 | **Setup** | Matched simulated multirotor; pinned firmware; archived parameters; Hold, Land, and RTL intentions; randomized bounded velocity, altitude, and battery state. |
 | **Measured** | Command-loss time, mode sequence, transition latency, velocity response, position trajectory, landing/loiter outcome, and reconnection behavior. |
 | **Held constant** | Vehicle model, environment, logging rate, offboard command pattern, and test harness. |
-| **Continue gate** | Held-out tube coverage reaches its registered target and individualized tubes reduce integrated reserved volume by at least 10% in the pilot. |
+| **Continue gate** | After pilot-only design calibration, a separate confirmatory set meets frozen coverage and the provisional 10% volume-reduction target. |
 | **Stop/pivot gate** | Differences remain below 5% and mode traces are functionally equivalent; publish the conformance benchmark and do not build a fleet allocator. |
 
 See the complete [`Experiment 01 protocol`](docs/experiment-01-authority-loss.md). The numerical gates are provisional project decisions and will not be presented as validated performance thresholds.
+
+A 5–10% reduction or an interval crossing a decision boundary is indeterminate:
+no fleet expansion until a separately registered bounded confirmation resolves it;
+otherwise release the benchmark. These are study-design rules, not current results.
 
 ## Evidence boundary
 
@@ -83,6 +87,7 @@ See the complete [`Experiment 01 protocol`](docs/experiment-01-authority-loss.md
 The current executable work checks documentation integrity and protocol structure; it does **not** simulate a UAV.
 
 ```bash
+python -m pip install -r requirements.txt
 python scripts/check_repo_contract.py
 python -m unittest discover -s tests -v
 ```

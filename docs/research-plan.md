@@ -83,12 +83,27 @@ Time scaling, barrier filtering, health-aware task allocation, and joint mission
 
 ## Analysis principles
 
-- Split by configured-vehicle identity or by run group; adjacent time samples are not independent observations.
+- Primary calibration/confirmation split: independent run groups within each pinned configured identity. Adjacent time samples are not independent observations. Entirely unseen configured identities are a separate transfer study, not interchangeable with this split.
 - Calibrate tubes without access to held-out traces.
 - Report effect sizes and uncertainty, not only hypothesis-test outcomes.
 - Separate physical demonstrations from statistical safety claims.
-- Use the global envelope as the abstention response for out-of-domain conformance.
+- The global envelope is a fallback only within its own established domain. Outside both domains, abstain from empirical safety claims; specify any operational response under a separately approved safety procedure.
 - Freeze final thresholds only after a pilot estimates variability; pilot data cannot enter the confirmatory test set.
+
+### Fleet-claim gate (prospective; not satisfied)
+
+Single-vehicle trajectory coverage is not fleet-level safety. Before RQ4 can
+support a fleet claim, define the mission horizon, fleet safety event, allowable
+joint failure probability, per-contract risk allocation, separation margin, and
+neighbor command-authority assumptions. Account for common-mode communication,
+navigation and environmental failures. Ten independent 95%-coverage events all
+hold with probability only `0.95**10 ≈ 0.599`; independence is not assumed here.
+Without independence, use a justified joint model or a conservative risk bound,
+not multiplication of individual coverage values. Encounter evaluations must
+include failures that affect cooperative neighbors together.
+
+This design amendment narrows future claims. No risk allocation, trajectory
+coverage or operational safety guarantee has been measured or established.
 
 ## Scope
 

@@ -4,11 +4,14 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import unquote
+
+from jsonschema.validators import validator_for
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,6 +64,29 @@ def local_markdown_links(path: Path) -> list[Path]:
     return links
 
 
+def manifest_errors(instance: object, schema: dict) -> list[str]:
+    """Enforce the declared dialect and JSON's finite-number boundary."""
+    validator_class = validator_for(schema)
+    validator_class.check_schema(schema)
+    errors = [
+        "manifest " + ("/".join(map(str, error.absolute_path)) or "<root>") + ": " + error.message
+        for error in validator_class(schema).iter_errors(instance)
+    ]
+
+    def finite_numbers(value: object, path: str = "<root>") -> None:
+        if isinstance(value, float) and not math.isfinite(value):
+            errors.append(f"manifest {path}: non-finite numbers are not JSON measurements")
+        elif isinstance(value, dict):
+            for key, child in value.items():
+                finite_numbers(child, f"{path}/{key}")
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                finite_numbers(child, f"{path}/{index}")
+
+    finite_numbers(instance)
+    return sorted(errors)
+
+
 def run_checks() -> list[str]:
     errors: list[str] = []
 
@@ -82,6 +108,9 @@ def run_checks() -> list[str]:
     example = json.loads(
         (ROOT / "protocols/example-configuration-manifest.json").read_text(encoding="utf-8")
     )
+    errors.extend(manifest_errors(example, schema))
+    if not isinstance(example, dict):
+        example = {}
     schema_required = set(schema.get("required", []))
     if schema_required != REQUIRED_MANIFEST_KEYS:
         errors.append("configuration schema required keys differ from the repository contract")
