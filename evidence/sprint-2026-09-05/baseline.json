@@ -1,0 +1,37 @@
+{
+  "recorded_on": "2026-09-05",
+  "stage": "baseline",
+  "repo": "UAV-Recovery-Contracts",
+  "canonical_checkout": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+  "original_checkout": "/Users/redhose/UAV-Recovery-Contracts",
+  "identity": {
+    "command": "git rev-parse HEAD; git branch --show-current; git status --short; python --version; node --version",
+    "chunk_id": "6569e6",
+    "wall_time_seconds": 0.000003333,
+    "exit_code": 0,
+    "original_token_count": 25,
+    "output": "55c6dd00b061da77dfb53e90c04e094ca4427d89\nsprint/evidence-integrity-20260905\nPython 3.11.8\nv22.21.0\n"
+  },
+  "checks": [
+    {
+      "repo": "UAV-Recovery-Contracts",
+      "cwd": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "command": "python scripts/check_repo_contract.py",
+      "chunk_id": "e4610b",
+      "wall_time_seconds": 0.000001542,
+      "exit_code": 0,
+      "original_token_count": 19,
+      "output": "Repository contract: PASS\nEvidence state: research design; no study results\n"
+    },
+    {
+      "repo": "UAV-Recovery-Contracts",
+      "cwd": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "command": "python -m unittest discover -s tests -v",
+      "chunk_id": "276d25",
+      "wall_time_seconds": 0.000003708,
+      "exit_code": 0,
+      "original_token_count": 128,
+      "output": "test_contract_script_passes (test_repo_contract.RepositoryContractTests.test_contract_script_passes) ... ok\ntest_example_is_unambiguously_not_a_result (test_repo_contract.RepositoryContractTests.test_example_is_unambiguously_not_a_result) ... ok\ntest_research_dependency_graph_has_no_dangling_endpoints (test_repo_contract.RepositoryContractTests.test_research_dependency_graph_has_no_dangling_endpoints) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.042s\n\nOK\n"
+    }
+  ]
+}

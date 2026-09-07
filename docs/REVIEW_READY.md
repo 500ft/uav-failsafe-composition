@@ -1,0 +1,79 @@
+# UAV-Recovery-Contracts — partial handoff, local software ready for review
+
+Prepared 2026-09-05; resumed and checked 2026-09-06. Budget: six workload days,
+30 focused hours per repository; estimates are not recorded time spent.
+
+Canonical checkout: `/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts`.
+Remote: https://github.com/500ft/UAV-Recovery-Contracts.
+Branch: `sprint/evidence-integrity-20260905`.
+Base commit: `55c6dd00b061da77dfb53e90c04e094ca4427d89`.
+Final commit: this review packet's containing commit; its SHA is reported in the PR
+because a commit cannot embed its own identity. No deployment, publication,
+outreach or spending occurred. Original checkout/user changes were preserved.
+Base includes the existing unmerged task PR #1 head; it is not origin/main.
+
+[Roadmap](SPRINT_ROADMAP.md) · [Authoritative ledger](SPRINT_TASKS.csv) ·
+[Progress](SPRINT_PROGRESS.md) · [Selected candidate hashes](../evidence/sprint-2026-09-05/candidate.json).
+
+## Completed deliverables and evidence
+
+The checker now executes the declared JSON Schema and rejects non-finite numbers. Pilot/confirmation, SITL/HITL dependencies and the uncertain continuation band are reconciled. Marginal tube coverage is not presented as fleet safety.
+
+Implementation: [checker](../scripts/check_repo_contract.py), [tests](../tests/test_manifest_validation.py), [roadmap](../ROADMAP.md), [research plan](research-plan.md), [first experiment](experiment-01-authority-loss.md).
+
+- [Baseline identity, commands and outputs](../evidence/sprint-2026-09-05/baseline.json).
+- [Original failing evidence](../evidence/sprint-2026-09-05/manifest-red.json).
+- [Implementation checks](../evidence/sprint-2026-09-05/implementation-green.json).
+- [Final verification](../evidence/sprint-2026-09-05/final-checks.json).
+- [Predeclared evaluation procedure](../evidence/sprint-2026-09-05/evaluation-plan.md),
+  [retained replay](../evidence/sprint-2026-09-05/evaluate_candidate.py),
+  [actual outputs](../evidence/sprint-2026-09-05/evaluation.json).
+
+- [Consumer delivery evidence](../evidence/sprint-2026-09-05/consumer.json).
+
+7 tests passed in both the development environment and a clean consumer venv; repository contract passed; 7/7 additional metadata cases matched.
+
+Metadata validation and research design only. No autopilot harness or conformance traces. Schema validity neither authenticates measurements nor proves a safe configuration; negative altitude remains schema-valid by design.
+
+## Reproduce
+
+Run from the canonical checkout using the recorded Python3.11 environment and
+repository dependencies. The local pytest workaround stubs readline before import;
+it is not a skipped test or changed product requirement.
+
+```sh
+python -m unittest discover -s tests -v
+python scripts/check_repo_contract.py
+python evidence/sprint-2026-09-05/evaluate_candidate.py
+git diff --check
+```
+
+
+
+Delivery route: a clean temporary venv installed pinned jsonschema4.26.0 and executed absolute checker/test paths from /private/tmp. Resolved transitive versions are retained in consumer.json. The checker uses the schema-declared dialect via validator_for; [official validation API](https://python-jsonschema.readthedocs.io/en/stable/validate/) is the interface reference.
+
+No separate configured lint/typecheck is claimed. Syntax checks are compilation,
+not static typing. Saved output truncation, if present, is indicated by the tool
+result metadata; no omitted output is called a full log.
+
+## Evaluation meaning and remaining work
+
+Selected implementation/protocol hashes and expectations were saved before the
+additional cases ran. Existing tests, reviewed fixtures and reviewer-discovered
+bugs are development material. All additional cases were retained. These small
+developer-selected checks establish behavior on those inputs, not independent
+scientific validation or general accuracy. Another agent is not a human reviewer.
+External feedback: pending.
+
+1. Owner selects resource-feasible configured vehicles and simulator versions; exact-gap novelty closeout remains pending.
+2. Next implementation is one version-pinned single-vehicle authority-loss trace, then the pilot/confirmation gate—not a fleet optimizer.
+3. Joint event/horizon/risk allocation and later facility approval are required for physical fleet claims.
+
+Next action: Owner resource/configuration decision, then long-term URC-01 exact-gap closeout and the first version-pinned trace task.
+
+Evidence-supported portfolio bullet: “Implemented nested research-manifest validation and a SITL-first protocol that separates configured recovery behavior from unproven fleet-safety claims.”
+This concerns engineering quality, not adoption or measured scientific performance.
+
+## Ready-to-send review request
+
+“Review UAV-Recovery-Contracts against docs/SPRINT_ROADMAP.md. Repository: /Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts. Base commit: 55c6dd00b061da77dfb53e90c04e094ca4427d89. Final commit: PR head (see GitHub PR). Review index: docs/REVIEW_READY.md. Incomplete work: Owner selects resource-feasible configured vehicles and simulator versions; exact-gap novelty closeout remains pending. Next implementation is one version-pinned single-vehicle authority-loss trace, then the pilot/confirmation gate—not a fleet optimizer. Joint event/horizon/risk allocation and later facility approval are required for physical fleet claims. Reproduce the changed behaviors and counterexamples, rerun appropriate checks, and assess the code and evidence independently. Review first; make further changes only if requested.”

@@ -1,0 +1,70 @@
+{
+  "recorded_on_local": "2026-09-06",
+  "selection": "Seven developer-selected metadata boundary variants; expected outcomes below precede execution. Original examples/tests already inspected. These are not independent research evaluation.",
+  "source_fixture": "protocols/example-configuration-manifest.json",
+  "schema": "protocols/configuration-manifest.schema.json",
+  "cases": [
+    {
+      "id": "battery_zero",
+      "path": [
+        "initial_condition",
+        "battery_fraction"
+      ],
+      "value": 0,
+      "accept": true
+    },
+    {
+      "id": "battery_one",
+      "path": [
+        "initial_condition",
+        "battery_fraction"
+      ],
+      "value": 1,
+      "accept": true
+    },
+    {
+      "id": "sample_rate_zero",
+      "path": [
+        "recording",
+        "sample_rate_hz"
+      ],
+      "value": 0,
+      "accept": false
+    },
+    {
+      "id": "null_seed",
+      "path": [
+        "test_environment",
+        "seed"
+      ],
+      "value": null,
+      "accept": true
+    },
+    {
+      "id": "empty_firmware",
+      "path": [
+        "firmware_identifier"
+      ],
+      "value": "",
+      "accept": false
+    },
+    {
+      "id": "uppercase_recovery",
+      "path": [
+        "recovery_intention"
+      ],
+      "value": "RTL",
+      "accept": false
+    },
+    {
+      "id": "negative_altitude_schema_allows",
+      "path": [
+        "initial_condition",
+        "altitude_m"
+      ],
+      "value": -2,
+      "accept": true
+    }
+  ],
+  "limitations": "Negative altitude acceptance is the declared schema contract, not airframe safety; joint fleet risk still lacks traces."
+}

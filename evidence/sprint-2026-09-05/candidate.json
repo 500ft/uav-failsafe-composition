@@ -1,0 +1,23 @@
+{
+  "recorded_on_local": "2026-09-06",
+  "base_commit": "55c6dd00b061da77dfb53e90c04e094ca4427d89",
+  "branch": "sprint/evidence-integrity-20260905",
+  "status": "uncommitted selected-source candidate; not public preregistration",
+  "scope": "Selected implementation/protocol bytes frozen before developer counterexample outputs; hashes do not establish independent evidence",
+  "files": {
+    "scripts/check_repo_contract.py": "d59c812c8f70851116f2752bbd4bc374f14f410f2ca9291103b6e6c594a64888",
+    "tests/test_manifest_validation.py": "5bef1f14df81bf394b6225c862c75a22e8e1614de17264d433f09b31f2e8b0b1",
+    "requirements.txt": "a055435643535c44c2a63ca44b6c1eed8c1bd5b76ae025c9b0c5a3565d3387ff",
+    ".github/workflows/ci.yml": "36d3484a1fbfe5d5de52655aa12272bc0a7bb38516aca4ac647d61922530b4e6",
+    "protocols/configuration-manifest.schema.json": "d871499a2c9c923a209275cdfdec0fde1548046216801a310cc7548a4133e715",
+    "protocols/example-configuration-manifest.json": "d4d349e4a43e40962ece75c73165aacc97a3c8b699cafc42519d6319743b2075",
+    "README.md": "2874ed451930fdf64df4994100d14613feb05d68092476c650b99f70af542877",
+    "ROADMAP.md": "8eca367924145889c2a689d023be6b8add5d1f07bb9e0d4d5484d7bb0483f113",
+    "docs/TASKS.md": "4ca9cb3eece26c48987393f9f2a6d8c2d621e6febd163f1eb1b4313cf0997db8",
+    "docs/research-plan.md": "5144b7be9ee5d0b4ea56a6517aa61aa87fac5b38bb69f4983eba2575f1410f6d",
+    "docs/experiment-01-authority-loss.md": "4e653f0e96a744fbc49bd8b57ffd18bd8e76a29eaaff7fe819289fd30ff7fa29",
+    "evidence/sprint-2026-09-05/evaluation-plan.md": "b57a0491e3e883035edc6789b4a9b652409ef6e0fb3f3bc57715bbcdf29f7e14",
+    "evidence/sprint-2026-09-05/evaluate_candidate.py": "13b9817ad85d2d0aede83a23596118e02c437e51443b9113ca35adf07a467e8b",
+    "evidence/sprint-2026-09-05/evaluation-cases.json": "7eefff32e39cc4c8e4cb01dd5fab435b51b8c9b90da05c980c07b2c95d370622"
+  }
+}

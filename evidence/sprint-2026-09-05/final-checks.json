@@ -1,0 +1,51 @@
+{
+  "status": "recorded",
+  "recorded_on_local": "2026-09-06",
+  "results": [
+    {
+      "command": "python -m compileall -q scripts tests",
+      "working_directory": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "adf23a",
+      "wall_time_seconds": 0.000003042,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "working_directory": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "318ad6",
+      "wall_time_seconds": 0.199784125,
+      "exit_code": 0,
+      "original_token_count": 265,
+      "output": "test_declared_example_remains_valid (test_manifest_validation.ManifestValidationTests.test_declared_example_remains_valid) ... ok\ntest_nested_required_field_is_enforced (test_manifest_validation.ManifestValidationTests.test_nested_required_field_is_enforced) ... ok\ntest_schema_rejects_invalid_nested_values (test_manifest_validation.ManifestValidationTests.test_schema_rejects_invalid_nested_values) ... ok\ntest_unknown_top_level_field_is_rejected (test_manifest_validation.ManifestValidationTests.test_unknown_top_level_field_is_rejected) ... ok\ntest_contract_script_passes (test_repo_contract.RepositoryContractTests.test_contract_script_passes) ... ok\ntest_example_is_unambiguously_not_a_result (test_repo_contract.RepositoryContractTests.test_example_is_unambiguously_not_a_result) ... ok\ntest_research_dependency_graph_has_no_dangling_endpoints (test_repo_contract.RepositoryContractTests.test_research_dependency_graph_has_no_dangling_endpoints) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.190s\n\nOK\n"
+    },
+    {
+      "command": "python scripts/check_repo_contract.py",
+      "working_directory": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "15e677",
+      "wall_time_seconds": 0.0000035,
+      "exit_code": 0,
+      "original_token_count": 19,
+      "output": "Repository contract: PASS\nEvidence state: research design; no study results\n"
+    },
+    {
+      "command": "python evidence/sprint-2026-09-05/evaluate_candidate.py",
+      "working_directory": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "6f30eb",
+      "wall_time_seconds": 0.000003375,
+      "exit_code": 0,
+      "original_token_count": 354,
+      "output": "{\n  \"kind\": \"developer software counterexamples\",\n  \"cases\": [\n    {\n      \"id\": \"battery_zero\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    },\n    {\n      \"id\": \"battery_one\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    },\n    {\n      \"id\": \"sample_rate_zero\",\n      \"expected_accept\": false,\n      \"observed_accept\": false,\n      \"matches\": true,\n      \"errors\": [\n        \"manifest recording/sample_rate_hz: 0 is less than or equal to the minimum of 0\"\n      ]\n    },\n    {\n      \"id\": \"null_seed\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    },\n    {\n      \"id\": \"empty_firmware\",\n      \"expected_accept\": false,\n      \"observed_accept\": false,\n      \"matches\": true,\n      \"errors\": [\n        \"manifest firmware_identifier: '' should be non-empty\"\n      ]\n    },\n    {\n      \"id\": \"uppercase_recovery\",\n      \"expected_accept\": false,\n      \"observed_accept\": false,\n      \"matches\": true,\n      \"errors\": [\n        \"manifest recovery_intention: 'RTL' is not one of ['hold', 'land', 'rtl']\"\n      ]\n    },\n    {\n      \"id\": \"negative_altitude_schema_allows\",\n      \"expected_accept\": true,\n      \"observed_accept\": true,\n      \"matches\": true,\n      \"errors\": []\n    }\n  ],\n  \"denominator\": 7,\n  \"all_matched\": true\n}\n"
+    },
+    {
+      "command": "git diff --check",
+      "working_directory": "/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts",
+      "chunk_id": "80c05d",
+      "wall_time_seconds": 0.000003417,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

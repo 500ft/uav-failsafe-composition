@@ -18,3 +18,4 @@ results/generated/
 *.bin
 *.bag
 *.bag2
+graphify-out/

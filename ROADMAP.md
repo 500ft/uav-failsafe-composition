@@ -23,9 +23,11 @@ This roadmap is gate-driven. Later stages do not start merely because an earlier
 - Remove offboard authority from randomized bounded states.
 - Record mode traces, transition latencies, trajectories, and reconnection behavior.
 
-**Exit gate:** held-out coverage meets the registered target and individualized tubes reduce integrated reserved volume by at least 10% in the pilot.
+**Exit gate:** the pilot estimates variability and invalid-run frequency. Then freeze the coverage target, sample size, split, horizon, and volume rule before generating separate confirmatory traces. Only the confirmatory set can establish held-out coverage and the provisional 10% volume-reduction continuation target.
 
 **Failure branch:** if differences are below 5% and operationally negligible, stop the fleet algorithm and release a versioned conformance benchmark.
+
+**Indeterminate branch:** a 5–10% reduction or uncertainty spanning a decision boundary does not authorize fleet expansion. Report the interval; preregister one additional bounded confirmation or stop at the benchmark. Do not recycle pilot observations as confirmation or move the threshold after inspection.
 
 ## Stage 2 — HITL replication
 
@@ -39,7 +41,7 @@ This roadmap is gate-driven. Later stages do not start merely because an earlier
 
 ## Stage 3 — Offline fleet composition
 
-**Status:** blocked on Stage 2.
+**Status:** blocked on positive Stage 1 confirmation. Stage 2 is not required for explicitly simulated/offline composition; it remains required for hardware-timing claims.
 
 - Insert held-out recovery traces into prerecorded or simulated fleet encounters.
 - Compare native behavior, a global tube, individualized tubes, and neighbor evacuation.
