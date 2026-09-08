@@ -1,5 +1,15 @@
 # Prior-Art Boundary
 
+## 2026-09-08 source review
+
+[Dated exact-gap/tooling review](prior-art-search-2026-09-08.md) records executed
+queries, 12 selected primary entries, overlap judgments and access limitations.
+Prior art is confirmed for broad ingredients; the narrow dataset contribution
+remains a supported candidate gap within this retrieval, not established novelty.
+URC-D01 completes this first pass; full URC-01 closeout remains pending.
+The most consequential protocol correction is to distinguish setpoint loss,
+GCS-heartbeat loss and process termination before pinning equivalent intentions.
+
 This is a scoped source map, not a claim of an exhaustive systematic review. Sources are included to define what this project must **not** claim as new.
 
 ## Established ingredients

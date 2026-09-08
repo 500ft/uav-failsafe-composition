@@ -1,5 +1,15 @@
 # Sprint progress — UAV-Recovery-Contracts
 
+## 2026-09-08 — URC-D01 first-pass source review
+
+Completed the bounded priority-one source-review subtask, not the full novelty
+gate. [Report](prior-art-search-2026-09-08.md) and
+[verification](../evidence/task-2026-09-08/README.md). Base `f9cbc81439c9a6f81a30e6187aa2150d5580935a`,
+branch `task/priority-one-20260908`; isolated daily worktree. No apparatus,
+measurement, publication, outreach or disclosure approval. Original sprint rows
+preserved. Next: resolve report-listed full-text/search limitations; checks:
+`python scripts/check_repo_contract.py`. PR records committed/pushed identity.
+
 ## 2026-09-06 — Partial handoff
 
 - Sprint start2026-09-05; canonical checkout `/Users/redhose/Developer/research-sprints/2026-09-05/UAV-Recovery-Contracts`.
