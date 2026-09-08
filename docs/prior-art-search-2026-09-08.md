@@ -54,7 +54,7 @@ Selection/ranking below is by relevance, not prestige or citation count.
 
 | ID / source / version | Aboutness; evidence/access | Overlap and boundary |
 | --- | --- | --- |
-| U1 [Avis, 2021 v1](https://arxiv.org/html/2106.14959v1) | 2; B/C, full HTML inspected | In-situ sensor-failure checking on both stacks. Cross-stack fault testing is established; the source does not establish the proposed calibrated recovery dataset. |
+| U1 [Avis, 2021 v1](https://arxiv.org/html/2106.14959v1) | 2; B/C, HTML mode-execution and bug-table sections inspected | In-situ sensor-failure checking on both stacks. Cross-stack fault testing is established; the source does not establish the proposed calibrated recovery dataset. |
 | U2 [PGFuzz, NDSS 2021](https://www.ndss-symposium.org/ndss-paper/pgfuzz-policy-guided-fuzzing-for-robotic-vehicles/) | 2; provisional B, abstract | Timed policy fuzzing of commands, configuration and physical state on multiple stacks. Generic “contract conformance” is not enough to distinguish URC. |
 | U3 [PGFuzz code](https://github.com/purseclab/PGFuzz) | 2; artifact README inspected, not executed | Existing ArduPilot/PX4 tooling and explicit failsafe bug examples. Legacy setup instructions must not be copied as a verified modern install. |
 | U4 [RouthSearch, 2025 v1](https://arxiv.org/abs/2505.02357v1) | 2; provisional B/C, abstract | Infers PID parameter validity on both stacks. Relevant to configuration constraints, not evidence of an abstract recovery-policy compiler. |
