@@ -1,3 +1,11 @@
+# 2026-09-09 — latest review correction
+
+Read [the D02 integrity review](../evidence/task-2026-09-09-review/README.md)
+before the historical handoff below. D02 is blocked on unexplained acquisition
+provenance; original literal-ID overlap is not a valid recall estimate. The
+rerun/audit software passes 15 tests plus contract checks. No new literature
+screening or research validation is claimed.
+
 # UAV-Recovery-Contracts — partial handoff, local software ready for review
 
 ## Latest follow-up — 2026-09-09
