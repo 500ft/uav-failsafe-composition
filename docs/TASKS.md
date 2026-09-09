@@ -45,6 +45,10 @@ not secured cannot be Tier 0, however impressive its eventual output might be.
 
 ### URC-01 · Close the exact-gap and tooling search
 
+2026-09-08: [URC-D01 first-pass review](prior-art-search-2026-09-08.md) is complete.
+Full-text/tooling inspection and the documented broader-search shortfall remain;
+URC-01 is not silently closed and no downstream gate is automatically promoted.
+
 `hygiene` · executable now
 
 **Why it matters.** The source map proves that generic failsafes, cross-stack testing,
