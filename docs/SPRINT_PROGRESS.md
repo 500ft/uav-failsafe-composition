@@ -1,5 +1,15 @@
 # Sprint progress — UAV-Recovery-Contracts
 
+## 2026-09-09 — URC-D02 native-database export
+
+Ran the database leg that D01 named as the next step (Crossref, OpenAlex, arXiv APIs; no patent
+database reachable). [Export and recall check](prior-art-search-2026-09-09-database.md): 402 unique
+records with per-query provenance; **0 of 6** day-1 identifiers recovered, which is the finding —
+native-database ranking and web-index discovery surface different populations here, so neither set
+can be assumed to contain the other. arXiv's search API throttled most queries; that leg is recorded
+as incomplete. 25 new candidates are listed **unscreened**. No novelty, patent or owner gate is
+closed. [Verification](../evidence/task-2026-09-09/README.md). Branch `task/priority-two-20260909`.
+
 ## 2026-09-08 — URC-D01 first-pass source review
 
 Completed the bounded priority-one source-review subtask, not the full novelty
