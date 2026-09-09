@@ -1,0 +1,78 @@
+[
+  {
+    "source_id": "U1",
+    "title": "Avis",
+    "url": "https://arxiv.org/html/2106.14959v1",
+    "access": "full_text_sections",
+    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions",
+    "aboutness": 2,
+    "evidence_grade": "C for inspected simulator method",
+    "finding": "Safety/liveliness monitors compare position, acceleration and mode with profiling runs; configuration-specific recovery coverage is not established by these sections.",
+    "axes": {
+      "equivalent_intent": "not_established_in_inspected_sections",
+      "reconnection": "not_established_in_inspected_sections",
+      "coverage": "profile_run_distance_not_calibrated_recovery_coverage"
+    },
+    "retrieved_on": "2026-09-09"
+  },
+  {
+    "source_id": "U5",
+    "title": "aerial-autonomy-stack",
+    "url": "https://arxiv.org/html/2602.07264v2",
+    "access": "full_text_sections",
+    "locator": "Sections III and IV-A1/2/3",
+    "aboutness": 2,
+    "evidence_grade": "architecture/specification in inspected sections",
+    "finding": "Gazebo Harmonic, both autopilots and distinct middleware bridges are described. Evaluate reuse; a common interface does not establish event equivalence.",
+    "axes": {
+      "equivalent_intent": "not_established_in_inspected_sections",
+      "reconnection": "not_established_in_inspected_sections",
+      "coverage": "not_established_in_inspected_sections"
+    },
+    "retrieved_on": "2026-09-09"
+  },
+  {
+    "source_id": "U7",
+    "title": "PX4 Offboard",
+    "url": "https://docs.px4.io/main/en/flight_modes/offboard",
+    "access": "official_documentation",
+    "locator": "Description; ROS 2 Offboard Control",
+    "aboutness": 2,
+    "evidence_grade": "specification_not_experiment",
+    "finding": "ROS2 OffboardControlMode liveness is separate from trajectory setpoints; cessation of each is a distinct injection.",
+    "axes": {
+      "equivalent_intent": "must_distinguish_liveness_and_setpoints"
+    },
+    "retrieved_on": "2026-09-09"
+  },
+  {
+    "source_id": "U8",
+    "title": "ArduPilot GCS failsafe",
+    "url": "https://ardupilot.org/copter/docs/gcs-failsafe.html",
+    "access": "official_documentation",
+    "locator": "When the failsafe will trigger; What will happen",
+    "aboutness": 2,
+    "evidence_grade": "specification_not_experiment",
+    "finding": "GCS heartbeat loss triggers configured actions only after monitoring is active. Restored heartbeat does not itself restore the previous flight mode.",
+    "axes": {
+      "reconnection": "documented_no_automatic_mode_restore"
+    },
+    "retrieved_on": "2026-09-09"
+  },
+  {
+    "source_id": "U12",
+    "title": "EP3662460B1",
+    "url": "https://patents.google.com/patent/EP3662460B1/en",
+    "access": "patent_claims",
+    "locator": "Claims 1–3",
+    "aboutness": 2,
+    "evidence_grade": "disclosure_not_experiment",
+    "finding": "Emergency return via a healthy communication waypoint and waiting for user command after reconnect are disclosed. Generic reconnect handling is not a novelty claim.",
+    "axes": {
+      "reconnection": "disclosed",
+      "equivalent_intent": "not_established_by_these_claims",
+      "coverage": "not_established_by_these_claims"
+    },
+    "retrieved_on": "2026-09-09"
+  }
+]

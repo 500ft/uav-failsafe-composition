@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-09",
+  "base": "39578d6ef1ee765bcd53c7b2f0ba940b3f0d367f",
+  "checks": [
+    {
+      "command": "python scripts/acquisition_ledger.py --check",
+      "chunk_id": "ea614d",
+      "wall_time_seconds": 0.000003708,
+      "exit_code": 0,
+      "original_token_count": 18,
+      "output": "Acquisition ledger consistent; source provenance gaps remain explicit\n"
+    },
+    {
+      "command": "python -m unittest discover -s tests -q",
+      "chunk_id": "d4e2ef",
+      "wall_time_seconds": 0.370020792,
+      "exit_code": 0,
+      "original_token_count": 39,
+      "output": "Output must be a new directory; no network requests made.\n----------------------------------------------------------------------\nRan 21 tests in 0.306s\n\nOK\n"
+    },
+    {
+      "command": "python scripts/check_repo_contract.py",
+      "chunk_id": "d29c1e",
+      "wall_time_seconds": 0.000003333,
+      "exit_code": 0,
+      "original_token_count": 19,
+      "output": "Repository contract: PASS\nEvidence state: research design; no study results\n"
+    }
+  ]
+}

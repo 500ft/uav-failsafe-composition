@@ -1,5 +1,11 @@
 # 2026-09-09 — review correction
 
+## Day-3 work — 2026-09-09
+
+Both reviewed PR layers merged into main; new work starts from `39578d6ef1ee765bcd53c7b2f0ba940b3f0d367f` on `task/day-three-20260909`. Six new ledger tests preserve both acquisition routes, unknown historical query mappings, zero-result versus positive query support, unscreened status despite raw flags, all raw rows and deterministic regeneration. 21 tests and repository contract pass. All 402 raw rows retained; 90 provenance holes remain. This is not full novelty closeout.
+
+The [evidence record](../evidence/task-day3-2026-09-09/README.md) contains checks and limits. Work is locally verified and not yet recorded here as pushed/merged. Current edits belong to this task; original checkouts were preserved. Next: finish verification, commit the bounded change and open the new PR; preserve all stated external gates.
+
 D02 is now blocked, not accepted as a complete acquisition. The retained export
 contains unexplained query provenance; no recall or route-divergence conclusion
 is established. Added offline audit and safe new-output rerun with explicit
