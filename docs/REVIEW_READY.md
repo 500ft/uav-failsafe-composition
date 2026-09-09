@@ -1,6 +1,20 @@
+# 2026-09-09 — latest review correction
+
+Read [the D02 integrity review](../evidence/task-2026-09-09-review/README.md)
+before the historical handoff below. D02 is blocked on unexplained acquisition
+provenance; original literal-ID overlap is not a valid recall estimate. The
+rerun/audit software passes 15 tests plus contract checks. No new literature
+screening or research validation is claimed.
+
 # UAV-Recovery-Contracts — partial handoff, local software ready for review
 
-## Latest follow-up — 2026-09-08
+## Latest follow-up — 2026-09-09
+
+[URC-D02 database export](../docs/prior-art-search-2026-09-09-database.md) adds a dated,
+reproducible native-database search with a measured recall check (0/6 of the day-1 set
+recovered — the two discovery routes diverge). Candidates are unscreened; no gate is closed.
+
+## Follow-up — 2026-09-08
 
 [URC-D01 source-review handoff](../evidence/task-2026-09-08/README.md) adds a dated
 first-pass research review. It does not close the full novelty or owner gates.
