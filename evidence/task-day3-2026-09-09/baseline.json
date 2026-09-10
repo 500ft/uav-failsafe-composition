@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-09",
+  "base": "39578d6ef1ee765bcd53c7b2f0ba940b3f0d367f",
+  "command": "python -m unittest discover -s tests -q; python scripts/check_repo_contract.py",
+  "initial": {
+    "chunk_id": "8b3403",
+    "wall_time_seconds": 0.679853458,
+    "exit_code": 0,
+    "original_token_count": 72,
+    "output": "39578d6ef1ee765bcd53c7b2f0ba940b3f0d367f\nPython 3.11.8\nOutput must be a new directory; no network requests made.\n----------------------------------------------------------------------\nRan 15 tests in 0.286s\n\nOK\nRepository contract: PASS\nEvidence state: research design; no study results\n"
+  },
+  "completion": null,
+  "scope": "Baseline checks are repository integrity checks, not scientific validation"
+}
