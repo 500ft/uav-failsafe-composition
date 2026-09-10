@@ -21,3 +21,7 @@ jobs:
         run: python scripts/check_repo_contract.py
       - name: Run tests
         run: python -m unittest discover -s tests -v
+      - name: Check README links, identity and negative controls
+        run: |
+          python tools/check_presentation.py . "UAV Failsafe Composition" uav-failsafe-composition
+          python tools/test_presentation.py
