@@ -1,5 +1,14 @@
 # 2026-09-09 — review correction
 
+## 2026-09-11 — URC-D04 provenance-clean re-acquisition
+
+The D02 provenance defect is corrected by one clean run of `rerun_search.py` from a
+non-throttled network: 317 identifier records, 16/16 query legs ok,
+**0** rows without a successful logged query (historical export: 90). Known D01 anchors
+present: 2 of 5 comparable — a bounded overlap, not recall. 22 candidates, all UNSCREENED.
+The 09-09 export and the day-3 acquisition ledger are unchanged; the new export is not merged into
+either. No novelty, patent or owner gate is closed. [Evidence](../evidence/task-2026-09-11/README.md).
+
 ## Day-3 work — 2026-09-09
 
 Delivery update: the preparation was committed as 500ft and pushed; [day-3 PR](https://github.com/500ft/UAV-Recovery-Contracts/pull/4) is open against main. Initial implementation source: `b23e51521f7f27b6a20288595fa59c71a5dedd1a` (later review/documentation commits are visible in the PR). This supersedes the pre-push stopping state below. Original day-1/day-2 PRs are merged; this new PR is not merged. Resume from the named unresolved project gates in [DAY3_PLAN.md](DAY3_PLAN.md), not from the already completed push step.
