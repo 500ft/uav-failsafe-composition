@@ -1,6 +1,6 @@
 # Evidence-gap correction
 
-Status: in-progress. Initial acquisition procedure committed before retrieval, 2026-09-11; explicit amendment below precedes the next run, not earlier results.
+Status: clean acquisition/software correction complete; D02 anchor and reading closeout remains in progress. Initial procedure committed before retrieval, 2026-09-11; [explicit amendment](public-route-amendment.md) preceded the public-route run, not earlier results.
 
 Scope: repair observable acquisition provenance, execute a new bounded native
 export, preserve invalid historical exports and withdrawals, and report partial
@@ -35,10 +35,10 @@ New outputs: evidence/task-2026-09-11-clean/. Preserve all old JSON/CSV unchange
 ## Tasks
 
 - [x] Verify clean baseline and freeze this plan before implementation/network.
-- [ ] Regress missing request audit trail and ambiguous richer-abstract source;
+- [x] Regress missing request audit trail and ambiguous richer-abstract source;
   minimally repair, verify tests before acquisition.
-- [ ] Execute frozen pairs against actual APIs; audit all routes/counts/response
+- [x] Execute frozen pairs against actual APIs; audit all routes/counts/response
   hashes. No synthetic data or placeholders in acquired hits.
-- [ ] Update D02 and precise Agent-owned remaining public reading work; distinguish
+- [x] Update D02 and precise Agent-owned remaining public reading work; distinguish
   credentials/access blockers from unfinished reading and owner-only gates.
-- [ ] Run full gates, retain detailed report and commit; no push/merge.
+- [x] Run full gates and retain detailed report; source commits and PR record actual delivery. No research gate is closed by the acquisition alone.

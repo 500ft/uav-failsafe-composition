@@ -14,6 +14,19 @@ spec.loader.exec_module(search)
 
 
 class SearchExportTests(unittest.TestCase):
+    def test_derived_csv_is_lf_normalized_without_changing_json(self):
+        import csv
+        result = self.native_fixture()
+        result["hits"][0]["abstract"] = " alpha \n beta  "
+        with tempfile.TemporaryDirectory() as tmp:
+            search.write_outputs(Path(tmp), result)
+            payload = (Path(tmp) / "database-export.csv").read_bytes()
+            self.assertNotIn(b"\r\n", payload)
+            with (Path(tmp) / "database-export.csv").open(newline="") as stream:
+                self.assertEqual(next(csv.DictReader(stream))["abstract"], "alpha beta")
+            saved = json.loads((Path(tmp) / "database-export.json").read_text())
+            self.assertEqual(saved["hits"][0]["abstract"], " alpha \n beta  ")
+
 
     def native_fixture(self):
         body = json.dumps({"message": {"items": [{"DOI": "10.1234/example",

@@ -74,3 +74,7 @@ See the [directed dependency audit](research-dependency-audit.md) for source-lin
 Before physical testing, obtain the required site-specific approval and safety controls. Neither passing CI nor a complete planning document authorizes a flight.
 
 [Back to overview](../README.md) · [Repository identity and presentation references](REPOSITORY_IDENTITY.md)
+
+## September 11 completion correction
+
+Read the [item-by-item correction](ACQUISITION_CORRECTION_2026-09-11.md) before interpreting a prepared protocol, software check, or search export as a completed research gate. It identifies actual deliverables and the remaining measurement, review, or source-reading work separately.

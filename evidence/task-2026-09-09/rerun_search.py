@@ -285,10 +285,13 @@ def write_outputs(directory, result):
                    if not h["matches_known_d01_anchor"] and h["triage_score"] >= 4][:25]),
     ):
         with (directory / name).open("x", encoding="utf-8", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=fields)
+            writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
             writer.writeheader()
             for row in rows:
                 output = {field: row.get(field, "") for field in fields}
+                # Display-only normalization; authoritative JSON/raw responses are unchanged.
+                for field in ("title", "abstract"):
+                    output[field] = " ".join(output[field].split())
                 output["provenance"] = json.dumps(output["provenance"], sort_keys=True)
                 output["abstract_provenance"] = json.dumps(output["abstract_provenance"], sort_keys=True)
                 writer.writerow(output)
