@@ -1,131 +1,109 @@
-# UAV Recovery Contracts
+# UAV Failsafe Composition
 
-**Measure the native recovery of a completely configured UAV after offboard authority disappears, then test whether those behaviors can be composed into tighter fleet-safety constraints.**
+Configuration-specific recovery behavior for mixed-autopilot fleets after external command authority is lost.
 
-[![CI](https://github.com/500ft/UAV-Recovery-Contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/500ft/UAV-Recovery-Contracts/actions/workflows/ci.yml)
-![Status: research design](https://img.shields.io/badge/status-research%20design-415a77)
-![Evidence: no results yet](https://img.shields.io/badge/evidence-no%20results%20yet-6b7280)
+[![Repository checks](https://github.com/500ft/uav-failsafe-composition/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/500ft/uav-failsafe-composition/actions/workflows/ci.yml)
+![Evidence: research design, not validated](https://img.shields.io/badge/evidence-research_design%2C_not_validated-415a77)
 [![License: MIT](https://img.shields.io/badge/license-MIT-276c6b)](LICENSE)
 
-**[Research question](#research-question) · [First experiment](#first-experiment) · [Evidence boundary](#evidence-boundary) · [Dependency audit](docs/research-dependency-audit.md) · [Roadmap](ROADMAP.md)**
+[Overview](#the-problem) · [Evidence](#evidence-snapshot) · [Quick start](#quick-start) · [First experiment](#first-experiment) · [Reviewer guide](docs/START_HERE.md)
 
-![The planned method measures a configured vehicle after authority loss, calibrates a recovery contract, and keeps the global envelope when individualized tubes do not pass the held-out gate](assets/recovery-contracts-overview.svg)
+![Conceptual sequence from a configured vehicle and authority-loss event to measured recovery, a held-out trajectory envelope, and conditional fleet composition](docs/media/project-overview.svg)
 
-*Conceptual decision diagram—not a result. Condition: proposed post-authority-loss study. Evidence state: **planned**. No simulation, HITL, or flight results have been generated for this repository.*
+*Proposed study architecture—not a flight trace or safety result. No simulation, HITL, or flight results have been generated for this repository.*
 
-## Overview
+## The problem
 
-When a companion computer stops providing setpoints, a vehicle's native autopilot—not the fleet planner—determines the immediate response. That response depends on the autopilot, firmware version, airframe, and complete parameter configuration. This project asks whether measured, configuration-specific recovery envelopes can reserve less airspace than one fleet-wide worst-case envelope while preserving held-out trajectory coverage.
+A fleet planner cannot assume it still controls a drone after the companion computer or command link fails. The native autopilot takes over, and its response depends on the firmware, airframe, complete parameters, and the precise failure event—not simply the PX4 or ArduPilot name.
 
-| | |
-| --- | --- |
-| **Unit of analysis** | Autopilot + firmware + airframe + complete parameter configuration |
-| **Proposed platforms** | PX4 and ArduPilot multirotors |
-| **Primary event** | Loss of offboard setpoints or companion process |
-| **Primary outputs** | Mode trace, authority-transition latency, trajectory tube, conformance verdict |
-| **Current evidence** | Literature and protocol design only |
-| **Physical testing** | Not started; requires supervised, contained facilities |
+This project asks whether those configured recovery behaviors can be characterized well enough to reserve less space than one global worst-case envelope, at matched held-out trajectory coverage.
 
-**Novelty status:** unresolved. The existing literature map is sufficient to define a candidate gap, but [`URC-01`](docs/TASKS.md#urc-01--close-the-exact-gap-and-tooling-search) must close the systematic literature and patent search before any novelty claim is strengthened.
+The intended contribution is a reproducible **conformance study**: which commands stop, when authority changes, what the vehicle does, and what happens after reconnection. Generic safety contracts, cross-stack wrappers, and reconnection handling are not claimed as new. The [targeted source review](docs/day3-source-review.md) explains how prior work narrowed the question.
 
-## Research question
+## Proposed approach
 
-> At matched held-out coverage, can empirical recovery contracts for completely configured vehicles reduce reserved space-time volume and fleet conflicts relative to one global worst-case recovery envelope?
+1. **Identify the vehicle.** Archive firmware, airframe, parameter export, simulator, and initial conditions using the [configuration contract](protocols/configuration-manifest.schema.json).
+2. **Define the loss event.** Distinguish stopped setpoints from lost heartbeats or companion termination; log surviving streams.
+3. **Measure native recovery.** Align authority transitions, modes, latency, motion, and reconnection response.
+4. **Evaluate a recovery envelope.** Develop the method on pilot traces, then assess whole-trajectory coverage on separate confirmation data.
+5. **Compose only if justified.** Compare individualized reservations with a global envelope before expanding to a fleet allocator.
 
-The working hypothesis is deliberately conditional: configuration-specific contracts are useful only if observed transition semantics or recovery trajectories differ by more than run-to-run uncertainty. If they do not, the simpler global envelope wins.
+Coverage of a single vehicle's tube is not, by itself, a fleet-safety guarantee. A global fallback also needs its own validity domain; outside both domains, the method must abstain from a safety claim.
 
-## How the study works
+## Evidence snapshot
 
-1. Record exact firmware, airframe, parameters, environment, and initial condition.
-2. Remove offboard command authority at randomized but bounded states.
-3. Measure mode transitions, response latency, braking, descent, recovery trajectory, and reconnection behavior.
-4. Calibrate recovery tubes on one trace set and test coverage on held-out traces.
-5. Compare native recovery, a global tube, configuration-specific tubes, and neighbor evacuation.
-6. Use the global envelope only inside its separately established validity domain. Outside both domains, abstain from a safety claim and invoke a separately approved operational response.
+The executable deliverable today is research-integrity tooling, not a UAV simulator.
 
-The full questions, estimands, baselines, and failure branches are frozen only when a dated preregistration commit is created. Until then, the thresholds in this repository are engineering gates, not publication claims.
+| Available artifact | What it establishes | Inspect it |
+| --- | --- | --- |
+| Configuration schema and negative tests | Required metadata and invalid-input rejection | [Schema](protocols/configuration-manifest.schema.json), [tests](tests/) |
+| Source-review rubric and reading records | Which sections were inspected and how they affect the candidate claim | [Rubric](docs/day3-reading-rubric.md), [source review](docs/day3-source-review.md) |
+| Reproducible acquisition ledger | Preserved routes, identifiers, access scope, and explicit provenance gaps | [Ledger](evidence/task-day3-2026-09-09/acquisition-ledger.json), [generator](scripts/acquisition_ledger.py) |
+| Experiment and claim contracts | Proposed comparisons, uncertainty requirements, and stop conditions | [Experiment 01](docs/experiment-01-authority-loss.md), [claim ledger](docs/claim-ledger.md) |
+| Recorded software checks | Documentation/schema/provenance checks—not research validation | [Verification record](evidence/task-day3-2026-09-09/README.md) |
 
-## First experiment
+The 2026-09-09 reconciliation retains **402 raw database rows**, with **90 lacking successful query-log support**. These are acquisition records, not 402 reviewed studies. Recall remains unavailable; the earlier literal-ID overlap is not a valid recall estimate. See the [source review](docs/day3-source-review.md) for the correction and remaining competitors to read.
 
-The first experiment is a one- to two-week SITL conformance pilot—not a swarm flight.
+## Quick start
 
-| Field | Registered pilot intent |
-| --- | --- |
-| **Hypothesis** | At least one equivalent recovery intention produces distinguishable authority-transition or trajectory-envelope behavior across pinned PX4 and ArduPilot configurations. |
-| **Setup** | Matched simulated multirotor; pinned firmware; archived parameters; Hold, Land, and RTL intentions; randomized bounded velocity, altitude, and battery state. |
-| **Measured** | Command-loss time, mode sequence, transition latency, velocity response, position trajectory, landing/loiter outcome, and reconnection behavior. |
-| **Held constant** | Vehicle model, environment, logging rate, offboard command pattern, and test harness. |
-| **Continue gate** | After pilot-only design calibration, a separate confirmatory set meets frozen coverage and the provisional 10% volume-reduction target. |
-| **Stop/pivot gate** | Differences remain below 5% and mode traces are functionally equivalent; publish the conformance benchmark and do not build a fleet allocator. |
-
-See the complete [`Experiment 01 protocol`](docs/experiment-01-authority-loss.md). The numerical gates are provisional project decisions and will not be presented as validated performance thresholds.
-
-A 5–10% reduction or an interval crossing a decision boundary is indeterminate:
-no fleet expansion until a separately registered bounded confirmation resolves it;
-otherwise release the benchmark. These are study-design rules, not current results.
-
-## Evidence boundary
-
-### Present now
-
-- A scoped research question and explicit unit of analysis
-- A primary-source prior-art boundary
-- Falsifiable hypotheses and provisional decision gates
-- Configuration-manifest and data-layout contracts
-- An automated documentation-integrity check
-
-### Not present
-
-- No SITL, HITL, flight, separation, or tube-coverage results
-- No evidence that PX4 is safer or less safe than ArduPilot
-- No validated fleet-safety guarantee
-- No proof that configuration-specific tubes outperform a global envelope
-- No authorization to conduct physical flight tests
-
-## Check the repository contract
-
-The current executable work checks documentation integrity and protocol structure; it does **not** simulate a UAV.
+Use **Python 3.11**, matching [CI](.github/workflows/ci.yml), and Git. The only declared dependency is pinned in [requirements.txt](requirements.txt). No autopilot installation, credentials, GPU, or hardware is needed for these checks.
 
 ```bash
+git clone https://github.com/500ft/uav-failsafe-composition.git
+cd uav-failsafe-composition
+python3.11 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
 python scripts/check_repo_contract.py
+python scripts/acquisition_ledger.py --check
 python -m unittest discover -s tests -v
 ```
 
-## Status and next gate
+On Windows, activate with `.venv\Scripts\Activate.ps1` in PowerShell instead of `source`.
 
-The research-design package and its integrity checks exist; the SITL apparatus and every study result remain pending. The next gate is the exact-gap and tooling search in [`URC-01`](docs/TASKS.md#urc-01--close-the-exact-gap-and-tooling-search), followed by pinned configured-vehicle identities and event semantics. The [directed dependency audit](docs/research-dependency-audit.md) explains why fleet composition cannot start before the held-out single-vehicle contract test.
+Expected: the repository contract passes, the committed ledger is consistent, and the test suite ends with `OK`. The ledger check intentionally preserves unresolved provenance; a passing check does not close the literature gate.
 
-## Documentation
+To rebuild **only the derived literature ledger** from committed inputs:
 
-| Document | Purpose |
-| --- | --- |
-| [`docs/research-plan.md`](docs/research-plan.md) | Research questions, hypotheses, estimands, baselines, and analysis plan |
-| [`docs/prior-art.md`](docs/prior-art.md) | What is established, what remains uncertain, and why the claim is narrow |
-| [`docs/experiment-01-authority-loss.md`](docs/experiment-01-authority-loss.md) | Smallest decisive SITL experiment |
-| [`docs/claim-ledger.md`](docs/claim-ledger.md) | Permitted language for each evidence state |
-| [`docs/data-and-figures.md`](docs/data-and-figures.md) | Planned data lineage and figure rules |
-| [`docs/decision-log.md`](docs/decision-log.md) | Decisions, rejected framings, and rationale |
-| [`docs/research-dependency-audit.md`](docs/research-dependency-audit.md) | Source-reviewed directed claim and gate map, including graph limitations |
-| [`docs/TASKS.md`](docs/TASKS.md) | Tiered execution plan with positive, null, and parked branches |
-| [`ROADMAP.md`](ROADMAP.md) | Gate-driven path from protocol to possible contained flight |
-
-## Repository map
-
-```text
-assets/      conceptual diagrams; never presented as measurements
-data/        schema and future data-location guidance; currently no observations
-docs/        research plan, literature boundary, protocol, and claim controls
-protocols/   machine-readable configuration manifest and example
-results/     explicit placeholder; currently no results
-scripts/     repository-integrity checks
-tests/       tests for documentation and protocol contracts
+```bash
+python scripts/acquisition_ledger.py
+git diff -- evidence/task-day3-2026-09-09/acquisition-ledger.json
 ```
 
-## Safety boundary
+This operation is offline. Unchanged inputs should produce no diff. It does not retrieve papers or simulate recovery.
 
-This repository does not authorize flight testing. Any HITL or physical test requires a written risk assessment, geofenced and contained space, an independent kill path, a trained safety operator, and approval from the responsible laboratory or facility. RTL testing must begin in simulation because home-position, altitude, and navigation behavior can create hazards.
+## First experiment
+
+The first study is a **single-vehicle SITL conformance pilot**, not a swarm flight. It compares equivalent recovery intentions on pinned PX4 and ArduPilot configurations, using bounded initial conditions and explicit failure stimuli.
+
+Before execution, close the remaining exact-gap/tooling review, verify a common interface, archive complete configured identities, and record a normal-operation trace. The [latest source review](docs/day3-source-review.md) recommends evaluating existing simulator integration before building another launcher.
+
+The [full protocol](docs/experiment-01-authority-loss.md) owns the provisional continuation, pivot, and indeterminate bands. Pilot data may inform the final design; separate confirmation must determine continuation. If individualized envelopes add little value, the conformance benchmark is the deliverable—not a forced fleet expansion.
+
+[First-experiment details](docs/START_HERE.md#first-experiment-decision) · [Gate-driven roadmap](ROADMAP.md) · [Research tasks](docs/TASKS.md)
+
+## Evidence and safety limits
+
+- No SITL apparatus, recovery traces, HITL measurements, flight tests, or validated separation results are included.
+- No brand-level safety ranking or proven advantage over a global envelope is claimed.
+- A valid metadata manifest does not authenticate measurements or prove a safe configuration.
+- Flight work requires a site-specific risk assessment, approved containment/geofencing, an independent kill path, a trained safety operator, and responsible-facility approval. RTL starts in simulation.
+- Implementation-sensitive public contributions remain subject to the [disclosure boundary](CONTRIBUTING.md#public-disclosure-boundary). Source access is not IP clearance.
+
+## Documentation routes
+
+| If you want to… | Start here |
+| --- | --- |
+| Understand the project in five minutes | [Reviewer guide](docs/START_HERE.md) |
+| Challenge the proposed contribution | [Current source review](docs/day3-source-review.md), then [prior-art boundary](docs/prior-art.md) |
+| Inspect the study design | [Research plan](docs/research-plan.md) and [Experiment 01](docs/experiment-01-authority-loss.md) |
+| Trace a claim to its evidence | [Claim ledger](docs/claim-ledger.md) and [review index](docs/REVIEW_READY.md) |
+| Understand dependencies and alternatives | [Dependency audit](docs/research-dependency-audit.md) and [decision log](docs/decision-log.md) |
 
 ## Contributing and license
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). Source and repository tooling are available under the [MIT License](LICENSE). Third-party papers and documentation remain under their original licenses.
+Reproduction reports, precise source corrections, and protocol critiques are welcome. Include the commit, command or source locator, expected behavior, and observed result. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a [pull request or issue](https://github.com/500ft/uav-failsafe-composition/issues).
+
+Repository software is [MIT licensed](LICENSE); third-party publications retain their original licenses. This is a research repository, not an operational flight-safety product.
+
+[Repository identity and presentation references](docs/REPOSITORY_IDENTITY.md)

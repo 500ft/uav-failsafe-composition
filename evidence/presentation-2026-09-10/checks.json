@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-10",
+  "old_repository": "UAV-Recovery-Contracts",
+  "repository": "500ft/uav-failsafe-composition",
+  "base_commit": "76b4e5a10f62a62b3c890bda2eeea582ae987378",
+  "branch": "docs/professional-presentation-20260910",
+  "runtime": "Python 3.11.8\nv22.21.0\ngit version 2.39.5 (Apple Git-154)\n",
+  "baseline_commands": [
+    "python scripts/acquisition_ledger.py --check",
+    "python -m unittest discover -s tests -q",
+    "python scripts/check_repo_contract.py"
+  ],
+  "baseline_start": {
+    "chunk_id": "12ace7",
+    "wall_time_seconds": 0.691287792,
+    "exit_code": 0,
+    "original_token_count": 76,
+    "output": "Acquisition ledger consistent; source provenance gaps remain explicit\nOutput must be a new directory; no network requests made.\n----------------------------------------------------------------------\nRan 21 tests in 0.329s\n\nOK\nRepository contract: PASS\nEvidence state: research design; no study results\n"
+  },
+  "baseline_completion": null,
+  "final_start": {
+    "chunk_id": "1649dc",
+    "wall_time_seconds": 0.653821834,
+    "exit_code": 0,
+    "original_token_count": 76,
+    "output": "Acquisition ledger consistent; source provenance gaps remain explicit\nOutput must be a new directory; no network requests made.\n----------------------------------------------------------------------\nRan 21 tests in 0.339s\n\nOK\nRepository contract: PASS\nEvidence state: research design; no study results\n"
+  },
+  "final_completion": null,
+  "presentation_gate": {
+    "chunk_id": "dd559e",
+    "wall_time_seconds": 0.057815916,
+    "exit_code": 0,
+    "original_token_count": 72,
+    "output": "{\n  \"repository\": \"uav-failsafe-composition\",\n  \"files_checked\": 5,\n  \"local_links_checked\": 81,\n  \"external_links_not_fetched\": 11,\n  \"issues\": [],\n  \"scientific_validation\": false\n}\n....\n----------------------------------------------------------------------\nRan 4 tests in 0.111s\n\nOK\n"
+  },
+  "preservation": {
+    "chunk_id": "8d01b1",
+    "wall_time_seconds": 0.000003,
+    "exit_code": 0,
+    "original_token_count": 22,
+    "output": "4\t0\t.github/workflows/ci.yml\n71\t93\tREADME.md\n76b4e5a10f62a62b3c890bda2eeea582ae987378\n"
+  },
+  "scope": "Repository identity and presentation; no new scientific results or physical tests.",
+  "hosted_checks": "Verify against the candidate commit on the presentation PR; not claimed by this local snapshot."
+}
