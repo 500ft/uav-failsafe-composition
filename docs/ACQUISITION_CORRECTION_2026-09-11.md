@@ -29,7 +29,7 @@ python scripts/acquisition_ledger.py --check
 python evidence/task-2026-09-09/rerun_search.py --audit evidence/task-2026-09-11-public/database-export.json
 ```
 
-Observed: 29 tests pass; repository contract passes; historical reconciliation is consistent; new export audit passes. The existing acquisition_ledger.py intentionally verifies the **historical day-3 ledger**; it does not claim to include this new export. Current acquisition evidence is the versioned native export linked above. Source/commands/raw response provenance are reviewable without network access.
+Observed final suite: 30 tests pass; repository contract passes; historical reconciliation is consistent; new export audit passes. The existing acquisition_ledger.py intentionally verifies the **historical day-3 ledger**; it does not claim to include this new export. Current acquisition evidence is the versioned native export linked above. Source/commands/raw response provenance are reviewable without network access.
 
 To make another acquisition, use `--out` with a **new, nonexistent directory**; existing output directories are rejected. Live APIs can return different rankings later; retained responses reproduce this run's audit, not future query output. Caps: Crossref 40, OpenAlex 50, arXiv 60 per recorded query, no pagination. Returned identifiers are not distinct studies or relevant-paper counts. Ranked candidates remain UNSCREENED.
 
