@@ -77,3 +77,18 @@ class SearchExportTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ProvenanceCleanAcquisitionTests(unittest.TestCase):
+    """The 2026-09-11 re-acquisition must keep every retained row traceable to its own run."""
+
+    EXPORT = SCRIPT.parent.parent / "task-2026-09-11" / "database-export.json"
+
+    def test_every_row_traces_to_a_successful_logged_query_in_the_same_run(self):
+        data = json.loads(self.EXPORT.read_text())
+        audit = search.audit_export(data)
+        self.assertEqual(audit["rows_without_successful_logged_query"], 0, audit["unlogged_row_ids"][:5])
+        self.assertTrue(audit["declared_identifier_count_matches"])
+        self.assertEqual([q["status"] for q in data["query_log"]], ["ok"] * len(data["query_log"]))
+        self.assertIsNone(data["recall"], "recall stays unavailable until the anchor register is reviewed")
+        self.assertTrue(all(h["screening_status"] == "UNSCREENED" for h in data["hits"]))

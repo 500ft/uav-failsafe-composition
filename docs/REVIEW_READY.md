@@ -1,5 +1,14 @@
 # 2026-09-09 — latest review correction
 
+## 2026-09-11 — URC-D04 provenance-clean re-acquisition
+
+The D02 provenance defect is corrected by one clean run of `rerun_search.py` from a
+non-throttled network: 317 identifier records, 16/16 query legs ok,
+**0** rows without a successful logged query (historical export: 90). Known D01 anchors
+present: 2 of 5 comparable — a bounded overlap, not recall. 22 candidates, all UNSCREENED.
+The 09-09 export and the day-3 acquisition ledger are unchanged; the new export is not merged into
+either. No novelty, patent or owner gate is closed. [Evidence](../evidence/task-2026-09-11/README.md).
+
 ## Day-3 preparation — 2026-09-09
 
 Six new ledger tests preserve both acquisition routes, unknown historical query mappings, zero-result versus positive query support, unscreened status despite raw flags, all raw rows and deterministic regeneration. 21 tests and repository contract pass. All 402 raw rows retained; 90 provenance holes remain. This is not full novelty closeout.
