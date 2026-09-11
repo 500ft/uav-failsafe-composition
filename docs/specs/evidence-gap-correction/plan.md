@@ -1,6 +1,6 @@
 # Evidence-gap correction
 
-Status: in-progress. Frozen before clean acquisition, 2026-09-11.
+Status: in-progress. Initial acquisition procedure committed before retrieval, 2026-09-11; explicit amendment below precedes the next run, not earlier results.
 
 Scope: repair observable acquisition provenance, execute a new bounded native
 export, preserve invalid historical exports and withdrawals, and report partial
@@ -21,7 +21,7 @@ database-export.json query_log. Do not add query legs based on new hits. Caps:
 Crossref 40, OpenAlex 50, arXiv 60; no pagination. arXiv all-token AND semantics,
 HTTPS transport; at most two attempts for 429, 8-second retry, 4-second inter-leg
 delay (other databases 1 second). Request timeout 30 seconds. OpenAlex without
-configured key is unavailable, not zero results. Retain request UTC, redacted
+configured key was initially marked unavailable by the script, not observed as zero results. Retain request UTC, redacted
 route, HTTP status, response bytes/hash and successful raw response text, plus
 query observed counts, all identifier routes and selected-abstract provenance.
 

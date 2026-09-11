@@ -14,6 +14,41 @@ spec.loader.exec_module(search)
 
 
 class SearchExportTests(unittest.TestCase):
+
+    def native_fixture(self):
+        body = json.dumps({"message": {"items": [{"DOI": "10.1234/example",
+            "title": ["synthetic"], "issued": {"date-parts": [[2026]]}}]}})
+        with patch.object(search, "get", return_value=body.encode()):
+            result = search.collect([("crossref", "synthetic")],
+                                    {"crossref": search.crossref}, sleep=lambda _: None)
+        result["query_log"][0]["requests"] = [{
+            "route": "https://api.crossref.org/works?query=synthetic&rows=40",
+            "started_utc": "2026-09-11T00:00:00Z",
+            "finished_utc": "2026-09-11T00:00:01Z", "http_status": 200,
+            "response_bytes": len(body.encode()), "raw_response": body,
+            "response_sha256": search.hashlib.sha256(body.encode()).hexdigest()}]
+        return result
+
+    def test_native_audit_requires_response_even_for_zero_results(self):
+        result = self.native_fixture()
+        self.assertEqual(search.audit_export(result).get("missing_request_provenance", 0), 0)
+        result["query_log"][0]["requests"] = []
+        self.assertGreater(search.audit_export(result).get("missing_request_provenance", 0), 0)
+        result["hits"] = []
+        result["n_unique"] = 0
+        result["query_log"][0]["n"] = 0
+        self.assertGreater(search.audit_export(result).get("missing_request_provenance", 0), 0)
+
+    def test_native_audit_rejects_invented_identifier_despite_valid_query(self):
+        result = self.native_fixture()
+        self.assertEqual(search.audit_export(result).get("response_record_mismatches", 0), 0)
+        result["hits"][0]["id"] = "doi:10.1234/not-in-response"
+        self.assertGreater(search.audit_export(result).get("response_record_mismatches", 0), 0)
+
+    def test_missing_rank_does_not_skip_count_validation(self):
+        result = self.native_fixture()
+        del result["hits"][0]["provenance"][0]["rank"]
+        self.assertGreater(search.audit_export(result)["query_count_mismatches"], 0)
     def test_arxiv_error_feed_is_not_a_paper(self):
         body = b'<feed xmlns="http://www.w3.org/2005/Atom"><entry><id>http://arxiv.org/api/errors#incorrect_id_format</id><title>Error</title><published>2026-09-11</published><summary>Invalid query</summary></entry></feed>'
         with patch.object(search, "get", return_value=body):
@@ -60,10 +95,17 @@ class SearchExportTests(unittest.TestCase):
         self.assertEqual(search.canonical_id("https://doi.org/10.2322/TJSASS.60.1"),
                          "doi:10.2322/tjsass.60.1")
 
-    def test_missing_openalex_key_is_not_successful_empty_search(self):
-        with patch.dict(search.os.environ, {}, clear=True):
-            with self.assertRaises(search.SearchUnavailable):
-                list(search.openalex("synthetic"))
+    def test_openalex_without_key_attempts_public_route(self):
+        with patch.dict(search.os.environ, {}, clear=True), patch.object(search, "get", return_value=b'{"results": []}') as get:
+            self.assertEqual(list(search.openalex("synthetic")), [])
+            self.assertNotIn("api_key=", get.call_args.args[0])
+
+    def test_openalex_service_rejection_is_not_a_zero_result(self):
+        error = search.urllib.error.HTTPError("https://example.test", 401, "unauthorized", {}, None)
+        with patch.dict(search.os.environ, {}, clear=True), patch.object(search, "get", side_effect=error):
+            result = search.collect([("openalex", "synthetic")], {"openalex": search.openalex}, sleep=lambda _: None)
+        self.assertEqual(result["query_log"][0]["status"], "error")
+        self.assertIsNone(result["query_log"][0]["n"])
 
     def test_all_observed_queries_survive_deduplication(self):
         def fetch(query):

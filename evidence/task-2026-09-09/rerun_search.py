@@ -89,8 +89,8 @@ def crossref(q):
         yield dict(db="crossref", id=f"doi:{it['DOI'].lower()}", title=" ".join((it.get("title") or [""])[0].split()), year=str(y or ""), url=f"https://doi.org/{it['DOI']}", type=it.get("type"), venue=(it.get("container-title") or [""])[0], abstract=re.sub(r"<[^>]+>", "", it.get("abstract", ""))[:1500])
 def openalex(q):
     key = os.environ.get("OPENALEX_API_KEY")
-    if not key: raise SearchUnavailable("OPENALEX_API_KEY is not set")
-    for w in json.loads(get(f"https://api.openalex.org/works?search={urllib.parse.quote(q)}&per-page=50&select=id,doi,title,publication_year,type,primary_location&api_key={key}"))["results"]:
+    credential = "&api_key=" + urllib.parse.quote(key, safe="") if key else ""
+    for w in json.loads(get(f"https://api.openalex.org/works?search={urllib.parse.quote(q)}&per-page=50&select=id,doi,title,publication_year,type,primary_location{credential}"))["results"]:
         doi = (w.get("doi") or "").replace("https://doi.org/", "").lower()
         yield dict(db="openalex", id=f"doi:{doi}" if doi else w["id"], title=w.get("title") or "", year=str(w.get("publication_year") or ""), url=w.get("doi") or w["id"], type=w.get("type"), venue=((w.get("primary_location") or {}).get("source") or {}).get("display_name", ""), abstract="")
 def score(h):
@@ -117,6 +117,64 @@ def query_plan():
     return [(row["db"], row["query"]) for row in original["query_log"]]
 
 
+
+def native_response_ids(database, body):
+    """Decode the retained native response offline; no new retrieval or screening."""
+    if database == "crossref":
+        return [canonical_id("doi:" + row["DOI"])
+                for row in json.loads(body)["message"]["items"]]
+    if database == "openalex":
+        return [canonical_id(row.get("doi") or row["id"])
+                for row in json.loads(body)["results"]]
+    if database == "arxiv":
+        root = ET.fromstring(body)
+        identifiers = [row.find("{http://www.w3.org/2005/Atom}id").text
+                      for row in root.findall("{http://www.w3.org/2005/Atom}entry")]
+        if any("/api/errors" in value for value in identifiers):
+            raise ValueError("API error feed is not a result")
+        return [canonical_id(value) for value in identifiers]
+    raise ValueError("Unsupported native database")
+
+
+def response_evidence(data):
+    missing, mismatches, expected = 0, 0, {}
+    for query in data["query_log"]:
+        if query["status"] != "ok":
+            continue
+        attempts = query.get("requests") or []
+        good = [a for a in attempts if type(a.get("http_status")) is int
+                and 200 <= a["http_status"] < 300 and isinstance(a.get("raw_response"), str)]
+        if not good:
+            missing += 1
+            continue
+        response = good[-1]
+        body = response["raw_response"]
+        required = ("route", "started_utc", "finished_utc", "response_sha256")
+        if (any(not isinstance(response.get(k), str) or not response[k] for k in required)
+                or response.get("response_bytes") != len(body.encode("utf-8"))
+                or response.get("response_sha256") != hashlib.sha256(body.encode("utf-8")).hexdigest()):
+            missing += 1
+            continue
+        try:
+            source_ids = native_response_ids(query["db"], body)
+        except (ValueError, KeyError, TypeError, AttributeError, ET.ParseError):
+            missing += 1
+            continue
+        expected[(query["db"], query["query"])] = source_ids
+        mismatches += type(query.get("n")) is not int or query["n"] != len(source_ids)
+    for row in data["hits"]:
+        for provenance in row.get("provenance", []):
+            source_ids = expected.get((provenance["db"], provenance["query"]))
+            rank = provenance.get("rank")
+            if source_ids is None:
+                continue
+            if type(rank) is not int or not 1 <= rank <= len(source_ids):
+                mismatches += 1
+            elif (canonical_id(row["id"]) != source_ids[rank - 1]
+                  or canonical_id(provenance.get("source_id", row["id"])) != source_ids[rank - 1]):
+                mismatches += 1
+    return missing, mismatches
+
 def audit_export(data):
     hits = data["hits"]
     ids = {canonical_id(h["id"]) for h in hits}
@@ -131,13 +189,22 @@ def audit_export(data):
             ranks.setdefault(pair, []).append(p.get("rank"))
         if not any((p["db"], p["query"]) in successful for p in provenance):
             missing.append(h["id"])
-    mismatches = sum(sorted(ranks.get((q["db"], q["query"]), [])) != list(range(1, q["n"] + 1))
-        for q in data["query_log"] if q["status"] == "ok" and isinstance(q.get("n"), int)
-        and all(r is not None for r in ranks.get((q["db"], q["query"]), [])))
+    mismatches = 0
+    for q in data["query_log"]:
+        if q["status"] != "ok":
+            continue
+        observed_ranks = ranks.get((q["db"], q["query"]), [])
+        if type(q.get("n")) is not int or q["n"] < 0 or any(type(r) is not int for r in observed_ranks):
+            mismatches += 1
+        elif sorted(observed_ranks) != list(range(1, q["n"] + 1)):
+            mismatches += 1
+    missing_requests, response_mismatches = response_evidence(data)
     bad_hashes = sum(hashlib.sha256(a["raw_response"].encode()).hexdigest() != a["response_sha256"]
         for q in data["query_log"] for a in q.get("requests", []) if "raw_response" in a)
     return {
         "unsupported_provenance_routes": unsupported,
+        "missing_request_provenance": missing_requests,
+        "response_record_mismatches": response_mismatches,
         "query_count_mismatches": mismatches,
         "response_hash_mismatches": bad_hashes,
         "count_unit": "normalized identifier records; not distinct studies",
@@ -149,7 +216,7 @@ def audit_export(data):
         "known_anchor_matches": sorted(ids & set(D01_ANCHORS)),
         "anchor_set_complete": False,
         "recall": None,
-        "recall_reason": "Incomplete eligible anchor register and query provenance; no recall estimate.",
+        "recall_reason": "Incomplete eligible anchor register; overlap is not recall. Query-route completeness is reported separately.",
     }
 
 
@@ -191,7 +258,7 @@ def collect(plan, fetchers, sleep=time.sleep):
         row["screening_status"] = "UNSCREENED"
         row["triage_score"], row["triage_terms"] = score(row)
     return {
-        "protocol_version": "2026-09-11-clean-1",
+        "protocol_version": "2026-09-11-clean-2",
         "protocol_note": "New bounded acquisition, not an exact replay of the historical export.",
         "request_limits": {"crossref": 40, "openalex": 50, "arxiv": 60},
         "retrieved_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -240,6 +307,8 @@ def main(argv=None):
                    or audit["unsupported_provenance_routes"] > 0
                    or audit["query_count_mismatches"] > 0
                    or audit["response_hash_mismatches"] > 0
+                   or audit["missing_request_provenance"] > 0
+                   or audit["response_record_mismatches"] > 0
                    or not audit["declared_identifier_count_matches"])
     try:
         args.out.mkdir(parents=True, exist_ok=False)
