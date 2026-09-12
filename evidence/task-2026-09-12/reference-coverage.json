@@ -1,0 +1,204 @@
+{
+ "register_version": "2026-09-12-r1",
+ "summary": {
+  "d01_sources": 12,
+  "eligible": 6,
+  "not_eligible": 6,
+  "recall": {
+   "day2_historical": {
+    "recovered": 2,
+    "of_eligible": 6,
+    "recovered_ids": [
+     "U2",
+     "U4"
+    ],
+    "missed_ids": [
+     "U1",
+     "U5",
+     "U10",
+     "U11"
+    ],
+    "export_retrieved_utc": "2026-09-09T02:28:22Z"
+   },
+   "day4_public": {
+    "recovered": 3,
+    "of_eligible": 6,
+    "recovered_ids": [
+     "U2",
+     "U4",
+     "U5"
+    ],
+    "missed_ids": [
+     "U1",
+     "U10",
+     "U11"
+    ],
+    "export_retrieved_utc": "2026-09-11T21:25:39Z"
+   }
+  },
+  "previously_reported": {
+   "day2_historical": "0 of 6 (arXiv-id anchors only; NDSS and ACM DOIs not in the anchor set)",
+   "day4_public": "2 of 5 (same anchor set; PGFuzz DOI present but uncredited)"
+  },
+  "not_eligible_ids": [
+   "U3",
+   "U6",
+   "U7",
+   "U8",
+   "U9",
+   "U12"
+  ]
+ },
+ "rows": [
+  {
+   "source_id": "U1",
+   "title": "Avis, 2021 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint; NOT indexed in OpenAlex by DOI (checked 2026-09-12), so only the arXiv leg could return it",
+   "aliases": [
+    "arxiv:2106.14959",
+    "doi:10.48550/arxiv.2106.14959"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": false
+   }
+  },
+  {
+   "source_id": "U2",
+   "title": "PGFuzz, NDSS 2021",
+   "eligible": true,
+   "eligibility_reason": "eligible: Crossref-registered DOI (resolved 2026-09-12 by bibliographic query)",
+   "aliases": [
+    "doi:10.14722/ndss.2021.24096"
+   ],
+   "present": {
+    "day2_historical": true,
+    "day4_public": true
+   }
+  },
+  {
+   "source_id": "U3",
+   "title": "PGFuzz code",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: software repository; no scholarly identifier; no database queried indexes it",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U4",
+   "title": "RouthSearch, 2025 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint with a publisher DOI; NOT indexed in OpenAlex under the arXiv DOI (checked 2026-09-12)",
+   "aliases": [
+    "arxiv:2505.02357",
+    "doi:10.1145/3728904",
+    "doi:10.48550/arxiv.2505.02357"
+   ],
+   "present": {
+    "day2_historical": true,
+    "day4_public": true
+   }
+  },
+  {
+   "source_id": "U5",
+   "title": "aerial-autonomy-stack, 2026 v2",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "aliases": [
+    "arxiv:2602.07264",
+    "doi:10.48550/arxiv.2602.07264"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": true
+   }
+  },
+  {
+   "source_id": "U6",
+   "title": "PX4 failsafe simulator",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation; not indexed by any scholarly database",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U7",
+   "title": "PX4 Offboard",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U8",
+   "title": "ArduPilot GCS failsafe",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U9",
+   "title": "ArduPilot Guided commands",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U10",
+   "title": "Plan-and-Avoid, 2026 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "aliases": [
+    "arxiv:2608.06648",
+    "doi:10.48550/arxiv.2608.06648"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": false
+   }
+  },
+  {
+   "source_id": "U11",
+   "title": "Fail-operational swarm architecture, 2026 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "aliases": [
+    "arxiv:2608.20906",
+    "doi:10.48550/arxiv.2608.20906"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": false
+   }
+  },
+  {
+   "source_id": "U12",
+   "title": "EP3662460B1",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: patent; no patent database was queried by either export",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  }
+ ]
+}
