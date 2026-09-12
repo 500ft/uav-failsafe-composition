@@ -1,0 +1,291 @@
+{
+  "protocol_version": "2026-09-11-clean-1",
+  "protocol_note": "New bounded acquisition, not an exact replay of the historical export.",
+  "request_limits": {
+    "crossref": 40,
+    "openalex": 50,
+    "arxiv": 60
+  },
+  "retrieved_utc": "2026-09-11T15:19:31Z",
+  "query_log": [
+    {
+      "db": "crossref",
+      "query": "PX4 ArduPilot failsafe differential testing",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:18:56Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://api.crossref.org/works?query=PX4+ArduPilot+failsafe+differential+testing&rows=40&select=DOI%2Ctitle%2Cissued%2Cabstract%2Ctype%2Ccontainer-title",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:18:56Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:18:56Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:18:56Z"
+    },
+    {
+      "db": "openalex",
+      "query": "PX4 ArduPilot failsafe differential testing",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:18:57Z",
+      "status": "unavailable",
+      "reason": "missing required service credential",
+      "requests": [],
+      "finished_utc": "2026-09-11T15:18:57Z"
+    },
+    {
+      "db": "crossref",
+      "query": "PX4 ArduPilot recovery benchmark",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:18:58Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://api.crossref.org/works?query=PX4+ArduPilot+recovery+benchmark&rows=40&select=DOI%2Ctitle%2Cissued%2Cabstract%2Ctype%2Ccontainer-title",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:18:58Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:18:58Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:18:58Z"
+    },
+    {
+      "db": "openalex",
+      "query": "PX4 ArduPilot recovery benchmark",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:18:59Z",
+      "status": "unavailable",
+      "reason": "missing required service credential",
+      "requests": [],
+      "finished_utc": "2026-09-11T15:18:59Z"
+    },
+    {
+      "db": "crossref",
+      "query": "UAV autopilot failsafe configuration testing fuzzing",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:00Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://api.crossref.org/works?query=UAV+autopilot+failsafe+configuration+testing+fuzzing&rows=40&select=DOI%2Ctitle%2Cissued%2Cabstract%2Ctype%2Ccontainer-title",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:00Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:00Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:00Z"
+    },
+    {
+      "db": "openalex",
+      "query": "UAV autopilot failsafe configuration testing fuzzing",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:01Z",
+      "status": "unavailable",
+      "reason": "missing required service credential",
+      "requests": [],
+      "finished_utc": "2026-09-11T15:19:01Z"
+    },
+    {
+      "db": "crossref",
+      "query": "UAV communication loss contingency recovery contract",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:02Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://api.crossref.org/works?query=UAV+communication+loss+contingency+recovery+contract&rows=40&select=DOI%2Ctitle%2Cissued%2Cabstract%2Ctype%2Ccontainer-title",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:02Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:02Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:02Z"
+    },
+    {
+      "db": "openalex",
+      "query": "UAV communication loss contingency recovery contract",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:03Z",
+      "status": "unavailable",
+      "reason": "missing required service credential",
+      "requests": [],
+      "finished_utc": "2026-09-11T15:19:03Z"
+    },
+    {
+      "db": "crossref",
+      "query": "multicopter failsafe behaviour conformance testing simulation",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:04Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://api.crossref.org/works?query=multicopter+failsafe+behaviour+conformance+testing+simulation&rows=40&select=DOI%2Ctitle%2Cissued%2Cabstract%2Ctype%2Ccontainer-title",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:04Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:04Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:04Z"
+    },
+    {
+      "db": "openalex",
+      "query": "multicopter failsafe behaviour conformance testing simulation",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:05Z",
+      "status": "unavailable",
+      "reason": "missing required service credential",
+      "requests": [],
+      "finished_utc": "2026-09-11T15:19:05Z"
+    },
+    {
+      "db": "arxiv",
+      "query": "PX4 ArduPilot failsafe",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:06Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://export.arxiv.org/api/query?search_query=all%3APX4+AND+all%3AArduPilot+AND+all%3Afailsafe&max_results=60",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:06Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:07Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:07Z"
+    },
+    {
+      "db": "arxiv",
+      "query": "PX4 ArduPilot testing",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:11Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://export.arxiv.org/api/query?search_query=all%3APX4+AND+all%3AArduPilot+AND+all%3Atesting&max_results=60",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:11Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:11Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:11Z"
+    },
+    {
+      "db": "arxiv",
+      "query": "ArduPilot fuzzing",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:15Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://export.arxiv.org/api/query?search_query=all%3AArduPilot+AND+all%3Afuzzing&max_results=60",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:15Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:15Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:15Z"
+    },
+    {
+      "db": "arxiv",
+      "query": "UAV failsafe recovery contingency",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:19Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://export.arxiv.org/api/query?search_query=all%3AUAV+AND+all%3Afailsafe+AND+all%3Arecovery+AND+all%3Acontingency&max_results=60",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:19Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:19Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:19Z"
+    },
+    {
+      "db": "arxiv",
+      "query": "multicopter autopilot conformance testing simulation",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:23Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://export.arxiv.org/api/query?search_query=all%3Amulticopter+AND+all%3Aautopilot+AND+all%3Aconformance+AND+all%3Atesting+AND+all%3Asimulation&max_results=60",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:23Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:23Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:23Z"
+    },
+    {
+      "db": "arxiv",
+      "query": "UAV communication loss contingency recovery",
+      "n": null,
+      "n_observed": 0,
+      "started_utc": "2026-09-11T15:19:27Z",
+      "status": "error",
+      "error_type": "URLError",
+      "http_status": null,
+      "requests": [
+        {
+          "route": "https://export.arxiv.org/api/query?search_query=all%3AUAV+AND+all%3Acommunication+AND+all%3Aloss+AND+all%3Acontingency+AND+all%3Arecovery&max_results=60",
+          "attempt": 1,
+          "started_utc": "2026-09-11T15:19:27Z",
+          "error_type": "URLError",
+          "finished_utc": "2026-09-11T15:19:27Z"
+        }
+      ],
+      "finished_utc": "2026-09-11T15:19:27Z"
+    }
+  ],
+  "n_unique": 0,
+  "count_unit": "normalized identifier records; not distinct studies",
+  "recall": null,
+  "hits": []
+}

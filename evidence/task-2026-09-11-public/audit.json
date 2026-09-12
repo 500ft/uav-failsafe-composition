@@ -1,0 +1,20 @@
+{
+  "unsupported_provenance_routes": 0,
+  "missing_request_provenance": 0,
+  "response_record_mismatches": 0,
+  "query_count_mismatches": 0,
+  "response_hash_mismatches": 0,
+  "count_unit": "normalized identifier records; not distinct studies",
+  "record_count": 317,
+  "normalized_identifier_count": 317,
+  "declared_identifier_count_matches": true,
+  "rows_without_successful_logged_query": 0,
+  "unlogged_row_ids": [],
+  "known_anchor_matches": [
+    "arxiv:2505.02357",
+    "arxiv:2602.07264"
+  ],
+  "anchor_set_complete": false,
+  "recall": null,
+  "recall_reason": "Incomplete eligible anchor register; overlap is not recall. Query-route completeness is reported separately."
+}
