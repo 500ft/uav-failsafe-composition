@@ -62,3 +62,19 @@ command-return phase against a calibrated coverage measure.
   and Crossref instead, and the arXiv HTML pages were fetched directly. Avis (U1) is not indexed
   in OpenAlex, so no database leg could have recovered it.
 - The historical export's unlogged rows remain rejected; URC-D02 stays as the day-4 review left it.
+
+
+## Review repair (URC-R02b, same day) — one provenance-bound record, axes tied to inspection
+
+**Provenance.** Coverage now credits an export only for hits traceable to a logged successful query. The 2026-09-09 export has 90 of 402 rows with no such line (all arXiv, from the throttled re-run); they are excluded from credit and the export is marked **rejected** and retained. The 2026-09-11 public export is provenance-clean (317/317) and is the **canonical** record. Recall is unchanged by the exclusion — none of the anchor hits was among the untraceable rows — but the number is now bound to what the export can show it searched. `URC-D02` is closed against this record; no successor task was created.
+
+**Novelty axes, by inspection status.** `narrowed_by_disclosure` = an inspected source discloses the axis; `supported_bounded` = no inspected source discloses it, with the unresolved sources named; nothing is "supported" by an abstract.
+
+| axis | status | disclosed by | not found in inspected sections of | unresolved for |
+|---|---|---|---|---|
+| `equivalent_intent` | **narrowed_by_disclosure** | U6, U11 | U1, U5, U7, U12, U2, U4, U9, U10 | U3 |
+| `reconnection` | **narrowed_by_disclosure** | U8, U12 | U1, U5, U7, U2, U4, U6, U9, U10, U11 | U3 |
+| `coverage` | **supported_bounded** | — | U1, U5, U12, U2, U4, U6, U9, U10, U11 | U3 |
+| `liveness_vs_setpoint_injection` | **narrowed_by_disclosure** | U9 | U2, U4, U6, U10, U11 | U3 |
+
+What this measures: overlap with a small known-reference set and disclosure in the sections inspected. It is not exhaustive literature recall and not established novelty.

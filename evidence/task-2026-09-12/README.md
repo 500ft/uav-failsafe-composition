@@ -23,3 +23,8 @@ Both earlier recall figures undercounted: anchors were arXiv-only, so PGFuzz (ND
 
 ## Not done
 No source screened beyond the day-1 set; ADGFuzz, UAVConfigFuzzer, PGPatch surfaced by Crossref are UNSCREENED. No novelty, patent or owner gate closed. arXiv API returned 429 all day; not used. github.com (U3) not re-read.
+
+## Review repair (URC-R02b, same day)
+- `scripts/reference_coverage.py` is provenance-bound: hits without a logged successful query are excluded from credit and enumerated; canonical export = `day4_public`, rejected = `['day2_historical']`. Recall unchanged (no anchor was untraceable); the record now says what it can show.
+- Novelty-axis table generated from the reading records: each axis is `narrowed_by_disclosure` / `supported_bounded` / `unresolved`, with the sources in each state named. Abstract-only and inaccessible sources never count as support.
+- `URC-D02` reconciled and closed against this single record; no successor row.
