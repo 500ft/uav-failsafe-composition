@@ -18,7 +18,7 @@ script fixes both and is the number the docs must cite.
 usage: python scripts/reference_coverage.py            # print + write evidence JSON
        python scripts/reference_coverage.py --check    # exit 1 if committed JSON is stale
 """
-import argparse, json, sys
+import argparse, hashlib, json, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REGISTER = ROOT / "docs/source-eligibility-register.json"
@@ -34,12 +34,25 @@ def aliases(ids):
         out.add(f"doi:{d}".lower())
     return out
 
+def _native_audit(path, export):
+    """Reuse the export's own native-response audit (rerun_search.audit_export): every hit must be
+    present in a logged raw response whose hash matches, on a logged successful query. This is the
+    stronger check the review asked coverage to bind to; provenance_clean means it passed."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("rerun_search", ROOT / "evidence/task-2026-09-09/rerun_search.py")
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    a = mod.audit_export(export)
+    keys = ("unsupported_provenance_routes", "missing_request_provenance", "response_record_mismatches", "query_count_mismatches", "response_hash_mismatches", "rows_without_successful_logged_query")
+    failures = {k: a.get(k) for k in keys if a.get(k)}
+    return dict(native_audit={k: a.get(k) for k in keys}, native_audit_passed=(not failures), failures=failures)
+
+
 def export_ids(path):
     """Identifier aliases of every hit in an export that is TRACEABLE to a logged successful query.
     Hits whose (db, query) has no status=ok log line are excluded from credit and enumerated,
     so coverage is provenance-bound: an export can only be credited for what it can show it
     searched. Returns (ids, retrieved_utc, provenance)."""
-    d = json.loads(path.read_text())
+    raw = path.read_bytes(); d = json.loads(raw)
     ok = {(l.get("db"), l.get("query")) for l in d.get("query_log", []) if l.get("status") == "ok"}
     ids, untraceable = set(), []
     for h in d["hits"]:
@@ -49,40 +62,39 @@ def export_ids(path):
         ids.add(str(h["id"]).lower())
         for k in ("doi", "arxiv"):
             if h.get(k): ids.add(f"{k}:{str(h[k]).lower()}")
+    na = _native_audit(path, d)
+    clean = (len(untraceable) == 0) and na["native_audit_passed"]
+    if not clean:
+        ids = set()      # an export that fails the native audit is credited for NOTHING
     prov = dict(hits=len(d["hits"]), traceable=len(d["hits"]) - len(untraceable), untraceable=len(untraceable),
-                untraceable_ids_sample=sorted(untraceable)[:10], provenance_clean=(len(untraceable) == 0))
+                untraceable_ids_sample=sorted(untraceable)[:10], export_sha256=hashlib.sha256(raw).hexdigest(),
+                provenance_clean=clean, **na)
     return ids, d.get("retrieved_utc"), prov
 
 
-INSPECTED_ACCESS = ("full_text", "official_documentation", "official_page", "patent_claims")
-UNRESOLVED_VALUES = ("inaccessible", "unresolved", "see ", "unknown", "pending", "abstract_only")
+ASSESSMENT_STATES = {"disclosed_or_addressed", "not_found_in_inspected", "not_applicable", "unresolved"}
 
 
 def novelty_axes():
-    """Per novelty axis, per source, three exclusive statuses tied to the record's access and locator:
-      inspected_disclosed   -- inspected sections DISCLOSE the axis; the axis does not stand against this source
-      inspected_not_found   -- inspected sections do not establish the axis (bounded to the sections named in locator)
-      unresolved            -- abstract-only, inaccessible, not re-inspected, or a value that defers to another record
-    An axis is 'supported' only if no inspected source discloses it AND at least one source was inspected for it;
-    every unresolved source is listed so the support is visibly bounded."""
+    """Per axis, per source, the record's EXPLICIT reviewed assessment (axis_states). Anything blank,
+    missing, or outside ASSESSMENT_STATES is unresolved; so is any assessment without a locator.
+    An axis is supported_bounded only if no source discloses it AND at least one inspected source
+    records not_found_in_inspected for it."""
     recs = json.loads((ROOT / "docs/day3-reading-records.json").read_text())
     table = {}
     for r in recs:
-        inspected = str(r.get("access", "")).startswith(INSPECTED_ACCESS)
-        for ax, val in (r.get("axes") or {}).items():
-            v = str(val); vl = v.lower()
-            if not inspected or vl.startswith(UNRESOLVED_VALUES):
-                status = "unresolved"
-            elif vl.startswith(("disclosed", "documented", "discussed", "supports", "contract-form", "heartbeat", "partial", "mode-specific", "policy-violation", "profile_run", "measured", "instrument", "cfd", "fixed", "integral", "must_distinguish", "none")):
-                status = "inspected_disclosed" if vl.startswith(("disclosed", "documented", "discussed", "partial", "contract-form")) else "inspected_not_found"
-            else:
-                status = "inspected_not_found"
-            table.setdefault(ax, []).append(dict(source_id=r["source_id"], status=status, value=v[:160], access=r.get("access"), locator=str(r.get("locator", ""))[:160]))
+        states = r.get("axis_states") or {}
+        axes = set(states) | set(r.get("axes") or {})
+        for ax in axes:
+            st = states.get(ax)
+            if st not in ASSESSMENT_STATES or (st != "unresolved" and not str(r.get("locator", "")).strip()):
+                st = "unresolved"
+            table.setdefault(ax, []).append(dict(source_id=r["source_id"], state=st, access=r.get("access"), locator=str(r.get("locator", ""))[:160]))
     summary = {}
     for ax, xs in table.items():
-        disc = [x["source_id"] for x in xs if x["status"] == "inspected_disclosed"]
-        nf = [x["source_id"] for x in xs if x["status"] == "inspected_not_found"]
-        un = [x["source_id"] for x in xs if x["status"] == "unresolved"]
+        disc = [x["source_id"] for x in xs if x["state"] == "disclosed_or_addressed"]
+        nf = [x["source_id"] for x in xs if x["state"] == "not_found_in_inspected"]
+        un = [x["source_id"] for x in xs if x["state"] == "unresolved"]
         summary[ax] = dict(axis_status=("narrowed_by_disclosure" if disc else ("supported_bounded" if nf else "unresolved")),
                            disclosed_by=disc, not_found_in_inspected=nf, unresolved_for=un)
     return dict(summary=summary, detail=table)

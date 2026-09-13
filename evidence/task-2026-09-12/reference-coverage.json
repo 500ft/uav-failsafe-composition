@@ -6,14 +6,13 @@
   "not_eligible": 6,
   "recall": {
    "day2_historical": {
-    "recovered": 2,
+    "recovered": 0,
     "of_eligible": 6,
-    "recovered_ids": [
-     "U2",
-     "U4"
-    ],
+    "recovered_ids": [],
     "missed_ids": [
      "U1",
+     "U2",
+     "U4",
      "U5",
      "U10",
      "U11"
@@ -35,7 +34,23 @@
       "arxiv:1003.3775",
       "arxiv:1003.3784"
      ],
-     "provenance_clean": false
+     "export_sha256": "2c0223cfa638cab8ef755e1e368e3b550ce1cd64460b38b37c8d0da8f7700d54",
+     "provenance_clean": false,
+     "native_audit": {
+      "unsupported_provenance_routes": 90,
+      "missing_request_provenance": 11,
+      "response_record_mismatches": 0,
+      "query_count_mismatches": 10,
+      "response_hash_mismatches": 0,
+      "rows_without_successful_logged_query": 90
+     },
+     "native_audit_passed": false,
+     "failures": {
+      "unsupported_provenance_routes": 90,
+      "missing_request_provenance": 11,
+      "query_count_mismatches": 10,
+      "rows_without_successful_logged_query": 90
+     }
     }
    },
    "day4_public": {
@@ -57,7 +72,18 @@
      "traceable": 317,
      "untraceable": 0,
      "untraceable_ids_sample": [],
-     "provenance_clean": true
+     "export_sha256": "b523635bdc5bd08d9a41d017e9a782f184a5efa8d13e49ed3ca33cfae861775d",
+     "provenance_clean": true,
+     "native_audit": {
+      "unsupported_provenance_routes": 0,
+      "missing_request_provenance": 0,
+      "response_record_mismatches": 0,
+      "query_count_mismatches": 0,
+      "response_hash_mismatches": 0,
+      "rows_without_successful_logged_query": 0
+     },
+     "native_audit_passed": true,
+     "failures": {}
     }
    }
   },
@@ -69,18 +95,34 @@
    "equivalent_intent": {
     "axis_status": "narrowed_by_disclosure",
     "disclosed_by": [
+     "U7",
      "U6",
      "U11"
     ],
     "not_found_in_inspected": [
      "U1",
      "U5",
-     "U7",
      "U12",
      "U2",
+     "U9"
+    ],
+    "unresolved_for": [
+     "U3"
+    ]
+   },
+   "coverage": {
+    "axis_status": "narrowed_by_disclosure",
+    "disclosed_by": [
+     "U1",
+     "U2",
      "U4",
-     "U9",
-     "U10"
+     "U6",
+     "U9"
+    ],
+    "not_found_in_inspected": [
+     "U5",
+     "U12",
+     "U11"
     ],
     "unresolved_for": [
      "U3"
@@ -100,25 +142,6 @@
      "U4",
      "U6",
      "U9",
-     "U10",
-     "U11"
-    ],
-    "unresolved_for": [
-     "U3"
-    ]
-   },
-   "coverage": {
-    "axis_status": "supported_bounded",
-    "disclosed_by": [],
-    "not_found_in_inspected": [
-     "U1",
-     "U5",
-     "U12",
-     "U2",
-     "U4",
-     "U6",
-     "U9",
-     "U10",
      "U11"
     ],
     "unresolved_for": [
@@ -128,14 +151,13 @@
    "liveness_vs_setpoint_injection": {
     "axis_status": "narrowed_by_disclosure",
     "disclosed_by": [
-     "U9"
+     "U9",
+     "U11"
     ],
     "not_found_in_inspected": [
      "U2",
      "U4",
-     "U6",
-     "U10",
-     "U11"
+     "U6"
     ],
     "unresolved_for": [
      "U3"
@@ -179,7 +201,7 @@
     "doi:10.14722/ndss.2021.24096"
    ],
    "present": {
-    "day2_historical": true,
+    "day2_historical": false,
     "day4_public": true
    }
   },
@@ -205,7 +227,7 @@
     "doi:10.48550/arxiv.2505.02357"
    ],
    "present": {
-    "day2_historical": true,
+    "day2_historical": false,
     "day4_public": true
    }
   },
@@ -311,164 +333,67 @@
   "equivalent_intent": [
    {
     "source_id": "U1",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
+    "state": "not_found_in_inspected",
     "access": "full_text_sections",
     "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
    },
    {
     "source_id": "U5",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
+    "state": "not_found_in_inspected",
     "access": "full_text_sections",
     "locator": "Sections III and IV-A1/2/3"
    },
    {
     "source_id": "U7",
-    "status": "inspected_not_found",
-    "value": "must_distinguish_liveness_and_setpoints",
+    "state": "disclosed_or_addressed",
     "access": "official_documentation",
     "locator": "Description; ROS 2 Offboard Control"
    },
    {
     "source_id": "U12",
-    "status": "inspected_not_found",
-    "value": "not_established_by_these_claims",
+    "state": "not_found_in_inspected",
     "access": "patent_claims",
     "locator": "Claims 1\u20133"
    },
    {
     "source_id": "U2",
-    "status": "inspected_not_found",
-    "value": "not_established: policies are autopilot-specific propositions, not cross-configuration intent equivalence",
+    "state": "not_found_in_inspected",
     "access": "full_text_pdf",
     "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
    },
    {
     "source_id": "U4",
-    "status": "inspected_not_found",
-    "value": "not_applicable: PID specification inference",
+    "state": "not_applicable",
     "access": "full_text_html",
     "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
    },
    {
     "source_id": "U6",
-    "status": "inspected_disclosed",
-    "value": "partial: makes the per-configuration action explicit, which is the input to an intent-equivalence check, not the check itself",
+    "state": "disclosed_or_addressed",
     "access": "official_documentation",
     "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
    },
    {
     "source_id": "U9",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
+    "state": "not_found_in_inspected",
     "access": "official_documentation",
     "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
    },
    {
     "source_id": "U10",
-    "status": "inspected_not_found",
-    "value": "not_applicable",
+    "state": "not_applicable",
     "access": "full_text_html",
     "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
    },
    {
     "source_id": "U11",
-    "status": "inspected_disclosed",
-    "value": "contract-form recovery intention stated for ONE architecture; cross-configuration equivalence not addressed",
+    "state": "disclosed_or_addressed",
     "access": "full_text_html",
     "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
    },
    {
     "source_id": "U3",
-    "status": "unresolved",
-    "value": "see U2",
-    "access": "not_reinspected",
-    "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
-   }
-  ],
-  "reconnection": [
-   {
-    "source_id": "U1",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
-    "access": "full_text_sections",
-    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
-   },
-   {
-    "source_id": "U5",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
-    "access": "full_text_sections",
-    "locator": "Sections III and IV-A1/2/3"
-   },
-   {
-    "source_id": "U7",
-    "status": "inspected_not_found",
-    "value": "not_documented_on_page",
-    "access": "official_documentation",
-    "locator": "Description; ROS 2 Offboard Control"
-   },
-   {
-    "source_id": "U8",
-    "status": "inspected_disclosed",
-    "value": "documented_no_automatic_mode_restore",
-    "access": "official_documentation",
-    "locator": "When the failsafe will trigger; What will happen"
-   },
-   {
-    "source_id": "U12",
-    "status": "inspected_disclosed",
-    "value": "disclosed",
-    "access": "patent_claims",
-    "locator": "Claims 1\u20133"
-   },
-   {
-    "source_id": "U2",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
-    "access": "full_text_pdf",
-    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
-   },
-   {
-    "source_id": "U4",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
-    "access": "full_text_html",
-    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
-   },
-   {
-    "source_id": "U6",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
-    "access": "official_documentation",
-    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
-   },
-   {
-    "source_id": "U9",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
-    "access": "official_documentation",
-    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
-   },
-   {
-    "source_id": "U10",
-    "status": "inspected_not_found",
-    "value": "not_applicable",
-    "access": "full_text_html",
-    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
-   },
-   {
-    "source_id": "U11",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
-    "access": "full_text_html",
-    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
-   },
-   {
-    "source_id": "U3",
-    "status": "unresolved",
-    "value": "see U2",
+    "state": "unresolved",
     "access": "not_reinspected",
     "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
    }
@@ -476,71 +401,135 @@
   "coverage": [
    {
     "source_id": "U1",
-    "status": "inspected_not_found",
-    "value": "profile_run_distance_not_calibrated_recovery_coverage",
+    "state": "disclosed_or_addressed",
     "access": "full_text_sections",
     "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
    },
    {
     "source_id": "U5",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
+    "state": "not_found_in_inspected",
     "access": "full_text_sections",
     "locator": "Sections III and IV-A1/2/3"
    },
    {
     "source_id": "U12",
-    "status": "inspected_not_found",
-    "value": "not_established_by_these_claims",
+    "state": "not_found_in_inspected",
     "access": "patent_claims",
     "locator": "Claims 1\u20133"
    },
    {
     "source_id": "U2",
-    "status": "inspected_not_found",
-    "value": "policy-violation distance, not calibrated whole-trajectory recovery coverage",
+    "state": "disclosed_or_addressed",
     "access": "full_text_pdf",
     "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
    },
    {
     "source_id": "U4",
-    "status": "inspected_not_found",
-    "value": "mode-specific MTL oracle on a trajectory; not recovery coverage",
+    "state": "disclosed_or_addressed",
     "access": "full_text_html",
     "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
    },
    {
     "source_id": "U6",
-    "status": "inspected_not_found",
-    "value": "none: static decision table",
+    "state": "disclosed_or_addressed",
     "access": "official_documentation",
     "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
    },
    {
     "source_id": "U9",
-    "status": "inspected_not_found",
-    "value": "none",
+    "state": "disclosed_or_addressed",
     "access": "official_documentation",
     "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
    },
    {
     "source_id": "U10",
-    "status": "inspected_not_found",
-    "value": "not_applicable",
+    "state": "not_applicable",
     "access": "full_text_html",
     "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
    },
    {
     "source_id": "U11",
-    "status": "inspected_not_found",
-    "value": "not exercised: verification scenario is actuator degradation",
+    "state": "not_found_in_inspected",
     "access": "full_text_html",
     "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
    },
    {
     "source_id": "U3",
-    "status": "unresolved",
-    "value": "see U2",
+    "state": "unresolved",
+    "access": "not_reinspected",
+    "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
+   }
+  ],
+  "reconnection": [
+   {
+    "source_id": "U1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
+   },
+   {
+    "source_id": "U5",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections III and IV-A1/2/3"
+   },
+   {
+    "source_id": "U7",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Description; ROS 2 Offboard Control"
+   },
+   {
+    "source_id": "U8",
+    "state": "disclosed_or_addressed",
+    "access": "official_documentation",
+    "locator": "When the failsafe will trigger; What will happen"
+   },
+   {
+    "source_id": "U12",
+    "state": "disclosed_or_addressed",
+    "access": "patent_claims",
+    "locator": "Claims 1\u20133"
+   },
+   {
+    "source_id": "U2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
+   },
+   {
+    "source_id": "U4",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
+   },
+   {
+    "source_id": "U6",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
+   },
+   {
+    "source_id": "U9",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
+   },
+   {
+    "source_id": "U10",
+    "state": "not_applicable",
+    "access": "full_text_html",
+    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
+   },
+   {
+    "source_id": "U11",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
+   },
+   {
+    "source_id": "U3",
+    "state": "unresolved",
     "access": "not_reinspected",
     "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
    }
@@ -548,50 +537,43 @@
   "liveness_vs_setpoint_injection": [
    {
     "source_id": "U2",
-    "status": "inspected_not_found",
-    "value": "not_established: inputs are commands/parameters/environment; link or heartbeat cessation is not among the inspected fuzzing inputs",
+    "state": "not_found_in_inspected",
     "access": "full_text_pdf",
     "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
    },
    {
     "source_id": "U4",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
+    "state": "not_found_in_inspected",
     "access": "full_text_html",
     "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
    },
    {
     "source_id": "U6",
-    "status": "inspected_not_found",
-    "value": "not_established_in_inspected_sections",
+    "state": "not_found_in_inspected",
     "access": "official_documentation",
     "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
    },
    {
     "source_id": "U9",
-    "status": "inspected_disclosed",
-    "value": "documented_distinct_setpoint_timeout_3s",
+    "state": "disclosed_or_addressed",
     "access": "official_documentation",
     "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
    },
    {
     "source_id": "U10",
-    "status": "inspected_not_found",
-    "value": "not_applicable",
+    "state": "not_applicable",
     "access": "full_text_html",
     "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
    },
    {
     "source_id": "U11",
-    "status": "inspected_not_found",
-    "value": "heartbeat-based only; setpoint cessation not distinguished",
+    "state": "disclosed_or_addressed",
     "access": "full_text_html",
     "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
    },
    {
     "source_id": "U3",
-    "status": "unresolved",
-    "value": "see U2",
+    "state": "unresolved",
     "access": "not_reinspected",
     "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
    }
