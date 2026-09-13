@@ -23,3 +23,12 @@ Both earlier recall figures undercounted: anchors were arXiv-only, so PGFuzz (ND
 
 ## Not done
 No source screened beyond the day-1 set; ADGFuzz, UAVConfigFuzzer, PGPatch surfaced by Crossref are UNSCREENED. No novelty, patent or owner gate closed. arXiv API returned 429 all day; not used. github.com (U3) not re-read.
+
+## Review repair (URC-R02b, same day)
+- `scripts/reference_coverage.py` is provenance-bound: hits without a logged successful query are excluded from credit and enumerated; canonical export = `day4_public`, rejected = `['day2_historical']`. Recall unchanged (no anchor was untraceable); the record now says what it can show.
+- Novelty-axis table generated from the reading records: each axis is `narrowed_by_disclosure` / `supported_bounded` / `unresolved`, with the sources in each state named. Abstract-only and inaccessible sources never count as support.
+- `URC-D02` reconciled and closed against this single record; no successor row.
+
+## Review repair 2 (URC-R02c, 2026-09-13)
+Review 2 substituted an identifier absent from a raw response: the coverage checker credited it while the existing native audit caught it. `reference_coverage.py` now **reuses `rerun_search.audit_export`** on every export; an export that fails it (unsupported provenance routes, missing request provenance, response-record or response-hash mismatch, unlogged rows) is credited for nothing and the record carries each export's SHA-256, so `--check` is bound to exact input bytes. Consequence stated plainly: the 2026-09-09 export fails the audit ({'unsupported_provenance_routes': 90, 'missing_request_provenance': 11, 'query_count_mismatches': 10, 'rows_without_successful_logged_query': 90}) and its recall is **0/6**, not 2/6 — the earlier figure was overlap with rows the export cannot show it retrieved. The public export passes (317/317) and stays canonical at 3/6.
+Reading records now carry an explicit `axis_states` field (disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved); the classifier reads only that field, and blank, unrecognised, or locator-less assessments are unresolved. Tests: invented identifier not credited; `--check` bound to export bytes; blank/unknown/locator-less assessments unresolved.
