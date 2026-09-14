@@ -34,7 +34,7 @@ def aliases(ids):
         out.add(f"doi:{d}".lower())
     return out
 
-def _native_audit(path, export):
+def _native_audit(export):
     """Reuse the export's own native-response audit (rerun_search.audit_export): every hit must be
     present in a logged raw response whose hash matches, on a logged successful query. This is the
     stronger check the review asked coverage to bind to; provenance_clean means it passed."""
@@ -42,9 +42,8 @@ def _native_audit(path, export):
     spec = importlib.util.spec_from_file_location("rerun_search", ROOT / "evidence/task-2026-09-09/rerun_search.py")
     mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
     a = mod.audit_export(export)
-    keys = ("unsupported_provenance_routes", "missing_request_provenance", "response_record_mismatches", "query_count_mismatches", "response_hash_mismatches", "rows_without_successful_logged_query")
-    failures = {k: a.get(k) for k in keys if a.get(k)}
-    return dict(native_audit={k: a.get(k) for k in keys}, native_audit_passed=(not failures), failures=failures)
+    failures = {k: a[k] for k in mod.AUDIT_FAILURE_KEYS if a[k]}
+    return dict(native_audit={k: a[k] for k in mod.AUDIT_FAILURE_KEYS}, native_audit_passed=(not failures), failures=failures)
 
 
 def export_ids(path):
@@ -62,7 +61,7 @@ def export_ids(path):
         ids.add(str(h["id"]).lower())
         for k in ("doi", "arxiv"):
             if h.get(k): ids.add(f"{k}:{str(h[k]).lower()}")
-    na = _native_audit(path, d)
+    na = _native_audit(d)
     clean = (len(untraceable) == 0) and na["native_audit_passed"]
     if not clean:
         ids = set()      # an export that fails the native audit is credited for NOTHING
@@ -85,7 +84,7 @@ def novelty_axes():
     for r in recs:
         states = r.get("axis_states") or {}
         axes = set(states) | set(r.get("axes") or {})
-        for ax in axes:
+        for ax in sorted(axes):
             st = states.get(ax)
             if st not in ASSESSMENT_STATES or (st != "unresolved" and not str(r.get("locator", "")).strip()):
                 st = "unresolved"
@@ -105,12 +104,14 @@ def compute():
     exports = {k: export_ids(p) for k, p in EXPORTS.items()}
     rows = []
     for s in reg["sources"]:
+        al = aliases(s["identifiers"])
         row = dict(source_id=s["source_id"], title=s["title"], eligible=s["eligible_for_database_export"],
-                   eligibility_reason=s["eligibility_reason"], aliases=sorted(aliases(s["identifiers"])), present={})
+                   eligibility_reason=s["eligibility_reason"], aliases=sorted(al), present={})
         for k, (ids, _, _) in exports.items():
-            row["present"][k] = (bool(aliases(s["identifiers"]) & ids) if row["eligible"] else None)
+            row["present"][k] = (bool(al & ids) if row["eligible"] else None)
         rows.append(row)
     elig = [r for r in rows if r["eligible"]]
+    axes = novelty_axes()
     summary = dict(d01_sources=len(rows), eligible=len(elig), not_eligible=len(rows) - len(elig),
                    recall={k: {"recovered": sum(bool(r["present"][k]) for r in elig), "of_eligible": len(elig),
                                "recovered_ids": [r["source_id"] for r in elig if r["present"][k]],
@@ -118,11 +119,11 @@ def compute():
                                "export_retrieved_utc": exports[k][1], "provenance": exports[k][2]} for k in EXPORTS},
                    canonical_export=next((k for k in EXPORTS if exports[k][2]["provenance_clean"]), None),
                    rejected_exports=[k for k in EXPORTS if not exports[k][2]["provenance_clean"]],
-                   novelty_axes=novelty_axes()["summary"],
+                   novelty_axes=axes["summary"],
                    previously_reported={"day2_historical": "0 of 6 (arXiv-id anchors only; NDSS and ACM DOIs not in the anchor set)",
                                         "day4_public": "2 of 5 (same anchor set; PGFuzz DOI present but uncredited)"},
                    not_eligible_ids=[r["source_id"] for r in rows if not r["eligible"]])
-    return dict(register_version=reg["version"], summary=summary, rows=rows, novelty_axes_detail=novelty_axes()["detail"])
+    return dict(register_version=reg["version"], summary=summary, rows=rows, novelty_axes_detail=axes["detail"])
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--check", action="store_true"); a = ap.parse_args()

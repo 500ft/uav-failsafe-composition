@@ -45,6 +45,8 @@ CONCEPTS = {
 # Patents/specifications are excluded; this is not a complete eligible reference set.
 D01_ANCHORS = {"arxiv:2106.14959", "arxiv:2505.02357", "arxiv:2602.07264",
                "arxiv:2608.06648", "arxiv:2608.20906"}
+AUDIT_FAILURE_KEYS = ("unsupported_provenance_routes", "missing_request_provenance", "response_record_mismatches",
+                      "query_count_mismatches", "response_hash_mismatches", "rows_without_successful_logged_query")
 REQUEST_ATTEMPTS = []
 
 def utc():
@@ -261,7 +263,7 @@ def collect(plan, fetchers, sleep=time.sleep):
         "protocol_version": "2026-09-11-clean-2",
         "protocol_note": "New bounded acquisition, not an exact replay of the historical export.",
         "request_limits": {"crossref": 40, "openalex": 50, "arxiv": 60},
-        "retrieved_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "retrieved_utc": utc(),
         "query_log": log,
         "n_unique": len(hits),
         "count_unit": "normalized identifier records; not distinct studies",
@@ -306,13 +308,7 @@ def main(argv=None):
     if args.audit:
         audit = audit_export(json.loads(args.audit.read_text()))
         print(json.dumps(audit, indent=2))
-        return int(audit["rows_without_successful_logged_query"] > 0
-                   or audit["unsupported_provenance_routes"] > 0
-                   or audit["query_count_mismatches"] > 0
-                   or audit["response_hash_mismatches"] > 0
-                   or audit["missing_request_provenance"] > 0
-                   or audit["response_record_mismatches"] > 0
-                   or not audit["declared_identifier_count_matches"])
+        return int(any(audit[k] for k in AUDIT_FAILURE_KEYS) or not audit["declared_identifier_count_matches"])
     try:
         args.out.mkdir(parents=True, exist_ok=False)
     except FileExistsError:

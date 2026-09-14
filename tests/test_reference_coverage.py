@@ -1,14 +1,14 @@
 """Reference coverage must account for every day-1 source and match the committed result."""
-import json, subprocess, sys, unittest
+import hashlib, json, re, shutil, subprocess, sys, tempfile, unittest
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from scripts import reference_coverage as RC  # noqa: E402
 from scripts.reference_coverage import compute, aliases, REGISTER  # noqa: E402
 
 
 class ReferenceCoverageTests(unittest.TestCase):
     def test_every_day1_source_is_in_the_register(self):
-        import re
         d01 = set(re.findall(r"^\|\s*(U\d+)\s+\[", (ROOT / "docs/prior-art-search-2026-09-08.md").read_text(), re.M))
         reg = {s["source_id"] for s in json.loads(REGISTER.read_text())["sources"]}
         self.assertEqual(d01, reg, "register must list exactly the day-1 sources; no silent exclusion")
@@ -42,10 +42,6 @@ class ReferenceCoverageTests(unittest.TestCase):
         self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class ProvenanceBindingTests(unittest.TestCase):
     """Review 2 (2026-09-12): coverage must reuse the native-response audit and bind to exact export bytes;
     blank or unrecognised assessments must stay unresolved."""
@@ -57,8 +53,6 @@ class ProvenanceBindingTests(unittest.TestCase):
         self.assertEqual(res["day2_historical"]["recovered"], 0, "an export that fails the native audit is credited for nothing")
 
     def test_identifier_absent_from_the_raw_response_is_not_credited(self):
-        import tempfile, shutil, copy
-        from scripts import reference_coverage as RC
         src = RC.EXPORTS["day4_public"]
         with tempfile.TemporaryDirectory() as d:
             p = Path(d) / "database-export.json"; shutil.copy(src, p)
@@ -71,15 +65,11 @@ class ProvenanceBindingTests(unittest.TestCase):
             self.assertNotEqual(prov_after["export_sha256"], prov_before["export_sha256"])
 
     def test_check_is_bound_to_export_bytes(self):
-        rec = json.loads(Path(__file__).resolve().parents[1].joinpath("evidence/task-2026-09-12/reference-coverage.json").read_text())
-        import hashlib
-        from scripts import reference_coverage as RC
+        rec = json.loads((ROOT / "evidence/task-2026-09-12/reference-coverage.json").read_text())
         for k, p in RC.EXPORTS.items():
             self.assertEqual(rec["summary"]["recall"][k]["provenance"]["export_sha256"], hashlib.sha256(p.read_bytes()).hexdigest(), k)
 
     def test_blank_or_unrecognised_assessment_is_unresolved(self):
-        import tempfile, shutil
-        from scripts import reference_coverage as RC
         recs = json.loads((ROOT / "docs/day3-reading-records.json").read_text())
         for r in recs:
             self.assertIn("axis_states", r, r["source_id"])
@@ -99,3 +89,7 @@ class ProvenanceBindingTests(unittest.TestCase):
             finally:
                 RC.ROOT = orig
         self.assertEqual(s["axis_status"], "unresolved"); self.assertEqual(sorted(s["unresolved_for"]), ["X1", "X2", "X3"])
+
+
+if __name__ == "__main__":
+    unittest.main()

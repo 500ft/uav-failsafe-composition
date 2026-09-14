@@ -1,10 +1,11 @@
 """Offline regressions for retrieval integrity; synthetic cases are not literature evidence."""
+import csv
 import importlib.util
 import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "evidence/task-2026-09-09/rerun_search.py"
@@ -15,7 +16,6 @@ spec.loader.exec_module(search)
 
 class SearchExportTests(unittest.TestCase):
     def test_derived_csv_is_lf_normalized_without_changing_json(self):
-        import csv
         result = self.native_fixture()
         result["hits"][0]["abstract"] = " alpha \n beta  "
         with tempfile.TemporaryDirectory() as tmp:
@@ -62,6 +62,7 @@ class SearchExportTests(unittest.TestCase):
         result = self.native_fixture()
         del result["hits"][0]["provenance"][0]["rank"]
         self.assertGreater(search.audit_export(result)["query_count_mismatches"], 0)
+
     def test_arxiv_error_feed_is_not_a_paper(self):
         body = b'<feed xmlns="http://www.w3.org/2005/Atom"><entry><id>http://arxiv.org/api/errors#incorrect_id_format</id><title>Error</title><published>2026-09-11</published><summary>Invalid query</summary></entry></feed>'
         with patch.object(search, "get", return_value=body):
@@ -69,7 +70,6 @@ class SearchExportTests(unittest.TestCase):
                 list(search.arxiv("synthetic"))
 
     def test_requests_retain_timestamp_route_response_and_hash(self):
-        from unittest.mock import MagicMock
         response = MagicMock()
         response.__enter__.return_value = response
         response.read.return_value = b'{"message": "synthetic"}'
