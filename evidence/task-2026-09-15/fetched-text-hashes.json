@@ -1,0 +1,26 @@
+{
+ "S1_fuzzing.2026.23009": {
+  "chars": 95939,
+  "sha256": "b350dd53193295c71f03011c4fa110ece60f6ba3067e98f5549a273425aab248",
+  "pdf_sha256": "04ddf73317e684f4510f656575cf88d65030fc1693663e78ad3709f22a0b208a",
+  "pdf_url": "https://www.ndss-symposium.org/wp-content/uploads/fuzzing2026-9.pdf"
+ },
+ "S2_ndss.2026.231014": {
+  "chars": 181816,
+  "sha256": "e435122b83e4b5e09817c7147bf41ef11bdb04f866920ec1dcbc9573ba390723",
+  "pdf_sha256": "bb86bc3177c4e4bf2c8fe73e14e99760ab4dd662deb7902afafb502cfacaed72",
+  "pdf_url": "https://www.ndss-symposium.org/wp-content/uploads/2026-s1014-paper.pdf"
+ },
+ "S3_sp46214.2022.9833567": {
+  "chars": 181964,
+  "sha256": "545c669c6b0defaa6f0a8b9753ed06d51330660cca7d2a5b7d84f3415139146b",
+  "pdf_sha256": "d30d09f12610902f20a62ed3f2c2a09c8578e176bf844c0470968efaf2e7f2c1",
+  "pdf_url": "https://kimhyungsub.github.io/S&P22_hskim.pdf"
+ },
+ "U3_PGFuzz_repo": {
+  "commit": "7eaebf21116087249b8329d4ba7337a24a34ecb9",
+  "files": 1327,
+  "note": "shallow clone; hashes are the git commit id, no text extraction"
+ },
+ "_method": "text = pdftotext -layout; sha256 over UTF-8 of the extracted text; chars = len(text)"
+}

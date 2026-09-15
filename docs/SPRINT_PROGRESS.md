@@ -1,5 +1,14 @@
 # 2026-09-09 — review correction
 
+## 2026-09-15 — URC-R03: successors screened, U3 re-inspected, URC-01 closeout
+
+Built from the merged [plan](specs/prior-art-closeout/plan.md) on `task/prior-art-closeout-20260914`. S1 UAVConfigFuzzer,
+S2 ADGFuzz and S3 PGPatch read in full (hashes retained); U3 PGFuzz code re-inspected at a pinned commit. Result: no axis is
+unresolved; every axis is narrowed by an inspected disclosure taken alone; the composed claim stays a **supported candidate gap
+bounded by the inspected set**. [Closeout](prior-art.md#urc-01-closeout--2026-09-15) ·
+[coverage update](reference-coverage-2026-09-12.md#2026-09-15--successors-screened-u3-re-inspected-urc-r03) ·
+[evidence](../evidence/task-2026-09-15/README.md). Patent search not done (no route). No owner gate closed.
+
 ## 2026-09-11 — evidence-gap correction
 
 The [current correction](ACQUISITION_CORRECTION_2026-09-11.md) supersedes any interpretation that earlier preparation closed a physical, approval, or source-review gate. Work is on `fix/evidence-gaps-20260911` from current renamed main; historical entries below retain their original dates and PR snapshots. The original day-3 and presentation PRs are now merged, but this correction is a new reviewable change, not an asserted merge or publication.

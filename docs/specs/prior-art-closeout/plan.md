@@ -1,6 +1,6 @@
 # Prior-art review and conditional URC-01 closeout — implementation plan
 
-Status: proposed; implementation not started. This plan supersedes [PR #12](https://github.com/500ft/uav-failsafe-composition/pull/12), reviewed at `96fb5a7069c83a0741ae813df0420339e3921f54`. This PR changes this document only. Merge the replacement plan before starting its implementation on a fresh task branch.
+Status: proposed; implementation not started under this plan. Sequence note (2026-09-15): PR #12 and its implementation PR #14 were merged into main before this replacement was reviewed; T00 must record that state, and the implementation reconciles #14's records, regenerated artifacts and closeout prose under this plan's rules rather than starting from the reviewed base. This plan supersedes [PR #12](https://github.com/500ft/uav-failsafe-composition/pull/12), reviewed at `96fb5a7069c83a0741ae813df0420339e3921f54`. This PR changes this document only. Merge the replacement plan before starting its implementation on a fresh task branch.
 
 Prepared: 2026-09-14; revised 2026-09-15. Reviewed base: `2c72e0288129e9f50d5768189263cbf83136aa08` (main after PR #11). At implementation start, record the actual main/merged-plan commit and compare changes since this base; this SHA is review provenance, not permission to overwrite newer work. Use `task/prior-art-closeout-<actual-start-date>`, one implementation PR to main.
 
