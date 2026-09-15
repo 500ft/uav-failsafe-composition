@@ -72,9 +72,38 @@ command-return phase against a calibrated coverage measure.
 
 | axis | status | disclosed by | not found in inspected sections of | unresolved for |
 |---|---|---|---|---|
-| `equivalent_intent` | **narrowed_by_disclosure** | U6, U11 | U1, U5, U7, U12, U2, U4, U9, U10 | U3 |
-| `reconnection` | **narrowed_by_disclosure** | U8, U12 | U1, U5, U7, U2, U4, U6, U9, U10, U11 | U3 |
-| `coverage` | **supported_bounded** | — | U1, U5, U12, U2, U4, U6, U9, U10, U11 | U3 |
-| `liveness_vs_setpoint_injection` | **narrowed_by_disclosure** | U9 | U2, U4, U6, U10, U11 | U3 |
+| `equivalent_intent` | **narrowed_by_disclosure** | U7, U6, U11 | U1, U5, U12, U2, U9, U3, S1, S2, S3 | — |
+| `reconnection` | **narrowed_by_disclosure** | U8, U12 | U1, U5, U7, U2, U4, U6, U9, U11, U3, S1, S2, S3 | — |
+| `coverage` | **narrowed_by_disclosure** | U1, U2, U4, U6, U9, U3 | U5, U12, U11, S1, S2, S3 | — |
+| `liveness_vs_setpoint_injection` | **narrowed_by_disclosure** | U9, U11 | U2, U4, U6, U3, S1, S2, S3 | — |
 
 What this measures: overlap with a small known-reference set and disclosure in the sections inspected. It is not exhaustive literature recall and not established novelty.
+
+## 2026-09-15 — successors screened, U3 re-inspected (URC-R03)
+
+Records added to `docs/day3-reading-records.json` (each with the SHA-256 of the text actually read, in
+[evidence/task-2026-09-15/fetched-text-hashes.json](../evidence/task-2026-09-15/fetched-text-hashes.json)):
+
+- **S1 UAVConfigFuzzer** (FUZZING 2026 registered report, full text). PX4-only configuration fuzzing with a
+  reused setpoint generator; oracles are mission deviation, vertical-velocity fluctuation and "interruption".
+  No failsafe, link, heartbeat or reconnection content anywhere in the text. Axis 1 threat from the title does
+  not materialise: **not found** on all four axes.
+- **S2 ADGFuzz** (NDSS 2026, full text). ArduPilot-only (Copter/Plane/Rover SITL). Heartbeat absence is a
+  crash *oracle*, not an injected fault; one Rover bug is a fence-without-RTL failsafe defect found as a bug
+  instance. **Not found** on all four axes.
+- **S3 PGPatch** (S&P 2022, author-posted full text; publisher copy closed). Per-autopilot fail-safe
+  formulas (PX4 GPS, ArduPilot battery→RTL, Paparazzi FailSafe) are the nearest neighbour *in form* to a
+  recovery contract, but nothing is defined or compared across autopilots or pinned configurations.
+  **Not found** on all four axes.
+- **U3 PGFuzz code** re-inspected at commit `7eaebf2` (read, not run). Separate ArduPilot/ and PX4/ trees with
+  separate hard-coded policy lists, including RC/GPS fail-safe policies; heartbeat absence (5 s) triggers a
+  simulator reboot as a crash oracle; per-policy distance guidance matches U2. `coverage` **disclosed** (same
+  as U2), the other three axes **not found**. No axis is unresolved any more.
+
+The axis table above was re-copied from `reference_coverage.py` output. Note for the record: the table
+committed on 2026-09-13 still showed `coverage` as `supported_bounded`, while the JSON already classified it
+`narrowed_by_disclosure` (U1, U2, U4, U6, U9) after the explicit `axis_states` repair. The JSON was right; the
+prose lagged. Nothing in today's records changed that status.
+
+What this still is not: exhaustive recall, patent clearance, or established novelty. The URC-01 conclusion
+that these records support is written in [prior-art.md](prior-art.md#urc-01-closeout--2026-09-15).

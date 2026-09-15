@@ -92,6 +92,26 @@
    "day2_historical"
   ],
   "novelty_axes": {
+   "coverage": {
+    "axis_status": "narrowed_by_disclosure",
+    "disclosed_by": [
+     "U1",
+     "U2",
+     "U4",
+     "U6",
+     "U9",
+     "U3"
+    ],
+    "not_found_in_inspected": [
+     "U5",
+     "U12",
+     "U11",
+     "S1",
+     "S2",
+     "S3"
+    ],
+    "unresolved_for": []
+   },
    "equivalent_intent": {
     "axis_status": "narrowed_by_disclosure",
     "disclosed_by": [
@@ -104,29 +124,13 @@
      "U5",
      "U12",
      "U2",
-     "U9"
+     "U9",
+     "U3",
+     "S1",
+     "S2",
+     "S3"
     ],
-    "unresolved_for": [
-     "U3"
-    ]
-   },
-   "coverage": {
-    "axis_status": "narrowed_by_disclosure",
-    "disclosed_by": [
-     "U1",
-     "U2",
-     "U4",
-     "U6",
-     "U9"
-    ],
-    "not_found_in_inspected": [
-     "U5",
-     "U12",
-     "U11"
-    ],
-    "unresolved_for": [
-     "U3"
-    ]
+    "unresolved_for": []
    },
    "reconnection": {
     "axis_status": "narrowed_by_disclosure",
@@ -142,11 +146,13 @@
      "U4",
      "U6",
      "U9",
-     "U11"
+     "U11",
+     "U3",
+     "S1",
+     "S2",
+     "S3"
     ],
-    "unresolved_for": [
-     "U3"
-    ]
+    "unresolved_for": []
    },
    "liveness_vs_setpoint_injection": {
     "axis_status": "narrowed_by_disclosure",
@@ -157,11 +163,13 @@
     "not_found_in_inspected": [
      "U2",
      "U4",
-     "U6"
+     "U6",
+     "U3",
+     "S1",
+     "S2",
+     "S3"
     ],
-    "unresolved_for": [
-     "U3"
-    ]
+    "unresolved_for": []
    }
   },
   "previously_reported": {
@@ -330,6 +338,86 @@
   }
  ],
  "novelty_axes_detail": {
+  "coverage": [
+   {
+    "source_id": "U1",
+    "state": "disclosed_or_addressed",
+    "access": "full_text_sections",
+    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
+   },
+   {
+    "source_id": "U5",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections III and IV-A1/2/3"
+   },
+   {
+    "source_id": "U12",
+    "state": "not_found_in_inspected",
+    "access": "patent_claims",
+    "locator": "Claims 1\u20133"
+   },
+   {
+    "source_id": "U2",
+    "state": "disclosed_or_addressed",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
+   },
+   {
+    "source_id": "U4",
+    "state": "disclosed_or_addressed",
+    "access": "full_text_html",
+    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
+   },
+   {
+    "source_id": "U6",
+    "state": "disclosed_or_addressed",
+    "access": "official_documentation",
+    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
+   },
+   {
+    "source_id": "U9",
+    "state": "disclosed_or_addressed",
+    "access": "official_documentation",
+    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
+   },
+   {
+    "source_id": "U10",
+    "state": "not_applicable",
+    "access": "full_text_html",
+    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
+   },
+   {
+    "source_id": "U11",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
+   },
+   {
+    "source_id": "U3",
+    "state": "disclosed_or_addressed",
+    "access": "repository_tree_and_source",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
+   },
+   {
+    "source_id": "S1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
+   },
+   {
+    "source_id": "S2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
+   },
+   {
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
+   }
+  ],
   "equivalent_intent": [
    {
     "source_id": "U1",
@@ -393,71 +481,27 @@
    },
    {
     "source_id": "U3",
-    "state": "unresolved",
-    "access": "not_reinspected",
-    "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
-   }
-  ],
-  "coverage": [
-   {
-    "source_id": "U1",
-    "state": "disclosed_or_addressed",
-    "access": "full_text_sections",
-    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
-   },
-   {
-    "source_id": "U5",
     "state": "not_found_in_inspected",
-    "access": "full_text_sections",
-    "locator": "Sections III and IV-A1/2/3"
+    "access": "repository_tree_and_source",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
    },
    {
-    "source_id": "U12",
+    "source_id": "S1",
     "state": "not_found_in_inspected",
-    "access": "patent_claims",
-    "locator": "Claims 1\u20133"
-   },
-   {
-    "source_id": "U2",
-    "state": "disclosed_or_addressed",
     "access": "full_text_pdf",
-    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
    },
    {
-    "source_id": "U4",
-    "state": "disclosed_or_addressed",
-    "access": "full_text_html",
-    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
-   },
-   {
-    "source_id": "U6",
-    "state": "disclosed_or_addressed",
-    "access": "official_documentation",
-    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
-   },
-   {
-    "source_id": "U9",
-    "state": "disclosed_or_addressed",
-    "access": "official_documentation",
-    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
-   },
-   {
-    "source_id": "U10",
-    "state": "not_applicable",
-    "access": "full_text_html",
-    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
-   },
-   {
-    "source_id": "U11",
+    "source_id": "S2",
     "state": "not_found_in_inspected",
-    "access": "full_text_html",
-    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
    },
    {
-    "source_id": "U3",
-    "state": "unresolved",
-    "access": "not_reinspected",
-    "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
    }
   ],
   "reconnection": [
@@ -529,9 +573,27 @@
    },
    {
     "source_id": "U3",
-    "state": "unresolved",
-    "access": "not_reinspected",
-    "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
+    "state": "not_found_in_inspected",
+    "access": "repository_tree_and_source",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
+   },
+   {
+    "source_id": "S1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
+   },
+   {
+    "source_id": "S2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
+   },
+   {
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
    }
   ],
   "liveness_vs_setpoint_injection": [
@@ -573,9 +635,27 @@
    },
    {
     "source_id": "U3",
-    "state": "unresolved",
-    "access": "not_reinspected",
-    "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here"
+    "state": "not_found_in_inspected",
+    "access": "repository_tree_and_source",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
+   },
+   {
+    "source_id": "S1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
+   },
+   {
+    "source_id": "S2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
+   },
+   {
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
    }
   ]
  }
