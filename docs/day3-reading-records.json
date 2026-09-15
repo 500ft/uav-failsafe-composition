@@ -269,25 +269,106 @@
   "source_id": "U3",
   "title": "PGFuzz code repository",
   "url": "https://github.com/purseclab/PGFuzz",
-  "access": "not_reinspected",
-  "version": "n/a",
-  "locator": "Day-1 README inspection stands; the repository was not executed and github.com content is not re-read here",
+  "access": "repository_tree_and_source",
+  "version": "github.com/purseclab/PGFuzz at commit 7eaebf21116087249b8329d4ba7337a24a34ecb9 (2023-09-18), shallow clone 2026-09-15, 1327 files; not executed",
+  "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_liveness: no HEARTBEAT for 5 s => 'program crashed' => reboot) and policy blocks A.CHUTE, A.RTL1-4, A.FLIP1-4, A.ALT_HOLD1-2, A.CIRCLE1-3/7, A.LAND1-2, A.AUTO1, A.GPS.FS1-2 (L1850-1930), A.RC.FS1-2 (L1931-1990: FS_THR_VALUE vs RC channel 3, RC_failsafe flag), A.SPORT1, A.GUIDED1, A.LOITER1, A.DRIFT1, A.BRAKE1; PX4/fuzzing.py L126-165 and blocks PX.CHUTE, PX.RTL1, PX.ALTITUDE1, PX.HOLD1-2, PX.POSITION1, PX.TAKEOFF1-2, PX.LAND1, PX.GPS.FS1-3 (L1738-1830: GPS_loss, gps_failsafe flag, COM_POS_FS_DELAY, RC channels, ALTCTL mode); PX4/check_policy.py (FLIP altitude and RTL-altitude policies); ArduPilot/update_distance.py (per-policy altitude/roll/pitch/heading error distance)",
   "aboutness": 2,
-  "evidence_grade": "n/a",
-  "finding": "Artifact for U2. Any claim about it rests on U2's full text, now read; the code was not run.",
+  "evidence_grade": "C (released research code, read not run; policy set in code is narrower than the paper's Table II)",
+  "finding": "Released code holds separate ArduPilot/ and PX4/ trees with separate hard-coded policy lists and MAVLink handlers; no shared policy vocabulary or mapping between the two. RC and GPS fail-safe policies from U2 Table II are implemented (A.RC.FS1-2, A.GPS.FS1-2, PX.GPS.FS1-3) as state predicates over telemetry and parameters (FS_THR_VALUE vs RC throttle, GPS status, COM_POS_FS_DELAY, mode) that score distance to a policy violation; the fuzzer drives them by mutating parameters, commands and simulated environment, not by cutting a GCS/offboard link or a setpoint stream. No A.ALIVE identifier exists in the released Python; heartbeat absence (5 s) is a crash oracle that reboots the simulator. Distance guidance is per-policy state error, matching U2's policy-violation distance. Nothing about reconnection or command return; no cross-autopilot policy equivalence.",
   "axes": {
-   "equivalent_intent": "see U2",
-   "liveness_vs_setpoint_injection": "see U2",
-   "reconnection": "see U2",
-   "coverage": "see U2"
+   "equivalent_intent": "not_established: two independent per-autopilot policy lists (A.* and PX.*), no cross-autopilot mapping in code",
+   "liveness_vs_setpoint_injection": "not_established: RC/GPS fail-safe predicates are checked on state; link loss is not injected as a distinct fault and heartbeat loss is only a crash oracle",
+   "reconnection": "not_established_in_inspected_files",
+   "coverage": "policy-violation distance implemented in update_distance.py; not calibrated whole-trajectory coverage (same as U2)"
   },
-  "retrieved_on": "2026-09-08",
+  "retrieved_on": "2026-09-15",
   "axis_states": {
-   "equivalent_intent": "unresolved",
-   "liveness_vs_setpoint_injection": "unresolved",
-   "reconnection": "unresolved",
-   "coverage": "unresolved"
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "disclosed_or_addressed"
   },
-  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "S1",
+  "title": "UAVConfigFuzzer: Detecting Incorrect Configurations in UAVs via Setpoint Estimation Guided Fuzzing (Registered Report), FUZZING Workshop 2026",
+  "url": "https://doi.org/10.14722/fuzzing.2026.23009",
+  "access": "full_text_pdf",
+  "version": "NDSS-hosted workshop PDF fuzzing2026-9.pdf (Crossref resource.primary URL), 10 pages",
+  "text_sha256_prefix": "b350dd53193295c7",
+  "pdf_sha256": "04ddf73317e684f4510f656575cf88d65030fc1693663e78ad3709f22a0b208a",
+  "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generator); Sec. IV (Table I fidelity, Table III 14 incorrect PX4 MPC_* configurations, case study MPC_XY_VEL_ALL=0); hardware validation Pixhawk 4 / PX4 v1.15.0",
+  "aboutness": 2,
+  "evidence_grade": "B for the inspected sections (peer-reviewed workshop registered report, method and result tables read directly)",
+  "finding": "Configuration fuzzing of PX4 only, guided by a reused PositionSmoothing setpoint generator instead of a simulator. Oracles compare a generated setpoint sequence with the user mission: max perpendicular deviation from mission segments, vertical-velocity fluctuation, and 'interruption' (stuck or incomplete mission). Inputs are configuration values; no failsafe, link, heartbeat, offboard or GCS condition is mentioned anywhere in the text (grep: 0 hits for fail-safe/failsafe/heartbeat/GCS/RTL/reconnect/offboard). ArduPilot appears only in a forum citation. The deviation oracle is a whole-sequence distance to a nominal mission under ideal conditions, not a calibrated recovery-trajectory coverage measure, and no autopilot pair or configuration equivalence is defined.",
+  "axes": {
+   "equivalent_intent": "not_established: single autopilot (PX4); no pinned-configuration pair or intent equivalence",
+   "liveness_vs_setpoint_injection": "not_established: setpoints are internally generated estimates of state, not injected loss of a setpoint or heartbeat stream",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_established: max deviation from mission segments and interruption flag, not calibrated recovery coverage"
+  },
+  "retrieved_on": "2026-09-15",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "S2",
+  "title": "ADGFuzz: Assignment Dependency-Guided Fuzzing for Robotic Vehicles, NDSS 2026",
+  "url": "https://doi.org/10.14722/ndss.2026.231014",
+  "access": "full_text_pdf",
+  "version": "NDSS-hosted PDF 2026-s1014-paper.pdf (Crossref resource.primary URL), 20 pages",
+  "text_sha256_prefix": "e435122b83e4b5e0",
+  "pdf_sha256": "bb86bc3177c4e4bf2c8fe73e14e99760ab4dd662deb7902afafb502cfacaed72",
+  "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduling; oracles: crash on ground, route deviation over a 7 s window, software crash = no heartbeat for 2 s); Sec. VI-A setup (ArduPilot Copter/Plane/Rover SITL, MAVProxy GCS, MAVLink); Sec. VI-B/false positives (SYSID_THISMAV breaking GCS communication excluded as false positive); Sec. VIII-C portability (PX4 named as a target, not evaluated); Appendix Table bug 40 (Rover FENCE_RADIUS/FENCE_ENABLE: fence violation detected but RTL not triggered)",
+  "aboutness": 2,
+  "evidence_grade": "B for the inspected sections (peer-reviewed venue, method, setup and bug table read directly)",
+  "finding": "Fuzzes ArduPilot-only (Copter, Plane, Rover in SITL) for assignment-statement bugs using a static assignment dependency graph and entropy-scheduled matched input sets. Heartbeat absence is used as a crash ORACLE (2 s), never injected as a fault; loss of GCS communication caused by SYSID_THISMAV is classified as a false positive and excluded. One reported bug (Rover, bug 40) is a failsafe-behaviour defect (fence violation without RTL), found as a bug instance, not as a comparison of recovery behaviour across configurations. No PX4 evaluation, no reconnection or command-return phase, no coverage measure of a recovery trajectory (coverage in the paper means code/MIS coverage).",
+  "axes": {
+   "equivalent_intent": "not_established: single autopilot family (ArduPilot); no intent mapping across configurations",
+   "liveness_vs_setpoint_injection": "not_established: heartbeat loss is an oracle for software crash, not an injected liveness fault; setpoint loss not injected",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_established: 'coverage' is code/MIS coverage; route-deviation oracle is a 7 s drift test"
+  },
+  "retrieved_on": "2026-09-15",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "S3",
+  "title": "PGPatch: Policy-Guided Logic Bug Patching for Robotic Vehicles, IEEE S&P 2022",
+  "url": "https://doi.org/10.1109/sp46214.2022.9833567",
+  "access": "full_text_pdf",
+  "version": "Author-posted PDF S&P22_hskim.pdf from kimhyungsub.github.io (publisher copy closed: OpenAlex oa_status=closed, Semantic Scholar openAccessPdf empty, IEEE landing bot-blocked HTTP 202); 20 pages; author list matches Crossref",
+  "text_sha256_prefix": "545c669c6b0defaa",
+  "pdf_sha256": "d30d09f12610902f20a62ed3f2c2a09c8578e176bf844c0470968efaf2e7f2c1",
+  "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-arm, tilt in LAND/RTL); Sec. IV term-to-code mapping table incl. Copter::failsafe_gcs_check() and failsafe_battery_event(); Sec. VI-F (Paparazzi PP.FailSafe formula 'If GPSloss and RCvalid false then mode is FAILSAFE'; extra formula for correct operation under fail-safe mode); Appendix Table VIII Paparazzi FAILSAFE bugs",
+  "aboutness": 2,
+  "evidence_grade": "B for the inspected sections (peer-reviewed venue, author-posted full text read directly)",
+  "finding": "Automated program repair for logic bugs in ArduPilot, PX4 and Paparazzi, driven by per-autopilot PPL formulas. Fail-safe requirements appear as autopilot-specific formulas in each autopilot's own parameter and mode vocabulary (COM_POS_FS_DELAY / GPSfail; FS_BATT_ENABLE / RTL; PP.FailSafe), and patch verification checks 'correct operation under fail-safe mode'. This is the nearest neighbour in FORM to a per-autopilot recovery contract, but no formula is defined as equivalent across autopilots or pinned configurations, no comparison of realised behaviour is made, and the ArduPilot GCS-failsafe function appears only as a code-mapping location. Link loss and setpoint loss are not injected; what happens when inputs return is not a formula; no trajectory coverage measure.",
+  "axes": {
+   "equivalent_intent": "not_established: fail-safe formulas are per-autopilot documentation restatements; no cross-configuration equivalence or comparison (closest neighbour in form)",
+   "liveness_vs_setpoint_injection": "not_established: failsafe_gcs_check appears in a code-mapping table only; no liveness or setpoint loss injected",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_established: verification is patch completeness and performance, not recovery-trajectory coverage"
+  },
+  "retrieved_on": "2026-09-15",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
  }
 ]

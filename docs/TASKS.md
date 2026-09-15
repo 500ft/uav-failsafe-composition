@@ -49,6 +49,10 @@ not secured cannot be Tier 0, however impressive its eventual output might be.
 Full-text/tooling inspection and the documented broader-search shortfall remain;
 URC-01 is not silently closed and no downstream gate is automatically promoted.
 
+2026-09-15: [URC-01 closeout](prior-art.md#urc-01-closeout--2026-09-15) recorded — search strings,
+criteria, source table and a bounded conclusion (prior art found per axis; supported candidate gap for the
+composed claim only). Patent search not done. Closed as a dated boundary, not a novelty verdict.
+
 `hygiene` · executable now
 
 **Why it matters.** The source map proves that generic failsafes, cross-stack testing,
