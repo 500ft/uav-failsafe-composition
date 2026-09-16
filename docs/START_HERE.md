@@ -22,7 +22,7 @@ The current implementation validates research metadata and source provenance. It
 
 | Layer | Committed source | Interpretation |
 | --- | --- | --- |
-| Research rationale | [Research plan](research-plan.md), [prior art](prior-art.md) | Hypotheses and literature boundary; novelty remains unresolved |
+| Research rationale | [Research plan](research-plan.md), [prior art](prior-art.md) | Hypotheses and literature boundary; novelty remains unresolved (URC-01 gate *partial*, [decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan)) |
 | Source acquisition | [Historical export](../evidence/task-2026-09-09/database-export.json) | Raw reported routes; gaps remain visible |
 | Targeted reading | [Rubric](day3-reading-rubric.md), [reading records](day3-reading-records.json) | Identified access scope and per-source findings; not a complete systematic review |
 | Derived provenance | [Acquisition ledger](../evidence/task-day3-2026-09-09/acquisition-ledger.json) | Deterministically reconciled identifiers and routes, not repaired history |
@@ -52,7 +52,7 @@ Positive SITL confirmation can justify explicitly simulated offline composition.
 
 ## Why the framing changed
 
-The [current reading record](day3-source-review.md) found relevant precedents for trajectory profiling, shared simulator integrations, and explicit reconnection handling. The remaining candidate question concerns configured recovery conformance under equivalent intentions, with a clearly defined loss stimulus and held-out whole-trajectory coverage.
+The [current reading record](day3-source-review.md) found relevant precedents for trajectory profiling, shared simulator integrations, and explicit reconnection handling. The remaining candidate question concerns configured recovery conformance under equivalent intentions, with a clearly defined loss stimulus and held-out whole-trajectory coverage. As of 2026-09-15 the follow-up sources are read and 17 intake rows remain unread (C-ids in the [reconciled table](reference-coverage-2026-09-12.md#2026-09-15-reconciled--current-axis-table-under-the-replacement-plan-urc-r03)).
 
 Proposed common MAVLink intentions are a design choice, not an installed or verified harness. Firmware versions and interface behavior must be recorded from actual runs before comparing stacks. Remaining full-text and tooling questions stay open.
 

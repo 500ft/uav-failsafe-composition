@@ -10,7 +10,7 @@ Built from the merged [plan](specs/prior-art-closeout/plan.md) on `task/prior-ar
 S2 ADGFuzz and S3 PGPatch read in full (hashes retained); U3 PGFuzz code re-inspected at a pinned commit. Result: no axis is
 unresolved; every axis is narrowed by an inspected disclosure taken alone; the composed claim stays a **supported candidate gap
 bounded by the inspected set**. [Closeout](prior-art.md#urc-01-closeout--2026-09-15) ·
-[coverage update](reference-coverage-2026-09-12.md#2026-09-15--successors-screened-u3-re-inspected-urc-r03) ·
+[coverage update](reference-coverage-2026-09-12.md#2026-09-15-morning--successors-screened-u3-re-inspected-urc-r03-superseded-the-same-day) ·
 [evidence](../evidence/task-2026-09-15/README.md). Patent search not done (no route). No owner gate closed.
 
 ## 2026-09-11 — evidence-gap correction

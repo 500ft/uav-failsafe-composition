@@ -43,7 +43,7 @@ The executable deliverable today is research-integrity tooling, not a UAV simula
 | Current prior-art review packet (2026-09-15) | Follow-up sources and the day-1 set reconciled against clarified axes; full intake screened; URC-01 decision with a separate gate status (partial) | [Decision](docs/prior-art.md#urc-01-decision--2026-09-15-replacement-plan), [evidence](evidence/task-prior-art-closeout-2026-09-15/README.md) |
 | Recorded software checks | Documentation/schema/provenance checks—not research validation | [Verification record](evidence/task-day3-2026-09-09/README.md) |
 
-The 2026-09-09 reconciliation retains **402 raw database rows**, with **90 lacking successful query-log support**. These are acquisition records, not 402 reviewed studies. Recall remains unavailable; the earlier literal-ID overlap is not a valid recall estimate. See the [source review](docs/day3-source-review.md) for the correction and remaining competitors to read.
+The 2026-09-09 reconciliation retains **402 raw database rows**, with **90 lacking successful query-log support**. These are acquisition records, not 402 reviewed studies. Recall remains unavailable; the earlier literal-ID overlap is not a valid recall estimate. The later canonical export (2026-09-11) recovers 3 of 6 eligible day-1 sources, which is known-reference coverage, not literature recall; the current review state is in the packet row below. See the [source review](docs/day3-source-review.md) for the correction and remaining competitors to read.
 
 ## Quick start
 

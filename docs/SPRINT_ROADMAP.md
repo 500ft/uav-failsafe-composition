@@ -1,5 +1,7 @@
 # UAV-Recovery-Contracts — Six-day evidence-integrity sprint
 
+> Historical record (2026-09-05/06). The repository was renamed `uav-failsafe-composition` on 2026-09-10 ([identity](REPOSITORY_IDENTITY.md)); checkout paths and the remote below are as they were then. Current status lives in [SPRINT_TASKS.csv](SPRINT_TASKS.csv).
+
 Prepared: 2026-09-05. Budget: 30 focused hours; optional Day 7 adds at most 4 hours for owner review only. Days are effort groupings, not unattended calendar commitments. Status lives only in [SPRINT_TASKS.csv](SPRINT_TASKS.csv).
 
 ## A. Outcome and baseline identity

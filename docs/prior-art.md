@@ -174,7 +174,7 @@ clause by clause, under [docs/specs/prior-art-closeout/plan.md](specs/prior-art-
 ### Search history, by kind (clause: search strings)
 
 - **Web-index discovery, 2026-09-08** (six strings, verbatim in
-  [prior-art-search-2026-09-08.md](prior-art-search-2026-09-08.md#executed-search-strings)); three of them are
+  [prior-art-search-2026-09-08.md](prior-art-search-2026-09-08.md) ("Exact executed strings")); three of them are
   patent-domain queries on Google Patents: strings 4–6. This is web discovery, not a native patent export.
 - **Native scholarly exports, 2026-09-09 (rejected, audit-failed) and 2026-09-11 (canonical, 16 legs, 317
   rows)**: the executed (database, query, status, n) table is in the superseded section above and stands.
