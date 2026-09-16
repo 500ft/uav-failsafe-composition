@@ -1,5 +1,7 @@
 # URC-R03 — successors screened, U3 re-inspected, URC-01 closeout — 2026-09-15
 
+**Superseded the same day** by [task-prior-art-closeout-2026-09-15](../task-prior-art-closeout-2026-09-15/README.md) (replacement plan, PR #13): the result paragraph below no longer holds. Kept as the record of PR #14.
+
 Branch `task/prior-art-closeout-20260914` off `main` bf4d4a7 (plan merged as PR #12; the plan named 09-14, execution was 09-15). Plan: [docs/specs/prior-art-closeout/plan.md](../../docs/specs/prior-art-closeout/plan.md). Deliverables: [prior-art.md § URC-01 closeout](../../docs/prior-art.md#urc-01-closeout--2026-09-15), [reference-coverage 2026-09-15 subsection](../../docs/reference-coverage-2026-09-12.md#2026-09-15--successors-screened-u3-re-inspected-urc-r03), records in `docs/day3-reading-records.json`.
 
 ## Texts inspected (SHA-256 in [fetched-text-hashes.json](fetched-text-hashes.json))

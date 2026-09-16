@@ -1,5 +1,9 @@
 # 2026-09-09 — review correction
 
+## 2026-09-15 (reconciled) — URC-R03 under the replacement plan (PR #13)
+
+Supersedes the morning entry below. The [replacement plan](specs/prior-art-closeout/plan.md) was merged after PR #14; its 17 tasks were then executed on `task/prior-art-closeout-2026-09-15`: consumer fixes with regressions (unread access and missing axes are unresolved), rubric clarification, S1–S3 and U3 records with a hashed [source manifest](../evidence/task-prior-art-closeout-2026-09-15/sources.json), U1–U12 reconciled from re-opened locators (18 judgments changed, [list](../evidence/task-prior-art-closeout-2026-09-15/decision-changes.json)), all 317 intake rows [screened](../evidence/task-prior-art-closeout-2026-09-15/candidate-screening.csv) (17 unread C-records), derived JSON regenerated. Result: [URC-01 decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan) — prior art found on reconnection and liveness (documentation), no conclusion on equivalent intent and coverage, gate **partial**. [Evidence](../evidence/task-prior-art-closeout-2026-09-15/README.md). No owner gate closed.
+
 ## 2026-09-15 — URC-R03: successors screened, U3 re-inspected, URC-01 closeout
 
 Built from the merged [plan](specs/prior-art-closeout/plan.md) on `task/prior-art-closeout-20260914`. S1 UAVConfigFuzzer,

@@ -1375,15 +1375,19 @@
           "axes": {
             "equivalent_intent": "not_established_in_inspected_sections",
             "reconnection": "not_established_in_inspected_sections",
-            "coverage": "profile_run_distance_not_calibrated_recovery_coverage"
+            "coverage": "not_found: Avis flags a test run whose state distance from every profiling run exceeds tau at time t; that is a deviation oracle over profiled workloads, not a calibrated recovery-trajectory coverage measure",
+            "liveness_vs_setpoint_injection": "not_found: injected faults are sensor failures; neither heartbeat/liveness loss nor setpoint-stream loss is a stimulus"
           },
           "retrieved_on": "2026-09-09",
           "axis_states": {
             "equivalent_intent": "not_found_in_inspected",
             "reconnection": "not_found_in_inspected",
-            "coverage": "disclosed_or_addressed"
+            "coverage": "not_found_in_inspected",
+            "liveness_vs_setpoint_injection": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U1_arxiv_2106.14959.pdf (arXiv v1, pdftotext), cache 2026-09-15",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -1673,7 +1677,38 @@
       "identifier": "arxiv:2307.00194",
       "title": "A Requirements-Driven Platform for Validating Field Operations of Small Uncrewed Aerial Vehicles",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C218",
+          "title": "A Requirements-Driven Platform for Validating Field Operations of Small Uncrewed Aerial Vehicles",
+          "url": "https://doi.org/10.48550/arxiv.2307.00194",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 217 (arxiv:2307.00194, year 2023): requirements-driven platform validating sUAS field operations: relevance to timed safety policies unclear. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 217,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -1690,6 +1725,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.48550/arxiv.2307.00194",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -2006,10 +2049,88 @@
       ]
     },
     {
+      "identifier": "arxiv:2412.18727",
+      "title": "SAFLITE: Fuzzing Autonomous Systems via Large Language Models",
+      "screening_status": "unscreened",
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C001",
+          "title": "SAFLITE: Fuzzing Autonomous Systems via Large Language Models",
+          "url": "https://arxiv.org/abs/2412.18727",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 0 (arxiv:2412.18727, year 2024): LLM-guided fuzzing of autonomous systems naming PX4 and ArduPilot (cross-autopilot execution criterion). Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "needs_full_text",
+          "raw_index": 0,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
+      "acquisitions": [
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://arxiv.org/abs/2412.18727",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
+        }
+      ]
+    },
+    {
       "identifier": "arxiv:2501.11864",
       "title": "LLM-Agents Driven Automated Simulation Testing and Analysis of small Uncrewed Aerial Systems",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C219",
+          "title": "LLM-Agents Driven Automated Simulation Testing and Analysis of small Uncrewed Aerial Systems",
+          "url": "https://doi.org/10.48550/arxiv.2501.11864",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 218 (arxiv:2501.11864, year 2025): LLM-agent driven simulation testing of sUAS: may test failsafe behaviour; abstract does not say. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 218,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -2026,6 +2147,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.48550/arxiv.2501.11864",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -2129,16 +2258,18 @@
             "equivalent_intent": "not_applicable: PID specification inference",
             "liveness_vs_setpoint_injection": "not_established_in_inspected_sections",
             "reconnection": "not_established_in_inspected_sections",
-            "coverage": "mode-specific MTL oracle on a trajectory; not recovery coverage"
+            "coverage": "not_found: the oracle checks a flight trajectory against a mode-specific MTL formula (e.g. RTL ascent); it is a per-mode validity oracle, not calibrated recovery-trajectory containment"
           },
           "retrieved_on": "2026-09-12",
           "axis_states": {
             "equivalent_intent": "not_applicable",
             "liveness_vs_setpoint_injection": "not_found_in_inspected",
             "reconnection": "not_found_in_inspected",
-            "coverage": "disclosed_or_addressed"
+            "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U4_arxiv_2505.02357.pdf (arXiv v1, pdftotext), cache 2026-09-15",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -2281,6 +2412,53 @@
       ]
     },
     {
+      "identifier": "arxiv:2601.15486",
+      "title": "A Universal Large Language Model -- Drone Command and Control Interface",
+      "screening_status": "unscreened",
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C005",
+          "title": "A Universal Large Language Model -- Drone Command and Control Interface",
+          "url": "https://arxiv.org/abs/2601.15486",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 4 (arxiv:2601.15486, year 2026): universal command-and-control interface over PX4/ArduPilot: cross-autopilot execution possible, recovery behaviour unclear from abstract. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 4,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
+      "acquisitions": [
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://arxiv.org/abs/2601.15486",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
+        }
+      ]
+    },
+    {
       "identifier": "arxiv:2602.07264",
       "title": "aerial-autonomy-stack, 2026 v2",
       "screening_status": "day3_assessment_available",
@@ -2305,15 +2483,19 @@
           "axes": {
             "equivalent_intent": "not_established_in_inspected_sections",
             "reconnection": "not_established_in_inspected_sections",
-            "coverage": "not_established_in_inspected_sections"
+            "coverage": "not_established_in_inspected_sections",
+            "liveness_vs_setpoint_injection": "not_found: the stack provides an autopilot_interface/offboard_control module for PX4 and ArduPilot; no liveness or setpoint-loss stimulus is described"
           },
           "retrieved_on": "2026-09-09",
           "axis_states": {
             "equivalent_intent": "not_found_in_inspected",
             "reconnection": "not_found_in_inspected",
-            "coverage": "not_found_in_inspected"
+            "coverage": "not_found_in_inspected",
+            "liveness_vs_setpoint_injection": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U5.html (arXiv HTML v2), cache 2026-09-15",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -2540,7 +2722,9 @@
             "reconnection": "not_applicable",
             "coverage": "not_applicable"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U10.html (arXiv HTML v1), cache 2026-09-15: re-read confirms a contingency-landing planner outside the autopilot-recovery subfield; the 2026-09-12 not_applicable judgments (with their stated reasons) stand and are not converted into bounded support",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -2587,19 +2771,21 @@
           "evidence_grade": "C (architectural framework; the link-loss contract is derived, not empirically exercised against an autopilot)",
           "finding": "Defines a Communication Contract: if the last valid swarm-mesh heartbeat is older than a bound or SNR is below threshold, the FMU enforces Return-To-Base. This is an explicit link-loss -> recovery intention written as a contract, which is the closest conceptual neighbour to a composed failsafe contract found in the set. It is swarm-mesh heartbeat, not GCS/offboard link; it is one architecture, not a comparison across pinned autopilot configurations; and the paper's verification scenario (V-D) is actuator degradation, not link loss.",
           "axes": {
-            "equivalent_intent": "contract-form recovery intention stated for ONE architecture; cross-configuration equivalence not addressed",
-            "liveness_vs_setpoint_injection": "heartbeat-based only; setpoint cessation not distinguished",
+            "equivalent_intent": "not_found: contract-form intention for one architecture; no second configuration and no equivalence rule (closest neighbour in form)",
+            "liveness_vs_setpoint_injection": "not_found: only heartbeat/link degradation is a stimulus; setpoint-stream loss is not distinguished",
             "reconnection": "not_established_in_inspected_sections",
             "coverage": "not exercised: verification scenario is actuator degradation"
           },
           "retrieved_on": "2026-09-12",
           "axis_states": {
-            "equivalent_intent": "disclosed_or_addressed",
-            "liveness_vs_setpoint_injection": "disclosed_or_addressed",
+            "equivalent_intent": "not_found_in_inspected",
+            "liveness_vs_setpoint_injection": "not_found_in_inspected",
             "reconnection": "not_found_in_inspected",
             "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U11.html (arXiv HTML v1), cache 2026-09-15",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -3129,7 +3315,38 @@
       "identifier": "doi:10.1007/s10515-024-00462-9",
       "title": "Automated system-level testing of unmanned aerial systems",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C225",
+          "title": "Automated system-level testing of unmanned aerial systems",
+          "url": "https://doi.org/10.1007/s10515-024-00462-9",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 224 (doi:10.1007/s10515-024-00462-9, year 2024): automated system-level testing of UAS: may include failsafe scenarios; no abstract retained. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 224,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -3146,6 +3363,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.1007/s10515-024-00462-9",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -3297,7 +3522,38 @@
       "identifier": "doi:10.1016/j.ast.2019.105528",
       "title": "Reconfigurable Mission Plans for RPAS",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C228",
+          "title": "Reconfigurable Mission Plans for RPAS",
+          "url": "https://doi.org/10.1016/j.ast.2019.105528",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 227 (doi:10.1016/j.ast.2019.105528, year 2019): reconfigurable mission plans for RPAS (contingency replanning; communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "needs_full_text",
+          "raw_index": 227,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -3314,6 +3570,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.1016/j.ast.2019.105528",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -3321,7 +3585,38 @@
       "identifier": "doi:10.1016/j.compeleceng.2026.111144",
       "title": "Flight log analysis and recovery for open-source drones: Focusing on ArduPilot, PX4, and Betaflight",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C004",
+          "title": "Flight log analysis and recovery for open-source drones: Focusing on ArduPilot, PX4, and Betaflight",
+          "url": "https://doi.org/10.1016/j.compeleceng.2026.111144",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 3 (doi:10.1016/j.compeleceng.2026.111144, year 2026): cross-autopilot title (ArduPilot, PX4, Betaflight) but 'recovery' may mean log-data recovery; no abstract retained. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 3,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -3338,6 +3633,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.1016/j.compeleceng.2026.111144",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -4881,7 +5184,38 @@
       "identifier": "doi:10.1109/seams59076.2023.00030",
       "title": "Self-Adaptive Mechanisms for Misconfigurations in Small Uncrewed Aerial Systems",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C180",
+          "title": "Self-Adaptive Mechanisms for Misconfigurations in Small Uncrewed Aerial Systems",
+          "url": "https://doi.org/10.1109/seams59076.2023.00030",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 179 (doi:10.1109/seams59076.2023.00030, year 2023): self-adaptive mechanisms for misconfigurations in sUAS (timed safety/configuration policy criterion). Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "needs_full_text",
+          "raw_index": 179,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -4898,6 +5232,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.1109/seams59076.2023.00030",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -4923,7 +5265,7 @@
           "axes": {
             "equivalent_intent": "not_established: fail-safe formulas are per-autopilot documentation restatements; no cross-configuration equivalence or comparison (closest neighbour in form)",
             "liveness_vs_setpoint_injection": "not_established: failsafe_gcs_check appears in a code-mapping table only; no liveness or setpoint loss injected",
-            "reconnection": "not_established_in_inspected_sections",
+            "reconnection": "not_found: Secs. III-VI; patch verification re-runs the triggering inputs; no command-return phase is specified or tested",
             "coverage": "not_established: verification is patch completeness and performance, not recovery-trajectory coverage"
           },
           "retrieved_on": "2026-09-15",
@@ -4933,7 +5275,8 @@
             "reconnection": "not_found_in_inspected",
             "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -5407,7 +5750,38 @@
       "identifier": "doi:10.1145/3564821",
       "title": "Automated Identification and Qualitative Characterization of Safety Concerns Reported in UAV Software Platforms",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C182",
+          "title": "Automated Identification and Qualitative Characterization of Safety Concerns Reported in UAV Software Platforms",
+          "url": "https://doi.org/10.1145/3564821",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 181 (doi:10.1145/3564821, year 2022): automated identification of safety concerns in UAV software platforms: may catalogue failsafe/timed-policy concerns; no abstract retained. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 181,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -5424,6 +5798,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.1145/3564821",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -5807,10 +6189,10 @@
           "evidence_grade": "B for the inspected sections (peer-reviewed workshop registered report, method and result tables read directly)",
           "finding": "Configuration fuzzing of PX4 only, guided by a reused PositionSmoothing setpoint generator instead of a simulator. Oracles compare a generated setpoint sequence with the user mission: max perpendicular deviation from mission segments, vertical-velocity fluctuation, and 'interruption' (stuck or incomplete mission). Inputs are configuration values; no failsafe, link, heartbeat, offboard or GCS condition is mentioned anywhere in the text (grep: 0 hits for fail-safe/failsafe/heartbeat/GCS/RTL/reconnect/offboard). ArduPilot appears only in a forum citation. The deviation oracle is a whole-sequence distance to a nominal mission under ideal conditions, not a calibrated recovery-trajectory coverage measure, and no autopilot pair or configuration equivalence is defined.",
           "axes": {
-            "equivalent_intent": "not_established: single autopilot (PX4); no pinned-configuration pair or intent equivalence",
+            "equivalent_intent": "not_found: Sec. I and Sec. IV evaluate PX4 only (Pixhawk 4 / PX4 v1.15.0); no second configuration or intention-equivalence rule",
             "liveness_vs_setpoint_injection": "not_established: setpoints are internally generated estimates of state, not injected loss of a setpoint or heartbeat stream",
-            "reconnection": "not_established_in_inspected_sections",
-            "coverage": "not_established: max deviation from mission segments and interruption flag, not calibrated recovery coverage"
+            "reconnection": "not_found: Secs. III-IV; no command-return phase, inputs are configuration values only",
+            "coverage": "not_found: Sec. III-B oracles (max perpendicular deviation from mission segments; interruption; vertical velocity); mission-following deviation, not calibrated recovery-trajectory containment"
           },
           "retrieved_on": "2026-09-15",
           "axis_states": {
@@ -5819,7 +6201,8 @@
             "reconnection": "not_found_in_inspected",
             "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -5855,16 +6238,18 @@
             "equivalent_intent": "not_established: policies are autopilot-specific propositions, not cross-configuration intent equivalence",
             "liveness_vs_setpoint_injection": "not_established: inputs are commands/parameters/environment; link or heartbeat cessation is not among the inspected fuzzing inputs",
             "reconnection": "not_established_in_inspected_sections",
-            "coverage": "policy-violation distance, not calibrated whole-trajectory recovery coverage"
+            "coverage": "not_found: PGFuzz's distance metrics quantify closeness to a single policy violation; no calibrated whole-trajectory recovery coverage over a horizon"
           },
           "retrieved_on": "2026-09-12",
           "axis_states": {
             "equivalent_intent": "not_found_in_inspected",
             "liveness_vs_setpoint_injection": "not_found_in_inspected",
             "reconnection": "not_found_in_inspected",
-            "coverage": "disclosed_or_addressed"
+            "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U2_ndss2021_pgfuzz.pdf (NDSS 2021 camera-ready, pdftotext), cache 2026-09-15",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -5914,9 +6299,9 @@
           "evidence_grade": "B for the inspected sections (peer-reviewed venue, method, setup and bug table read directly)",
           "finding": "Fuzzes ArduPilot-only (Copter, Plane, Rover in SITL) for assignment-statement bugs using a static assignment dependency graph and entropy-scheduled matched input sets. Heartbeat absence is used as a crash ORACLE (2 s), never injected as a fault; loss of GCS communication caused by SYSID_THISMAV is classified as a false positive and excluded. One reported bug (Rover, bug 40) is a failsafe-behaviour defect (fence violation without RTL), found as a bug instance, not as a comparison of recovery behaviour across configurations. No PX4 evaluation, no reconnection or command-return phase, no coverage measure of a recovery trajectory (coverage in the paper means code/MIS coverage).",
           "axes": {
-            "equivalent_intent": "not_established: single autopilot family (ArduPilot); no intent mapping across configurations",
+            "equivalent_intent": "not_found: Sec. VI-A setup is ArduPilot Copter/Plane/Rover only; Sec. VIII-C names PX4 as a portability target without evaluation",
             "liveness_vs_setpoint_injection": "not_established: heartbeat loss is an oracle for software crash, not an injected liveness fault; setpoint loss not injected",
-            "reconnection": "not_established_in_inspected_sections",
+            "reconnection": "not_found: Secs. IV-VI; no command-return or authority-resumption phase",
             "coverage": "not_established: 'coverage' is code/MIS coverage; route-deviation oracle is a 7 s drift test"
           },
           "retrieved_on": "2026-09-15",
@@ -5926,7 +6311,8 @@
             "reconnection": "not_found_in_inspected",
             "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -6176,7 +6562,38 @@
       "identifier": "doi:10.20944/preprints202411.1684.v1",
       "title": "A Smart Contract-Based Algorithm for Offline UAV Task Collaboration: A New Solution for Managing Communication Interruptions",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C186",
+          "title": "A Smart Contract-Based Algorithm for Offline UAV Task Collaboration: A New Solution for Managing Communication Interruptions",
+          "url": "https://doi.org/10.20944/preprints202411.1684.v1",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 185 (doi:10.20944/preprints202411.1684.v1, year 2024): offline UAV task collaboration under communication interruption (communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "needs_full_text",
+          "raw_index": 185,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -6193,6 +6610,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.20944/preprints202411.1684.v1",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -6272,7 +6697,38 @@
       "identifier": "doi:10.21203/rs.3.rs-3668418/v1",
       "title": "Applying Formal Methods to Build a Safe Continuous-Control Architecture for an Unmanned Aerial Vehicle",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C266",
+          "title": "Applying Formal Methods to Build a Safe Continuous-Control Architecture for an Unmanned Aerial Vehicle",
+          "url": "https://doi.org/10.21203/rs.3.rs-3668418/v1",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 265 (doi:10.21203/rs.3.rs-3668418/v1, year 2023): formal methods for a safe continuous-control UAV architecture: recovery/safety-policy relevance unclear; no abstract retained. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 265,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -6289,6 +6745,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.21203/rs.3.rs-3668418/v1",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -6512,7 +6976,38 @@
       "identifier": "doi:10.2139/ssrn.7319893",
       "title": "VIGOR: Distributed Multi-UAV Exploration with Connectivity Recovery in Communication-Limited Environments",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C087",
+          "title": "VIGOR: Distributed Multi-UAV Exploration with Connectivity Recovery in Communication-Limited Environments",
+          "url": "https://doi.org/10.2139/ssrn.7319893",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 86 (doi:10.2139/ssrn.7319893, year 2026): connectivity recovery in communication-limited multi-UAV exploration (communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "needs_full_text",
+          "raw_index": 86,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -6529,6 +7024,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.2139/ssrn.7319893",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -6968,7 +7471,38 @@
       "identifier": "doi:10.2514/6.2019-1961",
       "title": "Model-based System Health Management and Contingency Planning for Autonomous UAS",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C158",
+          "title": "Model-based System Health Management and Contingency Planning for Autonomous UAS",
+          "url": "https://doi.org/10.2514/6.2019-1961",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 157 (doi:10.2514/6.2019-1961, year 2019): model-based system health management and contingency planning for autonomous UAS (contingency/recovery criterion). Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "needs_full_text",
+          "raw_index": 157,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -6985,6 +7519,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.2514/6.2019-1961",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -7832,7 +8374,38 @@
       "identifier": "doi:10.3390/proceedings2019021008",
       "title": "UAV Trajectory Management: Ardupilot Based Trajectory Management System",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C021",
+          "title": "UAV Trajectory Management: Ardupilot Based Trajectory Management System",
+          "url": "https://doi.org/10.3390/proceedings2019021008",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 20 (doi:10.3390/proceedings2019021008, year 2019): 'UAV trajectory management' on ArduPilot: trajectory reservations possible; no abstract retained. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 20,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -7849,6 +8422,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.3390/proceedings2019021008",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -9104,7 +9685,38 @@
       "identifier": "doi:10.5445/ir/1000185498",
       "title": "ConfuSense: Sensor Reconfiguration Attacks for Stealthy UAV Manipulation",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C166",
+          "title": "ConfuSense: Sensor Reconfiguration Attacks for Stealthy UAV Manipulation",
+          "url": "https://doi.org/10.5445/ir/1000185498",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 165 (doi:10.5445/ir/1000185498, year 2025): sensor reconfiguration attacks on UAVs: configuration-policy relevance unclear; no abstract retained. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 165,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -9121,6 +9733,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://doi.org/10.5445/ir/1000185498",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -9579,16 +10199,23 @@
           "evidence_grade": "specification_not_experiment",
           "finding": "GCS heartbeat loss triggers configured actions only after monitoring is active. Restored heartbeat does not itself restore the previous flight mode.",
           "axes": {
-            "reconnection": "documented_no_automatic_mode_restore"
+            "reconnection": "disclosed (documented behaviour): mode is not restored on reconnection; measured comparison across configurations absent",
+            "liveness_vs_setpoint_injection": "not_found: only GCS heartbeat loss is documented on this page; the separate Guided setpoint timeout lives on U9's page, and neither is an injected stimulus",
+            "coverage": "not_found: no coverage endpoint",
+            "equivalent_intent": "not_found: one autopilot's configurable actions; no cross-configuration equivalence rule"
           },
           "retrieved_on": "2026-09-09",
-          "reinspected_on": "2026-09-12",
+          "reinspected_on": "2026-09-15",
           "text_sha256_prefix": "02193617a7ebf836",
           "locator_2026_09_12": "Section 'What will happen': 'If the failsafe clears (i.e. GCS reconnects and MAVLink heartbeat is restored) the copter will remain in its failsafe mode. It will not automatically return to the flight mode that was active before the failsafe was triggered.' FS_GCS_ENABLE values 0/1/2/3 and FS_OPTIONS bit 1 listed.",
           "axis_states": {
-            "reconnection": "disclosed_or_addressed"
+            "reconnection": "disclosed_or_addressed",
+            "liveness_vs_setpoint_injection": "not_found_in_inspected",
+            "coverage": "not_found_in_inspected",
+            "equivalent_intent": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U8.html (ardupilot.org gcs-failsafe), cache 2026-09-15"
         }
       ],
       "acquisitions": [
@@ -9638,16 +10265,18 @@
             "equivalent_intent": "not_established_in_inspected_sections",
             "liveness_vs_setpoint_injection": "documented_distinct_setpoint_timeout_3s",
             "reconnection": "not_established_in_inspected_sections",
-            "coverage": "none"
+            "coverage": "not_found: no coverage endpoint"
           },
           "retrieved_on": "2026-09-12",
           "axis_states": {
             "equivalent_intent": "not_found_in_inspected",
             "liveness_vs_setpoint_injection": "disclosed_or_addressed",
             "reconnection": "not_found_in_inspected",
-            "coverage": "disclosed_or_addressed"
+            "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U9.html (ardupilot.org copter-commands-in-guided-mode), cache 2026-09-15; the fetched page text no longer contains the 3-second-stop sentence recorded on 2026-09-12, so the liveness judgment is retained on its 2026-09-12 retrieval and marked for re-verification",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -9711,19 +10340,21 @@
           "evidence_grade": "D (vendor documentation of a static decision-table tool, not a study)",
           "finding": "An interactive table that evaluates the failsafe state machine's ACTION for a chosen parameter set and condition flags, including delayed actions. It computes the configured outcome; it does not execute a trajectory, inject a link loss in time, or say anything about command return.",
           "axes": {
-            "equivalent_intent": "partial: makes the per-configuration action explicit, which is the input to an intent-equivalence check, not the check itself",
+            "equivalent_intent": "not_found: the simulator shows the action one PX4 configuration will take; no second configuration, no equivalence rule",
             "liveness_vs_setpoint_injection": "not_established_in_inspected_sections",
             "reconnection": "not_established_in_inspected_sections",
-            "coverage": "none: static decision table"
+            "coverage": "not_found: static decision table, no trajectory endpoint"
           },
           "retrieved_on": "2026-09-12",
           "axis_states": {
-            "equivalent_intent": "disclosed_or_addressed",
+            "equivalent_intent": "not_found_in_inspected",
             "liveness_vs_setpoint_injection": "not_found_in_inspected",
             "reconnection": "not_found_in_inspected",
-            "coverage": "disclosed_or_addressed"
+            "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U6.html (docs.px4.io safety_simulation), cache 2026-09-15",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -9760,18 +10391,23 @@
           "evidence_grade": "specification_not_experiment",
           "finding": "ROS2 OffboardControlMode liveness is separate from trajectory setpoints; cessation of each is a distinct injection.",
           "axes": {
-            "equivalent_intent": "must_distinguish_liveness_and_setpoints",
-            "reconnection": "not_documented_on_page"
+            "equivalent_intent": "not_found: the page documents one PX4 mode's requirements; no cross-configuration intention equivalence",
+            "reconnection": "not_documented_on_page",
+            "liveness_vs_setpoint_injection": "disclosed (specification): PX4 documents a keep-alive stream (OffboardControlMode / any setpoint message) with timeout COM_OF_LOSS_T and failsafe action COM_OBL_RC_ACT, separately from the setpoint topics themselves; no experiment injects the two losses separately",
+            "coverage": "not_found: no coverage endpoint on the page"
           },
           "retrieved_on": "2026-09-09",
-          "reinspected_on": "2026-09-12",
+          "reinspected_on": "2026-09-15",
           "text_sha256_prefix": "5d1f2bcf5b89ce61",
           "locator_2026_09_12": "Offboard-loss: COM_OF_LOSS_T timeout -> COM_OBL_RC_ACT action depending on RC availability; MAVLink setpoints carry both liveness and value; ROS 2 OffboardControlMode is the separate proof-of-life. No statement about behaviour when the stream resumes.",
           "axis_states": {
-            "equivalent_intent": "disclosed_or_addressed",
-            "reconnection": "not_found_in_inspected"
+            "equivalent_intent": "not_found_in_inspected",
+            "reconnection": "not_found_in_inspected",
+            "liveness_vs_setpoint_injection": "disclosed_or_addressed",
+            "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U7.html (docs.px4.io flight_modes/offboard), cache 2026-09-15"
         }
       ],
       "acquisitions": [
@@ -9810,7 +10446,7 @@
           "source_id": "U3",
           "title": "PGFuzz code repository",
           "url": "https://github.com/purseclab/PGFuzz",
-          "access": "repository_tree_and_source",
+          "access": "repository_files",
           "version": "github.com/purseclab/PGFuzz at commit 7eaebf21116087249b8329d4ba7337a24a34ecb9 (2023-09-18), shallow clone 2026-09-15, 1327 files; not executed",
           "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_liveness: no HEARTBEAT for 5 s => 'program crashed' => reboot) and policy blocks A.CHUTE, A.RTL1-4, A.FLIP1-4, A.ALT_HOLD1-2, A.CIRCLE1-3/7, A.LAND1-2, A.AUTO1, A.GPS.FS1-2 (L1850-1930), A.RC.FS1-2 (L1931-1990: FS_THR_VALUE vs RC channel 3, RC_failsafe flag), A.SPORT1, A.GUIDED1, A.LOITER1, A.DRIFT1, A.BRAKE1; PX4/fuzzing.py L126-165 and blocks PX.CHUTE, PX.RTL1, PX.ALTITUDE1, PX.HOLD1-2, PX.POSITION1, PX.TAKEOFF1-2, PX.LAND1, PX.GPS.FS1-3 (L1738-1830: GPS_loss, gps_failsafe flag, COM_POS_FS_DELAY, RC channels, ALTCTL mode); PX4/check_policy.py (FLIP altitude and RTL-altitude policies); ArduPilot/update_distance.py (per-policy altitude/roll/pitch/heading error distance)",
           "aboutness": 2,
@@ -9820,16 +10456,27 @@
             "equivalent_intent": "not_established: two independent per-autopilot policy lists (A.* and PX.*), no cross-autopilot mapping in code",
             "liveness_vs_setpoint_injection": "not_established: RC/GPS fail-safe predicates are checked on state; link loss is not injected as a distinct fault and heartbeat loss is only a crash oracle",
             "reconnection": "not_established_in_inspected_files",
-            "coverage": "policy-violation distance implemented in update_distance.py; not calibrated whole-trajectory coverage (same as U2)"
+            "coverage": "not_found: per-policy state-error distance to a violation; no calibrated recovery-trajectory containment"
           },
           "retrieved_on": "2026-09-15",
           "axis_states": {
             "equivalent_intent": "not_found_in_inspected",
             "liveness_vs_setpoint_injection": "not_found_in_inspected",
             "reconnection": "not_found_in_inspected",
-            "coverage": "disclosed_or_addressed"
+            "coverage": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Set 2026-09-15 from direct inspection of the named sections; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "commit_sha": "7eaebf21116087249b8329d4ba7337a24a34ecb9",
+          "files_inspected": {
+            "README.md": "c2be3aa4e15c84550300605876db7e1cee49a6ca6de67e4d26cbf3ed33f95cad",
+            "ArduPilot/fuzzing.py": "1b8ee60b68cf928b20998cb0dcc64c903d13af8462554b848d0515e12f51aaa5",
+            "PX4/fuzzing.py": "8f991cf380604353d9492e5d215128a1a6784130fef86bc53372718a59619412",
+            "PX4/check_policy.py": "39128b62d72e488eeb6882aad2c1bd349bbdbdca55d9833c73fc5cfc0dda234a",
+            "ArduPilot/update_distance.py": "0c775dd5f7a3a89419328954184296b8850229ee3f595613853ab077d2fb2c82",
+            "ArduPilot/pgfuzz.py": "f01b9b274a418f150e84918b53e1fee4dabc695d476050b8a9a9f87791492594",
+            "PX4/pgfuzz.py": "9f85efd7104ac0ca2fc248e3c900325cdfdf916e7603bf6f5c0412faa4f364ed"
+          },
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -9845,7 +10492,7 @@
           "route": "day3_targeted_primary_open",
           "retrieved_on": "2026-09-15",
           "url": "https://github.com/purseclab/PGFuzz",
-          "access": "repository_tree_and_source",
+          "access": "repository_files",
           "query": null,
           "artifact": "docs/day3-reading-records.json"
         }
@@ -10356,6 +11003,53 @@
       ]
     },
     {
+      "identifier": "https://openalex.org/w7165817576",
+      "title": "Control-Aware Manipulation of ArduPilot via Legitimate MAVLink Commands: Simulation and Hardware Validation",
+      "screening_status": "unscreened",
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C135",
+          "title": "Control-Aware Manipulation of ArduPilot via Legitimate MAVLink Commands: Simulation and Hardware Validation",
+          "url": "https://openalex.org/W7165817576",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 134 (https://openalex.org/w7165817576, year 2026): control-aware manipulation of ArduPilot via legitimate MAVLink commands with simulation and hardware validation: may exercise failsafe/timed policies; no abstract retained. Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "unresolved_metadata",
+          "raw_index": 134,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
+      "acquisitions": [
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://openalex.org/W7165817576",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
+        }
+      ]
+    },
+    {
       "identifier": "https://openalex.org/w7172474767",
       "title": "Anomaly management in unmanned aerial vehicles: A systematic literature review",
       "screening_status": "unscreened",
@@ -10383,7 +11077,38 @@
       "identifier": "https://openalex.org/w7202066013",
       "title": "Resilient Drone Swarm Control: Manual Leader-Follower Architecture with Autonomous Failover and Reconfiguration",
       "screening_status": "unscreened",
-      "assessments": [],
+      "assessments": [
+        {
+          "route": "day3",
+          "artifact": "docs/day3-reading-records.json",
+          "source_id": "C214",
+          "title": "Resilient Drone Swarm Control: Manual Leader-Follower Architecture with Autonomous Failover and Reconfiguration",
+          "url": "https://openalex.org/W7202066013",
+          "access": "metadata_only",
+          "version": null,
+          "text_sha256_prefix": null,
+          "locator": "",
+          "aboutness": null,
+          "evidence_grade": null,
+          "finding": "Metadata-only screen of canonical export row 213 (https://openalex.org/w7202066013, year 2026): leader-follower swarm with autonomous failover and reconfiguration on loss (communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+          "axes": {
+            "equivalent_intent": "unresolved: not read (metadata-only screen)",
+            "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+            "reconnection": "unresolved: not read (metadata-only screen)",
+            "coverage": "unresolved: not read (metadata-only screen)"
+          },
+          "axis_states": {
+            "equivalent_intent": "unresolved",
+            "liveness_vs_setpoint_injection": "unresolved",
+            "reconnection": "unresolved",
+            "coverage": "unresolved"
+          },
+          "retrieved_on": "2026-09-15",
+          "screening_decision": "needs_full_text",
+          "raw_index": 213,
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+        }
+      ],
       "acquisitions": [
         {
           "route": "day2_native_reported",
@@ -10400,6 +11125,14 @@
               "query_log_supported": true
             }
           ]
+        },
+        {
+          "route": "day3_targeted_primary_open",
+          "retrieved_on": "2026-09-15",
+          "url": "https://openalex.org/W7202066013",
+          "access": "metadata_only",
+          "query": null,
+          "artifact": "docs/day3-reading-records.json"
         }
       ]
     },
@@ -10428,15 +11161,19 @@
           "axes": {
             "reconnection": "disclosed",
             "equivalent_intent": "not_established_by_these_claims",
-            "coverage": "not_established_by_these_claims"
+            "coverage": "not_established_by_these_claims",
+            "liveness_vs_setpoint_injection": "not_found: link-signal loss only; no setpoint-stream distinction"
           },
           "retrieved_on": "2026-09-09",
           "axis_states": {
             "reconnection": "disclosed_or_addressed",
             "equivalent_intent": "not_found_in_inspected",
-            "coverage": "not_found_in_inspected"
+            "coverage": "not_found_in_inspected",
+            "liveness_vs_setpoint_injection": "not_found_in_inspected"
           },
-          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Derived 2026-09-13 from the free-text axes by rule and reviewed; the coverage checker reads ONLY this field."
+          "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+          "reinspection_source": "U12.html (patents.google.com EP3662460B1), cache 2026-09-15",
+          "reinspected_on": "2026-09-15"
         }
       ],
       "acquisitions": [
@@ -10485,6 +11222,6 @@
   "inputs": {
     "docs/prior-art-search-2026-09-08.md": "9e48582310958515b8fdbd1873c3cc66e57455861b7c4b9595213356f2ad4ba8",
     "evidence/task-2026-09-09/database-export.json": "2c0223cfa638cab8ef755e1e368e3b550ce1cd64460b38b37c8d0da8f7700d54",
-    "docs/day3-reading-records.json": "daa22f949490c68287777dcf66084eca61b8f9219a754f55528b051a90637e22"
+    "docs/day3-reading-records.json": "ab805a2825f4d5368f8aa3723077470ae964e661a418eab4e50d4cd4c5bf0cbe"
   }
 }

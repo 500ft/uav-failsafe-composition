@@ -1,6 +1,6 @@
 # Prior-art review and conditional URC-01 closeout — implementation plan
 
-Status: proposed; implementation not started under this plan. Sequence note (2026-09-15): PR #12 and its implementation PR #14 were merged into main before this replacement was reviewed; T00 must record that state, and the implementation reconciles #14's records, regenerated artifacts and closeout prose under this plan's rules rather than starting from the reviewed base. This plan supersedes [PR #12](https://github.com/500ft/uav-failsafe-composition/pull/12), reviewed at `96fb5a7069c83a0741ae813df0420339e3921f54`. This PR changes this document only. Merge the replacement plan before starting its implementation on a fresh task branch.
+Status: executed 2026-09-15 on `task/prior-art-closeout-2026-09-15` (packet complete; URC-01 gate partial, see docs/prior-art.md). Sequence note (2026-09-15): PR #12 and its implementation PR #14 were merged into main before this replacement was reviewed; T00 must record that state, and the implementation reconciles #14's records, regenerated artifacts and closeout prose under this plan's rules rather than starting from the reviewed base. This plan supersedes [PR #12](https://github.com/500ft/uav-failsafe-composition/pull/12), reviewed at `96fb5a7069c83a0741ae813df0420339e3921f54`. This PR changes this document only. Merge the replacement plan before starting its implementation on a fresh task branch.
 
 Prepared: 2026-09-14; revised 2026-09-15. Reviewed base: `2c72e0288129e9f50d5768189263cbf83136aa08` (main after PR #11). At implementation start, record the actual main/merged-plan commit and compare changes since this base; this SHA is review provenance, not permission to overwrite newer work. Use `task/prior-art-closeout-<actual-start-date>`, one implementation PR to main.
 
@@ -72,103 +72,103 @@ Report the retained patent-domain queries as **web-index discovery**, the native
 
 Checkboxes track execution of this plan. The aggregate packet status belongs to `URC-R03` in [SPRINT_TASKS.csv](../../SPRINT_TASKS.csv); URC-01 remains a separate research gate. Source-reading tasks contain natural acquisition/section checkpoints; do not rush a paper to satisfy an arbitrary time estimate. No simulator, source-review or source-access result is asserted by an unchecked task.
 
-### [ ] T00 — Record the starting state
+### [x] T00 — Record the starting state
 
 - Files: new execution evidence `README.md`; read main, this merged plan, `AGENTS.md`, CI, the rubric and current task ledger.
 - Do: start an isolated clean checkout, record the base/merged-plan SHAs, branch, interpreter/dependency versions and input SHA-256s. Check U/S/C and `URC-R03` ID collisions. Run the baseline gate commands below.
 - Done when: actual outputs and exits are retained. At the reviewed base there are 40 repository tests and 4 presentation tests; re-observe counts. The historical candidate evaluator is not a current gate; do not re-pin it to hide drift.
 
-### [ ] T01 — Commit the review contract before new reading
+### [x] T01 — Commit the review contract before new reading
 
 - Depends on: T00. Files: `docs/day3-reading-rubric.md`, execution evidence `README.md` and `sources.json` (new).
 - Do: add a dated clarification of the four axes, access vocabulary, relevance criteria, identity map, acquisition limit and conclusion rule above. Preserve the original rubric as historical context. Freeze the canonical export hash, the expected 317-row intake and the baseline query/alias inventory. Use actual execution dates and disclose that this is a targeted follow-up after earlier results were known.
 - Done when: the procedure commit precedes source retrieval and judgments; any input drift is explained before proceeding. This is not a blind or independent preregistration.
 
-### [ ] T02 — Reproduce access and missing-axis defects
+### [x] T02 — Reproduce access and missing-axis defects
 
 - Depends on: T01. Files: `tests/test_acquisition_ledger.py`, `tests/test_reference_coverage.py`.
 - Do: add focused fixtures for abstract-only/unknown access with an affirmative or negative state; an inspected source missing one/all axes; and an inspected source with a real locator. Assert that unread input cannot become assessment-available or support a gap, and missing axes remain visible as unresolved. Keep the existing bad-state/missing-locator regression, using a real axis instead of arbitrary `a`.
 - Done when: the unsafe cases fail on the current consumers for the intended assertion, with failing output retained; no network calls or research assertions enter tests.
 
-### [ ] T03 — Fix the two existing consumers
+### [x] T03 — Fix the two existing consumers
 
 - Depends on: T02. Files: `scripts/acquisition_ledger.py`, `scripts/reference_coverage.py`.
 - Do: make `build()` promote readings only for the explicit inspected-access allowlist with a nonempty locator, preserving a prior legitimate day-1 assessment if a later access fails. Make `novelty_axes()` iterate the four canonical axes for every source and conservatively handle access, locator and state as specified. Keep the small allowlist local to each consumer; no new module, dependency or CLI. Preserve the native-response audit, denominator rules and deterministic ordering.
 - Done when: focused regressions pass. Record the planned temporary staleness of derived JSON until T12; do not claim a green full suite, weaken existing reproduction tests or repeatedly regenerate intermediate research outputs.
 
-### [ ] T04 — Resolve the three follow-up identities
+### [x] T04 — Resolve the three follow-up identities
 
 - Depends on: T01. Files: execution `sources.json`.
 - Do: verify S1/S2 metadata by DOI and resolve S3 through the bounded Crossref lookup and publisher confirmation. Preserve request parameters, returned identifiers, dates and why the selected record matches. Acquire accessible primary text via the frozen routes, retaining raw/extracted bytes and hashes.
 - Done when: each identity is confirmed or explicitly ambiguous/unavailable. Publication years and source versions are observed; missing metadata does not get invented. No novelty assessment is made from a title or abstract.
 
-### [ ] T05 — Assess UAVConfigFuzzer first
+### [x] T05 — Assess UAVConfigFuzzer first
 
 - Depends on: T03, T04. Files: `docs/day3-reading-records.json` (S1), execution `sources.json`.
 - Do: inspect the threat model, configuration-generation method, tested autopilots, fault stimuli and evaluation sections actually available. Record all four axis judgments, especially whether configuration fuzzing establishes equivalent recovery intention across configurations.
 - Done when: each judgment has a rationale and exact locator, or is unresolved with access details; the record agrees with the retained text and manifest. Stop after a source/section checkpoint if interrupted.
 
-### [ ] T06 — Assess ADGFuzz
+### [x] T06 — Assess ADGFuzz
 
 - Depends on: T05. Files: reading records (S2), execution `sources.json`.
 - Do: inspect available method, inputs/policies and evaluation sections; distinguish generated tests, trace observations and calibrated recovery coverage. Apply all four axes without changing their definitions after seeing results.
 - Done when: S2 meets the same evidence contract, including unresolved axes where warranted.
 
-### [ ] T07 — Assess PGPatch
+### [x] T07 — Assess PGPatch
 
 - Depends on: T06. Files: reading records (S3), execution `sources.json`.
 - Do: inspect the verified work's specification/patching method and evaluation; distinguish patching a policy from composing configured recovery behavior. Keep the verified year and DOI, not the inherited “2026” label.
 - Done when: S3 meets the same evidence contract; ambiguity or inaccessible text leaves the relevant reading unresolved rather than substituting a similarly named paper.
 
-### [ ] T08 — Pin and inspect U3's artifact tree
+### [x] T08 — Pin and inspect U3's artifact tree
 
 - Depends on: T01. Files: execution `sources.json`; U3 in reading records.
 - Do: inspect `https://github.com/purseclab/PGFuzz` at a recorded full commit SHA in the local source cache. List the tree, then open README/setup instructions and locate actual policy, parameter/configuration, fault-input, oracle/logging and autopilot integration files. Record exact paths and per-file hashes as opened; do not invent paths from the paper.
 - Done when: a pinned file inventory or a precise access failure exists. No install, container launch, executable from the repo, or claim of runtime compatibility is required.
 
-### [ ] T09 — Record U3 findings and a reuse decision
+### [x] T09 — Record U3 findings and a reuse decision
 
 - Depends on: T08. Files: U3 reading record; execution `README.md`.
 - Do: trace the relevant static call/configuration path across the inspected files. Resolve all four axes as far as those files permit, leaving unavailable or untraced behavior unresolved. Recommend reuse of specific policies/interfaces/oracles, adaptation, or no suitable component, with pinned file evidence and untested compatibility clearly stated. Relate this to the already reviewed U5/U6 tooling options without implementing a launcher.
 - Done when: each judgment and reuse recommendation is source-linked; absence in inspected files is not absence in the whole repository or a verified execution result.
 
-### [ ] T10 — Reconcile the existing U1–U12 axis findings
+### [x] T10 — Reconcile the existing U1–U12 axis findings
 
 - Depends on: T05–T07, T09. Files: reading records; execution `sources.json` and `README.md`.
 - Do: review every existing record against the clarified axes in source-sized checkpoints. Start with U6/U9's `coverage: none` versus affirmative states, then U1/U2/U4's distance/oracle distinctions, U7's liveness placement and U11's heartbeat-only finding. Re-open primary locators for every changed assessment. Add missing axes explicitly, preserving unrelated earlier findings and acquisition dates; record each reinspection date and old → new judgment with reason.
 - Done when: prose, axis states and access scope agree for each record. Unavailable supporting text leaves the disputed judgment unresolved. No global keyword remapping or semantic conclusion drawn merely from a passing checker.
 
-### [ ] T11 — Screen the complete retained metadata intake
+### [x] T11 — Screen the complete retained metadata intake
 
 - Depends on: T10. Files: new execution `candidate-screening.csv`; reading records only for newly identified unresolved C entries.
 - Do: screen the 317 raw hits in ascending index, in resumable batches of 25 or fewer. Use the frozen relevance rules and only the retained metadata for this pass. Map exact identities to inspected U/S sources, document exclusions/duplicates, and expose relevant unread or ambiguous candidates as specified above. Do not expand to new searches or silently start a new full-text campaign.
 - Done when: every retained row is accounted for exactly once, input indices/IDs agree with the hashed export, and all relevant unread work is visible in the reading records and closeout blockers. Screening metadata is not full-text review.
 
-### [ ] T12 — Regenerate and reconcile derived evidence
+### [x] T12 — Regenerate and reconcile derived evidence
 
 - Depends on: T03, T10, T11. Files: both existing generated JSON outputs; `docs/reference-coverage-2026-09-12.md`.
 - Do: run `python scripts/acquisition_ledger.py` and `python scripts/reference_coverage.py`; never hand-edit their JSON. Run both `--check` modes. Reconcile the document's currently asserted coverage figures and axis table against the new JSON, including the existing stale 2/6 historical-credit and `supported_bounded` statements. Clearly mark superseded passages and add a dated current-result subsection instead of leaving competing “current” tables.
 - Done when: subsequent regeneration leaves both artifacts byte-identical; all 402 historical rows and 90 provenance gaps remain, canonical export stays `day4_public`, known-reference coverage remains 3/6, rejected historical credit stays 0/6, and the frozen register/raw-export hashes remain unchanged. New readings affect assessments, not discovery recall. The current prose/table agrees with the JSON.
 
-### [ ] T13 — Write the URC-01 decision against its real acceptance criteria
+### [x] T13 — Write the URC-01 decision against its real acceptance criteria
 
 - Depends on: T12. Files: `docs/prior-art.md`; execution `README.md`.
 - Do: add dated provenance-linked executed database and patent-domain web search strings; relevance inclusion/exclusion and access limitations; a comparator table with identity/version, pinned configurations, equivalent-intent rule, loss stimulus, reconnection, coverage endpoint, available code and exact source locators. Cover all U/S sources and summarize/link unresolved C entries. Distinguish partial ingredient overlap from evidence addressing the precise remaining combination.
 - Done when: every clause of URC-01's done-when has an evidence link or is explicitly unmet. Record the evidence conclusion and independent gate status using the frozen rule. An unread threatening competitor, missing required search or unsupported conclusion keeps URC-01 open; do not amend its acceptance text to declare success. Specify the next bounded work, not an automatic downstream start.
 
-### [ ] T14 — Make the review packet navigable
+### [x] T14 — Make the review packet navigable
 
 - Depends on: T13. Files: `docs/SPRINT_TASKS.csv`, `docs/SPRINT_PROGRESS.md`, `docs/REVIEW_READY.md`, `docs/START_HERE.md`, `README.md`, execution `README.md`/`sources.json`.
 - Do: add one `URC-R03` Agent row depending on URC-R02 for this packet, with actual acceptance/evidence and a separate URC-01 state in its explanation. Add one dated progress and review entry. In the README/start guide, add only a short current-review pointer and correct any present-tense statement directly superseded by this work; keep dated historical evidence accessible. Finish the command/exit, source-hash, decision-change and unresolved-work records.
 - Done when: a cold reader reaches the current result and can distinguish completed review operations, unread sources, unresolved URC-01 conditions and owner-only tasks. No old report is silently rewritten as if today's review happened earlier.
 
-### [ ] T15 — Exercise integrity controls and the full gate
+### [x] T15 — Exercise integrity controls and the full gate
 
 - Depends on: T14. Files: existing two test modules; execution `README.md`.
 - Do: add a compact acceptance check in `tests/test_reference_coverage.py` for unique IDs, mandatory U1–U12/S1–S3 presence, exactly four valid axis states per record, all-unresolved states for unread access, and the complete candidate-screening index/ID accounting with valid reading links and reasons. Use the evidence directory fixed at T00. Preserve the existing native-response tamper test. In a disposable copy remove S1 while leaving generated JSON intact: both `--check` commands must exit nonzero. Then regenerate in that copy: the required-ID check must still fail, proving that regenerated omissions cannot look complete. Restore a pristine copy for each control.
 - Done when: intended failures are recorded separately from real gate failures, restored inputs pass, deterministic regeneration holds, and all commands below exit zero in the implementation checkout. Verify the full manifest hashes against locally retained snapshots and the reading-record prefixes; CI can check metadata relationships, not access private cached copies. Software checks establish consistency, not correct paper interpretation or novelty; manually compare each changed finding with its retained locator and record this as executor self-review.
 
-### [ ] T16 — Publish the implementation handoff
+### [x] T16 — Publish the implementation handoff
 
 - Depends on: T15. Files: plan checkboxes and implementation PR description.
 - Do: commit the bounded implementation and push one PR to main. Link the merged replacement-plan commit, actual implementation commits, execution evidence, critical findings, URC-01 status and remaining work. Check hosted CI for the final pushed head; update the task delivery record without embedding a commit's own hash inside itself.
