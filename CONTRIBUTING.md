@@ -16,6 +16,12 @@ Contributions should make the research easier to audit, reproduce, or falsify.
 ```bash
 python scripts/check_repo_contract.py
 python -m unittest discover -s tests -v
+python scripts/acquisition_ledger.py --check
+python scripts/reference_coverage.py --check
+python evidence/task-2026-09-09/rerun_search.py --audit evidence/task-2026-09-11-public/database-export.json
+python tools/check_presentation.py . "UAV Failsafe Composition" uav-failsafe-composition
+python tools/test_presentation.py
+git diff --check
 ```
 
 Physical experiments additionally require approval from the responsible laboratory or facility. A contribution to this repository is not flight authorization.

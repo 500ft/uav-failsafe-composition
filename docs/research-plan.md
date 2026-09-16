@@ -6,6 +6,10 @@ The broad topics—UAV failsafes, contingency trajectories, collision avoidance,
 
 The candidate contribution is narrower: measure the native post-authority-loss behavior of a **completely configured vehicle**, form an empirical recovery contract from those observations, and test whether multiple such contracts can be composed more efficiently than one fleet-wide worst-case envelope.
 
+## 2026-09-16 position note
+
+The [formal-composition programme](specs/formal-composition/README.md) is the proposed spine: extract PX4's failsafe logic as a timed-automaton network, decide safety, deadlock freedom, priority consistency and bounded time-to-safe-state on the composed model, and replay every witness in SITL. RQ1–RQ2 below become its measurement layer and fallback; RQ3–RQ4 are trigger-gated (see its scope). The unit of analysis, observables and honesty rules below are unchanged.
+
 ## Unit of analysis
 
 Each experimental identity is:
