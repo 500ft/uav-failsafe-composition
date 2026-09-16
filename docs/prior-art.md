@@ -56,6 +56,8 @@ Answers to these questions must be added with dated search strings and primary s
 
 ## URC-01 closeout — 2026-09-15
 
+**Superseded the same day** by the [URC-01 decision under the replacement plan](#urc-01-decision--2026-09-15-replacement-plan) below. The executed-query table and the criteria in this section stand; its source table, axis summary and conclusion do not: the clarified axis definitions changed 18 judgments and the full intake screen exposed 17 unread candidates.
+
 This section meets the URC-01 done-when in [TASKS.md](TASKS.md#urc-01--close-the-exact-gap-and-tooling-search):
 search strings, inclusion/exclusion criteria, a source table, and a conclusion in one of the two allowed forms.
 It is bounded by the inspected set below. It is not an exhaustive systematic review.
@@ -161,3 +163,102 @@ Bounds on that sentence: no patent search; no dissertation or standards search; 
 inspected; recall of the canonical export is 3/6 against a 6-source anchor set, so the database leg is known
 to miss relevant work. This closes URC-01 as a *dated boundary*, not as a novelty verdict. It does not close
 URC-S08 or any owner gate. It must be re-run before any submission.
+
+## URC-01 decision — 2026-09-15 (replacement plan)
+
+Written against the URC-01 done-when in [TASKS.md](TASKS.md#urc-01--close-the-exact-gap-and-tooling-search),
+clause by clause, under [docs/specs/prior-art-closeout/plan.md](specs/prior-art-closeout/plan.md). Evidence:
+[execution README](../evidence/task-prior-art-closeout-2026-09-15/README.md),
+[sources.json](../evidence/task-prior-art-closeout-2026-09-15/sources.json).
+
+### Search history, by kind (clause: search strings)
+
+- **Web-index discovery, 2026-09-08** (six strings, verbatim in
+  [prior-art-search-2026-09-08.md](prior-art-search-2026-09-08.md#executed-search-strings)); three of them are
+  patent-domain queries on Google Patents: strings 4–6. This is web discovery, not a native patent export.
+- **Native scholarly exports, 2026-09-09 (rejected, audit-failed) and 2026-09-11 (canonical, 16 legs, 317
+  rows)**: the executed (database, query, status, n) table is in the superseded section above and stands.
+- **Identity lookups, 2026-09-15**: Crossref by DOI (S1, S2), Crossref bibliographic first-five (S3), OpenAlex
+  and Semantic Scholar OA status (S3). Not discovery legs.
+- **Technical disclosure reading of one patent** (U12, claims 1–3). Not legal review.
+- **Not performed**: a native patent-database search campaign, dissertation and standards searches. Their
+  absence is stated, not equated with a zero-hit search or with clearance.
+
+### Relevance criteria and access limitations (clause: inclusion/exclusion)
+
+Day-1 review criteria as frozen in the [rubric clarification](day3-reading-rubric.md#2026-09-15-clarification-plan-docsspecsprior-art-closeoutplanmd-t01):
+include cross-autopilot execution, timed safety/configuration policies, communication-loss recovery,
+trajectory reservations; exclude tutorials, anecdotes, throughput-only work, unrelated domains, marketing;
+missing abstract or unclear relevance is unresolved. Separately, the day-1 reference denominator (U1–U12)
+is fixed and byte-identical; register eligibility is a coverage rule, not a relevance rule. Access: full
+texts for U1, U2, U4, S1, S2 and the three arXiv HTML sources; vendor pages for U6–U9; patent text for U12;
+repository files for U3 (pinned commit); S3 from an author-posted copy because the publisher copy is
+closed. Seventeen intake rows are metadata-only (C-ids) and unread.
+
+### Comparator table (clause: source table)
+
+Locators are the record's `locator`; per-axis rationales are in each record's `axes` text.
+
+| id | identity / version | pinned configurations | equivalent-intent rule | loss stimulus | reconnection | coverage endpoint | code | locator |
+|---|---|---|---|---|---|---|---|---|
+| U1 | Avis, arXiv 2106.14959 v1 | PX4 and ArduPilot SITL, versions per paper | none (in-situ model checking vs profiling runs) | sensor-instance failures | not found | state-deviation invariant vs profiling runs, eq. (1) | yes (paper artifact) | Sections IV-C1/2, equations 1 and profiling-state definitions |
+| U2 | PGFuzz, NDSS 2021 | ArduPilot, PX4, Paparazzi, per-autopilot policy sets | none (per-autopilot MTL policies) | commands, parameters, environment | not found | distance to one policy violation | yes (U3) | Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scop |
+| U3 | PGFuzz code @7eaebf2 | separate ArduPilot/ and PX4/ trees | none (two hard-coded policy lists) | parameters/commands; heartbeat loss = crash oracle | not found | per-policy state error (update_distance.py) | yes, Python 2, read not run | README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-20 |
+| U4 | RouthSearch, ISSTA 2025 / arXiv 2505.02357 | ArduPilot and PX4 PID configs | not applicable (PID specification inference) | PID values | not found | per-mode MTL oracle, eq. (8) | per paper | Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings |
+| U5 | aerial-autonomy-stack, arXiv 2602.07264 v2 | PX4 and ArduPilot via one ROS 2 interface | none (shared interface only) | none | not found | none (simulation throughput) | yes | Sections III and IV-A1/2/3 |
+| U6 | PX4 safety_simulation docs | one PX4 parameter set at a time | none (action table for one config) | simulated failsafe triggers | not found | static action table | n/a (docs) | Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay |
+| U7 | PX4 Offboard docs | PX4 Offboard mode | none | proof-of-life stream (COM_OF_LOSS_T) vs setpoint topics, documented | not found | none | n/a (docs) | Description; ROS 2 Offboard Control |
+| U8 | ArduPilot GCS failsafe docs | Copter FS_GCS_ENABLE / FS_OPTIONS | none | GCS heartbeat loss (FS_GCS_TIMEOUT) | documented: mode not restored on reconnect | none | n/a (docs) | When the failsafe will trigger; What will happen |
+| U9 | ArduPilot Guided commands docs | Copter Guided | none | setpoint timeout (3 s stop) documented 09-12; sentence absent from today's page text | not found | none | n/a (docs) | Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command  |
+| U10 | Plan-and-Avoid, arXiv 2608.06648 v1 | none (planner) | not applicable | not applicable | not applicable | not applicable | yes | Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the ful |
+| U11 | Fail-operational swarm architecture, arXiv 2608.20906 v1 | one architecture | contract for one architecture, no equivalence | heartbeat/SNR only | not found | none (monitor coverage is a diagnostic metric) | no | Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To |
+| U12 | EP3662460B1 | none (patent) | none | radio-link loss | disclosed: regain control after communication failure | none | n/a | Claims 1–3 |
+| S1 | UAVConfigFuzzer, FUZZING 2026 | PX4 v1.15.0 only | none | configuration values only | not found | mission deviation / interruption oracles | not stated | Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, in |
+| S2 | ADGFuzz, NDSS 2026 | ArduPilot Copter/Plane/Rover SITL | none | parameters/commands; heartbeat loss = crash oracle | not found | code/MIS coverage; 7 s drift oracle | not stated | Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class |
+| S3 | PGPatch, IEEE S&P 2022 | ArduPilot, PX4, Paparazzi (per-autopilot formulas) | none (per-autopilot PPL fail-safe formulas) | none injected; failsafe_gcs_check only a code-map entry | not found | patch completeness/performance | not stated | Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot |
+
+Unread candidates from the full intake screen (metadata only, all axes unresolved): C001, C087, C158, C180, C186, C214, C228, C004, C005, C021, C135, C166, C182, C218, C219, C225, C266 —
+see the [reconciled coverage section](reference-coverage-2026-09-12.md#2026-09-15-reconciled--current-axis-table-under-the-replacement-plan-urc-r03).
+
+Axis summary (script output):
+
+| axis | status | disclosed by | not found in inspected sections of | not applicable | unresolved for |
+|---|---|---|---|---|---|
+| `equivalent_intent` | **supported_bounded** | — | U1, U5, U7, U8, U12, U2, U6, U9, U11, U3, S1, S2, S3 | U4, U10 | C001, C087, C158, C180, C186, C214, C228, C004, C005, C021, C135, C166, C182, C218, C219, C225, C266 |
+| `reconnection` | **narrowed_by_disclosure** | U8, U12 | U1, U5, U7, U2, U4, U6, U9, U11, U3, S1, S2, S3 | U10 | C001, C087, C158, C180, C186, C214, C228, C004, C005, C021, C135, C166, C182, C218, C219, C225, C266 |
+| `coverage` | **supported_bounded** | — | U1, U5, U7, U8, U12, U2, U4, U6, U9, U11, U3, S1, S2, S3 | U10 | C001, C087, C158, C180, C186, C214, C228, C004, C005, C021, C135, C166, C182, C218, C219, C225, C266 |
+| `liveness_vs_setpoint_injection` | **narrowed_by_disclosure** | U7, U9 | U1, U5, U8, U12, U2, U4, U6, U11, U3, S1, S2, S3 | U10 | C001, C087, C158, C180, C186, C214, C228, C004, C005, C021, C135, C166, C182, C218, C219, C225, C266 |
+
+### Evidence conclusion (clause: conclusion in an allowed form)
+
+- `reconnection`: **prior art found.** Documented behaviour exists (U8: mode is not restored when the GCS
+  heartbeat returns; U12: regaining control after communication failure is claimed). The claim to remove is
+  "reconnection behaviour is unstudied"; what may remain is a *measured cross-configuration comparison*
+  of the command-return phase, which no inspected source performs.
+- `liveness_vs_setpoint_injection`: **prior art found.** The distinction is vendor-documented as a
+  specification (U7: proof-of-life stream and timeout separate from setpoint topics; U9 as read on
+  2026-09-12: separate Guided setpoint timeout). The claim to remove is "the distinction is unrecognised";
+  what may remain is *injecting the two losses as distinct stimuli* and comparing realised behaviour.
+- `equivalent_intent` and `coverage`: **no conclusion.** No inspected source discloses either axis under the
+  clarified definitions (13 and 14 `not_found_in_inspected`, none disclosed), but 17 relevant or
+  ambiguous intake rows are unread, and at least C001, C180, C004, C005, C135 could bear on equivalent intent
+  across autopilots. Unread sources cannot support a gap. A "supported candidate gap" sentence is therefore
+  **not** written for the composed claim today.
+
+No sentence in this document says that no one has done this.
+
+### Gate status: **partial**
+
+Met: executed database and patent-domain web strings recorded with provenance; criteria stated; comparator
+table covers every U/S source; conclusion written only in allowed forms.
+Unmet, with next bounded work:
+
+1. Full-text reading of the 7 `needs_full_text` rows (C001, C087, C158, C180, C186, C214, C228), starting with
+   C001 and C180 (axis-1 threats), then resolution of the 10 `unresolved_metadata` rows by abstract or
+   full text (C004, C005, C021, C135, C166, C182, C218, C219, C225, C266).
+2. Re-verification of U9's 3-second setpoint-timeout sentence against a current page or the ArduPilot
+   source, since today's page text no longer contains it.
+3. A native patent-database search and dissertation/standards searches remain absent; the owner decides
+   whether URC-01 requires them before any disclosure (XC-02 applies).
+
+URC-01 stays open. Nothing here promotes URC-S08, URC-02 or any experiment.

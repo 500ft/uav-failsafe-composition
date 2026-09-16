@@ -40,6 +40,7 @@ The executable deliverable today is research-integrity tooling, not a UAV simula
 | Source-review rubric and reading records | Which sections were inspected and how they affect the candidate claim | [Rubric](docs/day3-reading-rubric.md), [source review](docs/day3-source-review.md) |
 | Reproducible acquisition ledger | Preserved routes, identifiers, access scope, and explicit provenance gaps | [Ledger](evidence/task-day3-2026-09-09/acquisition-ledger.json), [generator](scripts/acquisition_ledger.py) |
 | Experiment and claim contracts | Proposed comparisons, uncertainty requirements, and stop conditions | [Experiment 01](docs/experiment-01-authority-loss.md), [claim ledger](docs/claim-ledger.md) |
+| Current prior-art review packet (2026-09-15) | Follow-up sources and the day-1 set reconciled against clarified axes; full intake screened; URC-01 decision with a separate gate status (partial) | [Decision](docs/prior-art.md#urc-01-decision--2026-09-15-replacement-plan), [evidence](evidence/task-prior-art-closeout-2026-09-15/README.md) |
 | Recorded software checks | Documentation/schema/provenance checks—not research validation | [Verification record](evidence/task-day3-2026-09-09/README.md) |
 
 The 2026-09-09 reconciliation retains **402 raw database rows**, with **90 lacking successful query-log support**. These are acquisition records, not 402 reviewed studies. Recall remains unavailable; the earlier literal-ID overlap is not a valid recall estimate. See the [source review](docs/day3-source-review.md) for the correction and remaining competitors to read.

@@ -1,5 +1,11 @@
 # 2026-09-09 — latest review correction
 
+## 2026-09-15 (reconciled) — URC-01 decision, gate partial (URC-R03)
+
+Read [prior-art.md § URC-01 decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan), then the
+[execution README](../evidence/task-prior-art-closeout-2026-09-15/README.md). Supersedes the same-day entry below: the
+"no axis unresolved" statement no longer holds. Unread: 17 intake rows (C-ids). URC-S08 remains the owner gate.
+
 ## 2026-09-15 — URC-01 closeout (URC-R03)
 
 Read [prior-art.md § URC-01 closeout](prior-art.md#urc-01-closeout--2026-09-15) first, then

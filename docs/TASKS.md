@@ -49,9 +49,9 @@ not secured cannot be Tier 0, however impressive its eventual output might be.
 Full-text/tooling inspection and the documented broader-search shortfall remain;
 URC-01 is not silently closed and no downstream gate is automatically promoted.
 
-2026-09-15: [URC-01 closeout](prior-art.md#urc-01-closeout--2026-09-15) recorded — search strings,
-criteria, source table and a bounded conclusion (prior art found per axis; supported candidate gap for the
-composed claim only). Patent search not done. Closed as a dated boundary, not a novelty verdict.
+2026-09-15: [URC-01 decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan) recorded under the
+replacement plan: evidence conclusion = prior art found on the reconnection and liveness axes (documentation),
+no conclusion on equivalent intent and coverage (17 intake rows unread); gate status **partial**. URC-01 stays open.
 
 `hygiene` · executable now
 

@@ -14,6 +14,10 @@ OUTPUT = ROOT / "evidence/task-day3-2026-09-09/acquisition-ledger.json"
 # Explicit publisher DOI identity, verified separately; no title-fuzzy deduplication.
 ALIASES = {"https://www.sciencedirect.com/science/article/abs/pii/s1270963823007629":
            "doi:10.1016/j.ast.2023.108866"}
+# Only text that was actually opened can yield an assessment (plan T03, 2026-09-15); abstract-only,
+# metadata-only, inaccessible, unknown or missing access never promotes a record.
+INSPECTED_ACCESS = {"full_text_sections", "full_text_pdf", "full_text_html", "official_documentation",
+                    "patent_claims", "repository_files"}
 
 
 def canonical(value):
@@ -68,8 +72,8 @@ def build(sources, raw, readings=()):
         row["assessments"].append(dict(route="day3", artifact=READING, **reading))
         row["acquisitions"].append(dict(route="day3_targeted_primary_open",
             retrieved_on=reading["retrieved_on"], url=reading["url"],
-            access=reading["access"], query=None, artifact=READING))
-        if reading["access"] not in {"inaccessible", "metadata_only"}:
+            access=reading.get("access"), query=None, artifact=READING))
+        if reading.get("access") in INSPECTED_ACCESS and str(reading.get("locator", "")).strip():
             row["screening_status"] = "day3_assessment_available"
     return dict(schema_version=1, count_unit="normalized identifier records, not distinct studies",
         raw_day2_rows=len(raw["hits"]), rows_without_successful_logged_query=missing,

@@ -12,6 +12,7 @@ The current implementation validates research metadata and source provenance. It
 
 ## What to inspect first
 
+0. Current review (2026-09-15): the [URC-01 decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan) and its [evidence packet](../evidence/task-prior-art-closeout-2026-09-15/README.md). Gate status is *partial*: 17 intake rows are unread. Items below are earlier, dated layers.
 1. Read the [2026-09-09 source-review decision](day3-source-review.md). It narrows the candidate contribution and supersedes optimistic interpretations of the earlier database overlap.
 2. Inspect [Experiment 01](experiment-01-authority-loss.md) for factors, split rules, endpoints, and continuation conditions.
 3. Run the [README quick start](../README.md#quick-start). These are offline checks after dependency installation; no simulator or flight operation is triggered.

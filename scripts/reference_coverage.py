@@ -72,23 +72,29 @@ def export_ids(path):
 
 
 ASSESSMENT_STATES = {"disclosed_or_addressed", "not_found_in_inspected", "not_applicable", "unresolved"}
+AXES = ("equivalent_intent", "liveness_vs_setpoint_injection", "reconnection", "coverage")
+# Same allowlist as acquisition_ledger.INSPECTED_ACCESS (kept local on purpose: no shared module).
+INSPECTED_ACCESS = {"full_text_sections", "full_text_pdf", "full_text_html", "official_documentation",
+                    "patent_claims", "repository_files"}
 
 
 def novelty_axes():
-    """Per axis, per source, the record's EXPLICIT reviewed assessment (axis_states). Anything blank,
-    missing, or outside ASSESSMENT_STATES is unresolved; so is any assessment without a locator.
-    An axis is supported_bounded only if no source discloses it AND at least one inspected source
-    records not_found_in_inspected for it."""
+    """Per canonical axis, per source, the record's EXPLICIT reviewed assessment (axis_states). Every
+    record is scored on all four AXES: a missing axis is unresolved, so is anything outside
+    ASSESSMENT_STATES, and so is EVERY axis of a record whose access is not in INSPECTED_ACCESS or
+    whose locator is empty (unread text cannot disclose or support anything). An axis is
+    supported_bounded only if no source discloses it AND at least one inspected source records
+    not_found_in_inspected for it; unresolved sources are always listed alongside."""
     recs = json.loads((ROOT / "docs/day3-reading-records.json").read_text())
-    table = {}
+    table = {ax: [] for ax in AXES}
     for r in recs:
         states = r.get("axis_states") or {}
-        axes = set(states) | set(r.get("axes") or {})
-        for ax in sorted(axes):
+        inspected = r.get("access") in INSPECTED_ACCESS and bool(str(r.get("locator", "")).strip())
+        for ax in AXES:
             st = states.get(ax)
-            if st not in ASSESSMENT_STATES or (st != "unresolved" and not str(r.get("locator", "")).strip()):
+            if not inspected or st not in ASSESSMENT_STATES:
                 st = "unresolved"
-            table.setdefault(ax, []).append(dict(source_id=r["source_id"], state=st, access=r.get("access"), locator=str(r.get("locator", ""))[:160]))
+            table[ax].append(dict(source_id=r["source_id"], state=st, access=r.get("access"), locator=str(r.get("locator", ""))[:160]))
     summary = {}
     for ax, xs in table.items():
         disc = [x["source_id"] for x in xs if x["state"] == "disclosed_or_addressed"]
