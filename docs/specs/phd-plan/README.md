@@ -1,0 +1,12 @@
+# PhD-scope plan — index (proposed 2026-09-16)
+
+Status: PROPOSED. Owner edits these four documents in the PR; nothing in the backlog, ledger, rubric or records changes until the merged version says so. Base: main `d4c9b54` (after PR #15; URC-01 gate *partial*).
+
+| document | what it settles |
+| --- | --- |
+| [steelman.md](steelman.md) | Fair pressure on the proposed thesis (formal composition of failsafes, Studies A–D) against the repo's own evidence; verdict and the revision it needs. |
+| [directions.md](directions.md) | Three evidence-traced project directions, scored, each with a two-week first experiment and a kill criterion; how they merge into one thesis. |
+| [scope.md](scope.md) | Must-have / nice-to-have / trigger-gated / out, with the milestone watch. |
+| [study-a-protocol.md](study-a-protocol.md) | The first executable study, written to design-review standard: framing, assumptions, preregistered agreement thresholds, verification, failure modes. |
+
+Owner constraints honoured throughout: no novelty claim before the open axes are confirmed (URC-01 is partial: `equivalent_intent` and `coverage` have 17 unread intake rows); no new broad search. The formal-composition axis introduced here is **not yet in the rubric or the novelty table**; it enters as a fifth axis only after the owner approves and the existing intake and cached texts are re-screened against it (bounded, no new legs).
