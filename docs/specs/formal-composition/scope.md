@@ -1,4 +1,4 @@
-# uav-failsafe-composition — Adaptive Plan (PhD scope)
+# uav-failsafe-composition — Adaptive Plan (formal-composition programme)
 Date: 2026-09-16 (proposed)
 
 ## Must-have (v1 = the pilot result of Study C, or a preregistered verified-null)

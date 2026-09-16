@@ -1,4 +1,4 @@
-# PhD-scope plan — index (proposed 2026-09-16)
+# Formal-composition programme — index (proposed 2026-09-16)
 
 Status: PROPOSED. Owner edits these four documents in the PR; nothing in the backlog, ledger, rubric or records changes until the merged version says so. Base: main `d4c9b54` (after PR #15; URC-01 gate *partial*).
 

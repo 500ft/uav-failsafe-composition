@@ -16,9 +16,9 @@ dependencies were retained. Repository navigation, CI, schemas, generated tasks,
 centrality counts are excluded from the published map. Novelty remains unresolved until URC-01
 closes. No dates or estimates appear, by design.
 
-## PhD-scope addendum (proposed 2026-09-16)
+## Formal-composition programme (proposed 2026-09-16)
 
-A [PhD-scope plan set](specs/phd-plan/README.md) proposes making formal composition of PX4 failsafes (timed-automata model, reachability, SITL witness replay) the thesis spine, with the empirical recovery-contract work below as its measurement layer and fallback. It is proposed only: no task, tier, gate or claim below changes until the owner merges it and a follow-up PR reconciles this backlog, the roadmap and the claim ledger.
+A [formal-composition plan set](specs/formal-composition/README.md) proposes making formal composition of PX4 failsafes (timed-automata model, reachability, SITL witness replay) the thesis spine, with the empirical recovery-contract work below as its measurement layer and fallback. It is proposed only: no task, tier, gate or claim below changes until the owner merges it and a follow-up PR reconciles this backlog, the roadmap and the claim ledger.
 
 ## Two finish lines
 
