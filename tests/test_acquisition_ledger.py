@@ -47,5 +47,32 @@ class LedgerTests(unittest.TestCase):
         self.assertEqual((ROOT / "evidence/task-day3-2026-09-09/acquisition-ledger.json").read_text(), render())
 
 
+class AccessPromotionTests(unittest.TestCase):
+    """Plan T02 (2026-09-15): unread text must not become an available assessment."""
+    RAW = dict(retrieved_utc="date", query_log=[], hits=[])
+
+    def reading(self, access, locator="Sec. 3"):
+        return dict(source_id="X", title="Paper", url="https://doi.org/10.1234/x", access=access,
+                    locator=locator, retrieved_on="2026-09-15")
+
+    def test_abstract_only_reading_is_not_promoted(self):
+        for access in ("abstract_only", "metadata_only", "inaccessible", "not_reinspected", "", None):
+            with self.subTest(access=access):
+                row = build([], self.RAW, [self.reading(access)])["records"][0]
+                self.assertEqual(row["screening_status"], "unscreened")
+
+    def test_inspected_access_without_locator_is_not_promoted(self):
+        row = build([], self.RAW, [self.reading("full_text_pdf", locator="")])["records"][0]
+        self.assertEqual(row["screening_status"], "unscreened")
+
+    def test_inspected_access_with_locator_is_promoted(self):
+        row = build([], self.RAW, [self.reading("full_text_pdf")])["records"][0]
+        self.assertEqual(row["screening_status"], "day3_assessment_available")
+
+    def test_failed_later_access_keeps_day1_assessment(self):
+        source = dict(id="U1", title="Paper", url="https://doi.org/10.1234/x", assessment="sections inspected")
+        row = build([source], self.RAW, [self.reading("inaccessible")])["records"][0]
+        self.assertEqual(row["screening_status"], "day1_assessment_available")
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,1196 @@
+{
+ "register_version": "2026-09-12-r1",
+ "summary": {
+  "d01_sources": 12,
+  "eligible": 6,
+  "not_eligible": 6,
+  "recall": {
+   "day2_historical": {
+    "recovered": 0,
+    "of_eligible": 6,
+    "recovered_ids": [],
+    "missed_ids": [
+     "U1",
+     "U2",
+     "U4",
+     "U5",
+     "U10",
+     "U11"
+    ],
+    "export_retrieved_utc": "2026-09-09T02:28:22Z",
+    "provenance": {
+     "hits": 402,
+     "traceable": 312,
+     "untraceable": 90,
+     "untraceable_ids_sample": [
+      "arxiv:0504358",
+      "arxiv:0609097",
+      "arxiv:0802.1667",
+      "arxiv:0802.1668",
+      "arxiv:0802.1674",
+      "arxiv:0809.2174",
+      "arxiv:1001.2170",
+      "arxiv:1003.3766",
+      "arxiv:1003.3775",
+      "arxiv:1003.3784"
+     ],
+     "export_sha256": "2c0223cfa638cab8ef755e1e368e3b550ce1cd64460b38b37c8d0da8f7700d54",
+     "provenance_clean": false,
+     "native_audit": {
+      "unsupported_provenance_routes": 90,
+      "missing_request_provenance": 11,
+      "response_record_mismatches": 0,
+      "query_count_mismatches": 10,
+      "response_hash_mismatches": 0,
+      "rows_without_successful_logged_query": 90
+     },
+     "native_audit_passed": false,
+     "failures": {
+      "unsupported_provenance_routes": 90,
+      "missing_request_provenance": 11,
+      "query_count_mismatches": 10,
+      "rows_without_successful_logged_query": 90
+     }
+    }
+   },
+   "day4_public": {
+    "recovered": 3,
+    "of_eligible": 6,
+    "recovered_ids": [
+     "U2",
+     "U4",
+     "U5"
+    ],
+    "missed_ids": [
+     "U1",
+     "U10",
+     "U11"
+    ],
+    "export_retrieved_utc": "2026-09-11T21:25:39Z",
+    "provenance": {
+     "hits": 317,
+     "traceable": 317,
+     "untraceable": 0,
+     "untraceable_ids_sample": [],
+     "export_sha256": "b523635bdc5bd08d9a41d017e9a782f184a5efa8d13e49ed3ca33cfae861775d",
+     "provenance_clean": true,
+     "native_audit": {
+      "unsupported_provenance_routes": 0,
+      "missing_request_provenance": 0,
+      "response_record_mismatches": 0,
+      "query_count_mismatches": 0,
+      "response_hash_mismatches": 0,
+      "rows_without_successful_logged_query": 0
+     },
+     "native_audit_passed": true,
+     "failures": {}
+    }
+   }
+  },
+  "canonical_export": "day4_public",
+  "rejected_exports": [
+   "day2_historical"
+  ],
+  "novelty_axes": {
+   "equivalent_intent": {
+    "axis_status": "supported_bounded",
+    "disclosed_by": [],
+    "not_found_in_inspected": [
+     "U1",
+     "U5",
+     "U7",
+     "U8",
+     "U12",
+     "U2",
+     "U6",
+     "U9",
+     "U11",
+     "U3",
+     "S1",
+     "S2",
+     "S3"
+    ],
+    "unresolved_for": [
+     "C001",
+     "C087",
+     "C158",
+     "C180",
+     "C186",
+     "C214",
+     "C228",
+     "C004",
+     "C005",
+     "C021",
+     "C135",
+     "C166",
+     "C182",
+     "C218",
+     "C219",
+     "C225",
+     "C266"
+    ]
+   },
+   "liveness_vs_setpoint_injection": {
+    "axis_status": "narrowed_by_disclosure",
+    "disclosed_by": [
+     "U7",
+     "U9"
+    ],
+    "not_found_in_inspected": [
+     "U1",
+     "U5",
+     "U8",
+     "U12",
+     "U2",
+     "U4",
+     "U6",
+     "U11",
+     "U3",
+     "S1",
+     "S2",
+     "S3"
+    ],
+    "unresolved_for": [
+     "C001",
+     "C087",
+     "C158",
+     "C180",
+     "C186",
+     "C214",
+     "C228",
+     "C004",
+     "C005",
+     "C021",
+     "C135",
+     "C166",
+     "C182",
+     "C218",
+     "C219",
+     "C225",
+     "C266"
+    ]
+   },
+   "reconnection": {
+    "axis_status": "narrowed_by_disclosure",
+    "disclosed_by": [
+     "U8",
+     "U12"
+    ],
+    "not_found_in_inspected": [
+     "U1",
+     "U5",
+     "U7",
+     "U2",
+     "U4",
+     "U6",
+     "U9",
+     "U11",
+     "U3",
+     "S1",
+     "S2",
+     "S3"
+    ],
+    "unresolved_for": [
+     "C001",
+     "C087",
+     "C158",
+     "C180",
+     "C186",
+     "C214",
+     "C228",
+     "C004",
+     "C005",
+     "C021",
+     "C135",
+     "C166",
+     "C182",
+     "C218",
+     "C219",
+     "C225",
+     "C266"
+    ]
+   },
+   "coverage": {
+    "axis_status": "supported_bounded",
+    "disclosed_by": [],
+    "not_found_in_inspected": [
+     "U1",
+     "U5",
+     "U7",
+     "U8",
+     "U12",
+     "U2",
+     "U4",
+     "U6",
+     "U9",
+     "U11",
+     "U3",
+     "S1",
+     "S2",
+     "S3"
+    ],
+    "unresolved_for": [
+     "C001",
+     "C087",
+     "C158",
+     "C180",
+     "C186",
+     "C214",
+     "C228",
+     "C004",
+     "C005",
+     "C021",
+     "C135",
+     "C166",
+     "C182",
+     "C218",
+     "C219",
+     "C225",
+     "C266"
+    ]
+   }
+  },
+  "previously_reported": {
+   "day2_historical": "0 of 6 (arXiv-id anchors only; NDSS and ACM DOIs not in the anchor set)",
+   "day4_public": "2 of 5 (same anchor set; PGFuzz DOI present but uncredited)"
+  },
+  "not_eligible_ids": [
+   "U3",
+   "U6",
+   "U7",
+   "U8",
+   "U9",
+   "U12"
+  ]
+ },
+ "rows": [
+  {
+   "source_id": "U1",
+   "title": "Avis, 2021 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint; NOT indexed in OpenAlex by DOI (checked 2026-09-12), so only the arXiv leg could return it",
+   "aliases": [
+    "arxiv:2106.14959",
+    "doi:10.48550/arxiv.2106.14959"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": false
+   }
+  },
+  {
+   "source_id": "U2",
+   "title": "PGFuzz, NDSS 2021",
+   "eligible": true,
+   "eligibility_reason": "eligible: Crossref-registered DOI (resolved 2026-09-12 by bibliographic query)",
+   "aliases": [
+    "doi:10.14722/ndss.2021.24096"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": true
+   }
+  },
+  {
+   "source_id": "U3",
+   "title": "PGFuzz code",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: software repository; no scholarly identifier; no database queried indexes it",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U4",
+   "title": "RouthSearch, 2025 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint with a publisher DOI; NOT indexed in OpenAlex under the arXiv DOI (checked 2026-09-12)",
+   "aliases": [
+    "arxiv:2505.02357",
+    "doi:10.1145/3728904",
+    "doi:10.48550/arxiv.2505.02357"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": true
+   }
+  },
+  {
+   "source_id": "U5",
+   "title": "aerial-autonomy-stack, 2026 v2",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "aliases": [
+    "arxiv:2602.07264",
+    "doi:10.48550/arxiv.2602.07264"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": true
+   }
+  },
+  {
+   "source_id": "U6",
+   "title": "PX4 failsafe simulator",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation; not indexed by any scholarly database",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U7",
+   "title": "PX4 Offboard",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U8",
+   "title": "ArduPilot GCS failsafe",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U9",
+   "title": "ArduPilot Guided commands",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  },
+  {
+   "source_id": "U10",
+   "title": "Plan-and-Avoid, 2026 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "aliases": [
+    "arxiv:2608.06648",
+    "doi:10.48550/arxiv.2608.06648"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": false
+   }
+  },
+  {
+   "source_id": "U11",
+   "title": "Fail-operational swarm architecture, 2026 v1",
+   "eligible": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "aliases": [
+    "arxiv:2608.20906",
+    "doi:10.48550/arxiv.2608.20906"
+   ],
+   "present": {
+    "day2_historical": false,
+    "day4_public": false
+   }
+  },
+  {
+   "source_id": "U12",
+   "title": "EP3662460B1",
+   "eligible": false,
+   "eligibility_reason": "NOT eligible: patent; no patent database was queried by either export",
+   "aliases": [],
+   "present": {
+    "day2_historical": null,
+    "day4_public": null
+   }
+  }
+ ],
+ "novelty_axes_detail": {
+  "equivalent_intent": [
+   {
+    "source_id": "U1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
+   },
+   {
+    "source_id": "U5",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections III and IV-A1/2/3"
+   },
+   {
+    "source_id": "U7",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Description; ROS 2 Offboard Control"
+   },
+   {
+    "source_id": "U8",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "When the failsafe will trigger; What will happen"
+   },
+   {
+    "source_id": "U12",
+    "state": "not_found_in_inspected",
+    "access": "patent_claims",
+    "locator": "Claims 1\u20133"
+   },
+   {
+    "source_id": "U2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
+   },
+   {
+    "source_id": "U4",
+    "state": "not_applicable",
+    "access": "full_text_html",
+    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
+   },
+   {
+    "source_id": "U6",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
+   },
+   {
+    "source_id": "U9",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
+   },
+   {
+    "source_id": "U10",
+    "state": "not_applicable",
+    "access": "full_text_html",
+    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
+   },
+   {
+    "source_id": "U11",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
+   },
+   {
+    "source_id": "U3",
+    "state": "not_found_in_inspected",
+    "access": "repository_files",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
+   },
+   {
+    "source_id": "S1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
+   },
+   {
+    "source_id": "S2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
+   },
+   {
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
+   },
+   {
+    "source_id": "C001",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C087",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C158",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C180",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C186",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C214",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C228",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C004",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C005",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C021",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C135",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C166",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C182",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C218",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C219",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C225",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C266",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   }
+  ],
+  "liveness_vs_setpoint_injection": [
+   {
+    "source_id": "U1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
+   },
+   {
+    "source_id": "U5",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections III and IV-A1/2/3"
+   },
+   {
+    "source_id": "U7",
+    "state": "disclosed_or_addressed",
+    "access": "official_documentation",
+    "locator": "Description; ROS 2 Offboard Control"
+   },
+   {
+    "source_id": "U8",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "When the failsafe will trigger; What will happen"
+   },
+   {
+    "source_id": "U12",
+    "state": "not_found_in_inspected",
+    "access": "patent_claims",
+    "locator": "Claims 1\u20133"
+   },
+   {
+    "source_id": "U2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
+   },
+   {
+    "source_id": "U4",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
+   },
+   {
+    "source_id": "U6",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
+   },
+   {
+    "source_id": "U9",
+    "state": "disclosed_or_addressed",
+    "access": "official_documentation",
+    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
+   },
+   {
+    "source_id": "U10",
+    "state": "not_applicable",
+    "access": "full_text_html",
+    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
+   },
+   {
+    "source_id": "U11",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
+   },
+   {
+    "source_id": "U3",
+    "state": "not_found_in_inspected",
+    "access": "repository_files",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
+   },
+   {
+    "source_id": "S1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
+   },
+   {
+    "source_id": "S2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
+   },
+   {
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
+   },
+   {
+    "source_id": "C001",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C087",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C158",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C180",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C186",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C214",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C228",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C004",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C005",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C021",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C135",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C166",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C182",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C218",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C219",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C225",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C266",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   }
+  ],
+  "reconnection": [
+   {
+    "source_id": "U1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
+   },
+   {
+    "source_id": "U5",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections III and IV-A1/2/3"
+   },
+   {
+    "source_id": "U7",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Description; ROS 2 Offboard Control"
+   },
+   {
+    "source_id": "U8",
+    "state": "disclosed_or_addressed",
+    "access": "official_documentation",
+    "locator": "When the failsafe will trigger; What will happen"
+   },
+   {
+    "source_id": "U12",
+    "state": "disclosed_or_addressed",
+    "access": "patent_claims",
+    "locator": "Claims 1\u20133"
+   },
+   {
+    "source_id": "U2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
+   },
+   {
+    "source_id": "U4",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
+   },
+   {
+    "source_id": "U6",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
+   },
+   {
+    "source_id": "U9",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
+   },
+   {
+    "source_id": "U10",
+    "state": "not_applicable",
+    "access": "full_text_html",
+    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
+   },
+   {
+    "source_id": "U11",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
+   },
+   {
+    "source_id": "U3",
+    "state": "not_found_in_inspected",
+    "access": "repository_files",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
+   },
+   {
+    "source_id": "S1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
+   },
+   {
+    "source_id": "S2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
+   },
+   {
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
+   },
+   {
+    "source_id": "C001",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C087",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C158",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C180",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C186",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C214",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C228",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C004",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C005",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C021",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C135",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C166",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C182",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C218",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C219",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C225",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C266",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   }
+  ],
+  "coverage": [
+   {
+    "source_id": "U1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions"
+   },
+   {
+    "source_id": "U5",
+    "state": "not_found_in_inspected",
+    "access": "full_text_sections",
+    "locator": "Sections III and IV-A1/2/3"
+   },
+   {
+    "source_id": "U7",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Description; ROS 2 Offboard Control"
+   },
+   {
+    "source_id": "U8",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "When the failsafe will trigger; What will happen"
+   },
+   {
+    "source_id": "U12",
+    "state": "not_found_in_inspected",
+    "access": "patent_claims",
+    "locator": "Claims 1\u20133"
+   },
+   {
+    "source_id": "U2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/"
+   },
+   {
+    "source_id": "U4",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings"
+   },
+   {
+    "source_id": "U6",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay"
+   },
+   {
+    "source_id": "U9",
+    "state": "not_found_in_inspected",
+    "access": "official_documentation",
+    "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'"
+   },
+   {
+    "source_id": "U10",
+    "state": "not_applicable",
+    "access": "full_text_html",
+    "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text"
+   },
+   {
+    "source_id": "U11",
+    "state": "not_found_in_inspected",
+    "access": "full_text_html",
+    "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification"
+   },
+   {
+    "source_id": "U3",
+    "state": "not_found_in_inspected",
+    "access": "repository_files",
+    "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_livene"
+   },
+   {
+    "source_id": "S1",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generat"
+   },
+   {
+    "source_id": "S2",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduli"
+   },
+   {
+    "source_id": "S3",
+    "state": "not_found_in_inspected",
+    "access": "full_text_pdf",
+    "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-"
+   },
+   {
+    "source_id": "C001",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C087",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C158",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C180",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C186",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C214",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C228",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C004",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C005",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C021",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C135",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C166",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C182",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C218",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C219",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C225",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   },
+   {
+    "source_id": "C266",
+    "state": "unresolved",
+    "access": "metadata_only",
+    "locator": ""
+   }
+  ]
+ }
+}

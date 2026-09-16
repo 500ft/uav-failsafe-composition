@@ -2,6 +2,8 @@
 
 This roadmap is gate-driven. Later stages do not start merely because an earlier date has passed.
 
+**2026-09-16 programme note.** The merged [formal-composition programme](docs/specs/formal-composition/README.md) proposes making an extracted, checkable model of PX4 failsafe logic (Study A–C) the spine, with Stage 1 below as its measurement layer and fallback; Stages 2–4 map to its trigger-gated items. Stage statuses below are unchanged: no trace exists yet.
+
 ## Stage 0 — Research contract
 
 **Status:** complete for the concept repository.

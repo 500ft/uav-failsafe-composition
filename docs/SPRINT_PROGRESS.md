@@ -1,13 +1,23 @@
 # 2026-09-09 — review correction
 
-## 2026-09-11 — URC-D04 provenance-clean re-acquisition
+## 2026-09-15 (reconciled) — URC-R03 under the replacement plan (PR #13)
 
-The D02 provenance defect is corrected by one clean run of `rerun_search.py` from a
-non-throttled network: 317 identifier records, 16/16 query legs ok,
-**0** rows without a successful logged query (historical export: 90). Known D01 anchors
-present: 2 of 5 comparable — a bounded overlap, not recall. 22 candidates, all UNSCREENED.
-The 09-09 export and the day-3 acquisition ledger are unchanged; the new export is not merged into
-either. No novelty, patent or owner gate is closed. [Evidence](../evidence/task-2026-09-11/README.md).
+Supersedes the morning entry below. The [replacement plan](specs/prior-art-closeout/plan.md) was merged after PR #14; its 17 tasks were then executed on `task/prior-art-closeout-2026-09-15`: consumer fixes with regressions (unread access and missing axes are unresolved), rubric clarification, S1–S3 and U3 records with a hashed [source manifest](../evidence/task-prior-art-closeout-2026-09-15/sources.json), U1–U12 reconciled from re-opened locators (18 judgments changed, [list](../evidence/task-prior-art-closeout-2026-09-15/decision-changes.json)), all 317 intake rows [screened](../evidence/task-prior-art-closeout-2026-09-15/candidate-screening.csv) (17 unread C-records), derived JSON regenerated. Result: [URC-01 decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan) — prior art found on reconnection and liveness (documentation), no conclusion on equivalent intent and coverage, gate **partial**. [Evidence](../evidence/task-prior-art-closeout-2026-09-15/README.md). No owner gate closed.
+
+## 2026-09-15 — URC-R03: successors screened, U3 re-inspected, URC-01 closeout
+
+Built from the merged [plan](specs/prior-art-closeout/plan.md) on `task/prior-art-closeout-20260914`. S1 UAVConfigFuzzer,
+S2 ADGFuzz and S3 PGPatch read in full (hashes retained); U3 PGFuzz code re-inspected at a pinned commit. Result: no axis is
+unresolved; every axis is narrowed by an inspected disclosure taken alone; the composed claim stays a **supported candidate gap
+bounded by the inspected set**. [Closeout](prior-art.md#urc-01-closeout--2026-09-15) ·
+[coverage update](reference-coverage-2026-09-12.md#2026-09-15-morning--successors-screened-u3-re-inspected-urc-r03-superseded-the-same-day) ·
+[evidence](../evidence/task-2026-09-15/README.md). Patent search not done (no route). No owner gate closed.
+
+## 2026-09-11 — evidence-gap correction
+
+The [current correction](ACQUISITION_CORRECTION_2026-09-11.md) supersedes any interpretation that earlier preparation closed a physical, approval, or source-review gate. Work is on `fix/evidence-gaps-20260911` from current renamed main; historical entries below retain their original dates and PR snapshots. The original day-3 and presentation PRs are now merged, but this correction is a new reviewable change, not an asserted merge or publication.
+
+Each omitted or incomplete recommendation is accounted for separately in the current correction and existing task ledgers. No owner signature, measurement, PI conversation, imagery judgment, disclosure approval or independent review was fabricated. Exact tests, scope and next inputs are linked from the correction record; actual delivery state is established by its PR.
 
 ## Day-3 work — 2026-09-09
 

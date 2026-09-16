@@ -12,6 +12,7 @@ The current implementation validates research metadata and source provenance. It
 
 ## What to inspect first
 
+0. Current review (2026-09-15): the [URC-01 decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan) and its [evidence packet](../evidence/task-prior-art-closeout-2026-09-15/README.md). Gate status is *partial*: 17 intake rows are unread. Items below are earlier, dated layers.
 1. Read the [2026-09-09 source-review decision](day3-source-review.md). It narrows the candidate contribution and supersedes optimistic interpretations of the earlier database overlap.
 2. Inspect [Experiment 01](experiment-01-authority-loss.md) for factors, split rules, endpoints, and continuation conditions.
 3. Run the [README quick start](../README.md#quick-start). These are offline checks after dependency installation; no simulator or flight operation is triggered.
@@ -21,7 +22,7 @@ The current implementation validates research metadata and source provenance. It
 
 | Layer | Committed source | Interpretation |
 | --- | --- | --- |
-| Research rationale | [Research plan](research-plan.md), [prior art](prior-art.md) | Hypotheses and literature boundary; novelty remains unresolved |
+| Research rationale | [Research plan](research-plan.md), [prior art](prior-art.md) | Hypotheses and literature boundary; novelty remains unresolved (URC-01 gate *partial*, [decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan)) |
 | Source acquisition | [Historical export](../evidence/task-2026-09-09/database-export.json) | Raw reported routes; gaps remain visible |
 | Targeted reading | [Rubric](day3-reading-rubric.md), [reading records](day3-reading-records.json) | Identified access scope and per-source findings; not a complete systematic review |
 | Derived provenance | [Acquisition ledger](../evidence/task-day3-2026-09-09/acquisition-ledger.json) | Deterministically reconciled identifiers and routes, not repaired history |
@@ -51,7 +52,7 @@ Positive SITL confirmation can justify explicitly simulated offline composition.
 
 ## Why the framing changed
 
-The [current reading record](day3-source-review.md) found relevant precedents for trajectory profiling, shared simulator integrations, and explicit reconnection handling. The remaining candidate question concerns configured recovery conformance under equivalent intentions, with a clearly defined loss stimulus and held-out whole-trajectory coverage.
+The [current reading record](day3-source-review.md) found relevant precedents for trajectory profiling, shared simulator integrations, and explicit reconnection handling. The remaining candidate question concerns configured recovery conformance under equivalent intentions, with a clearly defined loss stimulus and held-out whole-trajectory coverage. As of 2026-09-15 the follow-up sources are read and 17 intake rows remain unread (C-ids in the [reconciled table](reference-coverage-2026-09-12.md#2026-09-15-reconciled--current-axis-table-under-the-replacement-plan-urc-r03)).
 
 Proposed common MAVLink intentions are a design choice, not an installed or verified harness. Firmware versions and interface behavior must be recorded from actual runs before comparing stacks. Remaining full-text and tooling questions stay open.
 
@@ -74,3 +75,7 @@ See the [directed dependency audit](research-dependency-audit.md) for source-lin
 Before physical testing, obtain the required site-specific approval and safety controls. Neither passing CI nor a complete planning document authorizes a flight.
 
 [Back to overview](../README.md) · [Repository identity and presentation references](REPOSITORY_IDENTITY.md)
+
+## September 11 completion correction
+
+Read the [item-by-item correction](ACQUISITION_CORRECTION_2026-09-11.md) before interpreting a prepared protocol, software check, or search export as a completed research gate. It identifies actual deliverables and the remaining measurement, review, or source-reading work separately.

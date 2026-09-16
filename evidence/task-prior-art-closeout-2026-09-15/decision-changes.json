@@ -1,0 +1,146 @@
+[
+ {
+  "source_id": "U1",
+  "axis": "coverage",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "clarified coverage definition: a state-deviation invariant vs profiling runs (threshold tau, eq. 1) is a distance-to-profile oracle, not calibrated whole-recovery-trajectory containment",
+  "locator": "Sec. IV-C, eq. (1): 'for all i: d(S_F,t, S_i,t) > tau'; normalised per-component distances"
+ },
+ {
+  "source_id": "U1",
+  "axis": "liveness_vs_setpoint_injection",
+  "old": null,
+  "new": "not_found_in_inspected",
+  "reason": "axis was missing; fault model is sensor-instance failure, no link/heartbeat or setpoint-loss stimulus",
+  "locator": "Sec. IV (fault scenarios: subsets of sensor instances failing; 'Avis injects faults at t2 as it did at t1')"
+ },
+ {
+  "source_id": "U2",
+  "axis": "coverage",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "clarified coverage definition excludes policy-distance scores",
+  "locator": "Sec. I and Sec. V-B: global distance (negative = violation) and propositional distances guide mutation toward one policy violation"
+ },
+ {
+  "source_id": "U4",
+  "axis": "coverage",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "clarified coverage definition excludes per-mode MTL oracles",
+  "locator": "Sec. 4.3 Misbehavior Validation, eq. (8) and the RTL-ascent MTL formula"
+ },
+ {
+  "source_id": "U5",
+  "axis": "liveness_vs_setpoint_injection",
+  "old": null,
+  "new": "not_found_in_inspected",
+  "reason": "axis missing or unassessed; whole HTML re-read by keyword (fail-safe, link loss, heartbeat, setpoint, reconnect, coverage): none describe a stimulus or endpoint",
+  "locator": "Whole HTML v2: Sec. IV-A integrations table (PX4, ArduPilot, MAVROS, Zenoh); architecture figure (autopilot_interface, offboard_control)"
+ },
+ {
+  "source_id": "U6",
+  "axis": "equivalent_intent",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "clarified definition: making one configuration's action explicit is related work, not equivalence of a stated intention across identified configurations",
+  "locator": "Whole page: embedded failsafe simulator ('configure the parameters on the left'), note that delayed action COM_FAIL_ACT_T is also delayed in simulation"
+ },
+ {
+  "source_id": "U6",
+  "axis": "coverage",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "prose said 'none: static decision table' while the state was affirmative; static action tables are excluded by the clarified definition",
+  "locator": "Whole page: the simulator output is a static action table per parameter set"
+ },
+ {
+  "source_id": "U7",
+  "axis": "equivalent_intent",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "the earlier affirmative state carried a liveness finding under the wrong axis",
+  "locator": "Technical Summary; Mode Requirements"
+ },
+ {
+  "source_id": "U7",
+  "axis": "liveness_vs_setpoint_injection",
+  "old": null,
+  "new": "disclosed_or_addressed",
+  "reason": "documented distinction between a proof-of-life stream and setpoint topics (specification, not experiment)",
+  "locator": "Technical Summary: 'continuous 2Hz proof of life signal'; 'exit Offboard mode if ... messages stop being received for longer than COM_OF_LOSS_T'; ROS 2: 'proof that the external source is alive is provided by a stream of OffboardControlMode messages, while the actual setpoint is provided by publishing to one of the setpoint uORB topics'"
+ },
+ {
+  "source_id": "U7",
+  "axis": "coverage",
+  "old": null,
+  "new": "not_found_in_inspected",
+  "reason": "axis was missing",
+  "locator": "Whole page: no coverage or trajectory-containment endpoint"
+ },
+ {
+  "source_id": "U8",
+  "axis": "liveness_vs_setpoint_injection",
+  "old": null,
+  "new": "not_found_in_inspected",
+  "reason": "axis was missing; heartbeat loss alone does not establish the liveness-vs-setpoint distinction",
+  "locator": "'The GCS failsafe monitors the time since the last MAVLink heartbeat from the GCS. If no heartbeat is received FS_GCS_TIMEOUT seconds (Default is 5 seconds)'"
+ },
+ {
+  "source_id": "U8",
+  "axis": "coverage",
+  "old": null,
+  "new": "not_found_in_inspected",
+  "reason": "axis missing",
+  "locator": "Whole page"
+ },
+ {
+  "source_id": "U8",
+  "axis": "equivalent_intent",
+  "old": null,
+  "new": "not_found_in_inspected",
+  "reason": "axis missing or unassessed",
+  "locator": "Whole page: FS_GCS_ENABLE actions and FS_OPTIONS bits for one autopilot"
+ },
+ {
+  "source_id": "U9",
+  "axis": "coverage",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "prose said 'none' while the state was affirmative",
+  "locator": "Whole page"
+ },
+ {
+  "source_id": "U11",
+  "axis": "liveness_vs_setpoint_injection",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "clarified definition: heartbeat loss alone does not establish the distinction",
+  "locator": "Sec. III-C Communication Contract C_comm (heartbeat timestamp + SNR -> Return-to-Base); 'The FMU monitors the SCM via a heartbeat mechanism'"
+ },
+ {
+  "source_id": "U11",
+  "axis": "equivalent_intent",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "clarified definition: a contract stating one architecture's intention is related work, not equivalence across identified configurations",
+  "locator": "Sec. III-C eq. (6) Communication Contract; Sec. V-D ConOps verification"
+ },
+ {
+  "source_id": "U12",
+  "axis": "liveness_vs_setpoint_injection",
+  "old": null,
+  "new": "not_found_in_inspected",
+  "reason": "axis was missing; the disclosure concerns loss of the radio link to the home location",
+  "locator": "Claims 1-3 and description (communication failure due to obstruction of line-of-sight; signal-quality threshold); page text contains no 'setpoint' or 'heartbeat' token"
+ },
+ {
+  "source_id": "U3",
+  "axis": "coverage",
+  "old": "disclosed_or_addressed",
+  "new": "not_found_in_inspected",
+  "reason": "clarified definition excludes policy-distance scores (same reason as U2)",
+  "locator": "ArduPilot/update_distance.py (per-policy altitude/roll/pitch/heading error); ArduPilot/fuzzing.py print_distance calls"
+ }
+]

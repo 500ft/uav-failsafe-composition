@@ -50,18 +50,36 @@ REQUIRED_MANIFEST_KEYS = {
     "recording",
 }
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+HEADING = re.compile(r"(?m)^#{1,6}\s+(.+?)(?:\s+#+)?$")
 
 
-def local_markdown_links(path: Path) -> list[Path]:
-    links: list[Path] = []
+def local_markdown_links(path: Path) -> list[tuple[Path, str]]:
+    """(target path, fragment) for every local link; fragment is "" when absent."""
+    links: list[tuple[Path, str]] = []
     for raw_target in MARKDOWN_LINK.findall(path.read_text(encoding="utf-8")):
         target = raw_target.strip().split(" ", 1)[0]
         if target.startswith(("http://", "https://", "mailto:", "#")):
             continue
-        target = unquote(target.split("#", 1)[0])
+        target, _, fragment = target.partition("#")
+        target = unquote(target)
         if target:
-            links.append((path.parent / target).resolve())
+            links.append(((path.parent / target).resolve(), unquote(fragment)))
     return links
+
+
+def markdown_anchors(path: Path) -> set[str]:
+    """GitHub-style heading anchors of a markdown file (duplicates get -1, -2, ...)."""
+    text = re.sub(r"(?ms)^[ ]{0,3}(`{3,}|~{3,}).*?^\1[ \t]*$", "", path.read_text(encoding="utf-8"))
+    anchors: set[str] = set(re.findall(r"(?:id|name)=[\"']([^\"']+)[\"']", text))
+    seen: dict[str, int] = {}
+    for heading in HEADING.findall(text):
+        heading = re.sub(r"\[([^]]+)\]\([^)]*\)", r"\1", heading)
+        heading = re.sub(r"<[^>]*>", "", heading).lower()
+        name = re.sub(r"[^\w\- ]", "", heading).replace(" ", "-")
+        count = seen.get(name, 0)
+        seen[name] = count + 1
+        anchors.add(name + (f"-{count}" if count else ""))
+    return anchors
 
 
 def manifest_errors(instance: object, schema: dict) -> list[str]:
@@ -164,9 +182,11 @@ def run_checks() -> list[str]:
     for markdown in ROOT.rglob("*.md"):
         if ".git" in markdown.parts:
             continue
-        for target in local_markdown_links(markdown):
+        for target, fragment in local_markdown_links(markdown):
             if not target.exists():
                 errors.append(f"broken local link in {markdown.relative_to(ROOT)}: {target}")
+            elif fragment and target.suffix == ".md" and fragment not in markdown_anchors(target):
+                errors.append(f"broken anchor in {markdown.relative_to(ROOT)}: {target.name}#{fragment}")
 
     return errors
 

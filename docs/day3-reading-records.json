@@ -1,78 +1,900 @@
 [
-  {
-    "source_id": "U1",
-    "title": "Avis",
-    "url": "https://arxiv.org/html/2106.14959v1",
-    "access": "full_text_sections",
-    "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions",
-    "aboutness": 2,
-    "evidence_grade": "C for inspected simulator method",
-    "finding": "Safety/liveliness monitors compare position, acceleration and mode with profiling runs; configuration-specific recovery coverage is not established by these sections.",
-    "axes": {
-      "equivalent_intent": "not_established_in_inspected_sections",
-      "reconnection": "not_established_in_inspected_sections",
-      "coverage": "profile_run_distance_not_calibrated_recovery_coverage"
-    },
-    "retrieved_on": "2026-09-09"
+ {
+  "source_id": "U1",
+  "title": "Avis",
+  "url": "https://arxiv.org/html/2106.14959v1",
+  "access": "full_text_sections",
+  "locator": "Sections IV-C1/2, equations 1 and profiling-state definitions",
+  "aboutness": 2,
+  "evidence_grade": "C for inspected simulator method",
+  "finding": "Safety/liveliness monitors compare position, acceleration and mode with profiling runs; configuration-specific recovery coverage is not established by these sections.",
+  "axes": {
+   "equivalent_intent": "not_established_in_inspected_sections",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_found: Avis flags a test run whose state distance from every profiling run exceeds tau at time t; that is a deviation oracle over profiled workloads, not a calibrated recovery-trajectory coverage measure",
+   "liveness_vs_setpoint_injection": "not_found: injected faults are sensor failures; neither heartbeat/liveness loss nor setpoint-stream loss is a stimulus"
   },
-  {
-    "source_id": "U5",
-    "title": "aerial-autonomy-stack",
-    "url": "https://arxiv.org/html/2602.07264v2",
-    "access": "full_text_sections",
-    "locator": "Sections III and IV-A1/2/3",
-    "aboutness": 2,
-    "evidence_grade": "architecture/specification in inspected sections",
-    "finding": "Gazebo Harmonic, both autopilots and distinct middleware bridges are described. Evaluate reuse; a common interface does not establish event equivalence.",
-    "axes": {
-      "equivalent_intent": "not_established_in_inspected_sections",
-      "reconnection": "not_established_in_inspected_sections",
-      "coverage": "not_established_in_inspected_sections"
-    },
-    "retrieved_on": "2026-09-09"
+  "retrieved_on": "2026-09-09",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected"
   },
-  {
-    "source_id": "U7",
-    "title": "PX4 Offboard",
-    "url": "https://docs.px4.io/main/en/flight_modes/offboard",
-    "access": "official_documentation",
-    "locator": "Description; ROS 2 Offboard Control",
-    "aboutness": 2,
-    "evidence_grade": "specification_not_experiment",
-    "finding": "ROS2 OffboardControlMode liveness is separate from trajectory setpoints; cessation of each is a distinct injection.",
-    "axes": {
-      "equivalent_intent": "must_distinguish_liveness_and_setpoints"
-    },
-    "retrieved_on": "2026-09-09"
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U1_arxiv_2106.14959.pdf (arXiv v1, pdftotext), cache 2026-09-15",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U5",
+  "title": "aerial-autonomy-stack",
+  "url": "https://arxiv.org/html/2602.07264v2",
+  "access": "full_text_sections",
+  "locator": "Sections III and IV-A1/2/3",
+  "aboutness": 2,
+  "evidence_grade": "architecture/specification in inspected sections",
+  "finding": "Gazebo Harmonic, both autopilots and distinct middleware bridges are described. Evaluate reuse; a common interface does not establish event equivalence.",
+  "axes": {
+   "equivalent_intent": "not_established_in_inspected_sections",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_established_in_inspected_sections",
+   "liveness_vs_setpoint_injection": "not_found: the stack provides an autopilot_interface/offboard_control module for PX4 and ArduPilot; no liveness or setpoint-loss stimulus is described"
   },
-  {
-    "source_id": "U8",
-    "title": "ArduPilot GCS failsafe",
-    "url": "https://ardupilot.org/copter/docs/gcs-failsafe.html",
-    "access": "official_documentation",
-    "locator": "When the failsafe will trigger; What will happen",
-    "aboutness": 2,
-    "evidence_grade": "specification_not_experiment",
-    "finding": "GCS heartbeat loss triggers configured actions only after monitoring is active. Restored heartbeat does not itself restore the previous flight mode.",
-    "axes": {
-      "reconnection": "documented_no_automatic_mode_restore"
-    },
-    "retrieved_on": "2026-09-09"
+  "retrieved_on": "2026-09-09",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected"
   },
-  {
-    "source_id": "U12",
-    "title": "EP3662460B1",
-    "url": "https://patents.google.com/patent/EP3662460B1/en",
-    "access": "patent_claims",
-    "locator": "Claims 1–3",
-    "aboutness": 2,
-    "evidence_grade": "disclosure_not_experiment",
-    "finding": "Emergency return via a healthy communication waypoint and waiting for user command after reconnect are disclosed. Generic reconnect handling is not a novelty claim.",
-    "axes": {
-      "reconnection": "disclosed",
-      "equivalent_intent": "not_established_by_these_claims",
-      "coverage": "not_established_by_these_claims"
-    },
-    "retrieved_on": "2026-09-09"
-  }
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U5.html (arXiv HTML v2), cache 2026-09-15",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U7",
+  "title": "PX4 Offboard",
+  "url": "https://docs.px4.io/main/en/flight_modes/offboard",
+  "access": "official_documentation",
+  "locator": "Description; ROS 2 Offboard Control",
+  "aboutness": 2,
+  "evidence_grade": "specification_not_experiment",
+  "finding": "ROS2 OffboardControlMode liveness is separate from trajectory setpoints; cessation of each is a distinct injection.",
+  "axes": {
+   "equivalent_intent": "not_found: the page documents one PX4 mode's requirements; no cross-configuration intention equivalence",
+   "reconnection": "not_documented_on_page",
+   "liveness_vs_setpoint_injection": "disclosed (specification): PX4 documents a keep-alive stream (OffboardControlMode / any setpoint message) with timeout COM_OF_LOSS_T and failsafe action COM_OBL_RC_ACT, separately from the setpoint topics themselves; no experiment injects the two losses separately",
+   "coverage": "not_found: no coverage endpoint on the page"
+  },
+  "retrieved_on": "2026-09-09",
+  "reinspected_on": "2026-09-15",
+  "text_sha256_prefix": "5d1f2bcf5b89ce61",
+  "locator_2026_09_12": "Offboard-loss: COM_OF_LOSS_T timeout -> COM_OBL_RC_ACT action depending on RC availability; MAVLink setpoints carry both liveness and value; ROS 2 OffboardControlMode is the separate proof-of-life. No statement about behaviour when the stream resumes.",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "disclosed_or_addressed",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U7.html (docs.px4.io flight_modes/offboard), cache 2026-09-15"
+ },
+ {
+  "source_id": "U8",
+  "title": "ArduPilot GCS failsafe",
+  "url": "https://ardupilot.org/copter/docs/gcs-failsafe.html",
+  "access": "official_documentation",
+  "locator": "When the failsafe will trigger; What will happen",
+  "aboutness": 2,
+  "evidence_grade": "specification_not_experiment",
+  "finding": "GCS heartbeat loss triggers configured actions only after monitoring is active. Restored heartbeat does not itself restore the previous flight mode.",
+  "axes": {
+   "reconnection": "disclosed (documented behaviour): mode is not restored on reconnection; measured comparison across configurations absent",
+   "liveness_vs_setpoint_injection": "not_found: only GCS heartbeat loss is documented on this page; the separate Guided setpoint timeout lives on U9's page, and neither is an injected stimulus",
+   "coverage": "not_found: no coverage endpoint",
+   "equivalent_intent": "not_found: one autopilot's configurable actions; no cross-configuration equivalence rule"
+  },
+  "retrieved_on": "2026-09-09",
+  "reinspected_on": "2026-09-15",
+  "text_sha256_prefix": "02193617a7ebf836",
+  "locator_2026_09_12": "Section 'What will happen': 'If the failsafe clears (i.e. GCS reconnects and MAVLink heartbeat is restored) the copter will remain in its failsafe mode. It will not automatically return to the flight mode that was active before the failsafe was triggered.' FS_GCS_ENABLE values 0/1/2/3 and FS_OPTIONS bit 1 listed.",
+  "axis_states": {
+   "reconnection": "disclosed_or_addressed",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected",
+   "equivalent_intent": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U8.html (ardupilot.org gcs-failsafe), cache 2026-09-15"
+ },
+ {
+  "source_id": "U12",
+  "title": "EP3662460B1",
+  "url": "https://patents.google.com/patent/EP3662460B1/en",
+  "access": "patent_claims",
+  "locator": "Claims 1\u20133",
+  "aboutness": 2,
+  "evidence_grade": "disclosure_not_experiment",
+  "finding": "Emergency return via a healthy communication waypoint and waiting for user command after reconnect are disclosed. Generic reconnect handling is not a novelty claim.",
+  "axes": {
+   "reconnection": "disclosed",
+   "equivalent_intent": "not_established_by_these_claims",
+   "coverage": "not_established_by_these_claims",
+   "liveness_vs_setpoint_injection": "not_found: link-signal loss only; no setpoint-stream distinction"
+  },
+  "retrieved_on": "2026-09-09",
+  "axis_states": {
+   "reconnection": "disclosed_or_addressed",
+   "equivalent_intent": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U12.html (patents.google.com EP3662460B1), cache 2026-09-15",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U2",
+  "title": "PGFuzz, NDSS 2021",
+  "url": "https://doi.org/10.14722/ndss.2021.24096",
+  "access": "full_text_pdf",
+  "version": "NDSS 2021 camera-ready PDF (ndss2021_6A-1_24096_paper.pdf), gold OA",
+  "text_sha256_prefix": "64690f3ae0717886",
+  "locator": "Abstract; Sec. I (fail-safe MTL example and distance metrics); Sec. III threat model (self-sabotaging inputs out of scope); Table II policy list incl. A.RC.FS1/FS2, A.GPS.FS1, PX.GPS.FS1/FS2, A.ALIVE; Sec. VI implementation (Pymavlink, three autopilots); Table VII bug summary",
+  "aboutness": 3,
+  "evidence_grade": "B for the inspected sections (peer-reviewed venue, method and policy table read directly)",
+  "finding": "PGFuzz fuzzes commands, parameters and environment against 56 MTL policies per autopilot, with a distance metric to a policy violation. Its failsafe policies are per-autopilot and per-trigger (RC throttle below FS_THR_VALUE, GPS satellite count, COM_POS_FS_DELAY); no policy in Table II expresses an equivalent recovery intention ACROSS autopilots or configurations, and no GCS/offboard link-loss policy appears. The distance metric measures proximity to a single policy violation, not calibrated coverage of a recovery trajectory. Behaviour after a lost input returns is not a policy.",
+  "axes": {
+   "equivalent_intent": "not_established: policies are autopilot-specific propositions, not cross-configuration intent equivalence",
+   "liveness_vs_setpoint_injection": "not_established: inputs are commands/parameters/environment; link or heartbeat cessation is not among the inspected fuzzing inputs",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_found: PGFuzz's distance metrics quantify closeness to a single policy violation; no calibrated whole-trajectory recovery coverage over a horizon"
+  },
+  "retrieved_on": "2026-09-12",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U2_ndss2021_pgfuzz.pdf (NDSS 2021 camera-ready, pdftotext), cache 2026-09-15",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U4",
+  "title": "RouthSearch, ISSTA 2025 (arXiv 2505.02357v1)",
+  "url": "https://arxiv.org/html/2505.02357v1",
+  "access": "full_text_html",
+  "version": "arXiv v1, 5 May 2025; publisher DOI 10.1145/3728904",
+  "text_sha256_prefix": "bcc7c54d833077b3",
+  "locator": "Abstract; Sec. 4.3 Misbehavior Validation (MTL oracle for ArduPilot RTL ascent); Sec. 5.1 Experimental Settings",
+  "aboutness": 1,
+  "evidence_grade": "B for the inspected sections",
+  "finding": "Infers PID parameter specifications by coordinate search over the Routh-Hurwitz boundary, validating misbehaviour with per-mode MTL oracles (e.g. altitude must increase during RTL ascent). The target is control-parameter validity, not failsafe composition; RTL appears only as a mode whose trajectory shape is an oracle.",
+  "axes": {
+   "equivalent_intent": "not_applicable: PID specification inference",
+   "liveness_vs_setpoint_injection": "not_established_in_inspected_sections",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_found: the oracle checks a flight trajectory against a mode-specific MTL formula (e.g. RTL ascent); it is a per-mode validity oracle, not calibrated recovery-trajectory containment"
+  },
+  "retrieved_on": "2026-09-12",
+  "axis_states": {
+   "equivalent_intent": "not_applicable",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U4_arxiv_2505.02357.pdf (arXiv v1, pdftotext), cache 2026-09-15",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U6",
+  "title": "PX4 failsafe simulator (safety_simulation)",
+  "url": "https://docs.px4.io/main/en/config/safety_simulation.html",
+  "access": "official_documentation",
+  "version": "live 'main' docs, fetched 2026-09-12",
+  "text_sha256_prefix": "cfa30a3f74ccd0f3",
+  "locator": "Whole page: embedded simulator description, note on COM_FAIL_ACT_T delay",
+  "aboutness": 2,
+  "evidence_grade": "D (vendor documentation of a static decision-table tool, not a study)",
+  "finding": "An interactive table that evaluates the failsafe state machine's ACTION for a chosen parameter set and condition flags, including delayed actions. It computes the configured outcome; it does not execute a trajectory, inject a link loss in time, or say anything about command return.",
+  "axes": {
+   "equivalent_intent": "not_found: the simulator shows the action one PX4 configuration will take; no second configuration, no equivalence rule",
+   "liveness_vs_setpoint_injection": "not_established_in_inspected_sections",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_found: static decision table, no trajectory endpoint"
+  },
+  "retrieved_on": "2026-09-12",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U6.html (docs.px4.io safety_simulation), cache 2026-09-15",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U9",
+  "title": "ArduPilot Copter commands in Guided mode",
+  "url": "https://ardupilot.org/dev/docs/copter-commands-in-guided-mode.html",
+  "access": "official_documentation",
+  "version": "live docs, fetched 2026-09-12",
+  "text_sha256_prefix": "9a9e07a91bb7ad1a",
+  "locator": "Position/velocity target sections: 'should be re-sent every second (the vehicle will stop after 3 seconds if no command is received)'",
+  "aboutness": 2,
+  "evidence_grade": "D (vendor documentation)",
+  "finding": "Documents a 3 s setpoint timeout in Guided mode after which the vehicle stops. This is a SETPOINT-cessation behaviour distinct from GCS heartbeat loss (FS_GCS_TIMEOUT, U8), which corroborates the U7 finding that liveness and setpoint cessation are separate injections on both autopilots. What 'stop' means for the subsequent trajectory, and what happens when setpoints resume, is not stated on this page.",
+  "axes": {
+   "equivalent_intent": "not_established_in_inspected_sections",
+   "liveness_vs_setpoint_injection": "documented_distinct_setpoint_timeout_3s",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not_found: no coverage endpoint"
+  },
+  "retrieved_on": "2026-09-12",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "disclosed_or_addressed",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U9.html (ardupilot.org copter-commands-in-guided-mode), cache 2026-09-15; the fetched page text no longer contains the 3-second-stop sentence recorded on 2026-09-12, so the liveness judgment is retained on its 2026-09-12 retrieval and marked for re-verification",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U10",
+  "title": "Plan-and-Avoid, 2026 v1",
+  "url": "https://arxiv.org/html/2608.06648v1",
+  "access": "full_text_html",
+  "version": "arXiv v1",
+  "text_sha256_prefix": "8142973c178a3301",
+  "locator": "Table of contents; Abstract; Sec. II-A Contingency Landing Planning; no occurrence of link/communication loss in the full text",
+  "aboutness": 0,
+  "evidence_grade": "C",
+  "finding": "Multi-agent contingency landing path planning with well-clear separation. Not about autopilot failsafe composition; 'contingency' here is a landing-site planning problem. Zero matches for link/communication loss in the full text.",
+  "axes": {
+   "equivalent_intent": "not_applicable",
+   "liveness_vs_setpoint_injection": "not_applicable",
+   "reconnection": "not_applicable",
+   "coverage": "not_applicable"
+  },
+  "retrieved_on": "2026-09-12",
+  "axis_states": {
+   "equivalent_intent": "not_applicable",
+   "liveness_vs_setpoint_injection": "not_applicable",
+   "reconnection": "not_applicable",
+   "coverage": "not_applicable"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U10.html (arXiv HTML v1), cache 2026-09-15: re-read confirms a contingency-landing planner outside the autopilot-recovery subfield; the 2026-09-12 not_applicable judgments (with their stated reasons) stand and are not converted into bounded support",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U11",
+  "title": "Fail-operational drone swarm architecture, 2026 v1",
+  "url": "https://arxiv.org/html/2608.20906v1",
+  "access": "full_text_html",
+  "version": "arXiv v1",
+  "text_sha256_prefix": "c91db4bc44b54978",
+  "locator": "Sec. III-C Formal Derivation of Safety Contracts, eq. (6) Communication Contract (heartbeat timestamp + SNR -> Return-To-Base); Sec. V-D ConOps verification",
+  "aboutness": 2,
+  "evidence_grade": "C (architectural framework; the link-loss contract is derived, not empirically exercised against an autopilot)",
+  "finding": "Defines a Communication Contract: if the last valid swarm-mesh heartbeat is older than a bound or SNR is below threshold, the FMU enforces Return-To-Base. This is an explicit link-loss -> recovery intention written as a contract, which is the closest conceptual neighbour to a composed failsafe contract found in the set. It is swarm-mesh heartbeat, not GCS/offboard link; it is one architecture, not a comparison across pinned autopilot configurations; and the paper's verification scenario (V-D) is actuator degradation, not link loss.",
+  "axes": {
+   "equivalent_intent": "not_found: contract-form intention for one architecture; no second configuration and no equivalence rule (closest neighbour in form)",
+   "liveness_vs_setpoint_injection": "not_found: only heartbeat/link degradation is a stimulus; setpoint-stream loss is not distinguished",
+   "reconnection": "not_established_in_inspected_sections",
+   "coverage": "not exercised: verification scenario is actuator degradation"
+  },
+  "retrieved_on": "2026-09-12",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspection_source": "U11.html (arXiv HTML v1), cache 2026-09-15",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "U3",
+  "title": "PGFuzz code repository",
+  "url": "https://github.com/purseclab/PGFuzz",
+  "access": "repository_files",
+  "version": "github.com/purseclab/PGFuzz at commit 7eaebf21116087249b8329d4ba7337a24a34ecb9 (2023-09-18), shallow clone 2026-09-15, 1327 files; not executed",
+  "locator": "README.md (Cases 1-2: parachute; PX4 GPS fail-safe COM_POS_FS_DELAY; Sec. 6 bitcode notes); ArduPilot/fuzzing.py L145-200 (Current_policy selector, check_liveness: no HEARTBEAT for 5 s => 'program crashed' => reboot) and policy blocks A.CHUTE, A.RTL1-4, A.FLIP1-4, A.ALT_HOLD1-2, A.CIRCLE1-3/7, A.LAND1-2, A.AUTO1, A.GPS.FS1-2 (L1850-1930), A.RC.FS1-2 (L1931-1990: FS_THR_VALUE vs RC channel 3, RC_failsafe flag), A.SPORT1, A.GUIDED1, A.LOITER1, A.DRIFT1, A.BRAKE1; PX4/fuzzing.py L126-165 and blocks PX.CHUTE, PX.RTL1, PX.ALTITUDE1, PX.HOLD1-2, PX.POSITION1, PX.TAKEOFF1-2, PX.LAND1, PX.GPS.FS1-3 (L1738-1830: GPS_loss, gps_failsafe flag, COM_POS_FS_DELAY, RC channels, ALTCTL mode); PX4/check_policy.py (FLIP altitude and RTL-altitude policies); ArduPilot/update_distance.py (per-policy altitude/roll/pitch/heading error distance)",
+  "aboutness": 2,
+  "evidence_grade": "C (released research code, read not run; policy set in code is narrower than the paper's Table II)",
+  "finding": "Released code holds separate ArduPilot/ and PX4/ trees with separate hard-coded policy lists and MAVLink handlers; no shared policy vocabulary or mapping between the two. RC and GPS fail-safe policies from U2 Table II are implemented (A.RC.FS1-2, A.GPS.FS1-2, PX.GPS.FS1-3) as state predicates over telemetry and parameters (FS_THR_VALUE vs RC throttle, GPS status, COM_POS_FS_DELAY, mode) that score distance to a policy violation; the fuzzer drives them by mutating parameters, commands and simulated environment, not by cutting a GCS/offboard link or a setpoint stream. No A.ALIVE identifier exists in the released Python; heartbeat absence (5 s) is a crash oracle that reboots the simulator. Distance guidance is per-policy state error, matching U2's policy-violation distance. Nothing about reconnection or command return; no cross-autopilot policy equivalence.",
+  "axes": {
+   "equivalent_intent": "not_established: two independent per-autopilot policy lists (A.* and PX.*), no cross-autopilot mapping in code",
+   "liveness_vs_setpoint_injection": "not_established: RC/GPS fail-safe predicates are checked on state; link loss is not injected as a distinct fault and heartbeat loss is only a crash oracle",
+   "reconnection": "not_established_in_inspected_files",
+   "coverage": "not_found: per-policy state-error distance to a violation; no calibrated recovery-trajectory containment"
+  },
+  "retrieved_on": "2026-09-15",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "commit_sha": "7eaebf21116087249b8329d4ba7337a24a34ecb9",
+  "files_inspected": {
+   "README.md": "c2be3aa4e15c84550300605876db7e1cee49a6ca6de67e4d26cbf3ed33f95cad",
+   "ArduPilot/fuzzing.py": "1b8ee60b68cf928b20998cb0dcc64c903d13af8462554b848d0515e12f51aaa5",
+   "PX4/fuzzing.py": "8f991cf380604353d9492e5d215128a1a6784130fef86bc53372718a59619412",
+   "PX4/check_policy.py": "39128b62d72e488eeb6882aad2c1bd349bbdbdca55d9833c73fc5cfc0dda234a",
+   "ArduPilot/update_distance.py": "0c775dd5f7a3a89419328954184296b8850229ee3f595613853ab077d2fb2c82",
+   "ArduPilot/pgfuzz.py": "f01b9b274a418f150e84918b53e1fee4dabc695d476050b8a9a9f87791492594",
+   "PX4/pgfuzz.py": "9f85efd7104ac0ca2fc248e3c900325cdfdf916e7603bf6f5c0412faa4f364ed"
+  },
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "S1",
+  "title": "UAVConfigFuzzer: Detecting Incorrect Configurations in UAVs via Setpoint Estimation Guided Fuzzing (Registered Report), FUZZING Workshop 2026",
+  "url": "https://doi.org/10.14722/fuzzing.2026.23009",
+  "access": "full_text_pdf",
+  "version": "NDSS-hosted workshop PDF fuzzing2026-9.pdf (Crossref resource.primary URL), 10 pages",
+  "text_sha256_prefix": "b350dd53193295c7",
+  "pdf_sha256": "04ddf73317e684f4510f656575cf88d65030fc1693663e78ad3709f22a0b208a",
+  "locator": "Abstract; Sec. I; Sec. II-A (configuration parameters); Sec. III-A/B (three oracles: rapid ascent/descent, deviation, interruption; Algorithm 1 setpoint generator); Sec. IV (Table I fidelity, Table III 14 incorrect PX4 MPC_* configurations, case study MPC_XY_VEL_ALL=0); hardware validation Pixhawk 4 / PX4 v1.15.0",
+  "aboutness": 2,
+  "evidence_grade": "B for the inspected sections (peer-reviewed workshop registered report, method and result tables read directly)",
+  "finding": "Configuration fuzzing of PX4 only, guided by a reused PositionSmoothing setpoint generator instead of a simulator. Oracles compare a generated setpoint sequence with the user mission: max perpendicular deviation from mission segments, vertical-velocity fluctuation, and 'interruption' (stuck or incomplete mission). Inputs are configuration values; no failsafe, link, heartbeat, offboard or GCS condition is mentioned anywhere in the text (grep: 0 hits for fail-safe/failsafe/heartbeat/GCS/RTL/reconnect/offboard). ArduPilot appears only in a forum citation. The deviation oracle is a whole-sequence distance to a nominal mission under ideal conditions, not a calibrated recovery-trajectory coverage measure, and no autopilot pair or configuration equivalence is defined.",
+  "axes": {
+   "equivalent_intent": "not_found: Sec. I and Sec. IV evaluate PX4 only (Pixhawk 4 / PX4 v1.15.0); no second configuration or intention-equivalence rule",
+   "liveness_vs_setpoint_injection": "not_established: setpoints are internally generated estimates of state, not injected loss of a setpoint or heartbeat stream",
+   "reconnection": "not_found: Secs. III-IV; no command-return phase, inputs are configuration values only",
+   "coverage": "not_found: Sec. III-B oracles (max perpendicular deviation from mission segments; interruption; vertical velocity); mission-following deviation, not calibrated recovery-trajectory containment"
+  },
+  "retrieved_on": "2026-09-15",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "S2",
+  "title": "ADGFuzz: Assignment Dependency-Guided Fuzzing for Robotic Vehicles, NDSS 2026",
+  "url": "https://doi.org/10.14722/ndss.2026.231014",
+  "access": "full_text_pdf",
+  "version": "NDSS-hosted PDF 2026-s1014-paper.pdf (Crossref resource.primary URL), 20 pages",
+  "text_sha256_prefix": "e435122b83e4b5e0",
+  "pdf_sha256": "bb86bc3177c4e4bf2c8fe73e14e99760ab4dd662deb7902afafb502cfacaed72",
+  "locator": "Abstract; Sec. I; Sec. III-C threat model (GCS spoofing / link hijacking named as attacker tactics, out of the bug class studied); Sec. IV (MIS entropy scheduling; oracles: crash on ground, route deviation over a 7 s window, software crash = no heartbeat for 2 s); Sec. VI-A setup (ArduPilot Copter/Plane/Rover SITL, MAVProxy GCS, MAVLink); Sec. VI-B/false positives (SYSID_THISMAV breaking GCS communication excluded as false positive); Sec. VIII-C portability (PX4 named as a target, not evaluated); Appendix Table bug 40 (Rover FENCE_RADIUS/FENCE_ENABLE: fence violation detected but RTL not triggered)",
+  "aboutness": 2,
+  "evidence_grade": "B for the inspected sections (peer-reviewed venue, method, setup and bug table read directly)",
+  "finding": "Fuzzes ArduPilot-only (Copter, Plane, Rover in SITL) for assignment-statement bugs using a static assignment dependency graph and entropy-scheduled matched input sets. Heartbeat absence is used as a crash ORACLE (2 s), never injected as a fault; loss of GCS communication caused by SYSID_THISMAV is classified as a false positive and excluded. One reported bug (Rover, bug 40) is a failsafe-behaviour defect (fence violation without RTL), found as a bug instance, not as a comparison of recovery behaviour across configurations. No PX4 evaluation, no reconnection or command-return phase, no coverage measure of a recovery trajectory (coverage in the paper means code/MIS coverage).",
+  "axes": {
+   "equivalent_intent": "not_found: Sec. VI-A setup is ArduPilot Copter/Plane/Rover only; Sec. VIII-C names PX4 as a portability target without evaluation",
+   "liveness_vs_setpoint_injection": "not_established: heartbeat loss is an oracle for software crash, not an injected liveness fault; setpoint loss not injected",
+   "reconnection": "not_found: Secs. IV-VI; no command-return or authority-resumption phase",
+   "coverage": "not_established: 'coverage' is code/MIS coverage; route-deviation oracle is a 7 s drift test"
+  },
+  "retrieved_on": "2026-09-15",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "S3",
+  "title": "PGPatch: Policy-Guided Logic Bug Patching for Robotic Vehicles, IEEE S&P 2022",
+  "url": "https://doi.org/10.1109/sp46214.2022.9833567",
+  "access": "full_text_pdf",
+  "version": "Author-posted PDF S&P22_hskim.pdf from kimhyungsub.github.io (publisher copy closed: OpenAlex oa_status=closed, Semantic Scholar openAccessPdf empty, IEEE landing bot-blocked HTTP 202); 20 pages; author list matches Crossref",
+  "text_sha256_prefix": "545c669c6b0defaa",
+  "pdf_sha256": "d30d09f12610902f20a62ed3f2c2a09c8578e176bf844c0470968efaf2e7f2c1",
+  "locator": "Abstract; Sec. I (PX4 GPS fail-safe / COM_POS_FS_DELAY example); Sec. II/III (PPL formulas: PX4 GPS fail-safe, ArduPilot battery fail-safe -> RTL, sailboat pre-arm, tilt in LAND/RTL); Sec. IV term-to-code mapping table incl. Copter::failsafe_gcs_check() and failsafe_battery_event(); Sec. VI-F (Paparazzi PP.FailSafe formula 'If GPSloss and RCvalid false then mode is FAILSAFE'; extra formula for correct operation under fail-safe mode); Appendix Table VIII Paparazzi FAILSAFE bugs",
+  "aboutness": 2,
+  "evidence_grade": "B for the inspected sections (peer-reviewed venue, author-posted full text read directly)",
+  "finding": "Automated program repair for logic bugs in ArduPilot, PX4 and Paparazzi, driven by per-autopilot PPL formulas. Fail-safe requirements appear as autopilot-specific formulas in each autopilot's own parameter and mode vocabulary (COM_POS_FS_DELAY / GPSfail; FS_BATT_ENABLE / RTL; PP.FailSafe), and patch verification checks 'correct operation under fail-safe mode'. This is the nearest neighbour in FORM to a per-autopilot recovery contract, but no formula is defined as equivalent across autopilots or pinned configurations, no comparison of realised behaviour is made, and the ArduPilot GCS-failsafe function appears only as a code-mapping location. Link loss and setpoint loss are not injected; what happens when inputs return is not a formula; no trajectory coverage measure.",
+  "axes": {
+   "equivalent_intent": "not_established: fail-safe formulas are per-autopilot documentation restatements; no cross-configuration equivalence or comparison (closest neighbour in form)",
+   "liveness_vs_setpoint_injection": "not_established: failsafe_gcs_check appears in a code-mapping table only; no liveness or setpoint loss injected",
+   "reconnection": "not_found: Secs. III-VI; patch verification re-runs the triggering inputs; no command-return phase is specified or tested",
+   "coverage": "not_established: verification is patch completeness and performance, not recovery-trajectory coverage"
+  },
+  "retrieved_on": "2026-09-15",
+  "axis_states": {
+   "equivalent_intent": "not_found_in_inspected",
+   "liveness_vs_setpoint_injection": "not_found_in_inspected",
+   "reconnection": "not_found_in_inspected",
+   "coverage": "not_found_in_inspected"
+  },
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field.",
+  "reinspected_on": "2026-09-15"
+ },
+ {
+  "source_id": "C001",
+  "title": "SAFLITE: Fuzzing Autonomous Systems via Large Language Models",
+  "url": "https://arxiv.org/abs/2412.18727",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 0 (arxiv:2412.18727, year 2024): LLM-guided fuzzing of autonomous systems naming PX4 and ArduPilot (cross-autopilot execution criterion). Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "needs_full_text",
+  "raw_index": 0,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C087",
+  "title": "VIGOR: Distributed Multi-UAV Exploration with Connectivity Recovery in Communication-Limited Environments",
+  "url": "https://doi.org/10.2139/ssrn.7319893",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 86 (doi:10.2139/ssrn.7319893, year 2026): connectivity recovery in communication-limited multi-UAV exploration (communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "needs_full_text",
+  "raw_index": 86,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C158",
+  "title": "Model-based System Health Management and Contingency Planning for Autonomous UAS",
+  "url": "https://doi.org/10.2514/6.2019-1961",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 157 (doi:10.2514/6.2019-1961, year 2019): model-based system health management and contingency planning for autonomous UAS (contingency/recovery criterion). Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "needs_full_text",
+  "raw_index": 157,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C180",
+  "title": "Self-Adaptive Mechanisms for Misconfigurations in Small Uncrewed Aerial Systems",
+  "url": "https://doi.org/10.1109/seams59076.2023.00030",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 179 (doi:10.1109/seams59076.2023.00030, year 2023): self-adaptive mechanisms for misconfigurations in sUAS (timed safety/configuration policy criterion). Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "needs_full_text",
+  "raw_index": 179,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C186",
+  "title": "A Smart Contract-Based Algorithm for Offline UAV Task Collaboration: A New Solution for Managing Communication Interruptions",
+  "url": "https://doi.org/10.20944/preprints202411.1684.v1",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 185 (doi:10.20944/preprints202411.1684.v1, year 2024): offline UAV task collaboration under communication interruption (communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "needs_full_text",
+  "raw_index": 185,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C214",
+  "title": "Resilient Drone Swarm Control: Manual Leader-Follower Architecture with Autonomous Failover and Reconfiguration",
+  "url": "https://openalex.org/W7202066013",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 213 (https://openalex.org/w7202066013, year 2026): leader-follower swarm with autonomous failover and reconfiguration on loss (communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "needs_full_text",
+  "raw_index": 213,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C228",
+  "title": "Reconfigurable Mission Plans for RPAS",
+  "url": "https://doi.org/10.1016/j.ast.2019.105528",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 227 (doi:10.1016/j.ast.2019.105528, year 2019): reconfigurable mission plans for RPAS (contingency replanning; communication-loss recovery criterion). Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "needs_full_text",
+  "raw_index": 227,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C004",
+  "title": "Flight log analysis and recovery for open-source drones: Focusing on ArduPilot, PX4, and Betaflight",
+  "url": "https://doi.org/10.1016/j.compeleceng.2026.111144",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 3 (doi:10.1016/j.compeleceng.2026.111144, year 2026): cross-autopilot title (ArduPilot, PX4, Betaflight) but 'recovery' may mean log-data recovery; no abstract retained. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 3,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C005",
+  "title": "A Universal Large Language Model -- Drone Command and Control Interface",
+  "url": "https://arxiv.org/abs/2601.15486",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 4 (arxiv:2601.15486, year 2026): universal command-and-control interface over PX4/ArduPilot: cross-autopilot execution possible, recovery behaviour unclear from abstract. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 4,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C021",
+  "title": "UAV Trajectory Management: Ardupilot Based Trajectory Management System",
+  "url": "https://doi.org/10.3390/proceedings2019021008",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 20 (doi:10.3390/proceedings2019021008, year 2019): 'UAV trajectory management' on ArduPilot: trajectory reservations possible; no abstract retained. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 20,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C135",
+  "title": "Control-Aware Manipulation of ArduPilot via Legitimate MAVLink Commands: Simulation and Hardware Validation",
+  "url": "https://openalex.org/W7165817576",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 134 (https://openalex.org/w7165817576, year 2026): control-aware manipulation of ArduPilot via legitimate MAVLink commands with simulation and hardware validation: may exercise failsafe/timed policies; no abstract retained. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 134,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C166",
+  "title": "ConfuSense: Sensor Reconfiguration Attacks for Stealthy UAV Manipulation",
+  "url": "https://doi.org/10.5445/ir/1000185498",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 165 (doi:10.5445/ir/1000185498, year 2025): sensor reconfiguration attacks on UAVs: configuration-policy relevance unclear; no abstract retained. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 165,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C182",
+  "title": "Automated Identification and Qualitative Characterization of Safety Concerns Reported in UAV Software Platforms",
+  "url": "https://doi.org/10.1145/3564821",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 181 (doi:10.1145/3564821, year 2022): automated identification of safety concerns in UAV software platforms: may catalogue failsafe/timed-policy concerns; no abstract retained. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 181,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C218",
+  "title": "A Requirements-Driven Platform for Validating Field Operations of Small Uncrewed Aerial Vehicles",
+  "url": "https://doi.org/10.48550/arxiv.2307.00194",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 217 (arxiv:2307.00194, year 2023): requirements-driven platform validating sUAS field operations: relevance to timed safety policies unclear. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 217,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C219",
+  "title": "LLM-Agents Driven Automated Simulation Testing and Analysis of small Uncrewed Aerial Systems",
+  "url": "https://doi.org/10.48550/arxiv.2501.11864",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 218 (arxiv:2501.11864, year 2025): LLM-agent driven simulation testing of sUAS: may test failsafe behaviour; abstract does not say. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 218,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C225",
+  "title": "Automated system-level testing of unmanned aerial systems",
+  "url": "https://doi.org/10.1007/s10515-024-00462-9",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 224 (doi:10.1007/s10515-024-00462-9, year 2024): automated system-level testing of UAS: may include failsafe scenarios; no abstract retained. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 224,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ },
+ {
+  "source_id": "C266",
+  "title": "Applying Formal Methods to Build a Safe Continuous-Control Architecture for an Unmanned Aerial Vehicle",
+  "url": "https://doi.org/10.21203/rs.3.rs-3668418/v1",
+  "access": "metadata_only",
+  "version": null,
+  "text_sha256_prefix": null,
+  "locator": "",
+  "aboutness": null,
+  "evidence_grade": null,
+  "finding": "Metadata-only screen of canonical export row 265 (doi:10.21203/rs.3.rs-3668418/v1, year 2023): formal methods for a safe continuous-control UAV architecture: recovery/safety-policy relevance unclear; no abstract retained. Not read; no assessment is made from the title or abstract.",
+  "axes": {
+   "equivalent_intent": "unresolved: not read (metadata-only screen)",
+   "liveness_vs_setpoint_injection": "unresolved: not read (metadata-only screen)",
+   "reconnection": "unresolved: not read (metadata-only screen)",
+   "coverage": "unresolved: not read (metadata-only screen)"
+  },
+  "axis_states": {
+   "equivalent_intent": "unresolved",
+   "liveness_vs_setpoint_injection": "unresolved",
+   "reconnection": "unresolved",
+   "coverage": "unresolved"
+  },
+  "retrieved_on": "2026-09-15",
+  "screening_decision": "unresolved_metadata",
+  "raw_index": 265,
+  "axis_states_note": "Explicit reviewed assessment per axis: disclosed_or_addressed | not_found_in_inspected | not_applicable | unresolved. Reconciled 2026-09-15 under docs/specs/prior-art-closeout/plan.md (clarified axis definitions); the coverage checker reads ONLY this field."
+ }
 ]

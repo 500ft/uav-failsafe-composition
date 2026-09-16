@@ -1,0 +1,187 @@
+{
+ "version": "2026-09-12-r1",
+ "purpose": "Every day-1 source with resolved identifiers and an explicit eligibility decision for scholarly-database recall. Consumed by scripts/reference_coverage.py.",
+ "sources": [
+  {
+   "source_id": "U1",
+   "title": "Avis, 2021 v1",
+   "day1_url": "https://arxiv.org/html/2106.14959v1",
+   "identifiers": {
+    "arxiv": "2106.14959",
+    "dois": [
+     "10.48550/arXiv.2106.14959"
+    ],
+    "patent": null,
+    "openalex_indexed": false
+   },
+   "eligible_for_database_export": true,
+   "eligibility_reason": "eligible: arXiv preprint; NOT indexed in OpenAlex by DOI (checked 2026-09-12), so only the arXiv leg could return it",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U2",
+   "title": "PGFuzz, NDSS 2021",
+   "day1_url": "https://www.ndss-symposium.org/ndss-paper/pgfuzz-policy-guided-fuzzing-for-robotic-vehicles/",
+   "identifiers": {
+    "arxiv": null,
+    "dois": [
+     "10.14722/ndss.2021.24096"
+    ],
+    "patent": null,
+    "openalex_indexed": null
+   },
+   "eligible_for_database_export": true,
+   "eligibility_reason": "eligible: Crossref-registered DOI (resolved 2026-09-12 by bibliographic query)",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U3",
+   "title": "PGFuzz code",
+   "day1_url": "https://github.com/purseclab/PGFuzz",
+   "identifiers": {
+    "arxiv": null,
+    "dois": [],
+    "patent": null,
+    "openalex_indexed": null
+   },
+   "eligible_for_database_export": false,
+   "eligibility_reason": "NOT eligible: software repository; no scholarly identifier; no database queried indexes it",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U4",
+   "title": "RouthSearch, 2025 v1",
+   "day1_url": "https://arxiv.org/abs/2505.02357v1",
+   "identifiers": {
+    "arxiv": "2505.02357",
+    "dois": [
+     "10.48550/arXiv.2505.02357",
+     "10.1145/3728904"
+    ],
+    "patent": null,
+    "openalex_indexed": false
+   },
+   "eligible_for_database_export": true,
+   "eligibility_reason": "eligible: arXiv preprint with a publisher DOI; NOT indexed in OpenAlex under the arXiv DOI (checked 2026-09-12)",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U5",
+   "title": "aerial-autonomy-stack, 2026 v2",
+   "day1_url": "https://arxiv.org/abs/2602.07264v2",
+   "identifiers": {
+    "arxiv": "2602.07264",
+    "dois": [
+     "10.48550/arXiv.2602.07264"
+    ],
+    "patent": null,
+    "openalex_indexed": true
+   },
+   "eligible_for_database_export": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U6",
+   "title": "PX4 failsafe simulator",
+   "day1_url": "https://docs.px4.io/main/en/config/safety_simulation",
+   "identifiers": {
+    "arxiv": null,
+    "dois": [],
+    "patent": null,
+    "openalex_indexed": null
+   },
+   "eligible_for_database_export": false,
+   "eligibility_reason": "NOT eligible: vendor documentation; not indexed by any scholarly database",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U7",
+   "title": "PX4 Offboard",
+   "day1_url": "https://docs.px4.io/main/en/flight_modes/offboard",
+   "identifiers": {
+    "arxiv": null,
+    "dois": [],
+    "patent": null,
+    "openalex_indexed": null
+   },
+   "eligible_for_database_export": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U8",
+   "title": "ArduPilot GCS failsafe",
+   "day1_url": "https://ardupilot.org/copter/docs/gcs-failsafe.html",
+   "identifiers": {
+    "arxiv": null,
+    "dois": [],
+    "patent": null,
+    "openalex_indexed": null
+   },
+   "eligible_for_database_export": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U9",
+   "title": "ArduPilot Guided commands",
+   "day1_url": "https://ardupilot.org/dev/docs/copter-commands-in-guided-mode.html",
+   "identifiers": {
+    "arxiv": null,
+    "dois": [],
+    "patent": null,
+    "openalex_indexed": null
+   },
+   "eligible_for_database_export": false,
+   "eligibility_reason": "NOT eligible: vendor documentation",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U10",
+   "title": "Plan-and-Avoid, 2026 v1",
+   "day1_url": "https://arxiv.org/abs/2608.06648v1",
+   "identifiers": {
+    "arxiv": "2608.06648",
+    "dois": [
+     "10.48550/arXiv.2608.06648"
+    ],
+    "patent": null,
+    "openalex_indexed": true
+   },
+   "eligible_for_database_export": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U11",
+   "title": "Fail-operational swarm architecture, 2026 v1",
+   "day1_url": "https://arxiv.org/abs/2608.20906v1",
+   "identifiers": {
+    "arxiv": "2608.20906",
+    "dois": [
+     "10.48550/arXiv.2608.20906"
+    ],
+    "patent": null,
+    "openalex_indexed": true
+   },
+   "eligible_for_database_export": true,
+   "eligibility_reason": "eligible: arXiv preprint, indexed in OpenAlex",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  },
+  {
+   "source_id": "U12",
+   "title": "EP3662460B1",
+   "day1_url": "https://patents.google.com/patent/EP3662460B1/en",
+   "identifiers": {
+    "arxiv": null,
+    "dois": [],
+    "patent": "EP3662460B1",
+    "openalex_indexed": null
+   },
+   "eligible_for_database_export": false,
+   "eligibility_reason": "NOT eligible: patent; no patent database was queried by either export",
+   "identifier_resolution": "OpenAlex works?filter=doi (2026-09-12) for arXiv DOIs; Crossref bibliographic query for PGFuzz; arXiv HTML header for the RouthSearch publisher DOI. arXiv API id_list returned 429 throughout 2026-09-12 and was not used."
+  }
+ ]
+}

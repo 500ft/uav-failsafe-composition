@@ -16,6 +16,10 @@ dependencies were retained. Repository navigation, CI, schemas, generated tasks,
 centrality counts are excluded from the published map. Novelty remains unresolved until URC-01
 closes. No dates or estimates appear, by design.
 
+## Formal-composition programme (proposed 2026-09-16)
+
+A [formal-composition plan set](specs/formal-composition/README.md) proposes making formal composition of PX4 failsafes (timed-automata model, reachability, SITL witness replay) the thesis spine, with the empirical recovery-contract work below as its measurement layer and fallback. It is proposed only: no task, tier, gate or claim below changes until the owner merges it and a follow-up PR reconciles this backlog, the roadmap and the claim ledger.
+
 ## Two finish lines
 
 **Ceiling.** Configuration-specific recovery contracts retain their registered coverage in
@@ -48,6 +52,10 @@ not secured cannot be Tier 0, however impressive its eventual output might be.
 2026-09-08: [URC-D01 first-pass review](prior-art-search-2026-09-08.md) is complete.
 Full-text/tooling inspection and the documented broader-search shortfall remain;
 URC-01 is not silently closed and no downstream gate is automatically promoted.
+
+2026-09-15: [URC-01 decision](prior-art.md#urc-01-decision--2026-09-15-replacement-plan) recorded under the
+replacement plan: evidence conclusion = prior art found on the reconnection and liveness axes (documentation),
+no conclusion on equivalent intent and coverage (17 intake rows unread); gate status **partial**. URC-01 stays open.
 
 `hygiene` · executable now
 
