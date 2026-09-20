@@ -1,0 +1,198 @@
+{
+ "schema_version": "2026-09-16",
+ "firmware": {
+  "tag": "v1.17.0",
+  "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "source": "https://github.com/PX4/PX4-Autopilot",
+  "parameter_definition_files": [
+   "src/modules/commander/commander_params.c",
+   "src/lib/systemlib/system_params.c",
+   "src/modules/navigator/geofence_params.c",
+   "src/modules/navigator/rtl_params.c",
+   "src/modules/simulation/simulator_sih/sih_params.c"
+  ]
+ },
+ "vehicle": {
+  "airframe": "10040_sihsim_quadx",
+  "simulator": "sihsim",
+  "lockstep": true,
+  "model_params": {
+   "SIH_MASS": 1.0,
+   "SIH_IXX": 0.025,
+   "SIH_IYY": 0.025,
+   "SIH_IZZ": 0.03,
+   "SIH_T_MAX": 5.0,
+   "SIH_LOC_LAT0": 47.397742,
+   "SIH_LOC_LON0": 8.545594,
+   "SIH_LOC_H0": 489.4
+  }
+ },
+ "common_params": {
+  "SYS_FAILURE_EN": 1,
+  "COM_RC_IN_MODE": 3,
+  "COM_RCL_EXCEPT": 0,
+  "COM_DLL_EXCEPT": 0,
+  "RTL_RETURN_ALT": 60.0,
+  "RTL_DESCEND_ALT": 30.0,
+  "RTL_LAND_DELAY": 0.0,
+  "GF_PREDICT": 0
+ },
+ "equivalence_rule": "A configuration realises intention I for hazard class H iff the parameter map of the pinned code [B1 failsafe.cpp L43-443] yields action I for H (model/px4_failsafe.py configured_action). A configured identity intends I iff every supported class maps to I; classes for which PX4 cannot express I are listed under unsupported and the row still intends I for the remaining classes. Vendor defaults intend nothing and are the reference row.",
+ "unsupported": [
+  "Terminate and Disarm actions are not exercised in SITL flight (they end the run; recorded as reachable actions only)",
+  "VTOL/fixed-wing rows",
+  "battery Hold intention (not expressible)",
+  "RC-loss injection is supported only if the failure-injection unit for RC signal is available on this build; otherwise the class is skipped and recorded",
+  "ArduPilot rows (Study D)"
+ ],
+ "cross_autopilot_counterparts": {
+  "NAV_DLL_ACT": "FS_GCS_ENABLE",
+  "COM_DL_LOSS_T": "FS_GCS_TIMEOUT [B6]",
+  "COM_LOW_BAT_ACT": "FS_BATT_ENABLE",
+  "GF_ACTION": "FENCE_ACTION",
+  "COM_FAIL_ACT_T": "no direct counterpart (ArduPilot acts immediately)"
+ },
+ "rows": [
+  {
+   "configuration_id": "px4-v1.17.0-sih-quadx-defaults",
+   "intention": "vendor_defaults",
+   "deltas_from_defaults": {},
+   "realised_action_per_class": {
+    "datalink_loss": "None",
+    "rc_loss": "RTL",
+    "offboard_loss": "FallbackPosCtrl",
+    "geofence_breach": "Hold",
+    "position_low": "RTL",
+    "battery_critical": "Warn",
+    "battery_emergency": "Warn"
+   },
+   "unsupported_for_intention": [],
+   "parameters_sha256": "2efff9c2edd7015955a473857461fb437b3a5db3ad8e90f57d77282dbfbce322",
+   "note": "Every other row is a stated deviation from this one [B10]. Note NAV_DLL_ACT=0 disables the datalink failsafe by default, so a datalink-loss injection is expected to select no action here; that is a finding to record, not a harness fault."
+  },
+  {
+   "configuration_id": "px4-v1.17.0-sih-quadx-hold",
+   "intention": "Hold",
+   "deltas_from_defaults": {
+    "NAV_DLL_ACT": 1,
+    "NAV_RCL_ACT": 1,
+    "COM_OBL_RC_ACT": 5,
+    "GF_ACTION": 2,
+    "COM_POS_LOW_ACT": 2
+   },
+   "realised_action_per_class": {
+    "datalink_loss": "Hold",
+    "rc_loss": "Hold",
+    "offboard_loss": "Hold",
+    "geofence_breach": "Hold",
+    "position_low": "Hold",
+    "battery_critical": "Warn",
+    "battery_emergency": "Warn"
+   },
+   "unsupported_for_intention": [
+    "battery_critical",
+    "battery_emergency"
+   ],
+   "parameters_sha256": "4294065ae4845757cafab1049b167c4c3ff695075229363798abf6a0bae6fae2",
+   "note": "Battery cannot express Hold in PX4 (COM_LOW_BAT_ACT has Warn/RTL/Land only [B1 failsafe.h L70-76]); battery classes are unsupported for this intention and stay at Warn."
+  },
+  {
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+   "intention": "RTL",
+   "deltas_from_defaults": {
+    "NAV_DLL_ACT": 2,
+    "NAV_RCL_ACT": 2,
+    "COM_OBL_RC_ACT": 3,
+    "GF_ACTION": 3,
+    "COM_POS_LOW_ACT": 3,
+    "COM_LOW_BAT_ACT": 1
+   },
+   "realised_action_per_class": {
+    "datalink_loss": "RTL",
+    "rc_loss": "RTL",
+    "offboard_loss": "RTL",
+    "geofence_breach": "RTL",
+    "position_low": "RTL",
+    "battery_critical": "RTL",
+    "battery_emergency": "RTL"
+   },
+   "unsupported_for_intention": [],
+   "parameters_sha256": "afac1e42f55ac68b78a27235d03dc623d0416f4a40aa5de451d2267d27ca4b3b",
+   "note": "COM_LOW_BAT_ACT=1 is marked 'Return mode (deprecated)' in the enum comment [B1 failsafe.h L73]; kept because it is the only pure-RTL battery option. Emergency level still yields RTL under value 1."
+  },
+  {
+   "configuration_id": "px4-v1.17.0-sih-quadx-land",
+   "intention": "Land",
+   "deltas_from_defaults": {
+    "NAV_DLL_ACT": 3,
+    "NAV_RCL_ACT": 3,
+    "COM_OBL_RC_ACT": 4,
+    "GF_ACTION": 5,
+    "COM_POS_LOW_ACT": 5,
+    "COM_LOW_BAT_ACT": 2
+   },
+   "realised_action_per_class": {
+    "datalink_loss": "Land",
+    "rc_loss": "Land",
+    "offboard_loss": "Land",
+    "geofence_breach": "Land",
+    "position_low": "Land",
+    "battery_critical": "Land",
+    "battery_emergency": "Land"
+   },
+   "unsupported_for_intention": [],
+   "parameters_sha256": "91c0ccf4093f933dc767077d5f5e6522fa8e4523a69e90ce8bba0f5207106a30",
+   "note": ""
+  },
+  {
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl-delay0",
+   "intention": "RTL",
+   "deltas_from_defaults": {
+    "NAV_DLL_ACT": 2,
+    "NAV_RCL_ACT": 2,
+    "COM_OBL_RC_ACT": 3,
+    "GF_ACTION": 3,
+    "COM_POS_LOW_ACT": 3,
+    "COM_LOW_BAT_ACT": 1,
+    "COM_FAIL_ACT_T": 0.0
+   },
+   "realised_action_per_class": {
+    "datalink_loss": "RTL",
+    "rc_loss": "RTL",
+    "offboard_loss": "RTL",
+    "geofence_breach": "RTL",
+    "position_low": "RTL",
+    "battery_critical": "RTL",
+    "battery_emergency": "RTL"
+   },
+   "unsupported_for_intention": [],
+   "parameters_sha256": "4a3a33a09541af3930137e6cefe15efd1814de54b85d319da4def7016abc772d",
+   "note": "Timer variant: no Hold-first delay (the code applies the delay only when COM_FAIL_ACT_T > 0.1 s [B1 framework.cpp L352])."
+  },
+  {
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl-dll5",
+   "intention": "RTL",
+   "deltas_from_defaults": {
+    "NAV_DLL_ACT": 2,
+    "NAV_RCL_ACT": 2,
+    "COM_OBL_RC_ACT": 3,
+    "GF_ACTION": 3,
+    "COM_POS_LOW_ACT": 3,
+    "COM_LOW_BAT_ACT": 1,
+    "COM_DL_LOSS_T": 5
+   },
+   "realised_action_per_class": {
+    "datalink_loss": "RTL",
+    "rc_loss": "RTL",
+    "offboard_loss": "RTL",
+    "geofence_breach": "RTL",
+    "position_low": "RTL",
+    "battery_critical": "RTL",
+    "battery_emergency": "RTL"
+   },
+   "unsupported_for_intention": [],
+   "parameters_sha256": "936dbace2f1f9e2f2655377e279f4da9e95414882ff88da8931326646b4bc4d6",
+   "note": "Timer variant: C2 Link loss after 5 s, matching the MAVLink four-to-five-missed-heartbeat convention [B5] and ArduPilot's FS_GCS_TIMEOUT default [B6]."
+  }
+ ]
+}

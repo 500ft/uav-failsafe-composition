@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/500ft/uav-failsafe-composition/protocols/trace-schema.json",
+  "title": "Normalised authority-loss trace and manifest (URC-03, 2026-09-16)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest",
+    "clock",
+    "events",
+    "samples",
+    "validity"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2026-09-16"
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "configuration_id",
+        "firmware_commit",
+        "firmware_tag",
+        "airframe",
+        "simulator",
+        "lockstep",
+        "parameters_sha256",
+        "seed",
+        "injection",
+        "run_id",
+        "evidence_state"
+      ],
+      "properties": {
+        "configuration_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "firmware_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "firmware_tag": {
+          "type": "string"
+        },
+        "airframe": {
+          "type": "string"
+        },
+        "simulator": {
+          "enum": [
+            "sihsim",
+            "gazebo",
+            "jmavsim"
+          ]
+        },
+        "lockstep": {
+          "type": "boolean"
+        },
+        "parameters_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "injection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "class",
+            "method",
+            "scheduled_t_s"
+          ],
+          "properties": {
+            "class": {
+              "enum": [
+                "offboard_loss",
+                "datalink_loss",
+                "rc_loss",
+                "gps_loss",
+                "battery_low",
+                "battery_critical",
+                "battery_emergency",
+                "geofence_breach",
+                "none"
+              ]
+            },
+            "method": {
+              "enum": [
+                "stream_stopped",
+                "heartbeat_stopped",
+                "failure_injection",
+                "fence_upload_and_fly_out",
+                "none"
+              ]
+            },
+            "scheduled_t_s": {
+              "type": "number",
+              "minimum": 0
+            },
+            "restore_t_s": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            }
+          }
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_state": {
+          "enum": [
+            "simulation"
+          ]
+        }
+      }
+    },
+    "clock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "host_to_vehicle_offset_s",
+        "offset_samples"
+      ],
+      "properties": {
+        "host_to_vehicle_offset_s": {
+          "type": "number"
+        },
+        "offset_samples": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "t_vehicle_s",
+          "t_host_s"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "arm",
+              "takeoff_complete",
+              "last_valid_setpoint",
+              "last_heartbeat_sent",
+              "injection",
+              "hazard_flag",
+              "failsafe_notice",
+              "hold_delay_start",
+              "hold_delay_end",
+              "native_transition",
+              "terminal_state",
+              "reconnect_event"
+            ]
+          },
+          "t_vehicle_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "t_host_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "detail": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "samples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "t_vehicle_s",
+          "t_host_s",
+          "nav_state",
+          "armed"
+        ],
+        "properties": {
+          "t_vehicle_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "t_host_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "nav_state": {
+            "type": "string"
+          },
+          "armed": {
+            "type": "boolean"
+          },
+          "selected_action": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hazard_flags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "pos_ned_m": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "vel_ned_mps": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "lat_deg": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "lon_deg": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "alt_amsl_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "battery_remaining": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "statustext": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "valid",
+        "reasons"
+      ],
+      "properties": {
+        "valid": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "simulator_crash",
+              "injection_before_takeoff",
+              "no_vehicle_heartbeat_2s",
+              "stationary_before_injection",
+              "lockstep_desync",
+              "log_gap",
+              "schema_failure"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

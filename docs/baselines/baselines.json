@@ -1,0 +1,160 @@
+[
+ {
+  "id": "B1",
+  "title": "PX4-Autopilot v1.17.0 failsafe framework source (commander/failsafe: framework.h, framework.cpp, failsafe.h, failsafe.cpp)",
+  "kind": "primary source code",
+  "url": "https://github.com/PX4/PX4-Autopilot/tree/v1.17.0/src/modules/commander/failsafe",
+  "accessed": "2026-09-16",
+  "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "sha256": {
+   "framework.h": "36c69534a4c2466e96d2c7fee0b26acdbbf779d90dd589c8efd95f694bc03d18",
+   "framework.cpp": "6f7b9c1a08624c317965f8ae2195dad03f9baf03dc1e4dbb3d08c22a748e96c6",
+   "failsafe.h": "3aa3d070ef79bf78b8b23abb7e12367150fa2a03a03e975878fd9ac29e3fe812",
+   "failsafe.cpp": "e5dd6b8148b308a8cf6346ceb09dad211bfd20efe016a5f7ae2ee5a6c43856cb"
+  },
+  "what": "Action precedence 'Actions further down take precedence: None, Warn, FallbackPosCtrl, FallbackAltCtrl, FallbackStab, Hold, RTL, Land, Descend, Disarm, Terminate' (framework.h L52-70); ClearCondition {WhenConditionClears, OnModeChangeOrDisarm, OnDisarm, Never} (L72-77); UserTakeoverAllowed (L180-185); delayed Hold: when COM_FAIL_ACT_T > 0.1 s a delayable action first selects Hold until the delay expires (framework.cpp L351-362, L489-500); toggling protection 'increasing the delay slower than reducing it' (L121-141); selection = maximum action over active actions (L462-481); mode-requirement fallbacks (L537-615, modeCanRun L699-716); per-cause parameter maps (failsafe.cpp L43-443); RC/datalink exception bits (failsafe.cpp L465-513); offboard-loss fallback chain (L659-705).",
+  "why": "It is the object of study: the executable that the docs simulator also runs. Every discrete definition in the protocol is taken from it rather than from prose.",
+  "how": "Event names, action names, precedence order, delay semantics and clear conditions in the protocol and the model are those of this code at this commit; the model is validated against SITL built from the same commit."
+ },
+ {
+  "id": "B2",
+  "title": "PX4 User Guide — Safety Configuration (Failsafes)",
+  "kind": "vendor documentation",
+  "url": "https://docs.px4.io/main/en/config/safety.html",
+  "accessed": "2026-09-16",
+  "sha256": {
+   "px4_safety.html": "0469a74fffe03561b9359fea38104fc73175f74a94ae96fec5dcadf2f567b90d"
+  },
+  "what": "'When a failsafe is triggered, the default behavior (for most failsafes) is to enter Hold for COM_FAIL_ACT_T seconds before performing an associated failsafe action.'",
+  "why": "States the intended user-visible semantics of the delay in plain words; used to phrase the hold-delay event and the time-to-safe-state bound.",
+  "how": "The protocol's `hold_delay` event and the U4 bound (sum of configured delays) follow this sentence and B1 L489-500."
+ },
+ {
+  "id": "B3",
+  "title": "PX4 User Guide — Failure Injection",
+  "kind": "vendor documentation",
+  "url": "https://docs.px4.io/main/en/debug/failure_injection.html",
+  "accessed": "2026-09-16",
+  "sha256": {
+   "px4_failure_injection.html": "71a4ab4e0eaef7f708cae230093dc19dd7a39c55aec92ae597af768d90bcaf97"
+  },
+  "what": "Failure injection is disabled by default and enabled with SYS_FAILURE_EN; failures are injected via MAV_CMD_INJECT_FAILURE or the console (`failure gps off`, `failure battery wrong` at SYS_FAIL_BAT_LVL, `failure gps ok`); 'All MAV_CMD_INJECT_FAILURE commands are handled internally by the failure-injection module, which acknowledges each'.",
+  "why": "The vendor's own, acknowledged injection path. Using it instead of ad-hoc parameter tricks makes injections reproducible and attributable.",
+  "how": "The harness injects GPS, battery and RC/MAVLink-signal events through this mechanism; datalink and offboard losses are injected by stopping the harness's own streams, which is the natural stimulus."
+ },
+ {
+  "id": "B4",
+  "title": "PX4 User Guide — Offboard Mode (cached 2026-09-15 as U7)",
+  "kind": "vendor documentation",
+  "url": "https://docs.px4.io/main/en/flight_modes/offboard",
+  "accessed": "2026-09-15",
+  "sha256": {
+   "U7.html": "da0a35155085fe686da9a4c4a6548d583314b7fb3dcff94ce922795f1f6b9398"
+  },
+  "what": "'PX4 requires that the external controller provides a continuous 2Hz \"proof of life\" signal, by streaming any of the supported MAVLink setpoint messages or the ROS 2 OffboardControlMode message'; exit Offboard if messages stop for longer than COM_OF_LOSS_T; action per COM_OBL_RC_ACT.",
+  "why": "Defines the liveness stimulus for offboard authority loss and its timeout.",
+  "how": "`last_valid_setpoint` and `offboard_loss` events; the offboard stream rate (≥ 2 Hz) and timeout (COM_OF_LOSS_T) in the matrix."
+ },
+ {
+  "id": "B5",
+  "title": "MAVLink Developer Guide — Heartbeat/Connection Protocol",
+  "kind": "protocol specification",
+  "url": "https://mavlink.io/en/services/heartbeat.html",
+  "accessed": "2026-09-16",
+  "sha256": {
+   "mavlink_heartbeat.html": "7985b2e0a621c0932518a4a4359eaee29a6af0cee87a53c7738bfa5978e9b8e5"
+  },
+  "what": "'On RF telemetry links, components typically publish their heartbeat at 1 Hz and consider another system to have disconnected if four or five messages are not received.'",
+  "why": "The interoperability convention behind datalink-loss detection on both autopilots; gives the granularity of any link-loss timer.",
+  "how": "The harness heartbeats at 1 Hz; datalink loss is injected by stopping heartbeats; the 1.0 s margin in U1 and the timing tolerance in Study A are stated relative to this 1 Hz granularity."
+ },
+ {
+  "id": "B6",
+  "title": "ArduPilot Copter docs — GCS Failsafe (cached 2026-09-15 as U8)",
+  "kind": "vendor documentation",
+  "url": "https://ardupilot.org/copter/docs/gcs-failsafe.html",
+  "accessed": "2026-09-15",
+  "sha256": {
+   "U8.html": "1a1e93d573227135de9e7175d6cd10535a12ee930609de573f7645b5dfa3f98e"
+  },
+  "what": "GCS failsafe triggers after FS_GCS_TIMEOUT s (default 5 s) without a MAVLink heartbeat; 'If the failsafe clears (i.e. GCS reconnects and MAVLink heartbeat is restored) the copter will remain in its failsafe mode. It will not automatically return to the flight mode that was active before.'",
+  "why": "The comparable autopilot's documented link-loss timer and its documented reconnection behaviour; the reconnection clause of the protocol must be able to record both PX4's and ArduPilot's behaviour without bias.",
+  "how": "`reconnect_event` and `post_reconnect_behaviour` fields; the cross-autopilot equivalence rule in the matrix names FS_GCS_TIMEOUT as the ArduPilot counterpart of COM_DL_LOSS_T (Study D)."
+ },
+ {
+  "id": "B7",
+  "title": "JARUS guidelines on SORA v2.5 — Main Body (JAR_doc_25)",
+  "kind": "industry guideline (adopted by EASA as AMC to Regulation (EU) 2019/947)",
+  "url": "http://jarus-rpas.org/wp-content/uploads/2024/06/SORA-v2.5-Main-Body-Release-JAR_doc_25.pdf",
+  "accessed": "2026-09-16",
+  "sha256": {
+   "sora25_main.pdf": "2471913e55c38999dc5ba0894ac696c3e4722ddb0956b1c62f15e6fbd9a1be1c"
+  },
+  "what": "§2.2.1-2.2.4: the operational volume 'is made up of the flight geography and the contingency volume'; 'The contingency volume surrounds the flight geography'; the ground risk buffer 'is an area on the ground that surrounds the footprint of the contingency volume. If the UA exits the contingency volume during a loss of control of the operation, it is expected to end its flight within the ground risk buffer'.",
+  "why": "The regulatory semantic model for where a vehicle may be during a contingency. It turns 'unsafe' from an opinion into a containment statement: leaving the volume you promised, or not ending the contingency within the buffer.",
+  "how": "Geofence breach is modelled as leaving the flight geography; the contingency volume is the space the failsafe action must stay in; U4 (bounded time-to-safe-state) is the time-domain analogue of ending the flight within the buffer. SORA's ground-risk arithmetic is NOT used; only its volume vocabulary."
+ },
+ {
+  "id": "B8",
+  "title": "ISO 21384-3:2023 Unmanned aircraft systems — Part 3: Operational procedures (public preview: scope, terms, table of contents)",
+  "kind": "international standard (preview only)",
+  "url": "https://cdn.standards.iteh.ai/samples/80124/74015427f9cc492aa692ffa60a962961/ISO-21384-3-2023.pdf",
+  "accessed": "2026-09-16",
+  "sha256": {
+   "iso21384-3_preview.pdf": "7436a742ec671a6bad78e301abe450f1b1146f871e08d487b40839c1ddf4d987"
+  },
+  "what": "Terms 3.1-3.19 define the C2 Link ('command and control link service telecommunication service provided for the purpose of supporting command and control'), designated operational coverage (DOC), QoS required/delivered; §9.4.10 is titled 'Abnormal and contingency procedures'. The body of §9.4.10 is not in the preview and was NOT read.",
+  "why": "Supplies the standard vocabulary for the command link whose loss is the stimulus (C2 Link, DOC) so the protocol does not invent terms.",
+  "how": "The protocol calls the GCS link the C2 Link and records whether the vehicle was inside its DOC at loss; the ISO contingency-procedure requirements are not claimed, since that text was not accessible."
+ },
+ {
+  "id": "B9",
+  "title": "ASTM F3269-21 Standard Practice for Methods to Safely Bound Behavior of Aircraft Systems Containing Complex Functions Using Run-Time Assurance — scope (store page) with two public papers describing its components",
+  "kind": "industry standard (scope) + secondary literature",
+  "url": "https://store.astm.org/f3269-21.html",
+  "accessed": "2026-09-16",
+  "sha256": {
+   "astm_store.html": "adc196d8b455c311d94e9a5b15d96bcfefe508d2709b67d53fc933042ee57709",
+   "astm_f3269_dlr_scitech.pdf": "d5da940d79acf17d478461904c23c6823690c5de36cfc10f6fed30b017b0127e",
+   "astm_f3269_nasa_ntrs.pdf": "0016cccad9b1ec23b36c0429c367c3ae022a442cb506749dcd5ff9288f81f883"
+  },
+  "secondary": [
+   "https://elib.dlr.de/144352/1/latestsubmission_v1_ASTM%20F3269_SciTech_Control-ID_3453655.pdf (DLR, AIAA SciTech: 'ASTM F3269 - An Industry Standard on Run Time Assurance for Aircraft Systems')",
+   "https://ntrs.nasa.gov/api/citations/20200001756/downloads/20200001756.pdf (NASA NTRS: 'Leveraging ASTM Industry Standard F3269-17 for ...')"
+  ],
+  "what": "Scope: 'provides an architectural framework for developing an RTA system, which provides run-time assurance as an alternative to design-time assurance to fulfill safety requirements for an unassured or complex function'. DLR paper terms table: Safety Monitor = 'an assured RTA function which continuously evaluates [the] Larger System and/or complex function'; RTA Switch = 'an assured RTA function that receives an input/data from the safety monitor and switches to the appropriate recovery function'; Recovery Function(s). NASA paper: 'multiple switch positions will likely be required within the RTA Switch for the different control methodologies used to resolve the boundary breach that the different monitors may flag'.",
+  "why": "The industry pattern that a failsafe framework instantiates: monitors (PX4 failsafe flags) → switch (PX4 action selector) → recovery functions (Hold/RTL/Land). It gives standard names for the three roles and states that arbitration between several recovery functions is a design obligation, which is exactly what U2 (priority consistency) checks.",
+  "how": "U1 = a monitor boundary is breached but no recovery function is engaged; U2 = the switch engages a lower-precedence recovery function than the highest active monitor demands. The full text of F3269 was not read; only its published scope and the two papers."
+ },
+ {
+  "id": "B10",
+  "title": "PX4-Autopilot v1.17.0 parameter defaults (failsafe, timers, battery, geofence, RTL, SIH)",
+  "kind": "primary source code",
+  "url": "https://github.com/PX4/PX4-Autopilot/tree/v1.17.0/src",
+  "accessed": "2026-09-16",
+  "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "what": "COM_FAIL_ACT_T=5 s; COM_OF_LOSS_T=1.0 s; COM_RC_LOSS_T=0.5 s; COM_DL_LOSS_T=10 s; COM_HLDL_LOSS_T=120 s; NAV_DLL_ACT=0 (disabled); NAV_RCL_ACT=2 (Return); COM_OBL_RC_ACT=0 (Position mode); COM_LOW_BAT_ACT=0 (warning); COM_POS_LOW_ACT=3 (Return); GF_ACTION=2 (Hold); GF_PREDICT=0; COM_RCL_EXCEPT=0; COM_DLL_EXCEPT=0; COM_RC_IN_MODE=3; COM_SPOOLUP_TIME=1 s; SYS_FAILURE_EN=0; RTL_RETURN_ALT=60 m; RTL_DESCEND_ALT=30 m; RTL_LAND_DELAY=0; SIH_MASS=1.0 kg; SIH_LOC_LAT0/LON0/H0 = 47.397742/8.545594/489.4.",
+  "why": "The vendor-default configuration is the first row of the matrix; every other row is a stated deviation from it.",
+  "how": "`protocols/configuration-matrix.json` row `px4-v1.17.0-sih-quadx-defaults` and the deltas of the other rows.",
+  "sha256": {
+   "src/lib/systemlib/system_params.c": "94d85735e0117f7453eac9b57726d52151977c8f5bc86d0907b2f05a00d3de97",
+   "src/modules/commander/commander_params.c": "4e83db4e821aac5fb5ad96aa7755bac8dffac0714581d0895688198c8e41902a",
+   "src/modules/navigator/geofence_params.c": "665424114fc2fa4638275f789ac1b4fd6da86e1f40cc912cd6e0e68f2e34471a",
+   "src/modules/navigator/rtl_params.c": "22c2a14bc18a04f5ac0efad16ddcca0ca723cc8d8579277fc60de858f4805fc0",
+   "src/modules/simulation/simulator_sih/sih_params.c": "516321c506aa1dd8cb89f2309ff095624b445f083101acac40945b26723d0d3c"
+  }
+ },
+ {
+  "id": "B11",
+  "title": "Comparable-project oracles already in the reading records (U1 Avis, U2 PGFuzz, S1 UAVConfigFuzzer, S2 ADGFuzz)",
+  "kind": "peer-reviewed literature (records in docs/day3-reading-records.json)",
+  "url": "docs/day3-reading-records.json",
+  "accessed": "2026-09-15",
+  "sha256": {
+   "see reading records": "text_sha256_prefix fields"
+  },
+  "what": "U1: state deviation from profiling runs beyond a threshold tau (eq. 1). U2: MTL policies with a signed distance to violation, e.g. RTL altitude policy. S1: 'interruption' oracle (vehicle stationary / mission incomplete) and mission deviation. S2: no heartbeat for 2 s = software crash; route deviation over a 7 s window.",
+  "why": "These are the oracles the closest prior work uses to call a run bad. Reusing their shapes (a flag plus a time window) keeps the protocol comparable with the literature and shows which of our conditions are new (composition, priority) and which are inherited (stuck, no heartbeat).",
+  "how": "U3 (flapping within a window) and the invalid-run rules (no heartbeat 2 s, stuck vehicle) inherit the window form from S2/S1; U1/U2 are not in any of them."
+ }
+]
