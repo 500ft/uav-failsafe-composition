@@ -1,0 +1,177 @@
+{
+ "schema_version": "2026-09-19",
+ "status": "planned, not executed",
+ "model_identity_required": "Every query is evaluated only against a model whose hash matches models/px4-study-a/source-manifest.json; a witness carries both hashes.",
+ "clock": {
+  "unit": "second",
+  "semantics": "vehicle clock (uORB hrt / MAVLink time_boot_ms), never host wall clock",
+  "source": "protocols/event-semantics.md \u00a75"
+ },
+ "shared_exclusions": [
+  {
+   "id": "X1",
+   "rule": "A hazard whose exception bit is set for the active user-intended mode is not active for any property.",
+   "source": "failsafe.cpp L465-513 (COM_RCL_EXCEPT ManualControlLossExceptionBits, COM_DLL_EXCEPT DatalinkLossExceptionBits)"
+  },
+  {
+   "id": "X2",
+   "rule": "A hazard configured to action None is not a monitor breach; the failsafe is disabled by configuration.",
+   "source": "failsafe.cpp L47-51, L515; NAV_DLL_ACT=0 is the vendor default [B10]"
+  },
+  {
+   "id": "X3",
+   "rule": "The documented UX downgrades to Warn (already in AUTO_LAND, AUTO_RTL or AUTO_PRECLAND when RTL/Land would be selected) are not violations.",
+   "source": "framework.cpp L617-644"
+  },
+  {
+   "id": "X4",
+   "rule": "A lower action produced by the mode-requirement fallback chain is not a priority violation.",
+   "source": "framework.cpp L537-615, modeCanRun L699-716"
+  },
+  {
+   "id": "X5",
+   "rule": "User takeover (stick request or mode switch while an action allows it) legitimately reduces the selected action to Warn.",
+   "source": "framework.cpp L502-535, actionAllowsUserTakeover L647-651"
+  }
+ ],
+ "properties": [
+  {
+   "id": "U1",
+   "name": "monitor breached, no recovery engaged",
+   "natural_language": "A failsafe flag stays true past the point where the framework must have acted, while the selected action is still None or Warn.",
+   "bound_s": "hazard_detection_timer + (COM_FAIL_ACT_T if the configured action is delayable else 0) + 1.0",
+   "delayable_actions_note": "The Hold-first delay applies only when COM_FAIL_ACT_T > 0.1 s and the action is not Disarm, Terminate or Hold; it is cleared when a failsafe is already active, when Hold cannot run, or on takeover.",
+   "source": [
+    "framework.cpp L489-500 (delayed Hold)",
+    "framework.cpp L351-362 (delay armed only when COM_FAIL_ACT_T > 0.1)",
+    "framework.cpp L653-668 (clearDelayIfNeeded)",
+    "failsafe.h L52-70"
+   ],
+   "margin_basis": "1.0 s = one MAVLink heartbeat period [B5]",
+   "hazard_detection_timer_by_class": {
+    "datalink_loss": "COM_DL_LOSS_T",
+    "rc_loss": "COM_RC_LOSS_T",
+    "offboard_loss": "COM_OF_LOSS_T",
+    "geofence_breach": "0 (evaluated per cycle)",
+    "battery_critical": "0 (warning level transition)",
+    "battery_emergency": "0",
+    "position_low": "0"
+   },
+   "excludes": [
+    "X1",
+    "X2",
+    "X3",
+    "X5"
+   ],
+   "required_channels": [
+    "failsafe_flags",
+    "selected_action",
+    "nav_state",
+    "vehicle clock"
+   ],
+   "witness_format": "event schedule + expected (flag, t_rise) and (selected_action, t) pairs over the horizon",
+   "replayable_in_sitl": true,
+   "known_limitations": "False positive if a flag rises during a mode transition in which the framework has not yet run an update cycle; treat a violation with margin < 1 update period as inconclusive."
+  },
+  {
+   "id": "U2",
+   "name": "priority inconsistency",
+   "natural_language": "Two or more hazards are active and the engaged action sits lower in the pinned precedence order than the action configured for the highest-precedence active hazard.",
+   "precedence": [
+    "None",
+    "Warn",
+    "FallbackPosCtrl",
+    "FallbackAltCtrl",
+    "FallbackStab",
+    "Hold",
+    "RTL",
+    "Land",
+    "Descend",
+    "Disarm",
+    "Terminate"
+   ],
+   "source": [
+    "framework.h L52-70 ('Actions further down take precedence')",
+    "framework.cpp L462-481 (selection is the maximum over active actions)"
+   ],
+   "excludes": [
+    "X1",
+    "X2",
+    "X3",
+    "X4",
+    "X5"
+   ],
+   "required_channels": [
+    "failsafe_flags (>= 2 true)",
+    "selected_action",
+    "the configured action map for the run"
+   ],
+   "witness_format": "two hazard rise times + the engaged action at the evaluation instant",
+   "replayable_in_sitl": true,
+   "known_limitations": "Requires at least two simultaneously injectable hazards; the single-event validation matrix does not exercise this property, so predictions on pairs are hypotheses until replayed (see decisions-2026-09-19.md D9)."
+  },
+  {
+   "id": "U3",
+   "name": "action flapping",
+   "natural_language": "The selected action leaves and re-enters a recovery function more than once within the window while the hazard has not cleared.",
+   "window_s": 10.0,
+   "window_basis": "COM_DL_LOSS_T default 10 s [B10]; windowed-oracle form follows S2's 7 s route-deviation oracle [B11]",
+   "source": [
+    "framework.cpp L121-141 (updateStartDelay increases the delay slower than it reduces it, i.e. the code already treats oscillation as a hazard)",
+    "framework.cpp L397-416 (removeAction / clear conditions)"
+   ],
+   "excludes": [
+    "X1",
+    "X2",
+    "X5"
+   ],
+   "required_channels": [
+    "selected_action time series",
+    "failsafe_flags time series"
+   ],
+   "witness_format": "ordered list of (t, action) toggles with the hazard held true",
+   "replayable_in_sitl": true,
+   "known_limitations": "A flapping *input* (link up/down) legitimately produces action changes; the property requires the hazard flag to remain true throughout the window."
+  },
+  {
+   "id": "U4",
+   "name": "unbounded time to a registered terminal mode",
+   "natural_language": "Time from hazard onset to a registered terminal mode exceeds the configured bound.",
+   "bound_s": "hazard_detection_timer + COM_FAIL_ACT_T + expected_manoeuvre_time + 2.0",
+   "correction_note": "NOT the sum of every configured delay. PX4 holds a single shared delay counter initialised from COM_FAIL_ACT_T, not one timer per hazard, so summing per-hazard delays over-estimates the bound and would hide real violations.",
+   "source": [
+    "framework.h L284-286 (_current_start_delay, _current_delay are single values)",
+    "framework.cpp L48-51, L143-147 (both initialised from COM_FAIL_ACT_T)"
+   ],
+   "expected_manoeuvre_time": "computed per configuration from RTL_RETURN_ALT, RTL_DESCEND_ALT and the SIH speed limits; recorded in the matrix row, not hard-coded",
+   "margin_basis": "2.0 s = two MAVLink heartbeat periods [B5]",
+   "terminal_modes": [
+    "AUTO_LOITER",
+    "AUTO_RTL",
+    "AUTO_LAND",
+    "DESCEND",
+    "TERMINATION",
+    "disarmed on ground"
+   ],
+   "terminology": "Always 'registered terminal mode'; the banned claim vocabulary in AGENTS.md and docs/claim-ledger.md applies to every statement about this result.",
+   "excludes": [
+    "X1",
+    "X2",
+    "X5"
+   ],
+   "required_channels": [
+    "failsafe_flags",
+    "nav_state",
+    "position/velocity",
+    "vehicle clock"
+   ],
+   "witness_format": "hazard rise time, expected terminal mode, and the horizon at which it was not reached",
+   "replayable_in_sitl": true,
+   "known_limitations": "Depends on the continuous manoeuvre-time estimate; if the interval abstraction is not conservative for a configuration, the property is inconclusive rather than violated."
+  }
+ ],
+ "not_properties": [
+  "Containment (leaving the flight geography or contingency volume) is recorded in the trace but not decided by the checker at this stage; the model has no position dynamics. [B7]",
+  "Reconnection behaviour is observed-but-out-of-model until it has its own automaton, property and validation test."
+ ]
+}

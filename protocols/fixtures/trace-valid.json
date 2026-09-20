@@ -1,0 +1,131 @@
+{
+ "schema_version": "2026-09-16",
+ "manifest": {
+  "configuration_id": "px4-v1.17.0-sih-quadx-defaults",
+  "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "firmware_tag": "v1.17.0",
+  "airframe": "10040_sihsim_quadx",
+  "simulator": "sihsim",
+  "lockstep": true,
+  "parameters_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "seed": 1,
+  "injection": {
+   "class": "datalink_loss",
+   "method": "heartbeat_stopped",
+   "scheduled_t_s": 30.0,
+   "restore_t_s": null
+  },
+  "run_id": "fixture-valid-001",
+  "evidence_state": "simulation"
+ },
+ "clock": {
+  "host_to_vehicle_offset_s": 0.012,
+  "offset_samples": 10
+ },
+ "events": [
+  {
+   "name": "arm",
+   "t_vehicle_s": 5.0,
+   "t_host_s": 5.012
+  },
+  {
+   "name": "takeoff_complete",
+   "t_vehicle_s": 18.2,
+   "t_host_s": 18.21
+  },
+  {
+   "name": "last_heartbeat_sent",
+   "t_vehicle_s": 30.0,
+   "t_host_s": 30.01
+  },
+  {
+   "name": "injection",
+   "t_vehicle_s": 30.0,
+   "t_host_s": 30.01,
+   "detail": {
+    "class": "datalink_loss"
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 40.1,
+   "t_host_s": 40.11,
+   "detail": {
+    "flag": "gcs_connection_lost"
+   }
+  },
+  {
+   "name": "native_transition",
+   "t_vehicle_s": 40.2,
+   "t_host_s": 40.21,
+   "detail": {
+    "from": "OFFBOARD",
+    "to": "AUTO_LOITER"
+   }
+  },
+  {
+   "name": "terminal_state",
+   "t_vehicle_s": 44.0,
+   "t_host_s": 44.01,
+   "detail": {
+    "nav_state": "AUTO_LOITER"
+   }
+  }
+ ],
+ "samples": [
+  {
+   "t_vehicle_s": 30.0,
+   "t_host_s": 30.01,
+   "nav_state": "OFFBOARD",
+   "armed": true,
+   "selected_action": "None",
+   "hazard_flags": {
+    "gcs_connection_lost": false
+   },
+   "pos_ned_m": [
+    0.0,
+    0.0,
+    -10.0
+   ],
+   "vel_ned_mps": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "lat_deg": 47.397742,
+   "lon_deg": 8.545594,
+   "alt_amsl_m": 499.4,
+   "battery_remaining": 0.9,
+   "statustext": null
+  },
+  {
+   "t_vehicle_s": 40.2,
+   "t_host_s": 40.21,
+   "nav_state": "AUTO_LOITER",
+   "armed": true,
+   "selected_action": "Hold",
+   "hazard_flags": {
+    "gcs_connection_lost": true
+   },
+   "pos_ned_m": [
+    0.1,
+    0.0,
+    -10.0
+   ],
+   "vel_ned_mps": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "lat_deg": 47.397743,
+   "lon_deg": 8.545594,
+   "alt_amsl_m": 499.4,
+   "battery_remaining": 0.89,
+   "statustext": "Failsafe activated: entering Hold for 5 seconds"
+  }
+ ],
+ "validity": {
+  "valid": true,
+  "reasons": []
+ }
+}

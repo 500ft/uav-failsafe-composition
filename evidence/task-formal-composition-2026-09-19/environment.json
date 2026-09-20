@@ -1,0 +1,76 @@
+{
+ "recorded_utc": "2026-09-19",
+ "repository": {
+  "base_commit": "929cc8a",
+  "base_is": "merge of PR #6, merged by the owner 2026-09-16T13:42:45Z",
+  "branch": "task/study-a-contracts-2026-09-19"
+ },
+ "host": {
+  "os": "macOS 14.7.3",
+  "arch": "arm64",
+  "cores": "10",
+  "free_disk": "47Gi"
+ },
+ "interpreters": {
+  "repository_gate": {
+   "path": "/Users/redhose/ENTER/bin/python3",
+   "version": "3.11.8",
+   "jsonschema": "4.26.0"
+  },
+  "sitl_and_harness": {
+   "path": "/Users/redhose/.cache/uav-failsafe-composition/venv/bin/python",
+   "version": "3.11.8",
+   "pymavlink": "2.4.49",
+   "pyulog": "installed",
+   "note": "isolated venv; PX4 Tools/setup/requirements.txt installed into it"
+  }
+ },
+ "build_tools": {
+  "cmake": "cmake version 4.4.3",
+  "ninja": "1.13.2",
+  "ccache": "ccache version 4.14",
+  "installed_via": "homebrew, 2026-09-16"
+ },
+ "px4": {
+  "tag": "v1.17.0",
+  "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "clone": "/Users/redhose/.cache/uav-failsafe-composition/px4/PX4-Autopilot",
+  "build_target": "px4_sitl_default",
+  "build_result": "success, 1109 ninja targets",
+  "airframe": "10040_sihsim_quadx",
+  "lockstep": true
+ },
+ "checker": {
+  "verifyta": "NOT FOUND",
+  "uppaal": "NOT FOUND",
+  "consequence": "Study B blocked; owner decision D8"
+ },
+ "probes": [
+  {
+   "probe": "SITL launches and streams MAVLink",
+   "result": "pass",
+   "detail": "HEARTBEAT, LOCAL_POSITION_NED, GLOBAL_POSITION_INT, SYS_STATUS, STATUSTEXT observed on udp 14550"
+  },
+  {
+   "probe": "parameters can be set and read back",
+   "result": "pass",
+   "detail": "14 matrix parameters set and confirmed; full export read back for the manifest hash"
+  },
+  {
+   "probe": "GCS connection is registered by the autopilot",
+   "result": "pass",
+   "detail": "the autopilot reported 'Connection to ground station lost' only after the harness stopped heartbeats, so the link was registered beforehand"
+  },
+  {
+   "probe": "arm and take off with no fault injected",
+   "result": "BLOCKED",
+   "detail": "'Arming denied: Resolve system health failures first'; the MAV_SYS_STATUS_PREARM_CHECK health bit was not observed within 120 s. SYS_FAILURE_EN was ruled out as the cause (it is not an arming check in the pinned tree). Next diagnostic: set SDLOG_MODE to log from boot and read the health_report topic, or query the running instance's pre-arm check list."
+  },
+  {
+   "probe": "UPPAAL/verifyta present",
+   "result": "absent",
+   "detail": "no binary on PATH, none in /Applications, no homebrew formula"
+  }
+ ],
+ "gate_before_changes": "recorded in README.md of this directory"
+}
