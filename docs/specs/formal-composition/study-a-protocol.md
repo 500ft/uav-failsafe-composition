@@ -51,6 +51,21 @@ Injection artifacts (event raised while another hazard is active); estimator-fla
 
 1. Pin release, vehicle model, parameter sets; archive manifests (URC-02). 2. Build the minimal harness and prove 5-run timing reproducibility (URC-04). 3. Extract the model from the pinned source; commit it with its source-file hashes. 4. Freeze this protocol (owner merge). 5. Run the validation matrix; log raw and normalised traces with provenance. 6. Root-cause every disagreement; classify; fix only guard-input models, never the discrete structure after seeing results (a structure change restarts validation with new seeds). 7. Report agreement, timing error distribution, classification table, and the kill decision. 8. Update the claim ledger: "the extracted model reproduces SITL failsafe behaviour within stated tolerances" becomes *simulation*-grade, scoped to the pinned release.
 
+## 7a. Amendment, 2026-09-20 — how the timing error is measured
+
+Measured before any validation run, from five repetitions of the no-fault control
+([evidence](../../../evidence/task-study-a-harness-2026-09-20/README.md)): the rig's own repeat-to-repeat
+spread is 0.09 s at 7 s of vehicle time and 0.51 s at 112 s. Jitter grows with elapsed time, as an
+accumulating clock-offset estimate does, so at the far end of a run the apparatus alone consumes half the
+registered p95 budget.
+
+The tolerance is **not** widened. Two things change instead, and both are fixed here before any case is run:
+
+1. Transition-time error is `t(transition) − t(injection)`, both on the vehicle clock. The accumulated offset
+   is common to the two instants and cancels.
+2. The measured apparatus jitter is reported beside every timing figure. A disagreement smaller than the
+   apparatus spread is recorded as inconclusive, never as a model error.
+
 ## 8. What Study A cannot claim
 
 Hardware timing; behaviour outside the tested envelope; anything about ArduPilot; novelty on the formal axis (unsearched); fleet safety.

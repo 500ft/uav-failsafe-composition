@@ -1,0 +1,134 @@
+{
+ "note": "Full raw captures, normalised traces and autopilot logs are immutable and held outside git (repository policy for large artifacts, docs/data-and-figures.md). The hashes below pin them; the committed per-run files carry the manifest, clock, events and validity without the sample series.",
+ "snapshot_root": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20",
+ "runs": [
+  {
+   "repetition": "rep1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep1/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw.jsonl": {
+    "bytes": 364,
+    "sha256": "5997ec51f190d7025bffb92110820235a3e7be7ca1b53f3d66e210ddb50c3e81"
+   },
+   "trace.json": {
+    "bytes": 863,
+    "sha256": "81964f23c03cae3b91d0440e2c7df785736c2b7a60e5cdd6c207b75df5d9be6e"
+   },
+   "px4.log": {
+    "bytes": 2490,
+    "sha256": "77364adb16d046635709977c936840d63ea66fcaab5e6ad5e2f50a706ce36071"
+   },
+   "committed_trace": "evidence/task-study-a-harness-2026-09-20/runs/rep1.json",
+   "valid": {
+    "valid": false,
+    "reasons": [
+     "simulator_crash"
+    ]
+   }
+  },
+  {
+   "repetition": "rep2",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep2/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw.jsonl": {
+    "bytes": 632912,
+    "sha256": "37df6daaae6151e1a3be4900f17f1acb63d7d5fe614054aae96c1bc702aa212c"
+   },
+   "trace.json": {
+    "bytes": 708072,
+    "sha256": "b678a0c80a0c52b6f0ab7eb233786379c78b4e51f8eb31b0ca28bff60b3b1c42"
+   },
+   "flight.ulg": {
+    "bytes": 22895583,
+    "sha256": "0e2b52be5346b429100de5031d638413928b9d5b890e102868fa4315d3ddb8dd"
+   },
+   "px4.log": {
+    "bytes": 2636,
+    "sha256": "c103bd03d5a4e3414856601d3d8c884f0525377dc14be3b16095079c86fe1066"
+   },
+   "committed_trace": "evidence/task-study-a-harness-2026-09-20/runs/rep2.json",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   }
+  },
+  {
+   "repetition": "rep3",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep3/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw.jsonl": {
+    "bytes": 634338,
+    "sha256": "adf88d72e253a08d0aba9b5e75f24561e11ce1cd24ef2aacfc4e628b4177028a"
+   },
+   "trace.json": {
+    "bytes": 708965,
+    "sha256": "8743222159e9bc9f2d4b79c0e5d90474aa669b0d28cf7b99d272196c67a0dd6b"
+   },
+   "flight.ulg": {
+    "bytes": 22970654,
+    "sha256": "3f197cecc1fee76e4237668c7faf388a127b7777c39c7a449cc5968272ea7f37"
+   },
+   "px4.log": {
+    "bytes": 2636,
+    "sha256": "997e394d03ce2dc3de4b620534ec70d8a6bc67edf1ea7ba9cc81836784622131"
+   },
+   "committed_trace": "evidence/task-study-a-harness-2026-09-20/runs/rep3.json",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   }
+  },
+  {
+   "repetition": "rep4",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep4/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw.jsonl": {
+    "bytes": 633611,
+    "sha256": "814f4bf141ac79dfecd15f99a51456a4d522889bf5b11bb4c54d40085fb322ab"
+   },
+   "trace.json": {
+    "bytes": 708152,
+    "sha256": "4a867fbbdcf603c40bbe7c14eb18889f639bdcefb595d1e94ccf37b689d56df8"
+   },
+   "flight.ulg": {
+    "bytes": 22955530,
+    "sha256": "41dad0300759f19a71cf429ac4fb5311660c9e602c38bb8456fc5d4a8cbba64d"
+   },
+   "px4.log": {
+    "bytes": 2636,
+    "sha256": "dd2305eb99edf92327acd9608b223df6de67faee6d494569c32ba1d88353a0e8"
+   },
+   "committed_trace": "evidence/task-study-a-harness-2026-09-20/runs/rep4.json",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   }
+  },
+  {
+   "repetition": "rep5",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep5/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw.jsonl": {
+    "bytes": 633918,
+    "sha256": "55406d47aac95ca120c1536c395e681620c341bd1034a45fb0759a044109854e"
+   },
+   "trace.json": {
+    "bytes": 708972,
+    "sha256": "6df108bf2e9405fc8658effa6f42932f45de8e5102b390ff9a7625c05c5eea39"
+   },
+   "flight.ulg": {
+    "bytes": 22948634,
+    "sha256": "db181d7fb199ca1a367a9bd99ec18a0fbc3c015b7acf2fdb319ad778a10650f7"
+   },
+   "px4.log": {
+    "bytes": 2636,
+    "sha256": "d645529765bb252b6f7d6751623b49da50f7ac2835fc935621b5d1e87487823f"
+   },
+   "committed_trace": "evidence/task-study-a-harness-2026-09-20/runs/rep5.json",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   }
+  }
+ ]
+}

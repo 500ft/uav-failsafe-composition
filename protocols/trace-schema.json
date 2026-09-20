@@ -161,6 +161,7 @@
               "hold_delay_end",
               "native_transition",
               "terminal_state",
+              "horizon_reached",
               "reconnect_event"
             ]
           },
