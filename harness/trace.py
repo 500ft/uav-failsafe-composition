@@ -39,13 +39,17 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
     msgs = [r for r in rows if r.get("kind") == "msg" and r.get("src") == 1]
     hb = [r for r in msgs if r["mavpackettype"] == "HEARTBEAT"]
     # clock: vehicle time_boot_ms is on SYS_STATUS-less messages; use LOCAL_POSITION_NED/GLOBAL_POSITION_INT time_boot_ms
-    timed = [r for r in msgs if "time_boot_ms" in r][:10]
-    offsets = [r["t_host_s"] - r["time_boot_ms"] / 1000.0 for r in timed]
-    offset = sum(offsets) / len(offsets) if offsets else 0.0
+    # The offset is the median over EVERY message carrying a vehicle timestamp, not the first few: an estimate
+    # taken during start-up is biased by launch latency. The spread is reported so a consumer can see what a
+    # heartbeat-derived timestamp is worth (frame and clock probe, 2026-09-21).
+    timed = [r for r in msgs if "time_boot_ms" in r]
+    offsets = sorted(r["t_host_s"] - r["time_boot_ms"] / 1000.0 for r in timed)
+    offset = offsets[len(offsets) // 2] if offsets else 0.0
+    offset_spread = round(offsets[-1] - offsets[0], 4) if offsets else 0.0
     def tv(r): return round(max(0.0, r["t_host_s"] - offset), 3)
     export = next((r["values"] for r in rows if r.get("kind") == "param_export"), {})
     params_sha = hashlib.sha256(json.dumps({k: (int(v) if float(v).is_integer() else float(v)) for k, v in sorted(export.items())}, sort_keys=True).encode()).hexdigest()
-    events, samples = [], []
+    events, samples, unmapped = [], [], set()
     last_nav = None
     for r in msgs:
         t = tv(r)
@@ -63,18 +67,35 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
         elif r["mavpackettype"] == "STATUSTEXT":
             samples.append(dict(t_vehicle_s=t, t_host_s=r["t_host_s"], nav_state=last_nav or "UNKNOWN", armed=True, selected_action=None, hazard_flags={}, pos_ned_m=None, vel_ned_mps=None, lat_deg=None, lon_deg=None, alt_amsl_m=None, battery_remaining=None, statustext=r["text"]))
             if "Failsafe" in r["text"]:
-                events.append(dict(name="failsafe_notice", t_vehicle_s=t, t_host_s=r["t_host_s"], detail={"text": r["text"]}))
+                announced = None
+                if "switching to " in r["text"]:
+                    announced = r["text"].split("switching to ", 1)[1].split(" in ")[0].strip().rstrip(".\t")
+                events.append(dict(name="failsafe_notice", t_vehicle_s=t, t_host_s=r["t_host_s"],
+                                   detail={"text": r["text"], "announced_action": announced}))
     for r in rows:
         if r.get("kind") == "event":
             known = {"arm", "takeoff_complete", "injection", "reconnect_event", "last_valid_setpoint",
                      "last_heartbeat_sent", "horizon_reached", "terminal_state"}
             if r["name"] not in known:      # kept in raw.jsonl; the schema's vocabulary is not widened silently
+                unmapped.add(r["name"])
                 continue
             name = r["name"]
             events.append(dict(name=name, t_vehicle_s=round(max(0.0, r.get("t", r["t_host_s"]) - offset), 3), t_host_s=r["t_host_s"], detail={k: v for k, v in r.items() if k not in ("kind", "name", "t_host_s")}))
+    mode_source = "mavlink_heartbeat"
     ulog = out / "flight.ulg"
     if ulog.exists():
         flags, nav = read_ulog_flags(ulog)
+        if nav:
+            # Replace the heartbeat-derived transitions with the autopilot's own vehicle_status sequence, which
+            # is published far faster than the 1 Hz HEARTBEAT stream. The heartbeat samples stay in `samples`.
+            events = [e for e in events if e["name"] != "native_transition"]
+            mode_source = "autopilot_log_vehicle_status"
+            last = None
+            for t_s, state, _fs in nav:
+                if last is not None and state != last:
+                    events.append(dict(name="native_transition", t_vehicle_s=round(t_s, 3),
+                                       t_host_s=round(t_s + offset, 3), detail={"from": last, "to": state}))
+                last = state
         inj = next((e for e in events if e["name"] == "injection"), None)
         prev = {}
         for t_s, f in flags:
@@ -83,6 +104,7 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
                     events.append(dict(name="hazard_flag", t_vehicle_s=round(t_s, 3), t_host_s=round(t_s + offset, 3), detail={"flag": k, "value": v}))
             prev = f
     events.sort(key=lambda e: e["t_vehicle_s"])
+    samples.sort(key=lambda s: s["t_vehicle_s"])
     reasons = []
     hb_t = [r["t_host_s"] for r in hb]
     if any(b - a > 2.0 for a, b in zip(hb_t, hb_t[1:])):
@@ -104,12 +126,20 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
                                      scheduled_t_s=float(case["inject_at_vehicle_s"]),
                                      restore_t_s=None),
                       run_id=case["case_id"], evidence_state="simulation"),
-        clock=dict(host_to_vehicle_offset_s=round(offset, 4), offset_samples=max(1, len(offsets))),
+        clock=dict(host_to_vehicle_offset_s=round(offset, 4), offset_samples=max(1, len(offsets)),
+                   offset_spread_s=offset_spread, offset_estimator="median over every message carrying time_boot_ms"),
         events=events,
         samples=samples or [dict(t_vehicle_s=0.0, t_host_s=0.0, nav_state="UNKNOWN", armed=False)],
-        validity=dict(valid=not reasons, reasons=sorted(set(reasons))))
+        validity=dict(valid=not reasons, reasons=sorted(set(reasons))),
+        conversion=dict(raw_lines=len(rows), raw_vehicle_messages=len(msgs), samples_written=len(samples),
+                        events_written=len(events), mode_source=mode_source,
+                        unmapped_event_names=sorted(unmapped), raw_retained_at=str(out / "raw.jsonl")),
+        stages=[s for s in (next((r["stages"] for r in rows if r.get("kind") == "stages"), None) or [])])
     if inj is not None:
         trace["injection_observed_vehicle_s"] = inj["t_vehicle_s"]
+        streams = next((r.get("streams") for r in rows if r.get("kind") == "event" and r.get("name") == "injection"), None)
+        if streams:
+            trace["streams_at_injection"] = streams
     errs = [e.message for e in VALIDATOR.iter_errors(trace)]
     if errs:
         trace["validity"] = dict(valid=False, reasons=sorted(set(reasons + ["schema_failure"])))

@@ -20,6 +20,20 @@ Base: main `929cc8a` (the merge of PR #6, merged 2026-09-16). Critique of the ha
 | **D13** | RC loss is not injectable in this rig | Recorded as a frozen class that the campaign excludes, not deleted. PX4 in SIH SITL did not accept MAVLink `MANUAL_CONTROL` as a manual-control source (2026-09-20: `manual_control_signal_lost` stayed true while the stream ran at 10 Hz), so there is no RC signal to remove | a class with no stimulus cannot be a case; the alternative is a simulated RC source or a joystick bridge | Study A coverage | ☐ **needs your answer**: accept five injectable classes, or fund an RC source |
 | **D12** | Horizon and tolerances | horizon = injection + 45 s or terminal mode, whichever first; timing tolerance unchanged from the protocol (median \|Δt\| ≤ 0.2 s, p95 ≤ 1.0 s) | 45 s covers `COM_DL_LOSS_T` + `COM_FAIL_ACT_T` + an RTL from 60 m with margin [B10] | Study A | ☐ |
 
+## 2026-09-21 addendum
+
+Section 12 of the handoff added acceptance checks; where each one lives is recorded in
+[section-12-acceptance-2026-09-21.md](section-12-acceptance-2026-09-21.md). Two of them changed what these
+decisions mean:
+
+- **D4 (event classes)** now has an open question of its own. The first controlled injection of `datalink_loss`
+  on the frozen configurations produced no failsafe action at all, with the monitor confirmed active. Until
+  that is resolved, no event class is known to produce an action in this rig, and the campaign in D7 should not
+  start. Evidence and the named diagnostics: [task-study-a-verification-2026-09-21](../../../evidence/task-study-a-verification-2026-09-21/README.md).
+- **D12 (tolerances)** is unchanged, but the timing comparison is now made relative to the injection instant
+  and the hazard timer is known to start from the last heartbeat *received*, up to one heartbeat period before
+  the harness stops sending.
+
 ## Seeds
 
 Frozen before any validation run: `1, 2, 3, 5, 8` for the single-event tier; `11, 13, 17` for the paired tier. SIH is deterministic given the same parameters, so the seed varies only the injection time within a ±2 s window around the scheduled vehicle time; the window is part of the case ID.
