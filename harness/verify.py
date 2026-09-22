@@ -75,8 +75,12 @@ def verify(run_dir: Path) -> dict:
         return dict(status="refuted", timeline_id=timeline["id"], tolerance_s=TOLERANCE_S, reasons=reasons,
                     observed=observed, expected=expected)
     observed["hazard_flag_t_rel_s"] = round(flag_event["t_vehicle_s"] - t0, 3)
-    want_t = timeline["expected_hazard_flag"]["t_rel_injection_s"]
-    if abs(observed["hazard_flag_t_rel_s"] - want_t) > TOLERANCE_S:
+    want_t = timeline["expected_hazard_flag"].get("t_rel_injection_s")
+    if want_t is None:
+        # Some hazards are position-triggered, so their time is not predicted; only their occurrence is, and the
+        # actions are then timed relative to the flag. Occurrence has already been established above.
+        observed["hazard_time_predicted"] = False
+    elif abs(observed["hazard_flag_t_rel_s"] - want_t) > TOLERANCE_S:
         reasons.append(f"{want_flag} rose at {observed['hazard_flag_t_rel_s']} s after injection, expected {want_t} s")
 
     if observed_sequence != timeline["expected_mode_sequence"]:
@@ -84,11 +88,16 @@ def verify(run_dir: Path) -> dict:
     else:
         timings = []
         for want, e in zip(timeline["expected_actions"], transitions):
-            got = round(e["t_vehicle_s"] - t0, 3)
-            timings.append(dict(nav_state=want["nav_state"], expected_s=want["t_rel_injection_s"], observed_s=got,
-                                error_s=round(got - want["t_rel_injection_s"], 3)))
-            if abs(got - want["t_rel_injection_s"]) > TOLERANCE_S:
-                reasons.append(f"{want['nav_state']} at {got} s after injection, expected {want['t_rel_injection_s']} s")
+            # An action is timed from the injection, or from the hazard when the hazard time is not predicted.
+            if "t_rel_hazard_s" in want:
+                base, origin, expected = flag_event["t_vehicle_s"], "hazard", want["t_rel_hazard_s"]
+            else:
+                base, origin, expected = t0, "injection", want["t_rel_injection_s"]
+            got = round(e["t_vehicle_s"] - base, 3)
+            timings.append(dict(nav_state=want["nav_state"], measured_from=origin, expected_s=expected,
+                                observed_s=got, error_s=round(got - expected, 3)))
+            if abs(got - expected) > TOLERANCE_S:
+                reasons.append(f"{want['nav_state']} at {got} s after {origin}, expected {expected} s")
         observed["timings"] = timings
 
     status = "verified" if not reasons else "refuted"

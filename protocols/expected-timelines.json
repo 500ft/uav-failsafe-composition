@@ -105,7 +105,86 @@
    "expected_actions": [],
    "expected_mode_sequence": [],
    "terminal": "OFFBOARD held to the horizon"
+  },
+  {
+   "id": "T3",
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+   "event": "geofence_breach",
+   "development_case": true,
+   "purpose": "Discriminator for the 2026-09-21 refutation. Datalink loss produced no action although its monitor was active. Geofence breach is configured to the SAME action (RTL) through a DIFFERENT parameter and a different monitor. If this fires, the parameters do reach the failsafe framework and the defect is specific to the datalink path; if it does not, the problem is parameter delivery and every configured class is affected.",
+   "parameters_used": {
+    "GF_ACTION": 3,
+    "GF_MAX_HOR_DIST": 20.0,
+    "COM_FAIL_ACT_T": 5.0,
+    "GF_PREDICT": 0
+   },
+   "hand_derivation": [
+    "The runner sets GF_MAX_HOR_DIST = 20 m for this event and then commands the offboard setpoint to 60 m north, so the vehicle flies out through the fence under its own control.",
+    "GF_PREDICT = 0, so the breach is evaluated on the current position, not a predicted one.",
+    "failsafe_flags.geofence_breached rises at the first evaluation after the horizontal distance from the origin exceeds 20 m. The time of that crossing depends on the vehicle's speed, so it is NOT predicted here; only its occurrence is, and the actions are timed relative to the flag rather than to the injection.",
+    "GF_ACTION = 3 maps to Action::RTL (failsafe.cpp L105-108, fromGfActParam), registered with ClearCondition::OnModeChangeOrDisarm and cannotBeDeferred. cannotBeDeferred concerns the defer feature, not the Hold-first delay.",
+    "RTL is delayable and COM_FAIL_ACT_T = 5.0 > 0.1, so the framework selects Hold and holds RTL as the delayed action for 5 s (framework.cpp L351-362, L489-500), exactly as in timeline T1.",
+    "Therefore: AUTO_LOITER when the flag rises, AUTO_RTL 5 s later."
+   ],
+   "expected_hazard_flag": {
+    "flag": "geofence_breached",
+    "t_rel_injection_s": null,
+    "note": "occurrence required, time not predicted: it depends on the flight speed"
+   },
+   "expected_actions": [
+    {
+     "action": "Hold",
+     "nav_state": "AUTO_LOITER",
+     "t_rel_hazard_s": 0.0
+    },
+    {
+     "action": "RTL",
+     "nav_state": "AUTO_RTL",
+     "t_rel_hazard_s": 5.0
+    }
+   ],
+   "expected_mode_sequence": [
+    "AUTO_LOITER",
+    "AUTO_RTL"
+   ],
+   "terminal": "AUTO_RTL is a registered terminal mode."
+  },
+  {
+   "id": "T4",
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl-gf-terminate",
+   "event": "geofence_breach",
+   "development_case": true,
+   "purpose": "Second discriminator. T3 showed a geofence breach produces no action, as datalink loss did, so the effect is not specific to one monitor or one parameter. Terminate is neither delayable nor takeover-able. If it fires, the framework is running and something suppresses the delayable, takeover-able actions; if it does not, the framework is taking no action on any hazard in this configuration.",
+   "parameters_used": {
+    "GF_ACTION": 4,
+    "GF_MAX_HOR_DIST": 20.0,
+    "COM_FAIL_ACT_T": 5.0,
+    "GF_PREDICT": 0
+   },
+   "hand_derivation": [
+    "Identical to T3 up to the flag: the vehicle is commanded out through a 20 m fence and geofence_breached rises.",
+    "GF_ACTION = 4 maps to Action::Terminate with allow_user_takeover = Never and ClearCondition::Never (failsafe.cpp L110-114, fromGfActParam).",
+    "Terminate is excluded from the Hold-first delay (framework.cpp L490-493) and from user takeover (actionAllowsUserTakeover, L647-651), and once selected it latches (L446-450).",
+    "modeFromAction leaves the mode as the user intended one, but vehicle_status.nav_state becomes TERMINATION through the mode requirement, and vehicle_status.failsafe becomes true.",
+    "Therefore: TERMINATION when the flag rises, with no intermediate Hold."
+   ],
+   "expected_hazard_flag": {
+    "flag": "geofence_breached",
+    "t_rel_injection_s": null,
+    "note": "occurrence required, time not predicted: it depends on the flight speed"
+   },
+   "expected_actions": [
+    {
+     "action": "Terminate",
+     "nav_state": "TERMINATION",
+     "t_rel_hazard_s": 0.0
+    }
+   ],
+   "expected_mode_sequence": [
+    "TERMINATION"
+   ],
+   "terminal": "TERMINATION is a registered terminal mode; the vehicle falls, which is why this row is diagnostic only."
   }
  ],
- "falsifiable_difference": "T1 and T2 differ in exactly one parameter. If the observed runs do not differ by the presence of the AUTO_LOITER step and a 5 s shift of AUTO_RTL, then either the parameter did not take effect or the derivation is wrong; both are reportable outcomes and neither is repaired after the fact."
+ "falsifiable_difference": "T1 and T2 differ in exactly one parameter. If the observed runs do not differ by the presence of the AUTO_LOITER step and a 5 s shift of AUTO_RTL, then either the parameter did not take effect or the derivation is wrong; both are reportable outcomes and neither is repaired after the fact. T3 is the discriminator for the refutation those two produced: same action, different parameter and monitor."
 }

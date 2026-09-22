@@ -1,0 +1,74 @@
+{
+ "note": "Diagnostic runs for the 2026-09-21 refutation. Development runs, not held-out validation cases. Full captures outside git, pinned by hash.",
+ "snapshot_root": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-22",
+ "runs": [
+  {
+   "case_id": "px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-22/px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   },
+   "verification": "refuted",
+   "hazard_flags": [
+    "geofence_breached"
+   ],
+   "transitions": [
+    {
+     "from": "AUTO_LOITER",
+     "to": "OFFBOARD"
+    }
+   ],
+   "raw.jsonl": {
+    "bytes": 634030,
+    "sha256": "19458c8a47a550a5647c835bb25de2e16104cbd0548afd48d39abb003b042dbd"
+   },
+   "trace.json": {
+    "bytes": 709367,
+    "sha256": "4e7e80e240a1541f6728c1d9ea083609e315c5bcbb4006ffdebc52675dcde1a5"
+   },
+   "flight.ulg": {
+    "bytes": 22771970,
+    "sha256": "1f5e3a4058c43ba0a5f2256c95330badcc807d6f9aa3ebdf35ecd5a3e71640a4"
+   },
+   "px4.log": {
+    "bytes": 2636,
+    "sha256": "29d30c707eccff0364a96f37a0e09b3f95604bd1c529a9ab1915b5df18023713"
+   }
+  },
+  {
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-22/px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   },
+   "verification": "refuted",
+   "hazard_flags": [
+    "geofence_breached"
+   ],
+   "transitions": [
+    {
+     "from": "AUTO_LOITER",
+     "to": "OFFBOARD"
+    }
+   ],
+   "raw.jsonl": {
+    "bytes": 635190,
+    "sha256": "98f2e48a7c9e3d2f73f228076c1069302958912d1bf8f3a62c86ccd05e43b186"
+   },
+   "trace.json": {
+    "bytes": 710107,
+    "sha256": "95f6ab2bdd3b787b4e6205a2fc0bcf1fe32cf90f7d6914ef7b4c5c6e45ceb86c"
+   },
+   "flight.ulg": {
+    "bytes": 22650710,
+    "sha256": "c2e7d6eab8551188106ec28487f56474dae258bd7c6c037a8f4e9a39ee8de6f1"
+   },
+   "px4.log": {
+    "bytes": 2636,
+    "sha256": "000b0c82006f215950b6decbe1d64e6e4ec9802937a85e7d2e950aaf5e3db735"
+   }
+  }
+ ]
+}

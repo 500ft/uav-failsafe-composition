@@ -24,7 +24,7 @@ from __future__ import annotations
 import argparse, json, os, shutil, signal, subprocess, sys, threading, time
 from pathlib import Path
 
-from harness.cases import resolve, MATRIX
+from harness.cases import resolve, MATRIX, PER_EVENT_PARAMS
 from harness.trace import build_trace
 
 INSTANCE = int(os.environ.get("PX4_INSTANCE", "0"))
@@ -237,11 +237,7 @@ def main(argv=None) -> int:
         streams.heartbeat = True
         time.sleep(3)
 
-        params = dict(case["parameters"])
-        if a.event == "geofence_breach":
-            params["GF_MAX_HOR_DIST"] = 20.0
-        if a.event == "battery_critical":
-            params["SYS_FAIL_BAT_LVL"] = 2
+        params = dict(case["parameters"], **PER_EVENT_PARAMS.get(a.event, {}))
         for k, val in params.items():
             v.set_param(k, val)
         export = {k: v.read_param(k) for k in sorted(params)}

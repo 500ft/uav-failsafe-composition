@@ -29,6 +29,13 @@ HORIZON_S = 45.0
 # The seed varies the injection time within +/- 2 s of the scheduled vehicle time; the offset is part of the ID.
 SEED_OFFSET_S = {1: 0.0, 2: -1.0, 3: 1.0, 5: -2.0, 8: 2.0, 11: 0.0, 13: -1.5, 17: 1.5}
 NOMINAL_INJECT_T_S = 40.0
+# Parameters the runner must set for a specific event class to be injectable at all. They are declared here so
+# the expected timelines and the tests can see them, rather than hiding as literals inside the runner.
+PER_EVENT_PARAMS = {
+    "geofence_breach": {"GF_MAX_HOR_DIST": 20.0},
+    "battery_critical": {"SYS_FAIL_BAT_LVL": 2},
+    "battery_emergency": {"SYS_FAIL_BAT_LVL": 3},
+}
 
 
 def case_id(configuration_id: str, event: str, seed: int) -> str:
