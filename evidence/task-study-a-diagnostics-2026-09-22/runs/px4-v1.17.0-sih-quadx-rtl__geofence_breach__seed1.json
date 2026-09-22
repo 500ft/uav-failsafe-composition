@@ -1,0 +1,196 @@
+{
+ "schema_version": "2026-09-16",
+ "manifest": {
+  "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+  "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "firmware_tag": "v1.17.0",
+  "airframe": "10040_sihsim_quadx",
+  "simulator": "sihsim",
+  "lockstep": true,
+  "parameters_sha256": "2b4db73fe9567de1cdff3e5aa6c7998c3fcbb5a98553ebeb369dbee5ff242ebf",
+  "seed": 1,
+  "injection": {
+   "class": "geofence_breach",
+   "method": "fence_upload_and_fly_out",
+   "scheduled_t_s": 40.0,
+   "restore_t_s": null
+  },
+  "run_id": "px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1",
+  "evidence_state": "simulation"
+ },
+ "clock": {
+  "host_to_vehicle_offset_s": 16.6128,
+  "offset_samples": 1699,
+  "offset_spread_s": 19.2916,
+  "offset_estimator": "median over every message carrying time_boot_ms"
+ },
+ "events": [
+  {
+   "name": "arm",
+   "t_vehicle_s": 0.0,
+   "t_host_s": 10.4279,
+   "detail": {
+    "attempts": 1
+   }
+  },
+  {
+   "name": "takeoff_complete",
+   "t_vehicle_s": 4.483,
+   "t_host_s": 21.0961,
+   "detail": {
+    "z": -9.83221435546875,
+    "t_vehicle_s": 15.948
+   }
+  },
+  {
+   "name": "native_transition",
+   "t_vehicle_s": 5.812,
+   "t_host_s": 22.425,
+   "detail": {
+    "from": "AUTO_LOITER",
+    "to": "OFFBOARD"
+   }
+  },
+  {
+   "name": "injection",
+   "t_vehicle_s": 55.41,
+   "t_host_s": 72.0224,
+   "detail": {
+    "event": "geofence_breach",
+    "t_vehicle_s": 55.948,
+    "scheduled_vehicle_s": 55.948,
+    "streams": {
+     "gcs_heartbeat": true,
+     "offboard_setpoints": true
+    }
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 59.932,
+   "t_host_s": 76.545,
+   "detail": {
+    "flag": "geofence_breached",
+    "value": 1
+   }
+  },
+  {
+   "name": "horizon_reached",
+   "t_vehicle_s": 108.874,
+   "t_host_s": 125.4871,
+   "detail": {
+    "t_vehicle_s": 100.952
+   }
+  }
+ ],
+ "validity": {
+  "valid": true,
+  "reasons": []
+ },
+ "conversion": {
+  "raw_lines": 2272,
+  "raw_vehicle_messages": 2252,
+  "samples_written": 1784,
+  "events_written": 6,
+  "mode_source": "autopilot_log_vehicle_status",
+  "unmapped_event_names": [],
+  "raw_retained_at": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day4/px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1/raw.jsonl"
+ },
+ "stages": [
+  {
+   "stage": "launch",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day4/px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1/px4.log",
+   "detail": {
+    "pid": 91774
+   }
+  },
+  {
+   "stage": "configuration_applied",
+   "status": "ok",
+   "evidence": "param_export in raw.jsonl",
+   "detail": {
+    "requested": 15,
+    "mismatched": {}
+   }
+  },
+  {
+   "stage": "normal_tracking",
+   "status": "ok",
+   "evidence": "takeoff_complete event",
+   "detail": {}
+  },
+  {
+   "stage": "injection",
+   "status": "ok",
+   "evidence": "injection event in raw.jsonl",
+   "detail": {
+    "scheduled_vehicle_s": 55.948,
+    "observed_vehicle_s": 55.948,
+    "surviving_publishers": {
+     "gcs_heartbeat": true,
+     "offboard_setpoints": true
+    }
+   }
+  },
+  {
+   "stage": "capture",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day4/px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1/raw.jsonl",
+   "detail": {
+    "autopilot_log": true
+   }
+  },
+  {
+   "stage": "normalization",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day4/px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1/trace.json",
+   "detail": {}
+  }
+ ],
+ "injection_observed_vehicle_s": 55.41,
+ "streams_at_injection": {
+  "gcs_heartbeat": true,
+  "offboard_setpoints": true
+ },
+ "verification": {
+  "status": "refuted",
+  "timeline_id": "T3",
+  "tolerance_s": 1.5,
+  "reasons": [
+   "mode sequence ['OFFBOARD'] does not match expected ['AUTO_LOITER', 'AUTO_RTL']"
+  ],
+  "observed": {
+   "mode_sequence": [
+    "OFFBOARD"
+   ],
+   "hazard_flags": [
+    "geofence_breached"
+   ],
+   "announced_actions": [],
+   "mode_source": "autopilot_log_vehicle_status",
+   "hazard_flag_t_rel_s": 4.522,
+   "hazard_time_predicted": false
+  },
+  "expected": {
+   "mode_sequence": [
+    "AUTO_LOITER",
+    "AUTO_RTL"
+   ],
+   "hazard_flag": "geofence_breached",
+   "actions": [
+    {
+     "action": "Hold",
+     "nav_state": "AUTO_LOITER",
+     "t_rel_hazard_s": 0.0
+    },
+    {
+     "action": "RTL",
+     "nav_state": "AUTO_RTL",
+     "t_rel_hazard_s": 5.0
+    }
+   ]
+  }
+ },
+ "sample_count": 1784
+}

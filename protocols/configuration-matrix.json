@@ -193,6 +193,32 @@
    "unsupported_for_intention": [],
    "parameters_sha256": "936dbace2f1f9e2f2655377e279f4da9e95414882ff88da8931326646b4bc4d6",
    "note": "Timer variant: C2 Link loss after 5 s, matching the MAVLink four-to-five-missed-heartbeat convention [B5] and ArduPilot's FS_GCS_TIMEOUT default [B6]."
+  },
+  {
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl-gf-terminate",
+   "intention": "RTL",
+   "deltas_from_defaults": {
+    "NAV_DLL_ACT": 2,
+    "NAV_RCL_ACT": 2,
+    "COM_OBL_RC_ACT": 3,
+    "GF_ACTION": 4,
+    "COM_POS_LOW_ACT": 3,
+    "COM_LOW_BAT_ACT": 1
+   },
+   "realised_action_per_class": {
+    "datalink_loss": "RTL",
+    "rc_loss": "RTL",
+    "offboard_loss": "RTL",
+    "geofence_breach": "Terminate",
+    "position_low": "RTL",
+    "battery_critical": "RTL",
+    "battery_emergency": "RTL"
+   },
+   "unsupported_for_intention": [
+    "geofence_breach"
+   ],
+   "parameters_sha256": "bf7a1d04a8fc26ea5d8cf023b0b47863a86e4c72aaa36fa100a017c07d31866b",
+   "note": "Diagnostic row added 2026-09-22. One factor from the RTL row: GF_ACTION 3 -> 4 (Terminate). Terminate is the only action that is neither delayable nor takeover-able (framework.cpp L490-493, L647-651), so a geofence breach here isolates whether the framework acts at all from whether its delayable actions are being suppressed. Terminate ends the flight, so this row is for diagnosis only and never for validation."
   }
  ]
 }

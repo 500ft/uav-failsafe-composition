@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from model.px4_failsafe import DEFAULTS, configured_action  # noqa: E402
+from harness.cases import PER_EVENT_PARAMS  # noqa: E402
 
 
 class ExpectedTimelineTests(unittest.TestCase):
@@ -42,10 +43,11 @@ class ExpectedTimelineTests(unittest.TestCase):
     def test_parameters_used_match_the_matrix_row(self):
         for tid, t in self.timelines.items():
             row = self.rows[t["configuration_id"]]
-            effective = {**self.matrix["common_params"], **row["deltas_from_defaults"], **DEFAULTS}
-            effective.update({**self.matrix["common_params"], **row["deltas_from_defaults"]})
+            effective = {**DEFAULTS, **self.matrix["common_params"], **row["deltas_from_defaults"],
+                         **PER_EVENT_PARAMS.get(t["event"], {})}
             for name, value in t["parameters_used"].items():
-                self.assertEqual(float(effective.get(name, DEFAULTS.get(name))), float(value), (tid, name))
+                self.assertIn(name, effective, (tid, name, "a timeline may only cite a parameter the run actually sets"))
+                self.assertEqual(float(effective[name]), float(value), (tid, name))
 
     def test_the_two_development_cases_differ_by_exactly_one_factor(self):
         t1, t2 = self.timelines["T1"], self.timelines["T2"]

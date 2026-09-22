@@ -34,6 +34,18 @@ decisions mean:
   and the hazard timer is known to start from the last heartbeat *received*, up to one heartbeat period before
   the harness stops sending.
 
+## 2026-09-22 addendum
+
+The two diagnostics named on 2026-09-21 were run, and a third. The finding is wider than the original
+refutation: **the failsafe framework selects no action for any hazard tested in this configuration**, across
+two monitors, three parameter settings, and an action that can be neither delayed, deferred nor taken over.
+Parameter delivery, the Hold delay, user takeover, deferral, land detection and arming are all eliminated.
+Evidence: [task-study-a-diagnostics-2026-09-22](../../../evidence/task-study-a-diagnostics-2026-09-22/README.md).
+
+Consequences for these decisions: **D7's campaign stays held**, and D4's event classes are all affected, not
+just one. Nothing about the rig is known to be able to produce a failsafe yet, so no agreement rate can be
+measured and Study B has nothing to validate against.
+
 ## Seeds
 
 Frozen before any validation run: `1, 2, 3, 5, 8` for the single-event tier; `11, 13, 17` for the paired tier. SIH is deterministic given the same parameters, so the seed varies only the injection time within a ±2 s window around the scheduled vehicle time; the window is part of the case ID.
