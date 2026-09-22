@@ -1,6 +1,6 @@
 # Frozen decisions for the first software study — 2026-09-19
 
-Status: **proposed by the agent, awaiting owner sign-off.** A proposed value is not a frozen value. Sign off by editing the Owner column in this PR; every value with "owner" outstanding blocks the task named beside it. Decisions D1-D6 and D10-D12 are already realised in the files cited; D7-D9 need your answer before the corresponding day's work.
+Status: **proposed by the agent, awaiting owner sign-off.** A proposed value is not a frozen value. Sign off by editing the Owner column in this PR; every value with "owner" outstanding blocks the task named beside it. Decisions D1-D6 and D10-D12 are already realised in the files cited; D7-D9 and D13 need your answer before the corresponding day's work.
 
 Base: main `929cc8a` (the merge of PR #6, merged 2026-09-16). Critique of the handoff that produced these: [plan-critique-2026-09-19.md](plan-critique-2026-09-19.md). Baseline sources cited as `[Bn]`: [docs/baselines/README.md](../../baselines/README.md).
 
@@ -17,7 +17,22 @@ Base: main `929cc8a` (the merge of PR #6, merged 2026-09-16). Critique of the ha
 | **D9** | Paired-event tier | after the 60 single-event cases: 4 ordered hazard pairs × 1 configuration × 3 seeds = 12 cases; until they pass, any checker prediction that depends on two simultaneous hazards is a hypothesis | U2 and U3 are defined over simultaneous hazards; a single-event matrix cannot validate them (critique finding 4) | Study B interpretation | ☐ **needs your answer** |
 | **D10** | Paths | `protocols/configuration-matrix.{json,md}`, `protocols/trace-schema.json`, `protocols/unsafe-composition-properties.json`, `model/`, `harness/` | the handoff proposed `tools/sitl/` and different protocol filenames; `tools/` already holds the presentation checkers CI runs, and the contracts were built on 2026-09-16 under these names. The handoff permits recorded deviations | — | ☐ |
 | **D11** | Deferred: setpoint-only loss | needs a uXRCE-DDS/ROS 2 offboard path so the keep-alive and the setpoint topics are separable [B4]. Trigger: the single-event tier passes and the ROS 2 path is available in this environment | — | — | ☐ |
+| **D13** | RC loss is not injectable in this rig | Recorded as a frozen class that the campaign excludes, not deleted. PX4 in SIH SITL did not accept MAVLink `MANUAL_CONTROL` as a manual-control source (2026-09-20: `manual_control_signal_lost` stayed true while the stream ran at 10 Hz), so there is no RC signal to remove | a class with no stimulus cannot be a case; the alternative is a simulated RC source or a joystick bridge | Study A coverage | ☐ **needs your answer**: accept five injectable classes, or fund an RC source |
 | **D12** | Horizon and tolerances | horizon = injection + 45 s or terminal mode, whichever first; timing tolerance unchanged from the protocol (median \|Δt\| ≤ 0.2 s, p95 ≤ 1.0 s) | 45 s covers `COM_DL_LOSS_T` + `COM_FAIL_ACT_T` + an RTL from 60 m with margin [B10] | Study A | ☐ |
+
+## 2026-09-21 addendum
+
+Section 12 of the handoff added acceptance checks; where each one lives is recorded in
+[section-12-acceptance-2026-09-21.md](section-12-acceptance-2026-09-21.md). Two of them changed what these
+decisions mean:
+
+- **D4 (event classes)** now has an open question of its own. The first controlled injection of `datalink_loss`
+  on the frozen configurations produced no failsafe action at all, with the monitor confirmed active. Until
+  that is resolved, no event class is known to produce an action in this rig, and the campaign in D7 should not
+  start. Evidence and the named diagnostics: [task-study-a-verification-2026-09-21](../../../evidence/task-study-a-verification-2026-09-21/README.md).
+- **D12 (tolerances)** is unchanged, but the timing comparison is now made relative to the injection instant
+  and the hazard timer is known to start from the last heartbeat *received*, up to one heartbeat period before
+  the harness stops sending.
 
 ## Seeds
 

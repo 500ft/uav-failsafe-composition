@@ -1,0 +1,102 @@
+{
+ "schema_version": "2026-09-16",
+ "manifest": {
+  "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+  "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "firmware_tag": "v1.17.0",
+  "airframe": "10040_sihsim_quadx",
+  "simulator": "sihsim",
+  "lockstep": true,
+  "parameters_sha256": "cf5caacc2b814dbd9d9caec46293f53821b833386a45082a9bdd5450a1ded959",
+  "seed": 1,
+  "injection": {
+   "class": "none",
+   "method": "none",
+   "scheduled_t_s": 40.0,
+   "restore_t_s": null
+  },
+  "run_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+  "evidence_state": "simulation"
+ },
+ "clock": {
+  "host_to_vehicle_offset_s": 2.2915,
+  "offset_samples": 10
+ },
+ "events": [
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 0.164,
+   "t_host_s": 2.456,
+   "detail": {
+    "flag": "manual_control_signal_lost",
+    "value": 1
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 0.164,
+   "t_host_s": 2.456,
+   "detail": {
+    "flag": "gcs_connection_lost",
+    "value": 1
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 0.164,
+   "t_host_s": 2.456,
+   "detail": {
+    "flag": "offboard_control_signal_lost",
+    "value": 1
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 0.164,
+   "t_host_s": 2.456,
+   "detail": {
+    "flag": "local_position_invalid",
+    "value": 1
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 0.164,
+   "t_host_s": 2.456,
+   "detail": {
+    "flag": "global_position_invalid",
+    "value": 1
+   }
+  },
+  {
+   "name": "arm",
+   "t_vehicle_s": 7.32,
+   "t_host_s": 9.6111,
+   "detail": {
+    "attempts": 1
+   }
+  },
+  {
+   "name": "takeoff_complete",
+   "t_vehicle_s": 17.189,
+   "t_host_s": 19.4806,
+   "detail": {
+    "z": -9.83026123046875,
+    "t_vehicle_s": 17.216
+   }
+  },
+  {
+   "name": "horizon_reached",
+   "t_vehicle_s": 111.813,
+   "t_host_s": 114.1049,
+   "detail": {
+    "t_vehicle_s": 102.232
+   }
+  }
+ ],
+ "validity": {
+  "valid": true,
+  "reasons": []
+ },
+ "sample_count": 1786
+}

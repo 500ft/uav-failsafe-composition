@@ -10,7 +10,9 @@
     "clock",
     "events",
     "samples",
-    "validity"
+    "validity",
+    "conversion",
+    "stages"
   ],
   "properties": {
     "schema_version": {
@@ -134,6 +136,13 @@
         "offset_samples": {
           "type": "integer",
           "minimum": 1
+        },
+        "offset_spread_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "offset_estimator": {
+          "type": "string"
         }
       }
     },
@@ -161,6 +170,7 @@
               "hold_delay_end",
               "native_transition",
               "terminal_state",
+              "horizon_reached",
               "reconnect_event"
             ]
           },
@@ -300,6 +310,148 @@
           }
         }
       }
+    },
+    "stages": {
+      "type": "array",
+      "description": "One record per pipeline stage (section 12 item 7). A returning call is not completion.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "stage",
+          "status"
+        ],
+        "properties": {
+          "stage": {
+            "enum": [
+              "launch",
+              "configuration_applied",
+              "normal_tracking",
+              "injection",
+              "capture",
+              "normalization",
+              "comparison"
+            ]
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "failed",
+              "skipped",
+              "timed_out"
+            ]
+          },
+          "evidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "detail": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "conversion": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Counts that let a reader see the normaliser preserved the raw observations (section 12 item 6).",
+      "required": [
+        "raw_lines",
+        "raw_vehicle_messages",
+        "samples_written",
+        "events_written",
+        "mode_source"
+      ],
+      "properties": {
+        "raw_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "raw_vehicle_messages": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "samples_written": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "events_written": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mode_source": {
+          "enum": [
+            "autopilot_log_vehicle_status",
+            "mavlink_heartbeat"
+          ]
+        },
+        "unmapped_event_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "raw_retained_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Whether the behaviour was verified against an independent expectation (section 12 item 2). Execution status is never a pass.",
+      "required": [
+        "status",
+        "reasons"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "verified",
+            "unverified",
+            "refuted"
+          ]
+        },
+        "timeline_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "observed": {
+          "type": "object"
+        },
+        "expected": {
+          "type": "object"
+        },
+        "tolerance_s": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "injection_observed_vehicle_s": {
+      "type": "number"
+    },
+    "streams_at_injection": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "description": "Which input streams were still running when the event was injected (section 12 item 3, surviving publishers)."
     }
   }
 }

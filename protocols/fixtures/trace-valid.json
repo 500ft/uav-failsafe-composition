@@ -20,7 +20,9 @@
  },
  "clock": {
   "host_to_vehicle_offset_s": 0.012,
-  "offset_samples": 10
+  "offset_samples": 10,
+  "offset_spread_s": 0.031,
+  "offset_estimator": "median over every message carrying time_boot_ms"
  },
  "events": [
   {
@@ -127,5 +129,66 @@
  "validity": {
   "valid": true,
   "reasons": []
+ },
+ "conversion": {
+  "raw_lines": 42,
+  "raw_vehicle_messages": 38,
+  "samples_written": 2,
+  "events_written": 7,
+  "mode_source": "autopilot_log_vehicle_status",
+  "unmapped_event_names": [],
+  "raw_retained_at": "runs/fixture-valid-001/raw.jsonl"
+ },
+ "stages": [
+  {
+   "stage": "launch",
+   "status": "ok",
+   "evidence": "px4.log",
+   "detail": {}
+  },
+  {
+   "stage": "configuration_applied",
+   "status": "ok",
+   "evidence": "param_export",
+   "detail": {}
+  },
+  {
+   "stage": "normal_tracking",
+   "status": "ok",
+   "evidence": "takeoff_complete",
+   "detail": {}
+  },
+  {
+   "stage": "injection",
+   "status": "ok",
+   "evidence": "injection event",
+   "detail": {}
+  },
+  {
+   "stage": "capture",
+   "status": "ok",
+   "evidence": "raw.jsonl",
+   "detail": {}
+  },
+  {
+   "stage": "normalization",
+   "status": "ok",
+   "evidence": "trace.json",
+   "detail": {}
+  }
+ ],
+ "verification": {
+  "status": "unverified",
+  "timeline_id": null,
+  "reasons": [
+   "fixture, not a real run"
+  ],
+  "observed": {},
+  "expected": {},
+  "tolerance_s": 1.5
+ },
+ "streams_at_injection": {
+  "gcs_heartbeat": false,
+  "offboard_setpoints": true
  }
 }

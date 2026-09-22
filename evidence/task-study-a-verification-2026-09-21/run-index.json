@@ -1,0 +1,56 @@
+{
+ "note": "Development runs for the controlled parameter-change check (section 12 item 4). They are not held-out model-validation cases. Full captures are outside git; hashes pin them.",
+ "snapshot_root": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-21",
+ "runs": [
+  {
+   "case_id": "px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-21/px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   },
+   "verification": "refuted",
+   "raw.jsonl": {
+    "bytes": 634798,
+    "sha256": "6dfa27c4423afbff5aac3c47568a81620c8bfc0fe3fd54f3dbc9552e7590cd3a"
+   },
+   "trace.json": {
+    "bytes": 710788,
+    "sha256": "2444c449237dfde4edb15014a3c6c3ee96f1daf7950b9ec2c47cfc472492ef9e"
+   },
+   "flight.ulg": {
+    "bytes": 22866073,
+    "sha256": "48bcd90039b2076f3fdf3f7d78b2b7cdb6b791e1ee61b4bf5f9c089918f88896"
+   },
+   "px4.log": {
+    "bytes": 2763,
+    "sha256": "c991c27ca5bca36239d93a459524645c253b504ff9101d69d9329322d0291c7f"
+   }
+  },
+  {
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "snapshot": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-21/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   },
+   "verification": "refuted",
+   "raw.jsonl": {
+    "bytes": 634938,
+    "sha256": "ee0434e11ec1a66fe7134449f8560e382dc3534ee574ecee1e4aa4c67d2b82d2"
+   },
+   "trace.json": {
+    "bytes": 711209,
+    "sha256": "787eab25513165084a21f48cff83fdfff681896ce98a3f3e9907c17960f40444"
+   },
+   "flight.ulg": {
+    "bytes": 22722344,
+    "sha256": "6020ca9d696d12ba3c1ffff4acfc861789e99ca54d9de90a2b595ffb1586f545"
+   },
+   "px4.log": {
+    "bytes": 2763,
+    "sha256": "ada68c7b290eeb3bdb482b91b656b922076af504f4517304e98bf39652efe973"
+   }
+  }
+ ]
+}

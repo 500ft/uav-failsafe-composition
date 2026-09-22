@@ -1,0 +1,33 @@
+{
+ "schema_version": "2026-09-16",
+ "manifest": {
+  "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+  "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "firmware_tag": "v1.17.0",
+  "airframe": "10040_sihsim_quadx",
+  "simulator": "sihsim",
+  "lockstep": true,
+  "parameters_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "seed": 1,
+  "injection": {
+   "class": "none",
+   "method": "none",
+   "scheduled_t_s": 40.0,
+   "restore_t_s": null
+  },
+  "run_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+  "evidence_state": "simulation"
+ },
+ "clock": {
+  "host_to_vehicle_offset_s": 0.0,
+  "offset_samples": 1
+ },
+ "events": [],
+ "validity": {
+  "valid": false,
+  "reasons": [
+   "simulator_crash"
+  ]
+ },
+ "sample_count": 1
+}

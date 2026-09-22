@@ -1,0 +1,190 @@
+{
+ "schema_version": "2026-09-16",
+ "manifest": {
+  "configuration_id": "px4-v1.17.0-sih-quadx-rtl-delay0",
+  "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "firmware_tag": "v1.17.0",
+  "airframe": "10040_sihsim_quadx",
+  "simulator": "sihsim",
+  "lockstep": true,
+  "parameters_sha256": "5af60531a527d3ebdd87caf9bb07d9b026a2aac362ed4549c4c2843372cc7094",
+  "seed": 1,
+  "injection": {
+   "class": "datalink_loss",
+   "method": "heartbeat_stopped",
+   "scheduled_t_s": 40.0,
+   "restore_t_s": null
+  },
+  "run_id": "px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1",
+  "evidence_state": "simulation"
+ },
+ "clock": {
+  "host_to_vehicle_offset_s": 12.6442,
+  "offset_samples": 1699,
+  "offset_spread_s": 17.6937,
+  "offset_estimator": "median over every message carrying time_boot_ms"
+ },
+ "events": [
+  {
+   "name": "arm",
+   "t_vehicle_s": 0.0,
+   "t_host_s": 9.7574,
+   "detail": {
+    "attempts": 1
+   }
+  },
+  {
+   "name": "native_transition",
+   "t_vehicle_s": 6.184,
+   "t_host_s": 18.828,
+   "detail": {
+    "from": "AUTO_LOITER",
+    "to": "OFFBOARD"
+   }
+  },
+  {
+   "name": "takeoff_complete",
+   "t_vehicle_s": 7.908,
+   "t_host_s": 20.552,
+   "detail": {
+    "z": -9.879974365234375,
+    "t_vehicle_s": 16.74
+   }
+  },
+  {
+   "name": "injection",
+   "t_vehicle_s": 56.222,
+   "t_host_s": 68.8665,
+   "detail": {
+    "event": "datalink_loss",
+    "t_vehicle_s": 56.74,
+    "scheduled_vehicle_s": 56.74,
+    "streams": {
+     "gcs_heartbeat": false,
+     "offboard_setpoints": true
+    }
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 68.152,
+   "t_host_s": 80.796,
+   "detail": {
+    "flag": "gcs_connection_lost",
+    "value": 1
+   }
+  },
+  {
+   "name": "horizon_reached",
+   "t_vehicle_s": 110.618,
+   "t_host_s": 123.2619,
+   "detail": {
+    "t_vehicle_s": 101.74
+   }
+  }
+ ],
+ "validity": {
+  "valid": true,
+  "reasons": []
+ },
+ "conversion": {
+  "raw_lines": 2271,
+  "raw_vehicle_messages": 2251,
+  "samples_written": 1784,
+  "events_written": 6,
+  "mode_source": "autopilot_log_vehicle_status",
+  "unmapped_event_names": [],
+  "raw_retained_at": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day3c/px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1/raw.jsonl"
+ },
+ "stages": [
+  {
+   "stage": "launch",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day3c/px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1/px4.log",
+   "detail": {
+    "pid": 47052
+   }
+  },
+  {
+   "stage": "configuration_applied",
+   "status": "ok",
+   "evidence": "param_export in raw.jsonl",
+   "detail": {
+    "requested": 15,
+    "mismatched": {}
+   }
+  },
+  {
+   "stage": "normal_tracking",
+   "status": "ok",
+   "evidence": "takeoff_complete event",
+   "detail": {}
+  },
+  {
+   "stage": "injection",
+   "status": "ok",
+   "evidence": "injection event in raw.jsonl",
+   "detail": {
+    "scheduled_vehicle_s": 56.74,
+    "observed_vehicle_s": 56.74,
+    "surviving_publishers": {
+     "gcs_heartbeat": false,
+     "offboard_setpoints": true
+    }
+   }
+  },
+  {
+   "stage": "capture",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day3c/px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1/raw.jsonl",
+   "detail": {
+    "autopilot_log": true
+   }
+  },
+  {
+   "stage": "normalization",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day3c/px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1/trace.json",
+   "detail": {}
+  }
+ ],
+ "injection_observed_vehicle_s": 56.222,
+ "streams_at_injection": {
+  "gcs_heartbeat": false,
+  "offboard_setpoints": true
+ },
+ "verification": {
+  "status": "refuted",
+  "timeline_id": "T2",
+  "tolerance_s": 1.5,
+  "reasons": [
+   "gcs_connection_lost rose at 11.93 s after injection, expected 10.0 s",
+   "mode sequence ['OFFBOARD'] does not match expected ['AUTO_RTL']"
+  ],
+  "observed": {
+   "mode_sequence": [
+    "OFFBOARD"
+   ],
+   "hazard_flags": [
+    "gcs_connection_lost"
+   ],
+   "announced_actions": [],
+   "mode_source": "autopilot_log_vehicle_status",
+   "hazard_flag_t_rel_s": 11.93
+  },
+  "expected": {
+   "mode_sequence": [
+    "AUTO_RTL"
+   ],
+   "hazard_flag": "gcs_connection_lost",
+   "actions": [
+    {
+     "action": "RTL",
+     "nav_state": "AUTO_RTL",
+     "t_rel_injection_s": 10.0
+    }
+   ]
+  }
+ },
+ "sample_count": 1784
+}
