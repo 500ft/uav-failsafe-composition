@@ -186,8 +186,16 @@ def main(argv=None) -> int:
     t_start = time.monotonic()
     raw = (out / "raw.jsonl").open("w")
 
+    stages: list[dict] = []
+
+    def stage(name, status, evidence=None, **detail):
+        stages.append(dict(stage=name, status=status, evidence=evidence, detail=detail))
+        log(dict(kind="stage", stage=name, status=status, evidence=evidence, detail=detail))
+
     def log(d):
         d["t_host_s"] = round(time.monotonic() - t_start, 4)
+        if raw.closed:      # after the capture file is closed the stage list is appended separately
+            return
         raw.write(json.dumps(d) + "\n")
         raw.flush()
 
@@ -218,6 +226,7 @@ def main(argv=None) -> int:
                             "-i", str(INSTANCE), "-w", str(work)],
                            cwd=build, env=env, stdout=(out / "px4.log").open("w"), stderr=subprocess.STDOUT)
     log(dict(kind="launch", pid=px4.pid, build=str(build)))
+    stage("launch", "ok", evidence=str(out / "px4.log"), pid=px4.pid)
     gcs = mavutil.mavlink_connection(f"udpin:0.0.0.0:{GCS_PORT}", source_system=255, source_component=190)
     v = Vehicle(gcs, log)
     streams = Streams(gcs)
@@ -237,6 +246,13 @@ def main(argv=None) -> int:
             v.set_param(k, val)
         export = {k: v.read_param(k) for k in sorted(params)}
         log(dict(kind="param_export", values=export))
+        # Section 12 item 4: a parameter that was written but never applied must not pass silently.
+        mismatched = {k: dict(requested=params[k], readback=export[k]) for k in params
+                      if abs(float(export[k]) - float(params[k])) > 1e-4}
+        stage("configuration_applied", "ok" if not mismatched else "failed",
+              evidence="param_export in raw.jsonl", requested=len(params), mismatched=mismatched)
+        if mismatched:
+            raise RuntimeError(f"parameters did not take effect: {mismatched}")
 
         for msg_id, interval in ((mav.MAVLINK_MSG_ID_LOCAL_POSITION_NED, 100000),
                                  (mav.MAVLINK_MSG_ID_GLOBAL_POSITION_INT, 100000),
@@ -272,6 +288,7 @@ def main(argv=None) -> int:
                 tracking = True
                 log(dict(kind="event", name="takeoff_complete", z=m.z, t_vehicle_s=m.time_boot_ms / 1000.0))
                 break
+        stage("normal_tracking", "ok" if tracking else "failed", evidence="takeoff_complete event")
         if not tracking:
             raise RuntimeError("normal tracking was never established")
 
@@ -301,8 +318,12 @@ def main(argv=None) -> int:
                     v.command(mav.MAV_CMD_INJECT_FAILURE, FAILURE_UNIT["battery"], FAILURE_TYPE["wrong"], 0)
                 elif a.event == "geofence_breach":
                     streams.target = [60.0, 0.0, -TAKEOFF_ALT_M]
+                surviving = dict(gcs_heartbeat=streams.heartbeat, offboard_setpoints=streams.setpoints)
                 log(dict(kind="event", name="injection", event=a.event, t_vehicle_s=round(v.boot_s, 3),
-                         scheduled_vehicle_s=round(inject_at, 3)))
+                         scheduled_vehicle_s=round(inject_at, 3), streams=surviving))
+                stage("injection", "ok", evidence="injection event in raw.jsonl",
+                      scheduled_vehicle_s=round(inject_at, 3), observed_vehicle_s=round(v.boot_s, 3),
+                      surviving_publishers=surviving)
             if injected and not restored and a.restore_after > 0 and v.boot_s >= inject_at + a.restore_after:
                 restored = True
                 if a.event == "offboard_loss":
@@ -322,6 +343,7 @@ def main(argv=None) -> int:
                 break
     except Exception as exc:  # setup or capture failure: preserved, never retried with a different seed
         log(dict(kind="failure", error=type(exc).__name__, detail=str(exc)[:400]))
+        stage("capture", "failed", evidence="failure record in raw.jsonl", error=type(exc).__name__)
         rc = CAPTURE_FAILURE
     finally:
         streams.stop()
@@ -334,8 +356,15 @@ def main(argv=None) -> int:
         logs = sorted((work / "log").rglob("*.ulg"))
         if logs:
             shutil.copy(logs[-1], out / "flight.ulg")
+        if rc == 0:
+            stage("capture", "ok", evidence=str(out / "raw.jsonl"), autopilot_log=bool(logs))
+        with (out / "raw.jsonl").open("a") as tail:
+            tail.write(json.dumps(dict(kind="stages", stages=stages)) + "\n")
 
     trace = build_trace(out, case, MATRIX)
+    trace.setdefault("stages", []).append(dict(stage="normalization",
+                                               status="ok" if trace["validity"]["valid"] else "failed",
+                                               evidence=str(out / "trace.json"), detail={}))
     (out / "trace.json").write_text(json.dumps(trace, indent=1) + "\n")
     summary = dict(case_id=case["case_id"], exit=rc, valid=trace["validity"],
                    transitions=[e["detail"] for e in trace["events"] if e["name"] == "native_transition"])

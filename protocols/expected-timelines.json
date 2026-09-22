@@ -1,0 +1,111 @@
+{
+ "schema_version": "2026-09-21",
+ "status": "derived by hand before any run of these cases; independent of model/px4_failsafe.py and of harness/trace.py",
+ "why_separate": "Section 12 item 1 of the week handoff: the expected outcome must be defined before the artifact is accepted, and the calculation must sit outside the model translator and the trace normaliser. The matrix's realised_action_per_class and the runner's expected_action both come from model/px4_failsafe.py, so a transcription error there would be invisible to itself. These timelines are worked from the parameter values and the cited source lines directly; tests/test_expected_timelines.py then cross-checks the two derivations against each other and fails if they disagree.",
+ "not_an_independent_oracle": "The PX4 docs failsafe simulator runs the same code as the vehicle [B2]. It is useful for checking that an extraction is faithful, and it is not independent evidence about the control logic or the physical behaviour.",
+ "tolerance": {
+  "value_s": 1.5,
+  "basis": "Mode changes are read from the autopilot log's vehicle_status topic, whose resolution is far finer than the 1 Hz HEARTBEAT stream; the dominant terms are the measured apparatus jitter (0.51 s at 112 s of vehicle time, evidence/task-study-a-harness-2026-09-20) and the flag-detection granularity of the failsafe_flags topic. 1.5 s is three times the measured jitter and is frozen here, before the runs.",
+  "applies_to": "every time below, measured relative to the injection instant on the vehicle clock, never to absolute vehicle time"
+ },
+ "timelines": [
+  {
+   "id": "T1",
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+   "event": "datalink_loss",
+   "development_case": true,
+   "parameters_used": {
+    "NAV_DLL_ACT": 2,
+    "COM_DL_LOSS_T": 10,
+    "COM_FAIL_ACT_T": 5.0,
+    "COM_DLL_EXCEPT": 0
+   },
+   "hand_derivation": [
+    "t0 = the last GCS heartbeat the harness sends. The setpoint stream continues, so the only input removed is the C2 Link heartbeat [B5].",
+    "COM_DLL_EXCEPT = 0, so no exception bit suppresses the hazard for the active mode (failsafe.cpp L502-513).",
+    "The autopilot declares the datalink lost COM_DL_LOSS_T = 10 s after the last heartbeat, so failsafe_flags.gcs_connection_lost rises at t0 + 10 s.",
+    "NAV_DLL_ACT = 2 maps to Action::RTL (failsafe.cpp L57-60, fromNavDllOrRclActParam), registered with ClearCondition::OnModeChangeOrDisarm.",
+    "RTL is delayable: it is not None, Disarm, Terminate or Hold (framework.cpp L490-493). COM_FAIL_ACT_T = 5.0 > 0.1, so the delay is armed when the action is added (framework.cpp L351-362) and _current_delay = 5 s.",
+    "While the delay runs, getSelectedAction substitutes Hold and remembers RTL as the delayed action (framework.cpp L489-500). Hold can run, and no user takeover occurs, so the substitution holds.",
+    "modeFromAction maps Hold to AUTO_LOITER and RTL to AUTO_RTL (framework.cpp L670-697).",
+    "Therefore: AUTO_LOITER at t0 + 10 s, AUTO_RTL at t0 + 15 s."
+   ],
+   "expected_hazard_flag": {
+    "flag": "gcs_connection_lost",
+    "t_rel_injection_s": 10.0
+   },
+   "expected_actions": [
+    {
+     "action": "Hold",
+     "nav_state": "AUTO_LOITER",
+     "t_rel_injection_s": 10.0
+    },
+    {
+     "action": "RTL",
+     "nav_state": "AUTO_RTL",
+     "t_rel_injection_s": 15.0
+    }
+   ],
+   "expected_mode_sequence": [
+    "AUTO_LOITER",
+    "AUTO_RTL"
+   ],
+   "terminal": "AUTO_RTL is a registered terminal mode; the return itself need not complete inside the 45 s horizon, since RTL_RETURN_ALT is 60 m and the vehicle starts at 10 m."
+  },
+  {
+   "id": "T2",
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl-delay0",
+   "event": "datalink_loss",
+   "development_case": true,
+   "parameters_used": {
+    "NAV_DLL_ACT": 2,
+    "COM_DL_LOSS_T": 10,
+    "COM_FAIL_ACT_T": 0.0,
+    "COM_DLL_EXCEPT": 0
+   },
+   "one_factor_change_from": "T1",
+   "factor": "COM_FAIL_ACT_T, 5.0 s -> 0.0 s",
+   "hand_derivation": [
+    "Everything up to the hazard is identical to T1: gcs_connection_lost rises at t0 + 10 s and NAV_DLL_ACT = 2 registers Action::RTL.",
+    "The delay is armed only when COM_FAIL_ACT_T > 0.1 (framework.cpp L352). At 0.0 it is not armed, so _current_delay stays 0 and getSelectedAction does not substitute Hold.",
+    "Therefore the selected action at the flag is RTL itself, and AUTO_LOITER never appears.",
+    "Therefore: AUTO_RTL at t0 + 10 s, and no intermediate mode."
+   ],
+   "expected_hazard_flag": {
+    "flag": "gcs_connection_lost",
+    "t_rel_injection_s": 10.0
+   },
+   "expected_actions": [
+    {
+     "action": "RTL",
+     "nav_state": "AUTO_RTL",
+     "t_rel_injection_s": 10.0
+    }
+   ],
+   "expected_mode_sequence": [
+    "AUTO_RTL"
+   ],
+   "terminal": "as T1"
+  },
+  {
+   "id": "T0",
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+   "event": "none",
+   "development_case": true,
+   "parameters_used": {
+    "NAV_DLL_ACT": 2,
+    "COM_DL_LOSS_T": 10,
+    "COM_FAIL_ACT_T": 5.0
+   },
+   "hand_derivation": [
+    "No input is removed and no failure is injected, so no monitor is breached and no action is registered.",
+    "The vehicle stays in the mode it was armed in."
+   ],
+   "expected_hazard_flag": null,
+   "expected_actions": [],
+   "expected_mode_sequence": [],
+   "terminal": "OFFBOARD held to the horizon"
+  }
+ ],
+ "falsifiable_difference": "T1 and T2 differ in exactly one parameter. If the observed runs do not differ by the presence of the AUTO_LOITER step and a 5 s shift of AUTO_RTL, then either the parameter did not take effect or the derivation is wrong; both are reportable outcomes and neither is repaired after the fact."
+}
