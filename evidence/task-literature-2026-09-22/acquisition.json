@@ -1,0 +1,85 @@
+{
+ "note": "Acquisition for the 2026-09-22 literature review, executed through the same collectors as the canonical prior-art export (evidence/task-2026-09-09/rerun_search.py), so every hit carries its database, query, rank and the hash of the raw response. Full exports are held outside git and pinned here by SHA-256.",
+ "snapshot_root": "/Users/redhose/.cache/uav-failsafe-composition/literature-2026-09-22",
+ "retry_snapshot_root": "/Users/redhose/.cache/uav-failsafe-composition/literature-2026-09-22-retry",
+ "legs": 53,
+ "legs_ok": 47,
+ "records": 1546,
+ "retrieved_utc": "2026-09-22T14:39:27Z",
+ "audit": {
+  "unsupported_provenance_routes": 0,
+  "missing_request_provenance": 0,
+  "response_record_mismatches": 0,
+  "query_count_mismatches": 0,
+  "response_hash_mismatches": 0,
+  "rows_without_successful_logged_query": 0
+ },
+ "incomplete_legs": [
+  {
+   "db": "openalex",
+   "query": "PX4 ArduPilot failsafe differential testing",
+   "status": "error",
+   "http_status": 429
+  },
+  {
+   "db": "openalex",
+   "query": "UAV configuration parameter range bug detection simulation",
+   "status": "error",
+   "http_status": 429
+  },
+  {
+   "db": "openalex",
+   "query": "verification of flight mode logic state machine",
+   "status": "error",
+   "http_status": 429
+  },
+  {
+   "db": "openalex",
+   "query": "safety monitor recovery control function aircraft assurance",
+   "status": "error",
+   "http_status": 429
+  },
+  {
+   "db": "openalex",
+   "query": "return to launch behaviour drone loss of control link",
+   "status": "error",
+   "http_status": 429
+  },
+  {
+   "db": "openalex",
+   "query": "multi-UAV safety contract composition recovery",
+   "status": "error",
+   "http_status": 429
+  }
+ ],
+ "retry": {
+  "note": "The six throttled OpenAlex legs were re-issued as a SEPARATE export and throttled again; the two exports are never merged.",
+  "audit": {
+   "rows_without_successful_logged_query": 0
+  },
+  "all_failed": true
+ },
+ "files": {
+  "database-export.json": {
+   "bytes": 3399886,
+   "sha256": "7f69e1b40f9ca16e9d155bd66072fd30d26f95f79d4ca41424beb1f2612183c2"
+  },
+  "database-export.csv": {
+   "bytes": 1057408,
+   "sha256": "7d469dcd67c4631c17e8f5df5798864d5aa47510208a8a6574d9cd6853399333"
+  },
+  "candidates-unscreened.csv": {
+   "bytes": 12298,
+   "sha256": "07ed12b18a2fbcc082ff091b0c44d8a0c3280b73cbc3db448ad125262d313b49"
+  },
+  "export-audit.json": {
+   "bytes": 666,
+   "sha256": "e3691400fb79a9a65d9189b0c3ca212d1520b5c940bf26b491a8f0ac3c9ec22b"
+  }
+ },
+ "identity_lookups": {
+  "directory": "/Users/redhose/.cache/uav-failsafe-composition/literature-2026-09-22/identity",
+  "files": 45,
+  "note": "Crossref bibliographic responses retained for every canonical work resolved into the register."
+ }
+}
