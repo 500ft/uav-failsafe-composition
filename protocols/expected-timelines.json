@@ -5,8 +5,25 @@
  "not_an_independent_oracle": "The PX4 docs failsafe simulator runs the same code as the vehicle [B2]. It is useful for checking that an extraction is faithful, and it is not independent evidence about the control logic or the physical behaviour.",
  "tolerance": {
   "value_s": 1.5,
-  "basis": "Mode changes are read from the autopilot log's vehicle_status topic, whose resolution is far finer than the 1 Hz HEARTBEAT stream; the dominant terms are the measured apparatus jitter (0.51 s at 112 s of vehicle time, evidence/task-study-a-harness-2026-09-20) and the flag-detection granularity of the failsafe_flags topic. 1.5 s is three times the measured jitter and is frozen here, before the runs.",
-  "applies_to": "every time below, measured relative to the injection instant on the vehicle clock, never to absolute vehicle time"
+  "basis": "Mode changes are read from the autopilot log's vehicle_status topic, whose resolution is far finer than the 1 Hz HEARTBEAT stream; the dominant terms are the measured apparatus jitter and the flag-detection granularity of the failsafe_flags topic. 1.5 s was frozen here before the runs, as three times the jitter figure then available (0.51 s). See jitter_basis_correction_2026_09_24: that figure was measured through the old clock conversion and is 0.352 s on the vehicle's own clock, so 1.5 s is about 4.3 times the measured jitter. The VALUE IS NOT CHANGED: it was frozen before the runs, and re-deriving it downward now would be fitting the tolerance to the data it has to judge.",
+  "applies_to": "every time below, measured relative to the injection instant on the vehicle clock, never to absolute vehicle time",
+  "jitter_basis_correction_2026_09_24": {
+   "what_changed": "The 0.51 s figure came from harness/reproducibility.py over the five 2026-09-20 control repeats. It was computed through the pre-repair normaliser, which reconstructed every instant from host time and so folded per-run offset-estimation variance into the spread.",
+   "recomputed": {
+    "source": "the four valid 2026-09-20 control repeats, re-derived from raw data on 2026-09-24",
+    "takeoff_complete_range_s": {
+     "old": 0.338,
+     "vehicle_clock": 0.336
+    },
+    "horizon_reached_range_s": {
+     "old": 0.514,
+     "vehicle_clock": 0.352
+    }
+   },
+   "direction": "The real jitter is smaller than the figure the tolerance was set against, so the frozen 1.5 s is more conservative than it was documented to be, not less.",
+   "why_the_value_stays": "Tightening a tolerance after seeing the runs it will judge is fitting. The value is frozen; only this basis text is corrected.",
+   "evidence": "evidence/task-measurement-repair-2026-09-24/README.md"
+  }
  },
  "timelines": [
   {

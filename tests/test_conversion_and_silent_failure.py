@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from harness.trace import build_trace  # noqa: E402
 from harness.cases import MATRIX, resolve  # noqa: E402
-from harness import verify as verifier  # noqa: E402
+from harness import reproducibility, verify as verifier  # noqa: E402
 
 CASE = dict(resolve("px4-v1.17.0-sih-quadx-rtl", "datalink_loss", 1), intended_mode="offboard")
 PARAMS = {k: float(v) for k, v in CASE["parameters"].items()}
@@ -289,6 +289,58 @@ class MeasurementRepairTests(unittest.TestCase):
         for s in trace["samples"]:
             self.assertEqual(s["selected_action"], "unobserved")
             self.assertIn(s["t_source"], ("vehicle_observation", "autopilot_log", "host_reconstructed"))
+
+
+class ReproducibilityClockTests(unittest.TestCase):
+    """A spread over reconstructed instants is not apparatus jitter (critique 2026-09-24, F1)."""
+
+    def _runs(self, sources):
+        with tempfile.TemporaryDirectory() as d:
+            dirs = []
+            for i, per_run in enumerate(sources):
+                run = Path(d) / f"rep{i}"
+                run.mkdir()
+                events = [dict(name=name, t_vehicle_s=t, t_host_s=t, t_source=src)
+                          for name, (t, src) in per_run.items()]
+                (run / "trace.json").write_text(json.dumps(dict(
+                    validity=dict(valid=True, reasons=[]),
+                    manifest=dict(parameters_sha256="a" * 64, firmware_commit="b" * 40, intended_mode="offboard"),
+                    events=events, samples=[])))
+                dirs.append(run)
+            return reproducibility.compare(dirs)
+
+    def test_a_measured_spread_is_quotable_as_jitter(self):
+        result = self._runs([{"takeoff_complete": (18.0, "vehicle_observation")},
+                             {"takeoff_complete": (18.3, "vehicle_observation")}])
+        self.assertEqual(result["timestamp_spread"]["takeoff_complete"]["quality"], "measured")
+        self.assertTrue(result["jitter_quotable"])
+        self.assertAlmostEqual(result["apparatus_jitter_s"]["takeoff_complete"], 0.3, places=3)
+
+    def test_a_reconstructed_spread_is_not_quotable_as_jitter(self):
+        result = self._runs([{"arm": (2.4, "host_reconstructed")}, {"arm": (3.1, "host_reconstructed")}])
+        self.assertEqual(result["timestamp_spread"]["arm"]["quality"], "estimated")
+        self.assertFalse(result["jitter_quotable"])
+        self.assertIsNone(result["apparatus_jitter_s"])
+
+    def test_mixing_clock_sources_is_named_not_averaged(self):
+        result = self._runs([{"arm": (2.4, "host_reconstructed")}, {"arm": (2.5, "vehicle_observation")}])
+        self.assertEqual(result["timestamp_spread"]["arm"]["quality"], "mixed_clock_sources")
+        self.assertFalse(result["jitter_quotable"])
+
+    def test_a_pre_repair_trace_has_unrecorded_provenance_not_assumed_provenance(self):
+        with tempfile.TemporaryDirectory() as d:
+            dirs = []
+            for i, t in enumerate((18.0, 18.3)):
+                run = Path(d) / f"rep{i}"
+                run.mkdir()
+                (run / "trace.json").write_text(json.dumps(dict(
+                    validity=dict(valid=True, reasons=[]),
+                    manifest=dict(parameters_sha256="a" * 64, firmware_commit="b" * 40),
+                    events=[dict(name="takeoff_complete", t_vehicle_s=t, t_host_s=t)], samples=[])))
+                dirs.append(run)
+            result = reproducibility.compare(dirs)
+        self.assertEqual(result["timestamp_spread"]["takeoff_complete"]["quality"], "unrecorded_provenance")
+        self.assertFalse(result["jitter_quotable"])
 
 if __name__ == "__main__":
     unittest.main()

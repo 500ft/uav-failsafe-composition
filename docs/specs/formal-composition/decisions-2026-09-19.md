@@ -94,3 +94,18 @@ New decisions and open items:
 | **D18** | `T6` added: the Auto Loiter control timeline, whose expected post-takeoff sequence is `AUTO_LOITER` | decided here |
 
 D14 is unchanged and still blocks Study A. D7, D9 and D13 still need owner answers.
+
+## 2026-09-24 addendum 2 — consistency follow-ups
+
+Four places where the repair left the repository saying two different things. None changed a result.
+
+| id | item | decision |
+|---|---|---|
+| **D19** | `protocols/event-semantics.md` described the clock offset as estimated from the first 10 heartbeats, which stopped being true on 2026-09-21 | amended with a dated §7; §2's `native_transition` definition was already correct and the code had disagreed with it |
+| **D20** | The frozen 1.5 s tolerance cited a 0.51 s jitter measured through the old clock conversion; on the vehicle's own clock the same runs give 0.352 s | the **value stays frozen**; only the basis text is corrected. Re-deriving a tolerance downward against the data it must judge is fitting |
+| **D21** | `harness/reproducibility.py` pooled reconstructed and measured instants into one spread, and that spread is what D20's figure came from | spreads are reported per clock source and never pooled; only a `measured` spread may be quoted as apparatus jitter |
+| **D22** | The 21, 22 and 23 September evidence records state pre-repair verdicts | kept verbatim, each given a dated pointer to the re-derivation; historical records are not rewritten |
+
+Still deferred from the critique's TASK 2, and not attempted here: scenario identity including the event
+schedule, the complete applied-parameter hash and the build identity, and compatibility mappings for
+historical case IDs. Only the intended-mode part of that item is done.

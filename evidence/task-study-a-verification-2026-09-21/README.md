@@ -1,5 +1,11 @@
 # Section 12 acceptance checks, and the first injection experiment — 2026-09-21
 
+> **Verdicts below predate the 2026-09-24 measurement repair.** They were produced by a verifier that compared
+> transitions from before the injection against the expected recovery, and by a normaliser that rebuilt the
+> injection instant from host time instead of using the reading the runner took from the vehicle clock. This
+> record is kept exactly as it was written. The re-derivation from the same raw captures is in
+> [task-measurement-repair-2026-09-24](../task-measurement-repair-2026-09-24/README.md); both runs re-derive as refuted with an empty response window, and the delay-0 datalink latency moves from 11.93 s to 11.412 s, inside the 1.5 s tolerance.
+
 Branch `task/study-a-verification-2026-09-21`, stacked on `task/study-a-harness-2026-09-20` (PR #19). Merge
 order: **#19 → this**. Where each section 12 item now lives:
 [section-12-acceptance-2026-09-21.md](../../docs/specs/formal-composition/section-12-acceptance-2026-09-21.md).

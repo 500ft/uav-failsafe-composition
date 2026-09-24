@@ -1,5 +1,11 @@
 # Diagnosing the refutation: the framework takes no action on any hazard — 2026-09-22
 
+> **Verdicts below predate the 2026-09-24 measurement repair.** They were produced by a verifier that compared
+> transitions from before the injection against the expected recovery, and by a normaliser that rebuilt the
+> injection instant from host time instead of using the reading the runner took from the vehicle clock. This
+> record is kept exactly as it was written. The re-derivation from the same raw captures is in
+> [task-measurement-repair-2026-09-24](../task-measurement-repair-2026-09-24/README.md); both runs re-derive as refuted with an empty response window, and the geofence latencies move from 4.02 s and 4.522 s to 3.588 s and 3.984 s.
+
 Branch `task/study-a-diagnostics-2026-09-22` off main `11ca7c3`. This runs the two diagnostics named in
 [task-study-a-verification-2026-09-21](../task-study-a-verification-2026-09-21/README.md), plus a third that
 the second one made necessary.

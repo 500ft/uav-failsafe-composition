@@ -68,6 +68,33 @@ produced an Offboard manifest and compared it against the Offboard timeline. It 
 with `intended_mode_source: raw_capture_do_set_mode`, and the 2026-09-20 rep1 capture, which records no such
 command, re-derives with a null intended mode and is `unverified` rather than silently compared.
 
+## The tolerance's stated basis was measured through the old clock
+
+The 1.5 s tolerance in `protocols/expected-timelines.json` was frozen before the runs as three times a measured
+apparatus jitter of 0.51 s. That figure came from `harness/reproducibility.py` over the 2026-09-20 control
+repeats, computed when every instant was reconstructed from host time, so it folded per-run offset-estimation
+variance into the spread. Re-derived over the four valid repeats on the vehicle's own clock:
+
+| Event | Spread, old conversion | Spread, vehicle clock | Clock quality |
+| --- | --- | --- | --- |
+| `arm` | — | 0.163 s | estimated, not quotable as jitter |
+| `takeoff_complete` | 0.338 s | 0.336 s | measured |
+| `horizon_reached` | 0.514 s | 0.352 s | measured |
+
+**The tolerance value is not changed.** It was frozen before the runs, and tightening it now against the data
+it has to judge would be fitting. Only its basis text is corrected. The direction is the safe one: 1.5 s is
+about 4.3 times the measured jitter rather than 3.
+
+`harness/reproducibility.py` now reports spreads per clock source and refuses to pool them. A spread is
+`measured` only when every instant came from the vehicle's own clock; `estimated`, `mixed_clock_sources` and
+`unrecorded_provenance` are reported but cannot be quoted as apparatus jitter. A trace from before this repair
+carries no `t_source`, and is labelled `unrecorded_provenance` rather than assumed to be measured.
+
+## Earlier evidence records
+
+The packets from 21, 22 and 23 September state verdicts produced by the pre-repair pipeline. They are kept
+exactly as written and each now carries a dated pointer to this re-derivation.
+
 ## What this packet does not establish
 
 It does not explain why no action is selected. It repairs the chain that reports the observation, which is
