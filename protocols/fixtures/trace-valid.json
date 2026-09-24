@@ -1,5 +1,5 @@
 {
- "schema_version": "2026-09-16",
+ "schema_version": "2026-09-24",
  "manifest": {
   "configuration_id": "px4-v1.17.0-sih-quadx-defaults",
   "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
@@ -29,17 +29,32 @@
   {
    "name": "arm",
    "t_vehicle_s": 5.0,
-   "t_host_s": 5.012
+   "t_host_s": 5.012,
+   "t_source": "vehicle_observation",
+   "t_vehicle_interval_s": [
+    5.0,
+    5.0
+   ]
   },
   {
    "name": "takeoff_complete",
    "t_vehicle_s": 18.2,
-   "t_host_s": 18.21
+   "t_host_s": 18.21,
+   "t_source": "vehicle_observation",
+   "t_vehicle_interval_s": [
+    18.2,
+    18.2
+   ]
   },
   {
    "name": "last_heartbeat_sent",
    "t_vehicle_s": 30.0,
-   "t_host_s": 30.01
+   "t_host_s": 30.01,
+   "t_source": "vehicle_observation",
+   "t_vehicle_interval_s": [
+    30.0,
+    30.0
+   ]
   },
   {
    "name": "injection",
@@ -47,7 +62,12 @@
    "t_host_s": 30.01,
    "detail": {
     "class": "datalink_loss"
-   }
+   },
+   "t_source": "vehicle_observation",
+   "t_vehicle_interval_s": [
+    30.0,
+    30.0
+   ]
   },
   {
    "name": "hazard_flag",
@@ -55,7 +75,12 @@
    "t_host_s": 40.11,
    "detail": {
     "flag": "gcs_connection_lost"
-   }
+   },
+   "t_source": "autopilot_log",
+   "t_vehicle_interval_s": [
+    40.1,
+    40.1
+   ]
   },
   {
    "name": "native_transition",
@@ -64,7 +89,12 @@
    "detail": {
     "from": "OFFBOARD",
     "to": "AUTO_LOITER"
-   }
+   },
+   "t_source": "autopilot_log",
+   "t_vehicle_interval_s": [
+    40.2,
+    40.2
+   ]
   },
   {
    "name": "terminal_state",
@@ -72,7 +102,12 @@
    "t_host_s": 44.01,
    "detail": {
     "nav_state": "AUTO_LOITER"
-   }
+   },
+   "t_source": "vehicle_observation",
+   "t_vehicle_interval_s": [
+    44.0,
+    44.0
+   ]
   }
  ],
  "samples": [
@@ -99,7 +134,8 @@
    "lon_deg": 8.545594,
    "alt_amsl_m": 499.4,
    "battery_remaining": 0.9,
-   "statustext": null
+   "statustext": null,
+   "t_source": "vehicle_observation"
   },
   {
    "t_vehicle_s": 40.2,
@@ -124,7 +160,8 @@
    "lon_deg": 8.545594,
    "alt_amsl_m": 499.4,
    "battery_remaining": 0.89,
-   "statustext": "Failsafe activated: entering Hold for 5 seconds"
+   "statustext": "Failsafe activated: entering Hold for 5 seconds",
+   "t_source": "vehicle_observation"
   }
  ],
  "validity": {
@@ -138,7 +175,13 @@
   "events_written": 7,
   "mode_source": "autopilot_log_vehicle_status",
   "unmapped_event_names": [],
-  "raw_retained_at": "runs/fixture-valid-001/raw.jsonl"
+  "raw_retained_at": "runs/fixture-valid-001/raw.jsonl",
+  "intended_mode_source": "case",
+  "instants_by_source": {
+   "vehicle_observation": 5,
+   "autopilot_log": 2,
+   "host_reconstructed": 0
+  }
  },
  "stages": [
   {

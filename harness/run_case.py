@@ -218,6 +218,9 @@ def main(argv=None) -> int:
         raw.write(json.dumps(d) + "\n")
         raw.flush()
 
+    # The intended mode belongs in the case, not bolted onto the manifest after normalisation: re-normalising a
+    # stored Auto Loiter capture used to silently become the Offboard case (critique 2026-09-24, F2/TASK 2).
+    case["intended_mode"] = a.intended_mode
     (out / "case.json").write_text(json.dumps(case, indent=1) + "\n")
     log(dict(kind="case_resolved", case_id=case["case_id"]))
     if a.dry_run:
@@ -395,7 +398,6 @@ def main(argv=None) -> int:
             tail.write(json.dumps(dict(kind="stages", stages=stages)) + "\n")
 
     trace = build_trace(out, case, MATRIX)
-    trace["manifest"]["intended_mode"] = a.intended_mode
     trace.setdefault("stages", []).append(dict(stage="normalization",
                                                status="ok" if trace["validity"]["valid"] else "failed",
                                                evidence=str(out / "trace.json"), detail={}))

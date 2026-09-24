@@ -115,7 +115,7 @@
    "name": "action flapping",
    "natural_language": "The selected action leaves and re-enters a recovery function more than once within the window while the hazard has not cleared.",
    "window_s": 10.0,
-   "window_basis": "COM_DL_LOSS_T default 10 s [B10]; windowed-oracle form follows S2's 7 s route-deviation oracle [B11]",
+   "window_basis": "COM_DL_LOSS_T default 10 s [B10]; windowed-oracle form follows S2's 7 s route-deviation oracle [B11] \u2014 2026-09-24: this is a chosen study parameter. COM_DL_LOSS_T's default motivates the magnitude; it does not justify 10 s as the oscillation window, and no source does.",
    "source": [
     "framework.cpp L121-141 (updateStartDelay increases the delay slower than it reduces it, i.e. the code already treats oscillation as a hazard)",
     "framework.cpp L397-416 (removeAction / clear conditions)"
@@ -167,7 +167,19 @@
    ],
    "witness_format": "hazard rise time, expected terminal mode, and the horizon at which it was not reached",
    "replayable_in_sitl": true,
-   "known_limitations": "Depends on the continuous manoeuvre-time estimate; if the interval abstraction is not conservative for a configuration, the property is inconclusive rather than violated."
+   "known_limitations": "Depends on the continuous manoeuvre-time estimate; if the interval abstraction is not conservative for a configuration, the property is inconclusive rather than violated.",
+   "known_defect_2026_09_24": {
+    "what": "`expected_manoeuvre_time` is computed by dividing the return distance by the SIH speed limits. A maximum speed gives the LEAST time a manoeuvre can take, so this is a lower bound used as a deadline, not an upper bound. Every run flying at less than full speed would violate the property.",
+    "consequence": "U4 must not be evaluated against measured runs until the bound is replaced.",
+    "status": "open; the replacement is a protocol amendment and belongs with the rest of the F5 property rewrite",
+    "source": "critique 2026-09-24, F5/U4; the review called it 'not conservative', which understates it"
+   },
+   "known_defect_terminal_modes": {
+    "what": "`terminal_modes` lists AUTO_LOITER, which is the mode a run may already be flying before injection. A generic terminal list lets the pre-existing mode satisfy an RTL obligation.",
+    "consequence": "entry into the intended response mode must be stated per timeline, not drawn from this list",
+    "status": "open; harness/verify.py already compares the per-timeline expected sequence and does not use this list",
+    "source": "critique 2026-09-24, F5/U4"
+   }
   }
  ],
  "not_properties": [
