@@ -1,9 +1,9 @@
 {
  "schema_version": "2026-09-22",
- "status": "reading list with verified identifiers; NOT a set of findings",
+ "status": "reading list with recorded identifiers; NOT a set of findings. A resolved identifier is not the same as the intended work: see identity_vocabulary and literature/identity-audit.json.",
  "access_vocabulary": {
   "inspected_earlier": "read in full during the prior-art packet; findings live in docs/day3-reading-records.json",
-  "metadata_only": "identifier and metadata verified, text NOT read, so nothing is claimed about its contents",
+  "metadata_only": "an identifier and its registry metadata were recorded, text NOT read, so nothing is claimed about its contents; this says nothing about whether the identifier names the work the entry was selected for",
   "identifier_unresolved": "the work is named but no identifier was verified; it stays on the list as unresolved"
  },
  "entries": [
@@ -18,7 +18,12 @@
    "title": "PGFuzz: Policy-Guided Fuzzing for Robotic Vehicles",
    "year": 2021,
    "venue": "NDSS",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L02",
@@ -30,7 +35,12 @@
    "title": "RVFuzzer: Finding Input Validation Bugs in Robotic Vehicles through Control-Guided Testing",
    "year": 2019,
    "venue": "USENIX Security",
-   "identifier_source": "USENIX page resolved HTTP 200 on 2026-09-22; no Crossref DOI exists"
+   "identifier_source": "USENIX page resolved HTTP 200 on 2026-09-22; no Crossref DOI exists",
+   "identity": {
+    "identifier_resolved": "not_machine_resolvable",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L03",
@@ -43,7 +53,12 @@
    "title": "Control parameters considered harmful",
    "year": 2022,
    "venue": "Proceedings of the 44th International Conference on Software Engineering",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L04",
@@ -56,7 +71,12 @@
    "title": "PGPatch: Policy-Guided Logic Bug Patching for Robotic Vehicles",
    "year": 2022,
    "venue": "IEEE S&P",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L05",
@@ -68,7 +88,12 @@
    "title": "PatchVerif: Discovering Faulty Patches in Robotic Vehicles",
    "year": 2023,
    "venue": "USENIX Security",
-   "identifier_source": "USENIX page resolved HTTP 200 on 2026-09-22; no Crossref DOI exists"
+   "identifier_source": "USENIX page resolved HTTP 200 on 2026-09-22; no Crossref DOI exists",
+   "identity": {
+    "identifier_resolved": "not_machine_resolvable",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L06",
@@ -80,7 +105,12 @@
    "title": "Mayday: Identifying the Root Causes of Robotic Vehicle Accidents",
    "year": 2020,
    "venue": "USENIX Security, to confirm",
-   "identifier_source": "not resolved: absent from Crossref, and the guessed USENIX slug returned 404"
+   "identifier_source": "not resolved: absent from Crossref, and the guessed USENIX slug returned 404",
+   "identity": {
+    "identifier_resolved": "unresolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L07",
@@ -92,7 +122,12 @@
    "title": "RVPLAYER: Robotic Vehicle Forensics by Replay with What-if Reasoning",
    "year": 2022,
    "venue": "Proceedings 2022 Network and Distributed System Security Symposium",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L08",
@@ -104,7 +139,12 @@
    "title": "Cyber-Physical Inconsistency Vulnerability Identification for Safety Checks in Robotic Vehicles",
    "year": 2020,
    "venue": "Proceedings of the 2020 ACM SIGSAC Conference on Computer and Communications Security",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L09",
@@ -116,7 +156,12 @@
    "title": "RoboFuzz: fuzzing robotic systems over robot operating system (ROS) for finding correctness bugs",
    "year": 2022,
    "venue": "Proceedings of the 30th ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L10",
@@ -128,7 +173,12 @@
    "title": "CPFuzz: Combining Fuzzing and Falsification of Cyber-Physical Systems",
    "year": 2020,
    "venue": "IEEE Access",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L11",
@@ -140,7 +190,12 @@
    "title": "Fuzzing of Embedded Systems: A Survey",
    "year": 2022,
    "venue": "ACM Computing Surveys",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L12",
@@ -153,7 +208,12 @@
    "title": "RouthSearch: Inferring PID Parameter Specification for Flight Control Program by Coordinate Search",
    "year": 2025,
    "venue": "ISSTA",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L13",
@@ -166,7 +226,12 @@
    "title": "ADGFuzz: Assignment Dependency-Guided Fuzzing for Robotic Vehicles",
    "year": 2026,
    "venue": "NDSS",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L14",
@@ -179,7 +244,12 @@
    "title": "UAVConfigFuzzer: Detecting Incorrect Configurations in UAVs via Setpoint Estimation Guided Fuzzing",
    "year": 2026,
    "venue": "FUZZING Workshop",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L15",
@@ -191,7 +261,12 @@
    "title": "Software model checking: extracting verification models from source code\u2020",
    "year": 2001,
    "venue": "Software Testing, Verification and Reliability",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L16",
@@ -204,7 +279,12 @@
    "title": "Avis: In-Situ Model Checking for Unmanned Aerial Vehicles",
    "year": 2021,
    "venue": "arXiv",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L17",
@@ -216,7 +296,12 @@
    "title": "Finding Security Vulnerabilities in Unmanned Aerial Vehicles Using Software Verification",
    "year": 2019,
    "venue": "arXiv",
-   "identifier_source": "present in this project's own 2026-09-22 export"
+   "identifier_source": "present in this project's own 2026-09-22 export",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L18",
@@ -228,7 +313,12 @@
    "title": "QP Based Framework for Development and Formal Verification of Flight Control Software of UAV",
    "year": 2011,
    "venue": "Lecture Notes in Computer Science",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L19",
@@ -240,7 +330,12 @@
    "title": "Verifying the Mathematical Library of an UAV Autopilot with Frama-C",
    "year": 2021,
    "venue": "Lecture Notes in Computer Science",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L20",
@@ -253,7 +348,12 @@
    "title": "Formal verification of an UAV autopilot: Static analysis and Verified Code Generation",
    "year": 2023,
    "venue": "thesis",
-   "identifier_source": "present in the 2026-09-11 canonical export and in this one"
+   "identifier_source": "present in the 2026-09-11 canonical export and in this one",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L21",
@@ -265,7 +365,12 @@
    "title": "Model Checking Based Unmanned Aerial Vehicle (UAV) Security Analysis",
    "year": 2021,
    "venue": "2020 International Conference on Communications, Signal Processing, and their Applications (ICCSPA)",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L22",
@@ -277,7 +382,12 @@
    "title": "Model Checking Embedded C Software Using k-Induction and Invariants",
    "year": 2015,
    "venue": "2015 Brazilian Symposium on Computing Systems Engineering (SBESC)",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L23",
@@ -290,7 +400,12 @@
    "title": "Applying Formal Methods to Build a Safe Continuous-Control Architecture for an Unmanned Aerial Vehicle",
    "year": 2023,
    "venue": "preprint",
-   "identifier_source": "prior-art intake row 265, open access"
+   "identifier_source": "prior-art intake row 265, open access",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L24",
@@ -302,7 +417,12 @@
    "title": "A theory of timed automata",
    "year": 1994,
    "venue": "Theoretical Computer Science",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L25",
@@ -314,7 +434,12 @@
    "title": "UPPAAL\u2014a Tool Suite for Automatic Verification of Real\u2013Time Systems",
    "year": 1996,
    "venue": "BRICS Report Series",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L26",
@@ -326,7 +451,12 @@
    "title": "A comprehensive survey of UPPAAL\u2010assisted formal modeling and verification",
    "year": 2024,
    "venue": "Software: Practice and Experience",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L27",
@@ -338,7 +468,12 @@
    "title": "What's Decidable about Hybrid Automata?",
    "year": 1998,
    "venue": "Journal of Computer and System Sciences",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L28",
@@ -350,7 +485,12 @@
    "title": "An Introduction to Hybrid Automata",
    "year": 2005,
    "venue": "Handbook of Networked and Embedded Control Systems",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L29",
@@ -362,7 +502,12 @@
    "title": "UPPAAL-SMC: Statistical Model Checking for Priced Timed Automata",
    "year": 2012,
    "venue": "Electronic Proceedings in Theoretical Computer Science",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L30",
@@ -374,7 +519,12 @@
    "title": "Modeling R^3 Needle Steering in Uppaal",
    "year": 2022,
    "venue": "Electronic Proceedings in Theoretical Computer Science",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L31",
@@ -386,7 +536,12 @@
    "title": "Combining BMC and Fuzzing Techniques for Finding Software Vulnerabilities in Concurrent Programs",
    "year": 2022,
    "venue": "IEEE Access",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L32",
@@ -394,11 +549,24 @@
    "access": "metadata_only",
    "why_selected": "The simplex architecture: safety controller, complex controller, switch. The pattern PX4's failsafe framework instantiates.",
    "what_it_would_settle": "The canonical vocabulary and the assumptions the pattern needs, which the unsafe-state definition leans on.",
-   "identifier": "doi:10.70675/fd34825eza23fz4a6az9dc2zeed4a5eb5536",
-   "title": "Simplicity and complexity in cell cycle control",
-   "year": null,
-   "venue": "",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier": "doi:10.1109/MS.2001.936213",
+   "title": "Using simplicity to control complexity",
+   "year": 2001,
+   "venue": "IEEE Software",
+   "identifier_source": "Crossref DOI lookup of 10.1109/MS.2001.936213, 2026-09-24: Lui Sha, IEEE Software, 2001-07",
+   "quarantined_identifier": {
+    "identifier": "doi:10.70675/fd34825eza23fz4a6az9dc2zeed4a5eb5536",
+    "title": "Simplicity and complexity in cell cycle control",
+    "what_it_actually_is": "a Universite de Rennes thesis on cell-cycle control in fission yeast (Feriel Baidi, 2016)",
+    "how_it_got_here": "the 2026-09-22 Crossref bibliographic query for the Simplex paper's title returned this record first and the title was accepted without comparing it to why_selected",
+    "found_by": "owner review, 2026-09-24",
+    "kept_because": "the erroneous acquisition is part of the record; deleting it would hide how the register failed"
+   },
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "corrected",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L33",
@@ -410,7 +578,12 @@
    "title": "Dynamic control system upgrade using the Simplex architecture",
    "year": 1998,
    "venue": "IEEE Control Systems",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L34",
@@ -422,7 +595,12 @@
    "title": "Toward run-time assurance in general aviation and unmanned aircraft vehicle autopilots",
    "year": 2016,
    "venue": "2016 IEEE/AIAA 35th Digital Avionics Systems Conference (DASC)",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L35",
@@ -434,7 +612,12 @@
    "title": "Run-Time Assurance: A Rising Technology",
    "year": 2020,
    "venue": "2020 AIAA/IEEE 39th Digital Avionics Systems Conference (DASC)",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L36",
@@ -446,7 +629,12 @@
    "title": "Initial considerations of a multi-layered run time assurance approach to enable unpiloted aircraft",
    "year": 2018,
    "venue": "2018 IEEE Aerospace Conference",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L37",
@@ -458,7 +646,12 @@
    "title": "Monitoring with verified guarantees",
    "year": 2023,
    "venue": "International Journal on Software Tools for Technology Transfer",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L38",
@@ -470,7 +663,12 @@
    "title": "Systematic review on contract-based safety assurance and guidance for future research",
    "year": 2024,
    "venue": "Journal of Systems Architecture",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L39",
@@ -483,7 +681,12 @@
    "title": "A Safety-Driven Architectural Framework for Fail-Operational Drone Swarms",
    "year": 2026,
    "venue": "arXiv",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L40",
@@ -495,7 +698,12 @@
    "title": "System-Level Safety Engineering of Unmanned Aircraft Operations: Incident-Derived Requirements for Control, Feedback, and Recovery",
    "year": 2026,
    "venue": "",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L41",
@@ -507,7 +715,12 @@
    "title": "Model-based System Health Management and Contingency Planning for Autonomous UAS",
    "year": 2019,
    "venue": "AIAA Scitech 2019 Forum",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L42",
@@ -520,7 +733,12 @@
    "title": "Reconfigurable Mission Plans for RPAS",
    "year": 2019,
    "venue": "Aerospace Science and Technology",
-   "identifier_source": "2026-09-11 canonical export row 227"
+   "identifier_source": "2026-09-11 canonical export row 227",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L43",
@@ -530,10 +748,23 @@
    "what_it_would_settle": "Nothing further; read.",
    "relates_to_repository_record": "U10",
    "identifier": "arxiv:2608.06648",
-   "title": "Plan-and-Avoid: conflict-aware contingency landing planning",
+   "title": "Plan-and-Avoid: Real-Time Aircraft Trajectory Coordination in a Multi-Agent Environment",
    "year": 2026,
    "venue": "arXiv",
-   "identifier_source": "repository reading record"
+   "identifier_source": "repository reading record",
+   "quarantined_identifier": {
+    "identifier": "arxiv:2608.06648",
+    "title": "Plan-and-Avoid: conflict-aware contingency landing planning",
+    "what_it_actually_is": "the same arXiv work; only the recorded title was wrong",
+    "how_it_got_here": "the title field was filled from the reading record's summary instead of the paper's title page",
+    "found_by": "literature/audit_identity.py, 2026-09-24 (word overlap 0.188 against the arXiv title)",
+    "kept_because": "the register should show that a title can drift even when the identifier is sound"
+   },
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "corrected",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L44",
@@ -546,7 +777,12 @@
    "title": "JARUS guidelines on Specific Operations Risk Assessment, edition 2.5",
    "year": 2024,
    "venue": "JARUS",
-   "identifier_source": "repository baseline register"
+   "identifier_source": "repository baseline register",
+   "identity": {
+    "identifier_resolved": "not_machine_resolvable",
+    "intended_work_matched": "verified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L45",
@@ -558,7 +794,12 @@
    "title": "A feature interaction benchmark for the first feature interaction detection contest",
    "year": 2000,
    "venue": "Computer Networks",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L46",
@@ -570,7 +811,12 @@
    "title": "Using model checking to help discover mode confusions and other automation surprises",
    "year": 2002,
    "venue": "Reliability Engineering &amp; System Safety",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L47",
@@ -582,7 +828,12 @@
    "title": "What\u2019s in a Feature: A Requirements Engineering Perspective",
    "year": null,
    "venue": "Lecture Notes in Computer Science",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L48",
@@ -594,7 +845,12 @@
    "title": "Formal semantic conflict detection in aspect-oriented requirements",
    "year": 2009,
    "venue": "Requirements Engineering",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L49",
@@ -606,7 +862,12 @@
    "title": "Retrenching partial requirements into system definitions: a simple feature interaction case study",
    "year": 2003,
    "venue": "Requirements Engineering",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L50",
@@ -618,7 +879,12 @@
    "title": "Automating integration under emergent constraints for embedded systems",
    "year": 2021,
    "venue": "SICS Software-Intensive Cyber-Physical Systems",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L51",
@@ -630,7 +896,12 @@
    "title": "Synergistic Allocation of Flight Expertise on the Flight Deck (SAFEdeck): A Design Concept to Combat Mode Confusion, Complacency, and Skill Loss in the Flight Deck",
    "year": 2016,
    "venue": "Advances in Intelligent Systems and Computing",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L52",
@@ -642,7 +913,12 @@
    "title": "An Empirical Analysis of the Use of Real-Time Reachability for the Safety Assurance of Autonomous Vehicles",
    "year": 2023,
    "venue": "",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L53",
@@ -654,7 +930,12 @@
    "title": "Developement of SITL &amp; HITL System based on PX4-Matlab for VTOL Test",
    "year": 2024,
    "venue": "Journal of KIISE",
-   "identifier_source": "Crossref bibliographic query, 2026-09-22"
+   "identifier_source": "Crossref bibliographic query, 2026-09-22",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L54",
@@ -666,7 +947,12 @@
    "title": "Multi-Agent Safety Verification using Symmetry Transformations",
    "year": 2019,
    "venue": "arXiv",
-   "identifier_source": "present in this project's own 2026-09-22 export"
+   "identifier_source": "present in this project's own 2026-09-22 export",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   },
   {
    "id": "L55",
@@ -678,7 +964,20 @@
    "title": "A Distributed Simplex Architecture for Multi-Agent Systems",
    "year": 2020,
    "venue": "arXiv",
-   "identifier_source": "present in this project's own 2026-09-22 export"
+   "identifier_source": "present in this project's own 2026-09-22 export",
+   "identity": {
+    "identifier_resolved": "resolved",
+    "intended_work_matched": "unverified",
+    "checked_on": "2026-09-24"
+   }
   }
- ]
+ ],
+ "identity_vocabulary": {
+  "why": "One flag used to carry five different meanings. L32 resolved cleanly, matched its own recorded title, and was still a cell-biology thesis standing in for a Simplex reference, because nothing compared the work against the reason it was selected. These are now separate fields.",
+  "identifier_resolved": "resolved | unresolved | not_machine_resolvable - does the identifier name any work",
+  "intended_work_matched": "verified | unverified | corrected - was the resolved work checked against why_selected by a person; `unverified` is the honest default, not a failure",
+  "claim_supported": "never recorded here; a register entry supports no claim. Findings live in docs/day3-reading-records.json",
+  "topical_eligibility": "carried by `axis`, not duplicated here",
+  "access_scope": "carried by `access`, not duplicated here"
+ }
 }

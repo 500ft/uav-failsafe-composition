@@ -8,7 +8,7 @@ When a fleet loses command authority over one vehicle, that vehicle follows its 
 
 The research unit is **autopilot + firmware + airframe + complete parameter configuration**. The first experiment is a single-vehicle simulator comparison; fleet composition is a later, conditional study.
 
-The current implementation validates research metadata and source provenance. It does not yet run an autopilot, construct a measured recovery tube, or establish a safety guarantee.
+The implementation validates research metadata and source provenance, and since 2026-09-20 it also builds and flies a pinned PX4 in SIH/SITL and captures the run. It does not construct a measured recovery tube or establish a safety guarantee. The runs so far are diagnostic development runs, not results: no configured failsafe action has yet been observed, which is the open problem, and the confirmation campaign is held.
 
 ## What to inspect first
 
@@ -29,7 +29,7 @@ The current implementation validates research metadata and source provenance. It
 | Future run identity | [Configuration schema](../protocols/configuration-manifest.schema.json), [example](../protocols/example-configuration-manifest.json) | The example is explicitly `planned-example`, not an executed run |
 | Executable checks | [Scripts](../scripts/), [tests](../tests/), [CI](../.github/workflows/ci.yml) | Schema, documentation, and acquisition-integrity checks |
 | Verification record | [Day-3 evidence](../evidence/task-day3-2026-09-09/README.md) | Commands, baseline, limitations, and software outputs |
-| Future study outputs | [Data contract](../data/README.md), [results notice](../results/README.md) | No experimental or simulation results are available |
+| Study outputs | [Data contract](../data/README.md), [results notice](../results/README.md) | No study result is available; diagnostic development runs exist outside git and are re-derivable from their raw captures |
 
 The acquisition ledger preserves all 402 raw day-2 records and the 12 day-1 source entries. Ninety raw rows lack successful query-log support. Normalized identifiers are not a count of distinct studies, and unread records do not become reviewed through deduplication. Recall is deliberately null.
 

@@ -104,7 +104,8 @@
    "expected_hazard_flag": null,
    "expected_actions": [],
    "expected_mode_sequence": [],
-   "terminal": "OFFBOARD held to the horizon"
+   "terminal": "OFFBOARD held to the horizon",
+   "intended_mode": "offboard"
   },
   {
    "id": "T3",
@@ -223,6 +224,29 @@
    ],
    "terminal": "AUTO_RTL is a registered terminal mode.",
    "if_refuted": "If this also produces no action, the effect is not specific to Offboard and the remaining candidates are that checkStateAndMode never runs, or that the framework sees a different armed state or a different flags instance than the one published to the log."
+  },
+  {
+   "id": "T6",
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+   "event": "none",
+   "development_case": true,
+   "parameters_used": {
+    "NAV_DLL_ACT": 2,
+    "COM_DL_LOSS_T": 10,
+    "COM_FAIL_ACT_T": 5.0
+   },
+   "hand_derivation": [
+    "No input is removed and no failure is injected, so no monitor is breached and no action is registered.",
+    "A run that takes off under AUTO_TAKEOFF leaves it for AUTO_LOITER once the takeoff altitude is reached, there being no mission to run. The harness records takeoff_complete from the altitude threshold, which it crosses slightly earlier, so that one transition falls inside the observation window and is expected.",
+    "Nothing after it is expected: the vehicle holds AUTO_LOITER to the horizon."
+   ],
+   "expected_hazard_flag": null,
+   "expected_actions": [],
+   "expected_mode_sequence": [
+    "AUTO_LOITER"
+   ],
+   "terminal": "AUTO_LOITER held to the horizon",
+   "intended_mode": "auto_loiter"
   }
  ],
  "falsifiable_difference": "T1 and T2 differ in exactly one parameter. If the observed runs do not differ by the presence of the AUTO_LOITER step and a 5 s shift of AUTO_RTL, then either the parameter did not take effect or the derivation is wrong; both are reportable outcomes and neither is repaired after the fact. T3 is the discriminator for the refutation those two produced: same action, different parameter and monitor."

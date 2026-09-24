@@ -1,463 +1,532 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/500ft/uav-failsafe-composition/protocols/trace-schema.json",
-  "title": "Normalised authority-loss trace and manifest (URC-03, 2026-09-16)",
-  "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "schema_version",
-    "manifest",
-    "clock",
-    "events",
-    "samples",
-    "validity",
-    "conversion",
-    "stages"
-  ],
-  "properties": {
-    "schema_version": {
-      "const": "2026-09-16"
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://github.com/500ft/uav-failsafe-composition/protocols/trace-schema.json",
+ "title": "Normalised authority-loss trace and manifest (URC-03, 2026-09-24)",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "schema_version",
+  "manifest",
+  "clock",
+  "events",
+  "samples",
+  "validity",
+  "conversion",
+  "stages"
+ ],
+ "properties": {
+  "schema_version": {
+   "const": "2026-09-24",
+   "description": "Bumped from 2026-09-16 by the measurement repair. Traces at the earlier version carry no clock provenance and reconstruct the injection instant from host time; they are kept as the historical derivation and are not validated against this schema."
+  },
+  "manifest": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "configuration_id",
+    "firmware_commit",
+    "firmware_tag",
+    "airframe",
+    "simulator",
+    "lockstep",
+    "parameters_sha256",
+    "seed",
+    "injection",
+    "run_id",
+    "evidence_state",
+    "intended_mode"
+   ],
+   "properties": {
+    "configuration_id": {
+     "type": "string",
+     "minLength": 1
     },
-    "manifest": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "configuration_id",
-        "firmware_commit",
-        "firmware_tag",
-        "airframe",
-        "simulator",
-        "lockstep",
-        "parameters_sha256",
-        "seed",
-        "injection",
-        "run_id",
-        "evidence_state"
-      ],
-      "properties": {
-        "configuration_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "firmware_commit": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{40}$"
-        },
-        "firmware_tag": {
-          "type": "string"
-        },
-        "airframe": {
-          "type": "string"
-        },
-        "simulator": {
-          "enum": [
-            "sihsim",
-            "gazebo",
-            "jmavsim"
-          ]
-        },
-        "lockstep": {
-          "type": "boolean"
-        },
-        "parameters_sha256": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
-        },
-        "seed": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "injection": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "class",
-            "method",
-            "scheduled_t_s"
-          ],
-          "properties": {
-            "class": {
-              "enum": [
-                "offboard_loss",
-                "datalink_loss",
-                "rc_loss",
-                "gps_loss",
-                "battery_low",
-                "battery_critical",
-                "battery_emergency",
-                "geofence_breach",
-                "none"
-              ]
-            },
-            "method": {
-              "enum": [
-                "stream_stopped",
-                "heartbeat_stopped",
-                "failure_injection",
-                "fence_upload_and_fly_out",
-                "none"
-              ]
-            },
-            "scheduled_t_s": {
-              "type": "number",
-              "minimum": 0
-            },
-            "restore_t_s": {
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0
-            }
-          }
-        },
-        "run_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "evidence_state": {
-          "enum": [
-            "simulation"
-          ]
-        },
-        "intended_mode": {
-          "enum": [
-            "offboard",
-            "auto_loiter"
-          ]
-        }
+    "firmware_commit": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{40}$"
+    },
+    "firmware_tag": {
+     "type": "string"
+    },
+    "airframe": {
+     "type": "string"
+    },
+    "simulator": {
+     "enum": [
+      "sihsim",
+      "gazebo",
+      "jmavsim"
+     ]
+    },
+    "lockstep": {
+     "type": "boolean"
+    },
+    "parameters_sha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "seed": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "injection": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "class",
+      "method",
+      "scheduled_t_s"
+     ],
+     "properties": {
+      "class": {
+       "enum": [
+        "offboard_loss",
+        "datalink_loss",
+        "rc_loss",
+        "gps_loss",
+        "battery_low",
+        "battery_critical",
+        "battery_emergency",
+        "geofence_breach",
+        "none"
+       ]
+      },
+      "method": {
+       "enum": [
+        "stream_stopped",
+        "heartbeat_stopped",
+        "failure_injection",
+        "fence_upload_and_fly_out",
+        "none"
+       ]
+      },
+      "scheduled_t_s": {
+       "type": "number",
+       "minimum": 0
+      },
+      "restore_t_s": {
+       "type": [
+        "number",
+        "null"
+       ],
+       "minimum": 0
       }
+     }
     },
-    "clock": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "host_to_vehicle_offset_s",
-        "offset_samples"
+    "run_id": {
+     "type": "string",
+     "minLength": 1
+    },
+    "evidence_state": {
+     "enum": [
+      "simulation"
+     ]
+    },
+    "intended_mode": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "The mode the run asked the vehicle to fly before injection, or null when the capture does not record it. Never defaulted: a missing intended mode makes verification unverified, because an Auto Loiter run silently read as the Offboard case compares the wrong timeline."
+    }
+   }
+  },
+  "clock": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "host_to_vehicle_offset_s",
+    "offset_samples"
+   ],
+   "properties": {
+    "host_to_vehicle_offset_s": {
+     "type": "number"
+    },
+    "offset_samples": {
+     "type": "integer",
+     "minimum": 1
+    },
+    "offset_spread_s": {
+     "type": "number",
+     "minimum": 0
+    },
+    "offset_estimator": {
+     "type": "string"
+    }
+   }
+  },
+  "events": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "name",
+     "t_vehicle_s",
+     "t_host_s",
+     "t_source"
+    ],
+    "properties": {
+     "name": {
+      "enum": [
+       "arm",
+       "takeoff_complete",
+       "last_valid_setpoint",
+       "last_heartbeat_sent",
+       "injection",
+       "hazard_flag",
+       "failsafe_notice",
+       "hold_delay_start",
+       "hold_delay_end",
+       "native_transition",
+       "terminal_state",
+       "horizon_reached",
+       "reconnect_event",
+       "failsafe_state"
+      ]
+     },
+     "t_vehicle_s": {
+      "type": "number",
+      "minimum": 0
+     },
+     "t_host_s": {
+      "type": "number",
+      "minimum": 0
+     },
+     "detail": {
+      "type": "object"
+     },
+     "t_source": {
+      "enum": [
+       "vehicle_observation",
+       "autopilot_log",
+       "host_reconstructed"
       ],
-      "properties": {
-        "host_to_vehicle_offset_s": {
-          "type": "number"
-        },
-        "offset_samples": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "offset_spread_s": {
-          "type": "number",
-          "minimum": 0
-        },
-        "offset_estimator": {
-          "type": "string"
-        }
-      }
-    },
-    "events": {
+      "description": "Where t_vehicle_s came from. `vehicle_observation` and `autopilot_log` are readings of the vehicle's own clock. `host_reconstructed` is host time minus the median offset, an estimate: it may not be compared with a vehicle-clock instant without its interval."
+     },
+     "t_vehicle_interval_s": {
       "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
       "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "name",
-          "t_vehicle_s",
-          "t_host_s"
-        ],
-        "properties": {
-          "name": {
-            "enum": [
-              "arm",
-              "takeoff_complete",
-              "last_valid_setpoint",
-              "last_heartbeat_sent",
-              "injection",
-              "hazard_flag",
-              "failsafe_notice",
-              "hold_delay_start",
-              "hold_delay_end",
-              "native_transition",
-              "terminal_state",
-              "horizon_reached",
-              "reconnect_event"
-            ]
-          },
-          "t_vehicle_s": {
-            "type": "number",
-            "minimum": 0
-          },
-          "t_host_s": {
-            "type": "number",
-            "minimum": 0
-          },
-          "detail": {
-            "type": "object"
-          }
-        }
-      }
-    },
-    "samples": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "t_vehicle_s",
-          "t_host_s",
-          "nav_state",
-          "armed"
-        ],
-        "properties": {
-          "t_vehicle_s": {
-            "type": "number",
-            "minimum": 0
-          },
-          "t_host_s": {
-            "type": "number",
-            "minimum": 0
-          },
-          "nav_state": {
-            "type": "string"
-          },
-          "armed": {
-            "type": "boolean"
-          },
-          "selected_action": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "hazard_flags": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "boolean"
-            }
-          },
-          "pos_ned_m": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "type": "number"
-            },
-            "minItems": 3,
-            "maxItems": 3
-          },
-          "vel_ned_mps": {
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "type": "number"
-            },
-            "minItems": 3,
-            "maxItems": 3
-          },
-          "lat_deg": {
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "lon_deg": {
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "alt_amsl_m": {
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "battery_remaining": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "minimum": 0,
-            "maximum": 1
-          },
-          "statustext": {
-            "type": [
-              "string",
-              "null"
-            ]
-          }
-        }
-      }
-    },
-    "validity": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "valid",
-        "reasons"
-      ],
-      "properties": {
-        "valid": {
-          "type": "boolean"
-        },
-        "reasons": {
-          "type": "array",
-          "items": {
-            "enum": [
-              "simulator_crash",
-              "injection_before_takeoff",
-              "no_vehicle_heartbeat_2s",
-              "stationary_before_injection",
-              "lockstep_desync",
-              "log_gap",
-              "schema_failure"
-            ]
-          }
-        }
-      }
-    },
-    "stages": {
-      "type": "array",
-      "description": "One record per pipeline stage (section 12 item 7). A returning call is not completion.",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "stage",
-          "status"
-        ],
-        "properties": {
-          "stage": {
-            "enum": [
-              "launch",
-              "configuration_applied",
-              "normal_tracking",
-              "injection",
-              "capture",
-              "normalization",
-              "comparison"
-            ]
-          },
-          "status": {
-            "enum": [
-              "ok",
-              "failed",
-              "skipped",
-              "timed_out"
-            ]
-          },
-          "evidence": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "detail": {
-            "type": "object"
-          }
-        }
-      }
-    },
-    "conversion": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "Counts that let a reader see the normaliser preserved the raw observations (section 12 item 6).",
-      "required": [
-        "raw_lines",
-        "raw_vehicle_messages",
-        "samples_written",
-        "events_written",
-        "mode_source"
-      ],
-      "properties": {
-        "raw_lines": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "raw_vehicle_messages": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "samples_written": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "events_written": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "mode_source": {
-          "enum": [
-            "autopilot_log_vehicle_status",
-            "mavlink_heartbeat"
-          ]
-        },
-        "unmapped_event_names": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "raw_retained_at": {
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      }
-    },
-    "verification": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "Whether the behaviour was verified against an independent expectation (section 12 item 2). Execution status is never a pass.",
-      "required": [
-        "status",
-        "reasons"
-      ],
-      "properties": {
-        "status": {
-          "enum": [
-            "verified",
-            "unverified",
-            "refuted"
-          ]
-        },
-        "timeline_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "reasons": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "observed": {
-          "type": "object"
-        },
-        "expected": {
-          "type": "object"
-        },
-        "tolerance_s": {
-          "type": [
-            "number",
-            "null"
-          ]
-        }
-      }
-    },
-    "injection_observed_vehicle_s": {
-      "type": "number"
-    },
-    "streams_at_injection": {
+       "type": [
+        "number",
+        "null"
+       ]
+      },
+      "description": "Lower and upper vehicle-clock bound on this instant, from the nearest real vehicle-clock readings either side of it in host time. null on a side means no bounding observation exists there and the instant is unbounded in that direction."
+     }
+    }
+   }
+  },
+  "samples": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "t_vehicle_s",
+     "t_host_s",
+     "nav_state",
+     "armed",
+     "t_source"
+    ],
+    "properties": {
+     "t_vehicle_s": {
+      "type": "number",
+      "minimum": 0
+     },
+     "t_host_s": {
+      "type": "number",
+      "minimum": 0
+     },
+     "nav_state": {
+      "type": "string"
+     },
+     "armed": {
+      "type": "boolean"
+     },
+     "selected_action": {
+      "type": "string",
+      "description": "The failsafe framework's selected action, or the literal `unobserved`. PX4's Action::None is a value; not observing the selector is not. JSON null is no longer accepted here, because it was read as the action None (critique 2026-09-24, F3)."
+     },
+     "hazard_flags": {
       "type": "object",
       "additionalProperties": {
-        "type": "boolean"
+       "type": "boolean"
+      }
+     },
+     "pos_ned_m": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "number"
       },
-      "description": "Which input streams were still running when the event was injected (section 12 item 3, surviving publishers)."
+      "minItems": 3,
+      "maxItems": 3
+     },
+     "vel_ned_mps": {
+      "type": [
+       "array",
+       "null"
+      ],
+      "items": {
+       "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+     },
+     "lat_deg": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "lon_deg": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "alt_amsl_m": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "battery_remaining": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+     },
+     "statustext": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "t_source": {
+      "enum": [
+       "vehicle_observation",
+       "autopilot_log",
+       "host_reconstructed"
+      ],
+      "description": "Where t_vehicle_s came from. `vehicle_observation` and `autopilot_log` are readings of the vehicle's own clock. `host_reconstructed` is host time minus the median offset, an estimate: it may not be compared with a vehicle-clock instant without its interval."
+     }
     }
+   }
+  },
+  "validity": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "valid",
+    "reasons"
+   ],
+   "properties": {
+    "valid": {
+     "type": "boolean"
+    },
+    "reasons": {
+     "type": "array",
+     "items": {
+      "enum": [
+       "simulator_crash",
+       "injection_before_takeoff",
+       "no_vehicle_heartbeat_2s",
+       "stationary_before_injection",
+       "lockstep_desync",
+       "log_gap",
+       "schema_failure"
+      ]
+     }
+    }
+   }
+  },
+  "stages": {
+   "type": "array",
+   "description": "One record per pipeline stage (section 12 item 7). A returning call is not completion.",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "stage",
+     "status"
+    ],
+    "properties": {
+     "stage": {
+      "enum": [
+       "launch",
+       "configuration_applied",
+       "normal_tracking",
+       "injection",
+       "capture",
+       "normalization",
+       "comparison"
+      ]
+     },
+     "status": {
+      "enum": [
+       "ok",
+       "failed",
+       "skipped",
+       "timed_out"
+      ]
+     },
+     "evidence": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "detail": {
+      "type": "object"
+     }
+    }
+   }
+  },
+  "conversion": {
+   "type": "object",
+   "additionalProperties": false,
+   "description": "Counts that let a reader see the normaliser preserved the raw observations (section 12 item 6).",
+   "required": [
+    "raw_lines",
+    "raw_vehicle_messages",
+    "samples_written",
+    "events_written",
+    "mode_source"
+   ],
+   "properties": {
+    "raw_lines": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "raw_vehicle_messages": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "samples_written": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "events_written": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "mode_source": {
+     "enum": [
+      "autopilot_log_vehicle_status",
+      "mavlink_heartbeat"
+     ]
+    },
+    "unmapped_event_names": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "raw_retained_at": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "intended_mode_source": {
+     "enum": [
+      "case",
+      "raw_capture_do_set_mode",
+      "unavailable"
+     ]
+    },
+    "instants_by_source": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "integer",
+      "minimum": 0
+     },
+     "description": "How many events carry each clock provenance, so a reader can see how much of a trace is estimated."
+    }
+   }
+  },
+  "verification": {
+   "type": "object",
+   "additionalProperties": false,
+   "description": "Whether the behaviour was verified against an independent expectation (section 12 item 2). Execution status is never a pass. `unverified` means the comparison could not be made (identity, validity or a missing channel); `inconclusive` means an observed instant's uncertainty straddles the deadline; only `refuted` is a statement about the autopilot.",
+   "required": [
+    "status",
+    "reasons"
+   ],
+   "properties": {
+    "status": {
+     "enum": [
+      "verified",
+      "unverified",
+      "inconclusive",
+      "refuted"
+     ]
+    },
+    "timeline_id": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "reasons": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "observed": {
+     "type": "object"
+    },
+    "expected": {
+     "type": "object"
+    },
+    "tolerance_s": {
+     "type": [
+      "number",
+      "null"
+     ]
+    }
+   }
+  },
+  "injection_observed_vehicle_s": {
+   "type": "number"
+  },
+  "streams_at_injection": {
+   "type": "object",
+   "additionalProperties": {
+    "type": "boolean"
+   },
+   "description": "Which input streams were still running when the event was injected (section 12 item 3, surviving publishers)."
+  },
+  "flags_at_injection": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "t_vehicle_s",
+    "flags"
+   ],
+   "description": "Every failsafe flag's state at the first logged sample at or after injection: the state at window entry.",
+   "properties": {
+    "t_vehicle_s": {
+     "type": "number",
+     "minimum": 0
+    },
+    "flags": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "boolean"
+     }
+    }
+   }
   }
+ }
 }

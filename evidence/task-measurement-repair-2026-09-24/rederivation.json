@@ -1,0 +1,325 @@
+{
+ "derived_on": "2026-09-24",
+ "normaliser": "harness/trace.py at the 2026-09-24 measurement repair",
+ "source_of_truth": "raw.jsonl and flight.ulg in each run directory; stored derivations were not modified",
+ "rows": [
+  {
+   "run": "2026-09-20/rep1/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "intended_mode": null,
+   "intended_mode_source": "unavailable",
+   "old_status": null,
+   "new_status": "unverified",
+   "old_reasons": [],
+   "new_reasons": [
+    "run is invalid: simulator_crash",
+    "the capture does not record which mode was intended, so no timeline applies"
+   ],
+   "old_injection_t_vehicle_s": null,
+   "new_injection_t_vehicle_s": null,
+   "new_injection_t_source": null,
+   "old_mode_sequence": null,
+   "setup_mode_sequence": null,
+   "response_mode_sequence": null,
+   "instants_by_source": {
+    "vehicle_observation": 0,
+    "autopilot_log": 0,
+    "host_reconstructed": 0
+   },
+   "hazard_flag_edges": 0,
+   "old_hazard_t_rel_s": null,
+   "new_hazard_t_rel_s": null,
+   "old_offset_spread_s": null,
+   "new_offset_spread_s": 0.0
+  },
+  {
+   "run": "2026-09-20/rep2/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": null,
+   "new_status": "verified",
+   "old_reasons": [],
+   "new_reasons": [],
+   "old_injection_t_vehicle_s": null,
+   "new_injection_t_vehicle_s": null,
+   "new_injection_t_source": null,
+   "old_mode_sequence": null,
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 2,
+    "autopilot_log": 5,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 4,
+   "old_hazard_t_rel_s": null,
+   "new_hazard_t_rel_s": null,
+   "old_offset_spread_s": null,
+   "new_offset_spread_s": 10.2853
+  },
+  {
+   "run": "2026-09-20/rep3/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": null,
+   "new_status": "verified",
+   "old_reasons": [],
+   "new_reasons": [],
+   "old_injection_t_vehicle_s": null,
+   "new_injection_t_vehicle_s": null,
+   "new_injection_t_source": null,
+   "old_mode_sequence": null,
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 2,
+    "autopilot_log": 5,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 4,
+   "old_hazard_t_rel_s": null,
+   "new_hazard_t_rel_s": null,
+   "old_offset_spread_s": null,
+   "new_offset_spread_s": 9.6135
+  },
+  {
+   "run": "2026-09-20/rep4/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": null,
+   "new_status": "verified",
+   "old_reasons": [],
+   "new_reasons": [],
+   "old_injection_t_vehicle_s": null,
+   "new_injection_t_vehicle_s": null,
+   "new_injection_t_source": null,
+   "old_mode_sequence": null,
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 2,
+    "autopilot_log": 5,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 4,
+   "old_hazard_t_rel_s": null,
+   "new_hazard_t_rel_s": null,
+   "old_offset_spread_s": null,
+   "new_offset_spread_s": 9.6961
+  },
+  {
+   "run": "2026-09-20/rep5/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": null,
+   "new_status": "verified",
+   "old_reasons": [],
+   "new_reasons": [],
+   "old_injection_t_vehicle_s": null,
+   "new_injection_t_vehicle_s": null,
+   "new_injection_t_source": null,
+   "old_mode_sequence": null,
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 2,
+    "autopilot_log": 5,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 4,
+   "old_hazard_t_rel_s": null,
+   "new_hazard_t_rel_s": null,
+   "old_offset_spread_s": null,
+   "new_offset_spread_s": 9.5509
+  },
+  {
+   "run": "runs/2026-09-21/px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": "refuted",
+   "new_status": "refuted",
+   "old_reasons": [
+    "gcs_connection_lost rose at 11.93 s after injection, expected 10.0 s",
+    "mode sequence ['OFFBOARD'] does not match expected ['AUTO_RTL']"
+   ],
+   "new_reasons": [
+    "response mode sequence [] does not match expected ['AUTO_RTL'] (setup before injection was ['OFFBOARD'] and is excluded)"
+   ],
+   "old_injection_t_vehicle_s": 56.222,
+   "new_injection_t_vehicle_s": 56.74,
+   "new_injection_t_source": "vehicle_observation",
+   "old_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 3,
+    "autopilot_log": 6,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 5,
+   "old_hazard_t_rel_s": 11.93,
+   "new_hazard_t_rel_s": 11.412,
+   "old_offset_spread_s": 17.6937,
+   "new_offset_spread_s": 17.6937
+  },
+  {
+   "run": "runs/2026-09-21/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": "refuted",
+   "new_status": "refuted",
+   "old_reasons": [
+    "gcs_connection_lost rose at 12.525 s after injection, expected 10.0 s",
+    "mode sequence ['OFFBOARD'] does not match expected ['AUTO_LOITER', 'AUTO_RTL']"
+   ],
+   "new_reasons": [
+    "gcs_connection_lost rose at 12.008 s after injection, expected 10.0 s",
+    "response mode sequence [] does not match expected ['AUTO_LOITER', 'AUTO_RTL'] (setup before injection was ['OFFBOARD'] and is excluded)"
+   ],
+   "old_injection_t_vehicle_s": 55.727,
+   "new_injection_t_vehicle_s": 56.244,
+   "new_injection_t_source": "vehicle_observation",
+   "old_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 3,
+    "autopilot_log": 6,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 5,
+   "old_hazard_t_rel_s": 12.525,
+   "new_hazard_t_rel_s": 12.008,
+   "old_offset_spread_s": 17.9673,
+   "new_offset_spread_s": 17.9673
+  },
+  {
+   "run": "runs/2026-09-22/px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": "refuted",
+   "new_status": "refuted",
+   "old_reasons": [
+    "mode sequence ['OFFBOARD'] does not match expected ['TERMINATION']"
+   ],
+   "new_reasons": [
+    "response mode sequence [] does not match expected ['TERMINATION'] (setup before injection was ['OFFBOARD'] and is excluded)"
+   ],
+   "old_injection_t_vehicle_s": 55.952,
+   "new_injection_t_vehicle_s": 56.384,
+   "new_injection_t_source": "vehicle_observation",
+   "old_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 3,
+    "autopilot_log": 6,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 5,
+   "old_hazard_t_rel_s": 4.02,
+   "new_hazard_t_rel_s": 3.588,
+   "old_offset_spread_s": 17.0969,
+   "new_offset_spread_s": 17.0969
+  },
+  {
+   "run": "runs/2026-09-22/px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1",
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": "refuted",
+   "new_status": "refuted",
+   "old_reasons": [
+    "mode sequence ['OFFBOARD'] does not match expected ['AUTO_LOITER', 'AUTO_RTL']"
+   ],
+   "new_reasons": [
+    "response mode sequence [] does not match expected ['AUTO_LOITER', 'AUTO_RTL'] (setup before injection was ['OFFBOARD'] and is excluded)"
+   ],
+   "old_injection_t_vehicle_s": 55.41,
+   "new_injection_t_vehicle_s": 55.948,
+   "new_injection_t_source": "vehicle_observation",
+   "old_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "setup_mode_sequence": [
+    "OFFBOARD"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 3,
+    "autopilot_log": 6,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 5,
+   "old_hazard_t_rel_s": 4.522,
+   "new_hazard_t_rel_s": 3.984,
+   "old_offset_spread_s": 19.2916,
+   "new_offset_spread_s": 19.2916
+  },
+  {
+   "run": "runs/2026-09-23/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "intended_mode": "auto_loiter",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "old_status": "refuted",
+   "new_status": "refuted",
+   "old_reasons": [
+    "gcs_connection_lost rose at 12.1 s after injection, expected 10.0 s",
+    "mode sequence ['AUTO_TAKEOFF', 'AUTO_LOITER'] does not match expected ['AUTO_RTL']"
+   ],
+   "new_reasons": [
+    "gcs_connection_lost rose at 11.752 s after injection, expected 10.0 s",
+    "response mode sequence [] does not match expected ['AUTO_RTL'] (setup before injection was ['AUTO_TAKEOFF', 'AUTO_LOITER'] and is excluded)"
+   ],
+   "old_injection_t_vehicle_s": 57.78,
+   "new_injection_t_vehicle_s": 58.128,
+   "new_injection_t_source": "vehicle_observation",
+   "old_mode_sequence": [
+    "AUTO_TAKEOFF",
+    "AUTO_LOITER"
+   ],
+   "setup_mode_sequence": [
+    "AUTO_TAKEOFF",
+    "AUTO_LOITER"
+   ],
+   "response_mode_sequence": [],
+   "instants_by_source": {
+    "vehicle_observation": 3,
+    "autopilot_log": 6,
+    "host_reconstructed": 1
+   },
+   "hazard_flag_edges": 4,
+   "old_hazard_t_rel_s": 12.1,
+   "new_hazard_t_rel_s": 11.752,
+   "old_offset_spread_s": 11.4193,
+   "new_offset_spread_s": 11.4193
+  }
+ ]
+}

@@ -66,3 +66,31 @@ Frozen before any validation run: `1, 2, 3, 5, 8` for the single-event tier; `11
 ## What is not decided here
 
 Whether the formal-composition direction succeeds; anything about ArduPilot, hardware, HITL, flight, or fleets; the prior-art distinctiveness statement (URC-01 is partial and the formal axis is unsearched); and whether any confirmed interaction is reported upstream, which needs a separate disclosure review.
+
+## 2026-09-24 addendum — measurement repair
+
+The owner's 2026-09-24 literature critique, delivered as
+`LITERATURE-CRITIQUE-AND-REVISED-PLAN-2026-09-24.txt`, was assessed against the code; the assessment is
+[critique-2026-09-24.md](critique-2026-09-24.md) and the packet is
+[task-measurement-repair-2026-09-24](../../../evidence/task-measurement-repair-2026-09-24/README.md).
+
+Eleven of its twelve findings hold. Three were live defects in the observation chain and are fixed: the
+normaliser overwrote the vehicle's own injection-time reading with a host estimate; the verifier compared
+pre-injection setup transitions against the expected recovery and returned `refuted` for identity and validity
+failures; and the trace could not distinguish PX4's `Action::None` from not observing the selector.
+
+Re-deriving all ten stored captures from their raw data leaves every substantive conclusion in place. The four
+valid control repeats now verify instead of being unassessed; the five injected runs stay refuted, with an
+empty response window rather than a mismatch against takeoff. The finding that no action is selected survives
+the repair.
+
+New decisions and open items:
+
+| id | decision | status |
+|---|---|---|
+| **D15** | A verdict is `unverified` when the comparison could not be made, `inconclusive` when an estimated instant straddles the deadline, and `refuted` only when a valid observation contradicts a prediction | decided here |
+| **D16** | A host-only instant is bounded by the nearest real vehicle-clock readings either side of it; the offset spread is reported as a dispersion and never used as an uncertainty | decided here |
+| **D17** | U4's `expected_manoeuvre_time` divides distance by a maximum speed, which is a lower bound on time used as a deadline. U4 must not be evaluated against measured runs until it is replaced | open, belongs with the F5 property rewrite |
+| **D18** | `T6` added: the Auto Loiter control timeline, whose expected post-takeoff sequence is `AUTO_LOITER` | decided here |
+
+D14 is unchanged and still blocks Study A. D7, D9 and D13 still need owner answers.

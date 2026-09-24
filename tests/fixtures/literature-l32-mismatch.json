@@ -1,0 +1,26 @@
+{
+ "why_this_fixture_exists": "L32 was a cell-biology thesis standing in for the Simplex architecture paper from 2026-09-22 to 2026-09-24. It resolved cleanly and its recorded title matched the registry exactly, so no identifier check could have caught it. The mismatch was between the work and the reason the entry was selected. This fixture pins that case so the register cannot quietly return to it.",
+ "erroneous_entry": {
+  "id": "L32",
+  "axis": "D_runtime_assurance",
+  "access": "metadata_only",
+  "why_selected": "The simplex architecture: safety controller, complex controller, switch. The pattern PX4's failsafe framework instantiates.",
+  "identifier": "doi:10.70675/fd34825eza23fz4a6az9dc2zeed4a5eb5536",
+  "title": "Simplicity and complexity in cell cycle control",
+  "year": null,
+  "venue": ""
+ },
+ "intended_work": {
+  "identifier": "doi:10.1109/MS.2001.936213",
+  "title": "Using simplicity to control complexity",
+  "author": "Lui Sha",
+  "venue": "IEEE Software",
+  "year": 2001,
+  "resolved_on": "2026-09-24"
+ },
+ "unresolved_case": {
+  "id": "L06",
+  "title": "Mayday: Identifying the Root Causes of Robotic Vehicle Accidents",
+  "why_here": "an entry with no identifier must stay visible as unresolved rather than be dropped or guessed"
+ }
+}

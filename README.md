@@ -10,7 +10,7 @@ Configuration-specific recovery behavior for mixed-autopilot fleets after extern
 
 ![Conceptual sequence from a configured vehicle and authority-loss event to measured recovery, a held-out trajectory envelope, and conditional fleet composition](docs/media/project-overview.svg)
 
-*Proposed study architecture—not a flight trace or safety result. No simulation, HITL, or flight results have been generated for this repository.*
+*Proposed study architecture—not a flight trace or safety result. No study result has been generated for this repository. Diagnostic development runs in SIH/SITL exist since 2026-09-20 and are not results; no HITL or flight data exists at all.*
 
 ## The problem
 
@@ -75,7 +75,7 @@ This operation is offline. Unchanged inputs should produce no diff. It does not 
 
 ## First experiment
 
-The first study is a **single-vehicle SITL conformance pilot**, not a swarm flight. It compares equivalent recovery intentions on pinned PX4 and ArduPilot configurations, using bounded initial conditions and explicit failure stimuli.
+The first study is a **single-vehicle SITL conformance pilot**, not a swarm flight. It compares a source-derived model of the PX4 failsafe framework against the running autopilot on pinned configurations, using bounded initial conditions and explicit failure stimuli. ArduPilot was the original second stack; the programme is PX4-first and a second stack is out of scope while recovery behaviour on the first is unexplained ([2026-09-24 critique](docs/specs/formal-composition/critique-2026-09-24.md)).
 
 Before execution, close the remaining exact-gap/tooling review, verify a common interface, archive complete configured identities, and record a normal-operation trace. The [latest source review](docs/day3-source-review.md) recommends evaluating existing simulator integration before building another launcher.
 
@@ -85,7 +85,9 @@ The [full protocol](docs/experiment-01-authority-loss.md) owns the provisional c
 
 ## Evidence and safety limits
 
-- No SITL apparatus, recovery traces, HITL measurements, flight tests, or validated separation results are included.
+- No study result, HITL measurement, flight test, or validated separation result is included. A SIH/SITL
+  apparatus and a small set of diagnostic development runs do exist since 2026-09-20; they are development
+  evidence about the apparatus, not findings, and the confirmation campaign is held. See [results](results/README.md).
 - No brand-level safety ranking or proven advantage over a global envelope is claimed.
 - A valid metadata manifest does not authenticate measurements or prove a safe configuration.
 - Flight work requires a site-specific risk assessment, approved containment/geofencing, an independent kill path, a trained safety operator, and responsible-facility approval. RTL starts in simulation.
