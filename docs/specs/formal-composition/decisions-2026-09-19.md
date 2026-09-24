@@ -46,6 +46,19 @@ Consequences for these decisions: **D7's campaign stays held**, and D4's event c
 just one. Nothing about the rig is known to be able to produce a failsafe yet, so no agreement rate can be
 measured and Study B has nothing to validate against.
 
+## 2026-09-23 addendum
+
+The Offboard hypothesis is eliminated: the same datalink loss in Auto Loiter also produces no action, on a
+valid run with the hazard confirmed. Evidence:
+[task-study-a-mode-discriminator-2026-09-23](../../../evidence/task-study-a-mode-discriminator-2026-09-23/README.md).
+
+The critical path is now the offline oracle, which needs Linux. The GPU host at hand is Windows 11 Home
+**without WSL**, so a new decision is needed:
+
+| id | decision | options | blocks |
+|---|---|---|---|
+| **D14** | Where to run the offline failsafe oracle | (a) install WSL on the GPU host, which is a system change and a restart on a machine with no monitor; (b) use another Linux machine; (c) leave the oracle unrun and accept that the cause stays unidentified | Study A, and therefore Study B and C |
+
 ## Seeds
 
 Frozen before any validation run: `1, 2, 3, 5, 8` for the single-event tier; `11, 13, 17` for the paired tier. SIH is deterministic given the same parameters, so the seed varies only the injection time within a ±2 s window around the scheduled vehicle time; the window is part of the case ID.

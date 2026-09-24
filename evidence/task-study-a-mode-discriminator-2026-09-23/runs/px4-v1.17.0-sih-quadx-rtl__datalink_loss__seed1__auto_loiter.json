@@ -1,0 +1,202 @@
+{
+ "schema_version": "2026-09-16",
+ "manifest": {
+  "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+  "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "firmware_tag": "v1.17.0",
+  "airframe": "10040_sihsim_quadx",
+  "simulator": "sihsim",
+  "lockstep": true,
+  "parameters_sha256": "0987490573e74033291f7d3e1c9501036c2999c689310459b413233a0fd56387",
+  "seed": 1,
+  "injection": {
+   "class": "datalink_loss",
+   "method": "heartbeat_stopped",
+   "scheduled_t_s": 40.0,
+   "restore_t_s": null
+  },
+  "run_id": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+  "evidence_state": "simulation",
+  "intended_mode": "auto_loiter"
+ },
+ "clock": {
+  "host_to_vehicle_offset_s": 8.5563,
+  "offset_samples": 1700,
+  "offset_spread_s": 11.4193,
+  "offset_estimator": "median over every message carrying time_boot_ms"
+ },
+ "events": [
+  {
+   "name": "arm",
+   "t_vehicle_s": 0.0,
+   "t_host_s": 6.7852,
+   "detail": {
+    "attempts": 1
+   }
+  },
+  {
+   "name": "native_transition",
+   "t_vehicle_s": 5.644,
+   "t_host_s": 14.2,
+   "detail": {
+    "from": "AUTO_LOITER",
+    "to": "AUTO_TAKEOFF"
+   }
+  },
+  {
+   "name": "takeoff_complete",
+   "t_vehicle_s": 12.415,
+   "t_host_s": 20.9716,
+   "detail": {
+    "z": -9.64154052734375,
+    "t_vehicle_s": 18.128
+   }
+  },
+  {
+   "name": "native_transition",
+   "t_vehicle_s": 17.344,
+   "t_host_s": 25.9,
+   "detail": {
+    "from": "AUTO_TAKEOFF",
+    "to": "AUTO_LOITER"
+   }
+  },
+  {
+   "name": "injection",
+   "t_vehicle_s": 57.78,
+   "t_host_s": 66.3361,
+   "detail": {
+    "event": "datalink_loss",
+    "t_vehicle_s": 58.128,
+    "scheduled_vehicle_s": 58.128,
+    "streams": {
+     "gcs_heartbeat": false,
+     "offboard_setpoints": false
+    }
+   }
+  },
+  {
+   "name": "hazard_flag",
+   "t_vehicle_s": 69.88,
+   "t_host_s": 78.436,
+   "detail": {
+    "flag": "gcs_connection_lost",
+    "value": 1
+   }
+  },
+  {
+   "name": "horizon_reached",
+   "t_vehicle_s": 108.852,
+   "t_host_s": 117.4079,
+   "detail": {
+    "t_vehicle_s": 103.144
+   }
+  }
+ ],
+ "validity": {
+  "valid": true,
+  "reasons": []
+ },
+ "conversion": {
+  "raw_lines": 2278,
+  "raw_vehicle_messages": 2254,
+  "samples_written": 1786,
+  "events_written": 7,
+  "mode_source": "autopilot_log_vehicle_status",
+  "unmapped_event_names": [],
+  "raw_retained_at": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day5e/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1/raw.jsonl"
+ },
+ "stages": [
+  {
+   "stage": "launch",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day5e/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1/px4.log",
+   "detail": {
+    "pid": 41712
+   }
+  },
+  {
+   "stage": "configuration_applied",
+   "status": "ok",
+   "evidence": "param_export in raw.jsonl",
+   "detail": {
+    "requested": 15,
+    "mismatched": {}
+   }
+  },
+  {
+   "stage": "normal_tracking",
+   "status": "ok",
+   "evidence": "takeoff_complete event",
+   "detail": {}
+  },
+  {
+   "stage": "injection",
+   "status": "ok",
+   "evidence": "injection event in raw.jsonl",
+   "detail": {
+    "scheduled_vehicle_s": 58.128,
+    "observed_vehicle_s": 58.128,
+    "surviving_publishers": {
+     "gcs_heartbeat": false,
+     "offboard_setpoints": false
+    }
+   }
+  },
+  {
+   "stage": "capture",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day5e/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1/raw.jsonl",
+   "detail": {
+    "autopilot_log": true
+   }
+  },
+  {
+   "stage": "normalization",
+   "status": "ok",
+   "evidence": "/private/tmp/claude-501/-Users-redhose/35c3fc30-1c9a-4c79-8150-693cef0ecd97/scratchpad/day5e/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1/trace.json",
+   "detail": {}
+  }
+ ],
+ "injection_observed_vehicle_s": 57.78,
+ "streams_at_injection": {
+  "gcs_heartbeat": false,
+  "offboard_setpoints": false
+ },
+ "verification": {
+  "status": "refuted",
+  "timeline_id": "T5",
+  "tolerance_s": 1.5,
+  "reasons": [
+   "gcs_connection_lost rose at 12.1 s after injection, expected 10.0 s",
+   "mode sequence ['AUTO_TAKEOFF', 'AUTO_LOITER'] does not match expected ['AUTO_RTL']"
+  ],
+  "observed": {
+   "intended_mode": "auto_loiter",
+   "mode_sequence": [
+    "AUTO_TAKEOFF",
+    "AUTO_LOITER"
+   ],
+   "hazard_flags": [
+    "gcs_connection_lost"
+   ],
+   "announced_actions": [],
+   "mode_source": "autopilot_log_vehicle_status",
+   "hazard_flag_t_rel_s": 12.1
+  },
+  "expected": {
+   "mode_sequence": [
+    "AUTO_RTL"
+   ],
+   "hazard_flag": "gcs_connection_lost",
+   "actions": [
+    {
+     "action": "RTL",
+     "nav_state": "AUTO_RTL",
+     "t_rel_injection_s": 15.0
+    }
+   ]
+  }
+ },
+ "sample_count": 1786
+}

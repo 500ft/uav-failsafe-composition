@@ -16,7 +16,8 @@
    "restore_t_s": null
   },
   "run_id": "fixture-valid-001",
-  "evidence_state": "simulation"
+  "evidence_state": "simulation",
+  "intended_mode": "offboard"
  },
  "clock": {
   "host_to_vehicle_offset_s": 0.012,

@@ -184,6 +184,45 @@
     "TERMINATION"
    ],
    "terminal": "TERMINATION is a registered terminal mode; the vehicle falls, which is why this row is diagnostic only."
+  },
+  {
+   "id": "T5",
+   "configuration_id": "px4-v1.17.0-sih-quadx-rtl",
+   "event": "datalink_loss",
+   "intended_mode": "auto_loiter",
+   "development_case": true,
+   "purpose": "Third discriminator. T1-T4 showed no action for any hazard while the user-intended mode was Offboard, including an action that can be neither delayed, deferred nor taken over. The remaining structural hypothesis is that selection is suppressed specifically in Offboard. This case is identical to T1 except that the vehicle flies in Auto Loiter, which needs neither a setpoint stream nor a manual-control source.",
+   "parameters_used": {
+    "NAV_DLL_ACT": 2,
+    "COM_DL_LOSS_T": 10,
+    "COM_FAIL_ACT_T": 5.0,
+    "COM_DLL_EXCEPT": 0,
+    "MIS_TAKEOFF_ALT": 10.0
+   },
+   "hand_derivation": [
+    "The vehicle is armed in Auto Loiter and climbs with the autopilot's own takeoff to MIS_TAKEOFF_ALT = 10 m, the same altitude the Offboard cases hold, so no offboard setpoint stream exists and the loss of the GCS heartbeat is the only input removed.",
+    "COM_DLL_EXCEPT = 0, so dll_loss_ignored_loiter is false: the Hold exception bit is not set (failsafe.cpp L504-505).",
+    "gcs_connection_lost rises COM_DL_LOSS_T = 10 s after the last heartbeat the autopilot received.",
+    "NAV_DLL_ACT = 2 registers Action::RTL, which is delayable, so the framework selects Hold for COM_FAIL_ACT_T = 5 s and then RTL (framework.cpp L351-362, L489-500).",
+    "The vehicle is already in AUTO_LOITER, so the Hold step is not observable as a mode change; the observable is the transition to AUTO_RTL. The UX rule that suppresses a repeated RTL applies to RTL, not to Loiter (framework.cpp L627-634).",
+    "Therefore: AUTO_RTL at about 15 s after the injection, and vehicle_status.failsafe becomes true."
+   ],
+   "expected_hazard_flag": {
+    "flag": "gcs_connection_lost",
+    "t_rel_injection_s": 10.0
+   },
+   "expected_actions": [
+    {
+     "action": "RTL",
+     "nav_state": "AUTO_RTL",
+     "t_rel_injection_s": 15.0
+    }
+   ],
+   "expected_mode_sequence": [
+    "AUTO_RTL"
+   ],
+   "terminal": "AUTO_RTL is a registered terminal mode.",
+   "if_refuted": "If this also produces no action, the effect is not specific to Offboard and the remaining candidates are that checkStateAndMode never runs, or that the framework sees a different armed state or a different flags instance than the one published to the log."
   }
  ],
  "falsifiable_difference": "T1 and T2 differ in exactly one parameter. If the observed runs do not differ by the presence of the AUTO_LOITER step and a 5 s shift of AUTO_RTL, then either the parameter did not take effect or the derivation is wrong; both are reportable outcomes and neither is repaired after the fact. T3 is the discriminator for the refutation those two produced: same action, different parameter and monitor."

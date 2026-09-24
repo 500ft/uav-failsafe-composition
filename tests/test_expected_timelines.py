@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from model.px4_failsafe import DEFAULTS, configured_action  # noqa: E402
-from harness.cases import PER_EVENT_PARAMS  # noqa: E402
+from harness.cases import PER_EVENT_PARAMS, PER_MODE_PARAMS  # noqa: E402
 
 
 class ExpectedTimelineTests(unittest.TestCase):
@@ -44,7 +44,8 @@ class ExpectedTimelineTests(unittest.TestCase):
         for tid, t in self.timelines.items():
             row = self.rows[t["configuration_id"]]
             effective = {**DEFAULTS, **self.matrix["common_params"], **row["deltas_from_defaults"],
-                         **PER_EVENT_PARAMS.get(t["event"], {})}
+                         **PER_EVENT_PARAMS.get(t["event"], {}),
+                         **PER_MODE_PARAMS.get(t.get("intended_mode", "offboard"), {})}
             for name, value in t["parameters_used"].items():
                 self.assertIn(name, effective, (tid, name, "a timeline may only cite a parameter the run actually sets"))
                 self.assertEqual(float(effective[name]), float(value), (tid, name))

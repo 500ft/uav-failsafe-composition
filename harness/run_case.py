@@ -21,10 +21,10 @@ Baselines: GCS heartbeat 1 Hz [B5]; offboard setpoints 10 Hz, above the 2 Hz pro
 failure injection needs SYS_FAILURE_EN [B3]; parameter defaults and timers [B10].
 """
 from __future__ import annotations
-import argparse, json, os, shutil, signal, subprocess, sys, threading, time
+import argparse, json, os, shutil, signal, struct, subprocess, sys, threading, time
 from pathlib import Path
 
-from harness.cases import resolve, MATRIX, PER_EVENT_PARAMS
+from harness.cases import resolve, MATRIX, PER_EVENT_PARAMS, PER_MODE_PARAMS
 from harness.trace import build_trace
 
 INSTANCE = int(os.environ.get("PX4_INSTANCE", "0"))
@@ -97,24 +97,39 @@ class Vehicle:
         return m
 
     def set_param(self, name, value):
+        """Send the value and move on. Confirmation is not done here: every parameter is read back afterwards
+        and compared against the request in the configuration_applied stage, which is the check that matters.
+        Confirming each one inline as well made the run fail on a single dropped PARAM_VALUE reply."""
         ptype = mav.MAV_PARAM_TYPE_REAL32 if isinstance(value, float) else mav.MAV_PARAM_TYPE_INT32
-        for _ in range(6):
+        for _ in range(3):
             self.gcs.mav.param_set_send(1, 1, name.encode(), float(value), ptype)
             t0 = time.monotonic()
-            while time.monotonic() - t0 < 1.5:
-                m = self.gcs.recv_match(type="PARAM_VALUE", blocking=True, timeout=1.0)
+            while time.monotonic() - t0 < 0.6:
+                m = self.gcs.recv_match(type="PARAM_VALUE", blocking=True, timeout=0.5)
                 if m and m.param_id.rstrip("\x00") == name and abs(m.param_value - float(value)) < 1e-4:
                     return m.param_value
-        raise RuntimeError(f"parameter {name} was not confirmed at {value}")
+        return None
 
     def read_param(self, name):
-        for _ in range(6):
+        """Read one parameter, taking the reply to our own request.
+
+        PX4 emits a PARAM_VALUE broadcast after a set as well as a reply to an explicit read, and the two do not
+        use the same encoding for integer parameters: the reply carries the numeric value in the float field,
+        while the broadcast carries the integer's bit pattern (a value of 1 arrives as 1.4e-45). Reading without
+        draining first can therefore pick up the broadcast and report a denormal. Drain, then request, then
+        accept either encoding (observed 2026-09-23)."""
+        for _ in range(8):
+            while self.gcs.recv_match(type="PARAM_VALUE", blocking=False):
+                pass
             self.gcs.mav.param_request_read_send(1, 1, name.encode(), -1)
             t0 = time.monotonic()
             while time.monotonic() - t0 < 1.5:
                 m = self.gcs.recv_match(type="PARAM_VALUE", blocking=True, timeout=1.0)
                 if m and m.param_id.rstrip("\x00") == name:
-                    return m.param_value
+                    value = m.param_value
+                    if 0 < abs(value) < 1e-30:      # a bit-cast integer, not a real value
+                        value = float(struct.unpack("<i", struct.pack("<f", value))[0])
+                    return value
         raise RuntimeError(f"parameter {name} could not be read")
 
     def command(self, cmd, *params):
@@ -154,6 +169,10 @@ def main(argv=None) -> int:
     ap.add_argument("--px4-build", required=True)
     ap.add_argument("--out", required=True, help="parent directory; the run directory is named by the case id")
     ap.add_argument("--restore-after", type=float, default=0.0, help="seconds after injection to restore the input")
+    ap.add_argument("--intended-mode", choices=["offboard", "auto_loiter"], default="offboard",
+                    help="the user-intended mode the vehicle flies in. Offboard needs only the setpoint stream; "
+                         "auto_loiter needs neither setpoints nor manual control and is the control for the "
+                         "hypothesis that action selection is suppressed specifically in Offboard.")
     ap.add_argument("--dry-run", action="store_true", help="resolve, check and write the manifest; do not launch")
     a = ap.parse_args(argv)
 
@@ -237,7 +256,7 @@ def main(argv=None) -> int:
         streams.heartbeat = True
         time.sleep(3)
 
-        params = dict(case["parameters"], **PER_EVENT_PARAMS.get(a.event, {}))
+        params = dict(case["parameters"], **PER_EVENT_PARAMS.get(a.event, {}), **PER_MODE_PARAMS.get(a.intended_mode, {}))
         for k, val in params.items():
             v.set_param(k, val)
         export = {k: v.read_param(k) for k in sorted(params)}
@@ -257,9 +276,12 @@ def main(argv=None) -> int:
 
         # The intended mode must be one that can run before the pre-arm gate will open: Position requires a
         # manual-control source, Offboard requires only the setpoint stream [B4]. Stream first, then select.
-        streams.setpoints = True
-        time.sleep(3)
-        v.command(mav.MAV_CMD_DO_SET_MODE, mav.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, 6, 0)
+        if a.intended_mode == "offboard":
+            streams.setpoints = True
+            time.sleep(3)
+            v.command(mav.MAV_CMD_DO_SET_MODE, mav.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, 6, 0)
+        else:  # auto_loiter: PX4 main mode 4 (AUTO), sub mode 3 (LOITER); no setpoint or manual stream needed
+            v.command(mav.MAV_CMD_DO_SET_MODE, mav.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED, 4, 3)
         time.sleep(2)
         if not v.wait_prearm(180):
             raise RuntimeError(f"pre-arm gate never opened; last health word {v.health}")
@@ -274,16 +296,31 @@ def main(argv=None) -> int:
         if not armed:
             raise RuntimeError("arming was refused on every attempt")
         log(dict(kind="event", name="arm", attempts=attempt + 1))
+        if a.intended_mode == "auto_loiter":
+            # No setpoint stream to climb on: command the autopilot's own takeoff to the same altitude.
+            # param7 is an ABSOLUTE altitude. Passing the relative height puts the target below the home
+            # elevation, so the autopilot considers the takeoff complete without climbing and then disarms
+            # (observed 2026-09-23). NaN makes it use MIS_TAKEOFF_ALT, which PER_MODE_PARAMS sets.
+            v.command(mav.MAV_CMD_NAV_TAKEOFF, 0, 0, 0, float("nan"), float("nan"), float("nan"), float("nan"))
 
         # NORMAL_TRACKING: hold the commanded altitude before anything is injected
         t0 = time.monotonic()
         tracking = False
+        last_probe = 0.0
+        best_z = 0.0
         while time.monotonic() - t0 < 90:
             m = v.pump()
-            if m is not None and m.get_type() == "LOCAL_POSITION_NED" and m.z < -(TAKEOFF_ALT_M - 1.0) and abs(m.vz) < 0.3:
-                tracking = True
-                log(dict(kind="event", name="takeoff_complete", z=m.z, t_vehicle_s=m.time_boot_ms / 1000.0))
-                break
+            if m is not None and m.get_type() == "LOCAL_POSITION_NED":
+                best_z = min(best_z, m.z)
+                if m.z < -(TAKEOFF_ALT_M - 1.0) and abs(m.vz) < 0.3:
+                    tracking = True
+                    log(dict(kind="event", name="takeoff_complete", z=m.z, t_vehicle_s=m.time_boot_ms / 1000.0))
+                    break
+            # The climb is the one stage with no other record; probe it so a failure here is diagnosable.
+            if time.monotonic() - t0 - last_probe > 5.0:
+                last_probe = time.monotonic() - t0
+                log(dict(kind="tracking_probe", best_z=round(best_z, 2), target_z=-(TAKEOFF_ALT_M - 1.0),
+                         elapsed_s=round(last_probe, 1)))
         stage("normal_tracking", "ok" if tracking else "failed", evidence="takeoff_complete event")
         if not tracking:
             raise RuntimeError("normal tracking was never established")
@@ -358,6 +395,7 @@ def main(argv=None) -> int:
             tail.write(json.dumps(dict(kind="stages", stages=stages)) + "\n")
 
     trace = build_trace(out, case, MATRIX)
+    trace["manifest"]["intended_mode"] = a.intended_mode
     trace.setdefault("stages", []).append(dict(stage="normalization",
                                                status="ok" if trace["validity"]["valid"] else "failed",
                                                evidence=str(out / "trace.json"), detail={}))
