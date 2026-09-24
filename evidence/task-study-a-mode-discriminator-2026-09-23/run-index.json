@@ -1,0 +1,44 @@
+{
+ "note": "Mode discriminator. Development run, not a held-out validation case. Full capture outside git, pinned by hash.",
+ "snapshot_root": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-23",
+ "runs": [
+  {
+   "case_id": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "intended_mode": "auto_loiter",
+   "valid": {
+    "valid": true,
+    "reasons": []
+   },
+   "verification": "refuted",
+   "hazard_flags": [
+    "gcs_connection_lost"
+   ],
+   "transitions": [
+    {
+     "from": "AUTO_LOITER",
+     "to": "AUTO_TAKEOFF"
+    },
+    {
+     "from": "AUTO_TAKEOFF",
+     "to": "AUTO_LOITER"
+    }
+   ],
+   "raw.jsonl": {
+    "bytes": 638146,
+    "sha256": "352f825097e809ee6d25f4bc9c4102c8ab8effd91c8af55111667c5ae9a1bc60"
+   },
+   "trace.json": {
+    "bytes": 717738,
+    "sha256": "53c7a5a060a8f8cf89c986a56d456149b9bf74247952acc2f7e67803f171b4ac"
+   },
+   "flight.ulg": {
+    "bytes": 23161166,
+    "sha256": "92fd58eb0de22cc340e57e65682013b1b1d48f5fcf1714b3bc7793629271d23c"
+   },
+   "px4.log": {
+    "bytes": 2821,
+    "sha256": "7ef549c2acddc9cacc21d3b00408deeb1a7b30faa8b278bd4b330ca3607096b5"
+   }
+  }
+ ]
+}

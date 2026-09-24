@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TIMELINES = json.loads((ROOT / "protocols/expected-timelines.json").read_text())
-BY_CASE = {(t["configuration_id"], t["event"]): t for t in TIMELINES["timelines"]}
+BY_CASE = {(t["configuration_id"], t["event"], t.get("intended_mode", "offboard")): t for t in TIMELINES["timelines"]}
 TOLERANCE_S = TIMELINES["tolerance"]["value_s"]
 
 
@@ -34,9 +34,10 @@ def verify(run_dir: Path) -> dict:
     if not trace["validity"]["valid"]:
         reasons.append("run is invalid: " + ", ".join(trace["validity"]["reasons"]))
 
-    timeline = BY_CASE.get((case["configuration_id"], case["event"]))
+    intended_mode = trace["manifest"].get("intended_mode", "offboard")
+    timeline = BY_CASE.get((case["configuration_id"], case["event"], intended_mode))
     if timeline is None:
-        reasons.append(f"no hand-derived timeline for ({case['configuration_id']}, {case['event']})")
+        reasons.append(f"no hand-derived timeline for ({case['configuration_id']}, {case['event']}, {intended_mode})")
         return dict(status="unverified", timeline_id=None, tolerance_s=TOLERANCE_S, reasons=reasons,
                     observed={}, expected={})
 
@@ -44,7 +45,7 @@ def verify(run_dir: Path) -> dict:
     injection = next((e for e in events if e["name"] == "injection"), None)
     transitions = [e for e in events if e["name"] == "native_transition"]
     observed_sequence = [e["detail"]["to"] for e in transitions]
-    observed = dict(mode_sequence=observed_sequence,
+    observed = dict(intended_mode=intended_mode, mode_sequence=observed_sequence,
                     hazard_flags=[e["detail"].get("flag") for e in events if e["name"] == "hazard_flag"],
                     announced_actions=[e["detail"].get("announced_action") for e in events if e["name"] == "failsafe_notice"],
                     mode_source=trace["conversion"]["mode_source"])

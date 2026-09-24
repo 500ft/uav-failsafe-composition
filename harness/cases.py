@@ -31,6 +31,9 @@ SEED_OFFSET_S = {1: 0.0, 2: -1.0, 3: 1.0, 5: -2.0, 8: 2.0, 11: 0.0, 13: -1.5, 17
 NOMINAL_INJECT_T_S = 40.0
 # Parameters the runner must set for a specific event class to be injectable at all. They are declared here so
 # the expected timelines and the tests can see them, rather than hiding as literals inside the runner.
+# Parameters a flight mode needs to fly the same profile as the others. Auto Loiter climbs with the autopilot's
+# own takeoff, whose altitude comes from MIS_TAKEOFF_ALT rather than from a setpoint.
+PER_MODE_PARAMS = {"auto_loiter": {"MIS_TAKEOFF_ALT": 10.0}}
 PER_EVENT_PARAMS = {
     "geofence_breach": {"GF_MAX_HOR_DIST": 20.0},
     "battery_critical": {"SYS_FAIL_BAT_LVL": 2},
