@@ -108,11 +108,15 @@ class SilentFailureTests(unittest.TestCase):
         self.assertEqual(result["status"], "refuted")
         self.assertTrue(any("never rose" in r for r in result["reasons"]))
 
-    def test_a_run_matching_the_hand_derivation_verifies(self):
+    def test_a_run_matching_the_hand_derivation_matches_its_modes_but_cannot_pass_on_timing(self):
+        """The modes are right and the discrete comparison holds. Timing cannot pass, because this rig cannot
+        bound the injection instant above, so every latency here is inconclusive by construction (R1)."""
         rows = baseline_rows() + [dict(kind="hazard_fixture", t_vehicle_s=50.0, flag="gcs_connection_lost")]
         result = self.verify_rows(rows)
-        self.assertEqual(result["status"], "verified", result["reasons"])
+        self.assertEqual(result["status"], "inconclusive", result["reasons"])
         self.assertEqual(result["timeline_id"], "T1")
+        self.assertEqual(result["observed"]["mode_sequence"], ["AUTO_LOITER", "AUTO_RTL"])
+        self.assertTrue(all(t["verdict"] == "inconclusive" for t in result["observed"]["timings"]))
 
     def test_a_stale_result_from_another_case_is_not_accepted(self):
         other = dict(resolve("px4-v1.17.0-sih-quadx-hold", "datalink_loss", 2), intended_mode="offboard")
@@ -180,32 +184,29 @@ class MeasurementRepairTests(unittest.TestCase):
         self.addCleanup(self._tmp.cleanup)
 
     def test_a_vehicle_timed_instant_does_not_move_when_the_host_offset_does(self):
-        """The injector reads the vehicle clock; a launch latency must not rewrite that reading (F1)."""
+        """The injector holds a vehicle stamp; a launch latency must not rewrite it (F1). It is a lower
+        bound, not the instant's timestamp, so its source is `cached_vehicle_observation` (R1)."""
         seen = []
         for offset in (0.0, 7.34, 41.0):
             _run, trace = self.trace_for(self.loiter_rows(offset=offset))
             injection = next(e for e in trace["events"] if e["name"] == "injection")
-            self.assertEqual(injection["t_source"], "vehicle_observation")
+            self.assertEqual(injection["t_source"], "cached_vehicle_observation")
+            self.assertIsNone(injection["t_vehicle_interval_s"][1])
             seen.append(injection["t_vehicle_s"])
         self.assertEqual(seen, [40.0, 40.0, 40.0])
 
-    def test_a_host_only_instant_is_bounded_by_real_vehicle_readings(self):
+    def test_a_host_only_instant_is_bounded_below_and_never_above(self):
         _run, trace = self.trace_for(self.loiter_rows(offset=7.34))
         reconstructed = [e for e in trace["events"] if e["t_source"] == "host_reconstructed"]
         self.assertTrue(reconstructed, "the heartbeat-derived events carry no vehicle timestamp")
-        closed = 0
         for e in reconstructed:
             lo, hi = e["t_vehicle_interval_s"]
+            self.assertIsNone(hi, "no received stamp bounds a later instant above (R1)")
             if lo is not None:
                 self.assertLessEqual(lo, e["t_vehicle_s"])
-            if hi is not None:
-                self.assertLessEqual(e["t_vehicle_s"], hi)
-            closed += lo is not None and hi is not None
-        self.assertTrue(closed, "instants inside the observation window must be bracketed")
-        # `arm` precedes the first message carrying a vehicle timestamp, so it has no lower bound. An open bound
-        # is the honest answer, not a defect: the verifier treats such an instant as inconclusive, never measured.
+        # `arm` precedes the first message carrying a vehicle timestamp, so it has no bound at all.
         arm = next(e for e in trace["events"] if e["name"] == "arm")
-        self.assertIsNone(arm["t_vehicle_interval_s"][0])
+        self.assertEqual(arm["t_vehicle_interval_s"], [None, None])
 
     def test_takeoff_before_injection_does_not_refute_a_correct_recovery(self):
         """The whole point of F2: a normal setup transition must not count against the response."""
@@ -249,17 +250,15 @@ class MeasurementRepairTests(unittest.TestCase):
         self.assertEqual(trace["manifest"]["intended_mode"], "auto_loiter")
         self.assertEqual(trace["conversion"]["intended_mode_source"], "raw_capture_do_set_mode")
 
-    def test_an_estimate_straddling_the_deadline_is_inconclusive_not_a_pass(self):
-        """A reconstructed instant bounded only to a wide window cannot confirm a 1.5 s tolerance (F1)."""
-        run, trace = self.trace_for(self.loiter_rows())
-        for e in trace["events"]:
-            if e["name"] == "native_transition" and e["t_vehicle_s"] >= 40.0:
-                e["t_source"] = "host_reconstructed"
-                e["t_vehicle_interval_s"] = [e["t_vehicle_s"] - 4.0, e["t_vehicle_s"] + 4.0]
-        (run / "trace.json").write_text(json.dumps(trace, indent=1))
-        result = verifier.verify(run)
-        self.assertEqual(result["status"], "inconclusive", result["reasons"])
-        self.assertTrue(any("only bounded to" in r for r in result["reasons"]))
+    def test_a_wide_but_closed_bound_straddling_the_deadline_is_inconclusive(self):
+        """Even a hypothetically closed bound must not pass when it straddles the deadline (F1)."""
+        e = dict(name="native_transition", t_vehicle_s=55.0, t_source="host_reconstructed",
+                 t_vehicle_interval_s=[51.0, 59.0])
+        base = dict(name="injection", t_vehicle_s=40.0, t_source="autopilot_log",
+                    t_vehicle_interval_s=[40.0, 40.0])
+        verdict, _point, why = verifier._compare(e, base, 15.0)
+        self.assertEqual(verdict, "inconclusive")
+        self.assertIn("only bounded to", why)
 
     def test_a_control_run_may_take_off_without_being_refuted(self):
         """Selecting a mode and taking off are setup; only a later change is the control run misbehaving (F2)."""
@@ -291,56 +290,184 @@ class MeasurementRepairTests(unittest.TestCase):
             self.assertIn(s["t_source"], ("vehicle_observation", "autopilot_log", "host_reconstructed"))
 
 
-class ReproducibilityClockTests(unittest.TestCase):
-    """A spread over reconstructed instants is not apparatus jitter (critique 2026-09-24, F1)."""
+class ReproducibilityCohortTests(unittest.TestCase):
+    """A statistic is formed over a cohort, not over whatever records were passed (owner review 2026-09-25, R2)."""
 
-    def _runs(self, sources):
+    def _runs(self, recs):
         with tempfile.TemporaryDirectory() as d:
             dirs = []
-            for i, per_run in enumerate(sources):
+            for i, r in enumerate(recs):
                 run = Path(d) / f"rep{i}"
                 run.mkdir()
-                events = [dict(name=name, t_vehicle_s=t, t_host_s=t, t_source=src)
-                          for name, (t, src) in per_run.items()]
-                (run / "trace.json").write_text(json.dumps(dict(
-                    validity=dict(valid=True, reasons=[]),
-                    manifest=dict(parameters_sha256="a" * 64, firmware_commit="b" * 40, intended_mode="offboard"),
-                    events=events, samples=[])))
+                (run / "trace.json").write_text(json.dumps(r))
                 dirs.append(run)
             return reproducibility.compare(dirs)
 
-    def test_a_measured_spread_is_quotable_as_jitter(self):
-        result = self._runs([{"takeoff_complete": (18.0, "vehicle_observation")},
-                             {"takeoff_complete": (18.3, "vehicle_observation")}])
-        self.assertEqual(result["timestamp_spread"]["takeoff_complete"]["quality"], "measured")
-        self.assertTrue(result["jitter_quotable"])
-        self.assertAlmostEqual(result["apparatus_jitter_s"]["takeoff_complete"], 0.3, places=3)
+    @staticmethod
+    def _rec(t, source="vehicle_observation", valid=True, sha="a" * 64, mode="offboard", bounded=True, seq=("AUTO_RTL",)):
+        return dict(validity=dict(valid=valid, reasons=[] if valid else ["simulator_crash"]),
+                    manifest=dict(parameters_sha256=sha, firmware_commit="b" * 40, intended_mode=mode),
+                    events=[dict(name="takeoff_complete", t_vehicle_s=t, t_host_s=t, t_source=source,
+                                 t_vehicle_interval_s=[t, t] if bounded else [t, None])]
+                           + [dict(name="native_transition", t_vehicle_s=t + 1, t_host_s=t + 1,
+                                   t_source="autopilot_log", detail={"from": "OFFBOARD", "to": m}) for m in seq],
+                    samples=[])
 
-    def test_a_reconstructed_spread_is_not_quotable_as_jitter(self):
-        result = self._runs([{"arm": (2.4, "host_reconstructed")}, {"arm": (3.1, "host_reconstructed")}])
-        self.assertEqual(result["timestamp_spread"]["arm"]["quality"], "estimated")
-        self.assertFalse(result["jitter_quotable"])
-        self.assertIsNone(result["apparatus_jitter_s"])
+    def test_an_invalid_differently_configured_run_cannot_populate_a_spread(self):
+        r = self._runs([self._rec(10.0), self._rec(99.0, valid=False, sha="c" * 64)])
+        self.assertFalse(r["repeatability_reportable"])
+        self.assertIsNone(r["repeat_range_s"])
+        self.assertEqual(r["counts"]["included"], 1)
+        self.assertEqual(r["counts"]["excluded"], 1)
 
-    def test_mixing_clock_sources_is_named_not_averaged(self):
-        result = self._runs([{"arm": (2.4, "host_reconstructed")}, {"arm": (2.5, "vehicle_observation")}])
-        self.assertEqual(result["timestamp_spread"]["arm"]["quality"], "mixed_clock_sources")
-        self.assertFalse(result["jitter_quotable"])
+    def test_a_different_intended_mode_is_a_different_identity(self):
+        r = self._runs([self._rec(10.0, mode="offboard"), self._rec(10.2, mode="auto_loiter")])
+        self.assertFalse(r["identical_identity"])
+        self.assertTrue(any("different scenario identity" in e["reason"] for e in r["excluded"]))
+
+    def test_two_clock_sources_are_reported_apart_not_pooled(self):
+        r = self._runs([self._rec(10.0, "vehicle_observation"), self._rec(10.4, "autopilot_log")])
+        self.assertEqual(r["timestamp_spread"], {}, "one value per source is not a spread")
+        self.assertFalse(r["repeatability_reportable"])
+
+    def test_a_clean_cohort_still_reports_its_repeat_range(self):
+        r = self._runs([self._rec(10.0), self._rec(10.35)])
+        self.assertTrue(r["repeatability_reportable"])
+        self.assertAlmostEqual(r["repeat_range_s"]["takeoff_complete@vehicle_observation"], 0.35, places=3)
+
+    def test_two_empty_mode_sequences_are_not_reproducibility(self):
+        r = self._runs([self._rec(10.0, seq=()), self._rec(10.2, seq=())])
+        self.assertFalse(r["identical_mode_sequence"])
+        self.assertFalse(r["mode_sequence_observed"])
 
     def test_a_pre_repair_trace_has_unrecorded_provenance_not_assumed_provenance(self):
+        r = self._runs([self._rec(10.0, "unrecorded"), self._rec(10.3, "unrecorded")])
+        self.assertFalse(r["timestamp_spread"]["takeoff_complete@unrecorded"]["quotable"])
+        self.assertFalse(r["repeatability_reportable"])
+
+
+class TimeBoundTests(unittest.TestCase):
+    """A received stamp bounds a later instant below, never above (owner review 2026-09-25, R1)."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+
+    def _trace(self, rows, case):
+        tmp = Path(self._tmp.name)
+        run = write_run(tmp / str(len(list(tmp.iterdir()))), rows, case)
+        return run, build_trace(run, case, MATRIX)
+
+    def test_delayed_telemetry_cannot_produce_a_closed_bound(self):
+        """The owner's counterexample: a sample generated at 8 can arrive after an action at host 11."""
+        case = dict(resolve("px4-v1.17.0-sih-quadx-rtl", "datalink_loss", 1), intended_mode="offboard")
+        rows = [dict(kind="case_resolved", t_host_s=0.0, case_id=case["case_id"]),
+                dict(kind="param_export", t_host_s=0.5, values={k: float(v) for k, v in case["parameters"].items()}),
+                dict(kind="msg", src=1, mavpackettype="LOCAL_POSITION_NED", t_host_s=10.0, time_boot_ms=8000,
+                     x=0.0, y=0.0, z=-10.0, vx=0.0, vy=0.0, vz=0.0),
+                dict(kind="event", name="arm", t_host_s=11.0),
+                dict(kind="msg", src=1, mavpackettype="LOCAL_POSITION_NED", t_host_s=12.0, time_boot_ms=9000,
+                     x=0.0, y=0.0, z=-10.0, vx=0.0, vy=0.0, vz=0.0),
+                dict(kind="stages", t_host_s=13.0, stages=[])]
+        _run, trace = self._trace(rows, case)
+        arm = next(e for e in trace["events"] if e["name"] == "arm")
+        lo, hi = arm["t_vehicle_interval_s"]
+        self.assertEqual(lo, 8.0, "the received stamp is a valid lower bound")
+        self.assertIsNone(hi, "the next stamp does not bound the action above; it may have been delayed")
+
+    def test_the_injection_instant_is_a_cached_stamp_with_an_open_upper_side(self):
+        case = dict(resolve("px4-v1.17.0-sih-quadx-rtl", "datalink_loss", 1), intended_mode="offboard")
+        rows = baseline_rows()
+        _run, trace = self._trace(rows, case)
+        inj = next(e for e in trace["events"] if e["name"] == "injection")
+        self.assertEqual(inj["t_source"], "cached_vehicle_observation")
+        self.assertEqual(inj["t_vehicle_interval_s"][0], inj["t_vehicle_s"])
+        self.assertIsNone(inj["t_vehicle_interval_s"][1])
+        self.assertIn("cache_age_host_s", inj)
+
+    def test_an_open_bound_makes_a_timing_comparison_inconclusive_never_a_pass(self):
+        event = dict(name="native_transition", t_vehicle_s=55.0, t_source="autopilot_log",
+                     t_vehicle_interval_s=[55.0, 55.0])
+        base = dict(name="injection", t_vehicle_s=40.0, t_source="cached_vehicle_observation",
+                    t_vehicle_interval_s=[40.0, None])
+        verdict, point, why = verifier._compare(event, base, 15.0)
+        self.assertEqual(verdict, "inconclusive", "an exact-looking 15.0 s must not pass on an open bound")
+        self.assertEqual(point, 15.0)
+        self.assertIn("does not bound", why)
+
+
+class ObservationSemanticsTests(unittest.TestCase):
+    """Four inherited defects from PR #28, one fixture each (owner review 2026-09-25, WP0)."""
+
+    FLAGS = ("gcs_connection_lost", "battery_warning")
+
+    def _from_flags(self, series, inject_at=40.0):
+        """Build a trace from a synthetic failsafe_flags series, bypassing the uLog reader."""
+        case = dict(resolve("px4-v1.17.0-sih-quadx-rtl", "datalink_loss", 1), intended_mode="offboard")
+        import harness.trace as trace_mod
+        real = trace_mod.read_ulog_flags
+        trace_mod.read_ulog_flags = lambda _p: (series, [])
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                rows = [r for r in baseline_rows()]
+                for r in rows:
+                    if r.get("name") == "injection":
+                        r["t_vehicle_s"] = inject_at
+                run = write_run(Path(d), rows, case)
+                (run / "flight.ulg").write_bytes(b"")          # existence is what gates the uLog branch
+                return build_trace(run, case, MATRIX)
+        finally:
+            trace_mod.read_ulog_flags = real
+
+    def test_an_enum_flag_keeps_every_level_not_just_truthiness(self):
+        """battery_warning 1 -> 2 -> 3 is three states. bool() collapsed them into one rising edge."""
+        series = [(38.0, {"battery_warning": 0}), (41.0, {"battery_warning": 1}),
+                  (43.0, {"battery_warning": 2}), (45.0, {"battery_warning": 3})]
+        trace = self._from_flags(series)
+        edges = [e["detail"] for e in trace["events"]
+                 if e["name"] == "hazard_flag" and e["detail"]["flag"] == "battery_warning"]
+        self.assertEqual([(d["previous_value"], d["value"]) for d in edges], [(0, 1), (1, 2), (2, 3)])
+
+    def test_window_entry_keeps_the_preceding_state_and_its_age(self):
+        """The first sample at or after injection may already have changed; the entering state is the one before."""
+        series = [(38.5, {"gcs_connection_lost": 0}), (40.5, {"gcs_connection_lost": 1})]
+        entry = self._from_flags(series)["flags_at_injection"]
+        self.assertTrue(entry["known"])
+        self.assertEqual(entry["at_or_after"]["flags"]["gcs_connection_lost"], 1)
+        self.assertEqual(entry["before"]["flags"]["gcs_connection_lost"], 0)
+        self.assertAlmostEqual(entry["before_age_s"], 2.0, places=3)
+
+    def test_window_entry_says_unknown_rather_than_guessing(self):
+        series = [(40.5, {"gcs_connection_lost": 1})]          # nothing recorded before the window opens
+        entry = self._from_flags(series)["flags_at_injection"]
+        self.assertFalse(entry["known"])
+        self.assertIsNone(entry["before"])
+
+    def test_a_constant_present_channel_is_not_an_absent_channel(self):
+        series = [(38.0, {"gcs_connection_lost": 0}), (42.0, {"gcs_connection_lost": 0})]
+        cov = self._from_flags(series)["conversion"]["failsafe_flag_channels"]
+        self.assertTrue(cov["gcs_connection_lost"]["present"])
+        self.assertFalse(cov["gcs_connection_lost"]["changed"])
+        self.assertEqual(cov["gcs_connection_lost"]["samples"], 2)
+        self.assertFalse(cov["geofence_breached"]["present"], "an unrecorded channel is absent, not constant")
+        self.assertIsNone(cov["geofence_breached"]["changed"])
+
+    def test_an_uncertain_window_boundary_is_reported_not_resolved(self):
+        """With the injection bounded only below, a transition after that bound may be setup or response."""
+        case = dict(resolve("px4-v1.17.0-sih-quadx-rtl", "datalink_loss", 1), intended_mode="offboard")
         with tempfile.TemporaryDirectory() as d:
-            dirs = []
-            for i, t in enumerate((18.0, 18.3)):
-                run = Path(d) / f"rep{i}"
-                run.mkdir()
-                (run / "trace.json").write_text(json.dumps(dict(
-                    validity=dict(valid=True, reasons=[]),
-                    manifest=dict(parameters_sha256="a" * 64, firmware_commit="b" * 40),
-                    events=[dict(name="takeoff_complete", t_vehicle_s=t, t_host_s=t)], samples=[])))
-                dirs.append(run)
-            result = reproducibility.compare(dirs)
-        self.assertEqual(result["timestamp_spread"]["takeoff_complete"]["quality"], "unrecorded_provenance")
-        self.assertFalse(result["jitter_quotable"])
+            run = write_run(Path(d), baseline_rows(), case)
+            trace = build_trace(run, case, MATRIX)
+            t = next(e for e in trace["events"] if e["name"] == "injection")["t_vehicle_s"]
+            trace["events"].append(dict(name="hazard_flag", t_vehicle_s=t + 10.0, t_host_s=t + 10.0,
+                                        t_source="autopilot_log", t_vehicle_interval_s=[t + 10.0] * 2,
+                                        detail={"flag": "gcs_connection_lost", "edge": "rising", "value": 1}))
+            trace["events"].sort(key=lambda e: e["t_vehicle_s"])
+            (run / "trace.json").write_text(json.dumps(trace, indent=1))
+            result = verifier.verify(run)
+        self.assertFalse(result["observed"]["window_membership_certain"])
+        self.assertTrue(any("undetermined" in r for r in result["reasons"]))
+
 
 if __name__ == "__main__":
     unittest.main()

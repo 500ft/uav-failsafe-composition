@@ -64,15 +64,31 @@ since 2026-09-21 and described neither the estimator in use nor what an estimate
 
 | `t_source` | what it is |
 |---|---|
-| `vehicle_observation` | the vehicle's own clock, read at that instant: `time_boot_ms` on a position message, or the reading the runner takes when it injects |
-| `autopilot_log` | a native uLog timestamp, already on the vehicle clock |
+| `vehicle_observation` | the vehicle stamped this message itself; the reading is exact |
+| `autopilot_log` | a native uLog timestamp, stamped by the autopilot at the event |
+| `cached_vehicle_observation` | the newest telemetry stamp the runner held when it acted, with `cache_age_host_s`; a lower bound on the vehicle clock at that moment, not that moment's timestamp |
 | `host_reconstructed` | host time minus the median offset, which is an estimate, not a measurement |
 
 The offset is the median over every message carrying `time_boot_ms`, not the first ten heartbeats: an estimate
-taken during start-up is biased by launch latency. A `host_reconstructed` instant also carries
-`t_vehicle_interval_s`, the two nearest real vehicle-clock readings that bracket it in host time. Both clocks
-advance monotonically, so the true instant lies inside that interval. An open side means no bounding
-observation exists there, and nothing downstream may treat the instant as measured.
+taken during start-up is biased by launch latency.
+
+**`t_vehicle_interval_s` is bounded below only.** A packet stamped at vehicle time v and received at host time
+h proves the vehicle clock had reached v by h, and both clocks advance, so every later host instant is at or
+after v. The upper side does not follow. A packet may be delayed in transit and arrive after the instant in
+question, so the next received stamp can be *earlier* than the vehicle's true time at that instant:
+
+> a sample generated at 8 arrives at host 10; a local action happens at host 11; a sample generated at 9
+> arrives at host 12. Both clocks and both samples are monotone, and [8, 9] does not contain the action.
+
+An earlier draft of this amendment asserted containment between neighbouring received stamps and was wrong
+(owner review 2026-09-25, R1). Closing the upper side needs a justified transport or timebase bound, or a
+causally post-event acknowledgment with stated timestamp semantics. This rig has neither, so the upper side is
+null, every latency that depends on it is inconclusive rather than a pass, and no point estimate is clamped
+into an interval and then called known.
+
+One consequence is worth stating plainly: **no development run in this apparatus can produce a passing timing
+verdict.** The discrete comparisons still decide. An empty response window is still a sound observation,
+because nothing happening after the lower bound means nothing happened after the injection either.
 
 `clock.offset_spread_s` is reported as a dispersion of the offset estimates. It is not an uncertainty budget
 and must not be used as one.
@@ -82,6 +98,14 @@ begins after `injection`. The verifier collected every transition in the trace, 
 the stimulus, which guaranteed a mismatch even for a correct recovery. `mode_sequence` now means the response
 window only, and the transitions before the stimulus are kept separately as `setup_mode_sequence` with the
 state entering the window. A control run, having no stimulus, opens its window at `takeoff_complete`.
+
+**Flag values are kept native, and coverage is kept apart from edges.** `battery_warning` is an enum, so
+1 → 2 → 3 is three transitions; converting every flag to a boolean collapsed them to one. `hazard_flag` events
+now carry `value` and `previous_value` at their native types. `flags_at_injection` records the sample at or
+after the injection *and* the one before it with its age, because the first sample inside the window may
+already be a changed state; when no preceding sample exists it says so rather than guessing. Per-flag recording
+coverage lives in `conversion.failsafe_flag_channels`: a channel that was present and never changed is not an
+absent channel, and an absent channel is not evidence that its flag never rose.
 
 **An unobserved selector is not the action `None`.** PX4 does not publish the framework's selected action over
 MAVLink, so no sample observes one. Samples record the string `unobserved`. `Action::None` is a value in the

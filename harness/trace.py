@@ -6,12 +6,25 @@ Every instant carries where its number came from (`t_source`), because this run 
     autopilot_log        a native uLog timestamp, already on the vehicle clock
     host_reconstructed   host time minus the median offset, which is an estimate and not a measurement
 
-A host-reconstructed instant also carries `t_vehicle_interval_s`, the two nearest real vehicle-clock readings
-that bracket it in host time. Both clocks advance monotonically, so the true vehicle instant lies inside that
-interval; the point estimate is only the median-offset guess clamped into it. If either side is missing the
-bound is open (null) and nothing downstream may treat the instant as measured. The earlier normaliser subtracted
-a single median offset everywhere and then compared the result against native uLog times, which mixes the two
-routes; the offset spread it reported is a dispersion, not a calibrated uncertainty (critique 2026-09-24, F1).
+An instant that is not the vehicle's own stamp carries `t_vehicle_interval_s`, a bound with an OPEN UPPER SIDE.
+
+Only the lower side is defensible. A packet stamped at vehicle time v and received at host time h proves the
+vehicle clock had reached v by h, and both clocks advance, so every later host instant is at or after v. The
+upper side does not follow: a packet stamped at v may sit in transit and arrive after the instant in question,
+so the next received stamp can be EARLIER than the vehicle's true time at that instant. Concretely, a sample
+generated at 8 arriving at host 10, a local action at host 11, and a sample generated at 9 arriving at host 12
+are all monotone, yet [8, 9] does not contain the action (owner review 2026-09-25, R1). PR #29 published that
+bracket as if it were a containment interval. Closing the upper side needs a justified transport or timebase
+bound, or a causally post-event acknowledgment with stated timestamp semantics. This rig has neither, so the
+upper side stays null and every timing comparison that depends on it is inconclusive, never a pass.
+
+    vehicle_observation         the vehicle stamped this message; the reading itself is exact
+    autopilot_log               a native uLog timestamp, stamped by the autopilot at the event
+    cached_vehicle_observation  the newest telemetry stamp the runner held when it acted; a lower bound on the
+                                vehicle clock at that moment, not the moment's timestamp, with `cache_age_host_s`
+    host_reconstructed          host time minus the median offset, an estimate with no exact reading behind it
+
+The offset spread is a dispersion of the offset estimates, not a calibrated uncertainty (critique 2026-09-24, F1).
 """
 from __future__ import annotations
 import bisect, hashlib, json
@@ -66,28 +79,37 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
     offset_spread = round(offsets[-1] - offsets[0], 4) if offsets else 0.0
     anchor_host = [h for h, _ in timed]
 
-    def bracket(t_host: float):
-        """The two nearest real vehicle-clock readings either side of this host instant, or None where absent."""
-        i = bisect.bisect_left(anchor_host, t_host)
-        lo = timed[i - 1][1] if i > 0 else None
-        hi = timed[i][1] if i < len(timed) else None
-        return lo, hi
+    def lower_bound(t_host: float):
+        """The newest vehicle stamp already received by this host instant. Only the LOWER side is defensible."""
+        i = bisect.bisect_right(anchor_host, t_host)
+        return timed[i - 1][1] if i > 0 else None
 
     def host_instant(t_host: float) -> dict:
-        """An instant known only in host time: point estimate, its provenance, and the interval that bounds it."""
-        lo, hi = bracket(t_host)
+        """An instant known only in host time. The upper side is open: see the module docstring (R1)."""
+        lo = lower_bound(t_host)
         est = max(0.0, t_host - offset)
         if lo is not None:
             est = max(est, lo)
-        if hi is not None:
-            est = min(est, hi)
         return dict(t_vehicle_s=round(est, 3), t_host_s=t_host, t_source="host_reconstructed",
-                    t_vehicle_interval_s=[None if lo is None else round(lo, 3), None if hi is None else round(hi, 3)])
+                    t_vehicle_interval_s=[None if lo is None else round(lo, 3), None])
 
     def vehicle_instant(t_vehicle: float, t_host: float, source: str = "vehicle_observation") -> dict:
-        """An instant the vehicle itself timed. Its interval is the point, so a consumer can treat both alike."""
+        """An instant the vehicle itself stamped. The reading is exact, so its interval is the point."""
         t = round(max(0.0, t_vehicle), 3)
         return dict(t_vehicle_s=t, t_host_s=t_host, t_source=source, t_vehicle_interval_s=[t, t])
+
+    def cached_instant(t_vehicle: float, t_host: float) -> dict:
+        """The runner acted while holding this telemetry stamp. That bounds the vehicle clock below, no more.
+
+        The stamp was produced before it was received and the runner acted later still, so the vehicle's true
+        time at the action is at or after it by an unknown amount. `cache_age_host_s` says how stale the stamp
+        was in host time, which is an observation about the apparatus, not a conversion of the bound.
+        """
+        t = round(max(0.0, t_vehicle), 3)
+        fresh = next((h for h, v in reversed(timed) if v <= t_vehicle), None)
+        return dict(t_vehicle_s=t, t_host_s=t_host, t_source="cached_vehicle_observation",
+                    t_vehicle_interval_s=[t, None],
+                    cache_age_host_s=None if fresh is None else round(max(0.0, t_host - fresh), 3))
     export = next((r["values"] for r in rows if r.get("kind") == "param_export"), {})
     params_sha = hashlib.sha256(json.dumps({k: (int(v) if float(v).is_integer() else float(v)) for k, v in sorted(export.items())}, sort_keys=True).encode()).hexdigest()
     events, samples, unmapped = [], [], set()
@@ -132,11 +154,11 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
             # The runner reads the vehicle clock when it records these, so `t_vehicle_s` here is an observation,
             # not a reconstruction. The old code looked for a key named "t", never found it, and silently
             # replaced a measured instant with host-minus-offset (critique 2026-09-24, F1).
-            at = (vehicle_instant(r["t_vehicle_s"], r["t_host_s"]) if "t_vehicle_s" in r
+            at = (cached_instant(r["t_vehicle_s"], r["t_host_s"]) if "t_vehicle_s" in r
                   else host_instant(r["t_host_s"]))
             events.append(dict(name=r["name"], **at,
                                detail={k: v for k, v in r.items() if k not in ("kind", "name", "t_host_s")}))
-    mode_source, entry_state = "mavlink_heartbeat", None
+    mode_source, entry_state, channel_coverage = "mavlink_heartbeat", None, {}
     ulog = out / "flight.ulg"
     if ulog.exists():
         flags, nav = read_ulog_flags(ulog)
@@ -158,18 +180,35 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
                                        detail={"failsafe": fs, "nav_state": state}))
                 last, last_fs = state, fs
         inj = next((e for e in events if e["name"] == "injection"), None)
-        prev, entry_state = {}, None
+        prev, prev_t, entry_state = {}, None, None
         for t_s, f in flags:
             if inj is not None and entry_state is None and t_s >= inj["t_vehicle_s"]:
-                entry_state = dict(t_vehicle_s=round(t_s, 3), flags={k: bool(v) for k, v in f.items()})
+                # The first sample at or after injection may already be a CHANGED state. The state entering the
+                # window is the one before it, and how stale that one is matters (owner review 2026-09-25, WP0).
+                entry_state = dict(
+                    at_or_after=dict(t_vehicle_s=round(t_s, 3), flags=dict(f)),
+                    before=None if prev_t is None else dict(t_vehicle_s=round(prev_t, 3), flags=dict(prev)),
+                    before_age_s=None if prev_t is None else round(t_s - prev_t, 3),
+                    known=prev_t is not None)
             for k, v in f.items():
-                if k not in prev or bool(v) == bool(prev[k]):
+                if k not in prev or v == prev[k]:
                     continue
-                # Both edges. A hazard that clears and re-raises is the mechanism the interaction study is
-                # after; keeping only the rising edge deleted the history the properties need (F3, F6).
+                # Any change of the NATIVE value, not of its truthiness. battery_warning is an enum, so
+                # low -> critical -> emergency is three states; bool() collapsed them to one (WP0).
                 events.append(dict(name="hazard_flag", **vehicle_instant(t_s, round(t_s + offset, 3), source="autopilot_log"),
-                                   detail={"flag": k, "value": bool(v), "edge": "rising" if v else "falling"}))
-            prev = f
+                                   detail={"flag": k, "value": v, "previous_value": prev[k],
+                                           "edge": "rising" if v > prev[k] else "falling"}))
+            prev, prev_t = f, t_s
+        if flags:
+            # A channel that was recorded and stayed constant is NOT an absent channel, and an absent channel is
+            # not evidence that its flag never rose. Coverage is stored apart from the edge events (WP0).
+            first_t, first = flags[0]
+            channel_coverage = {k: dict(present=True, initial_value=v, first_seen_t_vehicle_s=round(first_t, 3),
+                                        samples=len(flags), changed=any(g.get(k) != v for _t, g in flags))
+                                for k, v in first.items()}
+            channel_coverage.update({k: dict(present=False, initial_value=None, first_seen_t_vehicle_s=None,
+                                             samples=0, changed=None)
+                                     for k in FLAGS if k not in first})
     events.sort(key=lambda e: e["t_vehicle_s"])
     samples.sort(key=lambda s: s["t_vehicle_s"])
     reasons = []
@@ -215,7 +254,9 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
                         unmapped_event_names=sorted(unmapped), raw_retained_at=str(out / "raw.jsonl"),
                         intended_mode_source=intended_mode_source,
                         instants_by_source={k: sum(1 for e in events if e["t_source"] == k)
-                                            for k in ("vehicle_observation", "autopilot_log", "host_reconstructed")}),
+                                            for k in ("vehicle_observation", "autopilot_log",
+                                                      "cached_vehicle_observation", "host_reconstructed")},
+                        failsafe_flag_channels=channel_coverage),
         stages=[s for s in (next((r["stages"] for r in rows if r.get("kind") == "stages"), None) or [])])
     if inj is not None:
         trace["injection_observed_vehicle_s"] = inj["t_vehicle_s"]

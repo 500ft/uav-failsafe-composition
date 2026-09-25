@@ -24,6 +24,7 @@
    "instants_by_source": {
     "vehicle_observation": 0,
     "autopilot_log": 0,
+    "cached_vehicle_observation": 0,
     "host_reconstructed": 0
    },
    "hazard_flag_edges": 0,
@@ -50,8 +51,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 2,
+    "vehicle_observation": 0,
     "autopilot_log": 5,
+    "cached_vehicle_observation": 2,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 4,
@@ -78,8 +80,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 2,
+    "vehicle_observation": 0,
     "autopilot_log": 5,
+    "cached_vehicle_observation": 2,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 4,
@@ -106,8 +109,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 2,
+    "vehicle_observation": 0,
     "autopilot_log": 5,
+    "cached_vehicle_observation": 2,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 4,
@@ -134,8 +138,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 2,
+    "vehicle_observation": 0,
     "autopilot_log": 5,
+    "cached_vehicle_observation": 2,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 4,
@@ -156,11 +161,12 @@
     "mode sequence ['OFFBOARD'] does not match expected ['AUTO_RTL']"
    ],
    "new_reasons": [
+    "gcs_connection_lost rose at 11.412 s after injection, expected 10.0 s (unbounded on one side: injection (cached_vehicle_observation); a received stamp does not bound a later instant above)",
     "response mode sequence [] does not match expected ['AUTO_RTL'] (setup before injection was ['OFFBOARD'] and is excluded)"
    ],
    "old_injection_t_vehicle_s": 56.222,
    "new_injection_t_vehicle_s": 56.74,
-   "new_injection_t_source": "vehicle_observation",
+   "new_injection_t_source": "cached_vehicle_observation",
    "old_mode_sequence": [
     "OFFBOARD"
    ],
@@ -169,8 +175,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 3,
+    "vehicle_observation": 0,
     "autopilot_log": 6,
+    "cached_vehicle_observation": 3,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 5,
@@ -191,12 +198,12 @@
     "mode sequence ['OFFBOARD'] does not match expected ['AUTO_LOITER', 'AUTO_RTL']"
    ],
    "new_reasons": [
-    "gcs_connection_lost rose at 12.008 s after injection, expected 10.0 s",
+    "gcs_connection_lost rose at 12.008 s after injection, expected 10.0 s (unbounded on one side: injection (cached_vehicle_observation); a received stamp does not bound a later instant above)",
     "response mode sequence [] does not match expected ['AUTO_LOITER', 'AUTO_RTL'] (setup before injection was ['OFFBOARD'] and is excluded)"
    ],
    "old_injection_t_vehicle_s": 55.727,
    "new_injection_t_vehicle_s": 56.244,
-   "new_injection_t_source": "vehicle_observation",
+   "new_injection_t_source": "cached_vehicle_observation",
    "old_mode_sequence": [
     "OFFBOARD"
    ],
@@ -205,8 +212,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 3,
+    "vehicle_observation": 0,
     "autopilot_log": 6,
+    "cached_vehicle_observation": 3,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 5,
@@ -230,7 +238,7 @@
    ],
    "old_injection_t_vehicle_s": 55.952,
    "new_injection_t_vehicle_s": 56.384,
-   "new_injection_t_source": "vehicle_observation",
+   "new_injection_t_source": "cached_vehicle_observation",
    "old_mode_sequence": [
     "OFFBOARD"
    ],
@@ -239,8 +247,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 3,
+    "vehicle_observation": 0,
     "autopilot_log": 6,
+    "cached_vehicle_observation": 3,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 5,
@@ -264,7 +273,7 @@
    ],
    "old_injection_t_vehicle_s": 55.41,
    "new_injection_t_vehicle_s": 55.948,
-   "new_injection_t_source": "vehicle_observation",
+   "new_injection_t_source": "cached_vehicle_observation",
    "old_mode_sequence": [
     "OFFBOARD"
    ],
@@ -273,8 +282,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 3,
+    "vehicle_observation": 0,
     "autopilot_log": 6,
+    "cached_vehicle_observation": 3,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 5,
@@ -295,12 +305,12 @@
     "mode sequence ['AUTO_TAKEOFF', 'AUTO_LOITER'] does not match expected ['AUTO_RTL']"
    ],
    "new_reasons": [
-    "gcs_connection_lost rose at 11.752 s after injection, expected 10.0 s",
+    "gcs_connection_lost rose at 11.752 s after injection, expected 10.0 s (unbounded on one side: injection (cached_vehicle_observation); a received stamp does not bound a later instant above)",
     "response mode sequence [] does not match expected ['AUTO_RTL'] (setup before injection was ['AUTO_TAKEOFF', 'AUTO_LOITER'] and is excluded)"
    ],
    "old_injection_t_vehicle_s": 57.78,
    "new_injection_t_vehicle_s": 58.128,
-   "new_injection_t_source": "vehicle_observation",
+   "new_injection_t_source": "cached_vehicle_observation",
    "old_mode_sequence": [
     "AUTO_TAKEOFF",
     "AUTO_LOITER"
@@ -311,8 +321,9 @@
    ],
    "response_mode_sequence": [],
    "instants_by_source": {
-    "vehicle_observation": 3,
+    "vehicle_observation": 0,
     "autopilot_log": 6,
+    "cached_vehicle_observation": 3,
     "host_reconstructed": 1
    },
    "hazard_flag_edges": 4,

@@ -1,0 +1,43 @@
+# Layer B of the differential: PX4's own failsafe unit test, on an ordinary Ubuntu runner.
+#
+# Decision D14, route (b). This repository already builds on ubuntu-latest, which shows Linux CI is available,
+# NOT that PX4 has ever built here. The job is manual and bounded: one focused attempt, no privileged runner,
+# no extra services, no GPU. A build failure is an environment result and is recorded as one.
+name: native-failsafe-oracle
+
+on:
+  workflow_dispatch:
+    inputs:
+      px4_ref:
+        description: "PX4 commit to test (must be the pinned one unless deliberately probing)"
+        default: "d6f12ad1c4f70ad3230afd7d86e971421e02fef4"
+
+permissions:
+  contents: read
+
+jobs:
+  oracle:
+    runs-on: ubuntu-24.04            # pinned image, not ubuntu-latest: the toolchain is part of the identity
+    timeout-minutes: 60              # bounded budget; a longer hunt is a new decision, not a retry
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check out the pinned PX4
+        run: |
+          git clone --filter=blob:none https://github.com/PX4/PX4-Autopilot.git px4
+          git -C px4 checkout --detach "${{ inputs.px4_ref }}"
+          git -C px4 submodule update --init --recursive --depth 1
+
+      - name: Install PX4's own build dependencies
+        run: ./px4/Tools/setup/ubuntu.sh --no-nuttx --no-sim-tools
+
+      - name: Build and run the pinned failsafe test
+        run: oracle/run_native_failsafe_test.sh "$PWD/px4" "$PWD/oracle-out"
+
+      - name: Keep the evidence whatever happened
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-failsafe-oracle
+          path: oracle-out/
+          retention-days: 90
