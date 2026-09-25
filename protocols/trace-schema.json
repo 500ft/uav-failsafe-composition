@@ -12,7 +12,8 @@
   "samples",
   "validity",
   "conversion",
-  "stages"
+  "stages",
+  "identity"
  ],
  "properties": {
   "schema_version": {
@@ -586,6 +587,27 @@
     },
     "known": {
      "type": "boolean"
+    }
+   }
+  },
+  "identity": {
+   "type": "object",
+   "required": [
+    "scenario",
+    "execution",
+    "analysis"
+   ],
+   "additionalProperties": false,
+   "description": "What was requested, what one attempt did, and how those bytes were read. Separate because a case cannot be selected by the hash of a readback that does not exist until launch. `execution.overrides_readback_sha256` covers only the parameters this run explicitly set and is never a complete vehicle configuration.",
+   "properties": {
+    "scenario": {
+     "type": "object"
+    },
+    "execution": {
+     "type": "object"
+    },
+    "analysis": {
+     "type": "object"
     }
    }
   }

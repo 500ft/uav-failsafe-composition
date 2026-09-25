@@ -1,0 +1,232 @@
+{
+ "schema_version": "2026-09-25",
+ "what_this_is": "Every stored capture, keyed by legacy id plus raw content hash. A legacy id alone is ambiguous where it maps to more than one capture and must not be used as a key.",
+ "captures_found": 10,
+ "ambiguous_legacy_ids": {
+  "px4-v1.17.0-sih-quadx-rtl__none__seed1": [
+   "px4-v1.17.0-sih-quadx-rtl__none__seed1@5997ec51f190",
+   "px4-v1.17.0-sih-quadx-rtl__none__seed1@37df6daaae61",
+   "px4-v1.17.0-sih-quadx-rtl__none__seed1@adf88d72e253",
+   "px4-v1.17.0-sih-quadx-rtl__none__seed1@814f4bf141ac",
+   "px4-v1.17.0-sih-quadx-rtl__none__seed1@55406d47aac9"
+  ],
+  "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1": [
+   "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@ee0434e11ec1",
+   "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@352f825097e8"
+  ]
+ },
+ "rows": [
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep1/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw_sha256": "5997ec51f190d7025bffb92110820235a3e7be7ca1b53f3d66e210ddb50c3e81",
+   "ulog_sha256": null,
+   "alias": "px4-v1.17.0-sih-quadx-rtl__none__seed1@5997ec51f190",
+   "valid": false,
+   "intended_mode": null,
+   "intended_mode_source": "unavailable",
+   "scenario_id": "eced61f2cdce62003da02d64bde7158acd4356172fba91fe1b70e0987aef3e3e",
+   "execution_id": "fe4978114913db43dae52d5165b5c2c922885c510a376041c57b67f298e1d643",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": false,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@5997ec51f190",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@37df6daaae61",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@adf88d72e253",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@814f4bf141ac",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@55406d47aac9"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep2/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw_sha256": "37df6daaae6151e1a3be4900f17f1acb63d7d5fe614054aae96c1bc702aa212c",
+   "ulog_sha256": "0e2b52be5346b429100de5031d638413928b9d5b890e102868fa4315d3ddb8dd",
+   "alias": "px4-v1.17.0-sih-quadx-rtl__none__seed1@37df6daaae61",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "c2bc4a52f78e5ca2499b3caf69fb6eae0b09d4f562155ed246c9ca4c3f4c5b33",
+   "execution_id": "9e557cedb65f7469ea383d9572bd77b324c11934539d67839a63f6a7cb28fe2a",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": false,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@5997ec51f190",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@37df6daaae61",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@adf88d72e253",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@814f4bf141ac",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@55406d47aac9"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep3/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw_sha256": "adf88d72e253a08d0aba9b5e75f24561e11ce1cd24ef2aacfc4e628b4177028a",
+   "ulog_sha256": "3f197cecc1fee76e4237668c7faf388a127b7777c39c7a449cc5968272ea7f37",
+   "alias": "px4-v1.17.0-sih-quadx-rtl__none__seed1@adf88d72e253",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "c2bc4a52f78e5ca2499b3caf69fb6eae0b09d4f562155ed246c9ca4c3f4c5b33",
+   "execution_id": "be02f7e6ac88b5c852b5bffe661ef6d2898f3379c0ca0670d351dde38875be73",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": false,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@5997ec51f190",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@37df6daaae61",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@adf88d72e253",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@814f4bf141ac",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@55406d47aac9"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep4/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw_sha256": "814f4bf141ac79dfecd15f99a51456a4d522889bf5b11bb4c54d40085fb322ab",
+   "ulog_sha256": "41dad0300759f19a71cf429ac4fb5311660c9e602c38bb8456fc5d4a8cbba64d",
+   "alias": "px4-v1.17.0-sih-quadx-rtl__none__seed1@814f4bf141ac",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "c2bc4a52f78e5ca2499b3caf69fb6eae0b09d4f562155ed246c9ca4c3f4c5b33",
+   "execution_id": "596a7b2cce59ebfc67ad0572f6d32499b90831522d4f8da848b184f4b3d9092b",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": false,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@5997ec51f190",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@37df6daaae61",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@adf88d72e253",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@814f4bf141ac",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@55406d47aac9"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-20/rep5/px4-v1.17.0-sih-quadx-rtl__none__seed1",
+   "raw_sha256": "55406d47aac95ca120c1536c395e681620c341bd1034a45fb0759a044109854e",
+   "ulog_sha256": "db181d7fb199ca1a367a9bd99ec18a0fbc3c015b7acf2fdb319ad778a10650f7",
+   "alias": "px4-v1.17.0-sih-quadx-rtl__none__seed1@55406d47aac9",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "c2bc4a52f78e5ca2499b3caf69fb6eae0b09d4f562155ed246c9ca4c3f4c5b33",
+   "execution_id": "95bea0974d2b286382c52d4631888ef8f27bc7ab3a2053dfc7eb293724d2939e",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": false,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@5997ec51f190",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@37df6daaae61",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@adf88d72e253",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@814f4bf141ac",
+    "px4-v1.17.0-sih-quadx-rtl__none__seed1@55406d47aac9"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-21/px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1",
+   "raw_sha256": "6dfa27c4423afbff5aac3c47568a81620c8bfc0fe3fd54f3dbc9552e7590cd3a",
+   "ulog_sha256": "48bcd90039b2076f3fdf3f7d78b2b7cdb6b791e1ee61b4bf5f9c089918f88896",
+   "alias": "px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1@6dfa27c4423a",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "5ccfb91119e16d02b33b478b6a69379789f90bfbbebed208739b7ca00e3e44c6",
+   "execution_id": "862e1fe3e5fd777357f21913dbbe7634445968a5ce480fabf93b112ae53bb836",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": true,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl-delay0__datalink_loss__seed1@6dfa27c4423a"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-21/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "raw_sha256": "ee0434e11ec1a66fe7134449f8560e382dc3534ee574ecee1e4aa4c67d2b82d2",
+   "ulog_sha256": "6020ca9d696d12ba3c1ffff4acfc861789e99ca54d9de90a2b595ffb1586f545",
+   "alias": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@ee0434e11ec1",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "afbcb76b883919c161a0cb1ce06ef1c1d0184f55dd12681e22f67f090761f707",
+   "execution_id": "23ce3276dc8637e8aa0fe53c318f42b13e151129b59885d81472444dd3fb462b",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": false,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@ee0434e11ec1",
+    "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@352f825097e8"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-22/px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1",
+   "raw_sha256": "19458c8a47a550a5647c835bb25de2e16104cbd0548afd48d39abb003b042dbd",
+   "ulog_sha256": "1f5e3a4058c43ba0a5f2256c95330badcc807d6f9aa3ebdf35ecd5a3e71640a4",
+   "alias": "px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1@19458c8a47a5",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "057995125aaa2ac74786bfb0cb90dd5e30d5b11a1ddfca95731d541b4a8886a6",
+   "execution_id": "e323c68db0fac92d7229bf3e189aef357e5cfced4941ad68929abe8c70efe4a5",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": true,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl-gf-terminate__geofence_breach__seed1@19458c8a47a5"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-22/px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1",
+   "raw_sha256": "98f2e48a7c9e3d2f73f228076c1069302958912d1bf8f3a62c86ccd05e43b186",
+   "ulog_sha256": "c2e7d6eab8551188106ec28487f56474dae258bd7c6c037a8f4e9a39ee8de6f1",
+   "alias": "px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1@98f2e48a7c9e",
+   "valid": true,
+   "intended_mode": "offboard",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "0c9144103412218031c15816338fcaa9f5ffe1f9245cf4b98d2f82660cc64d58",
+   "execution_id": "329d05b70320e0cdb43994e397a4caa272959246819c70fe20cf75ca0ac9bd13",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": true,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__geofence_breach__seed1@98f2e48a7c9e"
+   ]
+  },
+  {
+   "legacy_case_id": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "capture_path": "/Users/redhose/.cache/uav-failsafe-composition/runs/2026-09-23/px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1",
+   "raw_sha256": "352f825097e809ee6d25f4bc9c4102c8ab8effd91c8af55111667c5ae9a1bc60",
+   "ulog_sha256": "92fd58eb0de22cc340e57e65682013b1b1d48f5fcf1714b3bc7793629271d23c",
+   "alias": "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@352f825097e8",
+   "valid": true,
+   "intended_mode": "auto_loiter",
+   "intended_mode_source": "raw_capture_do_set_mode",
+   "scenario_id": "75fffe1d6f52093b346300c569dafe670a322a5ce2e0b5e683e908d83e93ed3a",
+   "execution_id": "ce66da2581714afebfaee287ce91281748e73bb96bed7ce749c0d5485a5feacc",
+   "executable_sha256": "unknown",
+   "build_identity": "unknown",
+   "complete_parameter_snapshot": "unknown: only explicitly set overrides were read back",
+   "legacy_id_unique": false,
+   "legacy_id_resolves_to": [
+    "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@ee0434e11ec1",
+    "px4-v1.17.0-sih-quadx-rtl__datalink_loss__seed1@352f825097e8"
+   ]
+  }
+ ]
+}

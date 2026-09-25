@@ -9,7 +9,7 @@ from search_plan import AXES, QUERIES, plan  # noqa: E402
 
 ACCESS = {"inspected_earlier", "metadata_only", "identifier_unresolved"}
 RESOLVED = {"resolved", "unresolved", "not_machine_resolvable"}
-MATCHED = {"verified", "unverified", "corrected"}
+MATCHED = {"verified", "unverified", "corrected", "matches_intended_work", "unresolved"}
 FIXTURE = json.loads((ROOT / "tests/fixtures/literature-l32-mismatch.json").read_text())
 
 
@@ -101,6 +101,26 @@ class LiteratureRegisterTests(unittest.TestCase):
 
     def test_axes_md_is_generated_from_the_register(self):
         self.assertEqual((ROOT / "literature/axes.md").read_text(), render_axes.render(self.reg))
+
+    def test_every_row_has_an_intent_disposition_after_the_2026_09_25_audit(self):
+        """The audit ends when every row is dispositioned, not when every paper is read (WP4)."""
+        for e in self.entries:
+            self.assertNotEqual(e["identity"]["intended_work_matched"], "unverified", e["id"])
+
+    def test_an_intent_disposition_states_its_basis_and_does_not_promote_access(self):
+        for e in self.entries:
+            audit = e["identity"].get("intent_audit")
+            if audit:
+                self.assertIn(audit["disposition"], {"matches_intended_work", "unresolved"}, e["id"])
+                self.assertTrue(audit["reason"].strip(), e["id"])
+                self.assertIn("full text not read", audit["basis"], e["id"])
+                self.assertEqual(audit["access_scope"], e["access"],
+                                 f"{e['id']}: an intent audit must not change access status")
+
+    def test_an_entry_with_no_identifier_stays_unresolved_on_intent(self):
+        for e in self.entries:
+            if not e["identifier"]:
+                self.assertEqual(e["identity"]["intended_work_matched"], "unresolved", e["id"])
 
     def test_the_stored_identity_audit_matches_the_register(self):
         rows = {r["id"]: r for r in json.loads((ROOT / "literature/identity-audit.json").read_text())["rows"]}

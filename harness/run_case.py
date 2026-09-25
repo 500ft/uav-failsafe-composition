@@ -25,6 +25,7 @@ import argparse, json, os, shutil, signal, struct, subprocess, sys, threading, t
 from pathlib import Path
 
 from harness.cases import resolve, MATRIX, PER_EVENT_PARAMS, PER_MODE_PARAMS
+from harness.identity import file_sha256
 from harness.trace import build_trace
 
 INSTANCE = int(os.environ.get("PX4_INSTANCE", "0"))
@@ -221,6 +222,7 @@ def main(argv=None) -> int:
     # The intended mode belongs in the case, not bolted onto the manifest after normalisation: re-normalising a
     # stored Auto Loiter capture used to silently become the Offboard case (critique 2026-09-24, F2/TASK 2).
     case["intended_mode"] = a.intended_mode
+    case["restore_after_s"] = float(a.restore_after)
     (out / "case.json").write_text(json.dumps(case, indent=1) + "\n")
     log(dict(kind="case_resolved", case_id=case["case_id"]))
     if a.dry_run:
@@ -247,7 +249,13 @@ def main(argv=None) -> int:
     px4 = subprocess.Popen([str(build / "bin/px4"), "-d", str(build / "etc"), "-s", "etc/init.d-posix/rcS",
                             "-i", str(INSTANCE), "-w", str(work)],
                            cwd=build, env=env, stdout=(out / "px4.log").open("w"), stderr=subprocess.STDOUT)
-    log(dict(kind="launch", pid=px4.pid, build=str(build)))
+    log(dict(kind="launch", pid=px4.pid, build=str(build),
+             # Part of the execution identity: which binary actually flew, and how it was built (WP1).
+             executable_sha256=file_sha256(build / "bin/px4"),
+             build_identity=dict(target="px4_sitl_default", path=str(build),
+                                 git_head=subprocess.run(["git", "-C", str(build.parents[1]), "rev-parse", "HEAD"],
+                                                         capture_output=True, text=True).stdout.strip() or None,
+                                 instrumentation="none")))
     stage("launch", "ok", evidence=str(out / "px4.log"), pid=px4.pid)
     gcs = mavutil.mavlink_connection(f"udpin:0.0.0.0:{GCS_PORT}", source_system=255, source_component=190)
     v = Vehicle(gcs, log)

@@ -38,8 +38,15 @@
    "identifier_source": "USENIX page resolved HTTP 200 on 2026-09-22; no Crossref DOI exists",
    "identity": {
     "identifier_resolved": "not_machine_resolvable",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "RVFuzzer is the named configuration-bug baseline; title and USENIX Security 2019 venue match the reason.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -56,8 +63,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "Control parameters considered harmful is the ICSE 2022 range-specification work the reason describes.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -91,8 +105,15 @@
    "identifier_source": "USENIX page resolved HTTP 200 on 2026-09-22; no Crossref DOI exists",
    "identity": {
     "identifier_resolved": "not_machine_resolvable",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "PatchVerif is patch-validation for robotic vehicles, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -108,8 +129,15 @@
    "identifier_source": "not resolved: absent from Crossref, and the guessed USENIX slug returned 404",
    "identity": {
     "identifier_resolved": "unresolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "unresolved",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "unresolved",
+     "reason": "no identifier was ever resolved, so there is no registered work to compare against.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "identifier_unresolved"
+    }
    }
   },
   {
@@ -125,8 +153,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "RVPLAYER is replay with what-if reasoning, which is the machinery the reason names.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -142,8 +177,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "the title names cyber-physical inconsistency, which is the check-versus-state gap the reason describes.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -159,8 +201,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "RoboFuzz is ROS-level correctness fuzzing, matching the companion-computer framing.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -176,8 +225,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "CPFuzz combines fuzzing with falsification of temporal properties, exactly as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -193,8 +249,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "an embedded-fuzzing survey is the map the reason asks for.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -264,8 +327,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "Holzmann and Smith on extracting verification models from source is Study A's method paper.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -299,8 +369,15 @@
    "identifier_source": "present in this project's own 2026-09-22 export",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "software verification applied to a UAV autopilot codebase, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -316,8 +393,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "unresolved",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "unresolved",
+     "reason": "a QP-based development and verification framework; whether it covers failsafe mode logic rather than control synthesis is not decidable from the title.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -333,8 +417,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "deductive verification of an autopilot maths library, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -351,8 +442,15 @@
    "identifier_source": "present in the 2026-09-11 canonical export and in this one",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "the thesis behind L19; title names static analysis and verified code generation.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -368,8 +466,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "model checking of UAV security properties, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -385,8 +490,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "k-induction bounded model checking of embedded C, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -403,8 +515,15 @@
    "identifier_source": "prior-art intake row 265, open access",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "formal methods for a safe continuous-control UAV architecture, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -420,8 +539,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "Alur and Dill's A theory of timed automata is the formalism's founding definition.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -437,8 +563,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "the UPPAAL tool suite described by its authors, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -454,8 +587,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a survey of UPPAAL-assisted modelling, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -471,8 +611,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "What's Decidable about Hybrid Automata is the decidability boundary the reason names.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -488,8 +635,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "an introduction to hybrid automata, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -505,8 +659,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "UPPAAL-SMC is the statistical fallback the reason names.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -522,8 +683,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a worked UPPAAL model of a physical system, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -539,8 +707,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "combining BMC with fuzzing, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -581,8 +756,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "the 1998 Simplex architecture paper, distinct from L32's 2001 companion.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -598,8 +780,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "run-time assurance for general-aviation and UAV autopilots, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -615,8 +804,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a run-time assurance survey from the aviation side, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -632,8 +828,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "multi-layered run-time assurance with several monitors, which is the arbitration question.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -649,8 +852,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "Monitoring with verified guarantees is the offline-to-online bridge the reason names.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -666,8 +876,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a contract-based safety assurance review, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -701,8 +918,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "system-level safety engineering for uncrewed operations, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -718,8 +942,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "health management and contingency planning for autonomous UAS, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -736,8 +967,15 @@
    "identifier_source": "2026-09-11 canonical export row 227",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "unresolved",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "unresolved",
+     "reason": "reconfigurable mission plans for RPAS; whether it addresses recovery obligations or mission replanning only is not decidable from the title.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -797,8 +1035,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "the feature-interaction detection contest benchmark, which is the framing the project lacked a name for.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -814,8 +1059,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "Rushby on mode confusion and automation surprises, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -831,8 +1083,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a requirements-engineering account of features and their interaction, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -848,8 +1107,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "formal conflict detection between crosscutting requirements, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -865,8 +1131,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a feature-interaction case study via requirement retrenchment, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -882,8 +1155,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "unresolved",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "unresolved",
+     "reason": "integration under emergent constraints; the abstract is needed to tell whether the constraints are timing or resource ones.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -899,8 +1179,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a flight-deck design against mode confusion, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -916,8 +1203,15 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "real-time reachability for autonomous-vehicle safety assurance, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -927,14 +1221,29 @@
    "why_selected": "A PX4 software- and hardware-in-the-loop test system; the closest published description of the rig built here.",
    "what_it_would_settle": "What fidelity claims are normally made for SITL, and the accepted evidence for them.",
    "identifier": "doi:10.5626/jok.2024.51.6.528",
-   "title": "Developement of SITL &amp; HITL System based on PX4-Matlab for VTOL Test",
+   "title": "Developement of SITL & HITL System based on PX4-Matlab for VTOL Test",
    "year": 2024,
    "venue": "Journal of KIISE",
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a PX4 SITL and HITL test system, which is the closest published description of this rig.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
+   },
+   "quarantined_identifier": {
+    "identifier": "doi:10.5626/jok.2024.51.6.528",
+    "title": "Developement of SITL &amp; HITL System based on PX4-Matlab for VTOL Test",
+    "what_it_actually_is": "the same work; the title was stored with an HTML-escaped ampersand",
+    "how_it_got_here": "the 2026-09-22 registry response was recorded without unescaping its entities",
+    "found_by": "intent audit, 2026-09-25",
+    "kept_because": "an escaping bug is part of the acquisition record"
    }
   },
   {
@@ -950,8 +1259,15 @@
    "identifier_source": "present in this project's own 2026-09-22 export",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "multi-agent safety verification by symmetry, as stated.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   },
   {
@@ -967,15 +1283,22 @@
    "identifier_source": "present in this project's own 2026-09-22 export",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unverified",
-    "checked_on": "2026-09-24"
+    "intended_work_matched": "matches_intended_work",
+    "checked_on": "2026-09-24",
+    "intent_audit": {
+     "disposition": "matches_intended_work",
+     "reason": "a distributed simplex architecture, which is the fleet-scale form of the pattern.",
+     "checked_on": "2026-09-25",
+     "basis": "registered title and venue compared with why_selected; full text not read",
+     "access_scope": "metadata_only"
+    }
    }
   }
  ],
  "identity_vocabulary": {
   "why": "One flag used to carry five different meanings. L32 resolved cleanly, matched its own recorded title, and was still a cell-biology thesis standing in for a Simplex reference, because nothing compared the work against the reason it was selected. These are now separate fields.",
   "identifier_resolved": "resolved | unresolved | not_machine_resolvable - does the identifier name any work",
-  "intended_work_matched": "verified | unverified | corrected - was the resolved work checked against why_selected by a person; `unverified` is the honest default, not a failure",
+  "intended_work_matched": "verified | unverified | corrected | matches_intended_work | unresolved - was the resolved work checked against why_selected by a person. `matches_intended_work` means the registered title and venue decide it; `unresolved` means they do not and the text was not read. Neither marks the work read or any claim supported.",
   "claim_supported": "never recorded here; a register entry supports no claim. Findings live in docs/day3-reading-records.json",
   "topical_eligibility": "carried by `axis`, not duplicated here",
   "access_scope": "carried by `access`, not duplicated here"

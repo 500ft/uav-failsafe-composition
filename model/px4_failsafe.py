@@ -32,8 +32,6 @@ def battery_action(com_low_bat_act: int, warning: str) -> str:
         return {0: "Warn", 1: "RTL", 2: "Land", 3: "Land"}[com_low_bat_act]
     return "None"
 
-# ponytail: _current_start_delay's slow-recovery toggling rule (framework.cpp L121-141) is not modelled; add it if
-# Study A shows disagreements on flapping links.
 # framework.cpp L490-493: actions that can be delayed behind Hold
 def can_be_delayed(action: str) -> bool:
     return action not in ("None", "Disarm", "Terminate", "Hold")
@@ -68,18 +66,40 @@ class Selector:
     User takeover and mode-requirement fallbacks are modelled as inputs (`takeover`, `mode_can_run`)."""
     params: dict
     active: dict = field(default_factory=dict)  # hazard -> action
-    delay_left_s: float = 0.0
+    delay_left_s: float = 0.0            # _current_delay: what is left of the delay now running
+    start_delay_s: float | None = None   # _current_start_delay: the pot the NEXT delay is filled from
     selected: str = "None"
     delayed: str = "None"
     terminated: bool = False
+
+    def __post_init__(self) -> None:
+        # framework.cpp L50 and L146: both the constructor and updateParams seed the pot from COM_FAIL_ACT_T.
+        if self.start_delay_s is None:
+            self.start_delay_s = float(self.params.get("COM_FAIL_ACT_T", 5.0))
+
+    def _update_start_delay(self, dt_s: float, delay_active: bool) -> None:
+        """framework.cpp updateStartDelay L121-141. The pot drains while a delayed action is pending and refills
+        at a QUARTER of real time when none is. Its own comment says why: "Ensure that even with a toggling
+        state the delayed action is executed at some point. This is done by increasing the delay slower than
+        reducing it." So a hazard that clears and re-raises does not get its full delay back, and the second
+        episode acts sooner than the first. This is state shared across episodes, and it was the omission the
+        earlier model carried as a marker (critique 2026-09-24, F6).
+        """
+        configured = float(self.params.get("COM_FAIL_ACT_T", 5.0))
+        if delay_active:
+            self.start_delay_s = max(0.0, self.start_delay_s - dt_s)
+        else:
+            self.start_delay_s = min(configured, self.start_delay_s + dt_s / 4.0)
 
     def raise_hazard(self, hazard: str, warning: str = "critical") -> None:
         act = configured_action(hazard, self.params, warning)
         newly = hazard not in self.active
         self.active[hazard] = act
-        # framework.cpp L351-356: start the delay when a new delayable action is added and no delay is running
+        # framework.cpp L351-356: a new delayable action with no delay already running fills _current_delay from
+        # _current_start_delay -- NOT from COM_FAIL_ACT_T. On a first hazard they are equal; after a previous
+        # delayed episode the pot is lower, which is the whole point of the recharge rule.
         if newly and float(self.params.get("COM_FAIL_ACT_T", 5.0)) > 0.1 and act != "Warn" and self.delay_left_s == 0.0 and can_be_delayed(act):
-            self.delay_left_s = float(self.params.get("COM_FAIL_ACT_T", 5.0))
+            self.delay_left_s = self.start_delay_s
 
     def clear_hazard(self, hazard: str, mode_changed_or_disarmed: bool = False) -> None:
         # ClearCondition: link-loss/geofence/offboard actions clear OnModeChangeOrDisarm (failsafe.cpp L54, L102, L108...), position-low clears WhenConditionClears (L388-404)
@@ -92,6 +112,8 @@ class Selector:
         if not armed:
             self.selected = "None"; return self.selected
         self.delay_left_s = max(0.0, self.delay_left_s - dt_s)  # framework.cpp updateDelay L149-157
+        # framework.cpp L89: updateStartDelay runs every update, keyed on whether a delayed action is pending.
+        self._update_start_delay(dt_s, self.delayed != "None")
         # framework.cpp clearDelayIfNeeded L653-668: no Hold-first delay when already in a failsafe (selected > Hold),
         # when Hold cannot run, or when the user has taken over
         if PRECEDENCE[self.selected] > PRECEDENCE["Hold"] or not hold_can_run or takeover:
