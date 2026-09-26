@@ -1,0 +1,9 @@
+general
+takeover
+takeover_denied
+can_takeover_degraded_failsafe
+no_immediate_takeover_when_failsafe_on_mode_switch
+defer
+defer_and_clear
+skip_failsafe
+user_termination

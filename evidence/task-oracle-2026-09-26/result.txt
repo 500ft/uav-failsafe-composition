@@ -1,0 +1,7 @@
+ctest_target=functional-failsafe_test
+ctest_entries=1
+declared_cases=9
+listed_by_binary=9
+cases_run_in_own_process=9
+cases_passed=9
+100% tests passed, 0 tests failed out of 1
