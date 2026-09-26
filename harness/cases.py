@@ -25,6 +25,21 @@ INJECTABLE_CLASSES = tuple(c for c in EVENT_CLASSES if c not in NOT_INJECTABLE)
 SINGLE_EVENT_SEEDS = (1, 2, 3, 5, 8)
 PAIRED_SEEDS = (11, 13, 17)
 # D12: horizon = injection + 45 s or terminal mode, whichever comes first.
+# Decision: how long to watch after the stimulus.  [Q-HORIZON in protocols/quantities.json]
+#
+#   Question    How long must the observation window be before an absence of recovery is informative?
+#   Inputs      COM_DL_LOSS_T = 10 s   sourced, vendor default [B10, Q-DL-LOSS-T]
+#               COM_FAIL_ACT_T = 5 s   sourced, vendor default [B10, Q-FAIL-ACT-T]
+#               predicted transition at +15 s after injection (timeline T1, calculated from the two above)
+#   Assumption  the response is a mode change, not a completed manoeuvre. Completion is out of scope (D17), so
+#               no climb, travel or descent time enters this number.
+#   Model       horizon >= detection + hold delay + margin for the mode change to be logged and observed
+#   Substitute  10 s + 5 s + margin;  45 s leaves 30 s beyond the predicted transition
+#   Result      45 s, selected, not forced. Any value above about 20 s satisfies the model.
+#   Sensitivity Too short reports a false ABSENCE of recovery, which is the exact conclusion these runs reach,
+#               so the margin is deliberately large rather than tight.
+#   Validation  Partial. The 2026-09-23 run held its mode for the whole horizon, so the horizon was not the
+#               limiting factor in that absence. A recovery slower than 45 s has not been excluded by measurement.
 HORIZON_S = 45.0
 # The seed varies the injection time within +/- 2 s of the scheduled vehicle time; the offset is part of the ID.
 SEED_OFFSET_S = {1: 0.0, 2: -1.0, 3: 1.0, 5: -2.0, 8: 2.0, 11: 0.0, 13: -1.5, 17: 1.5}

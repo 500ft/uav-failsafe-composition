@@ -17,6 +17,7 @@ The implementation validates research metadata and source provenance, and since 
 2. Inspect [Experiment 01](experiment-01-authority-loss.md) for factors, split rules, endpoints, and continuation conditions.
 3. Run the [README quick start](../README.md#quick-start). These are offline checks after dependency installation; no simulator or flight operation is triggered.
 4. Follow the [claim ledger](claim-ledger.md) to distinguish literature, plans, future simulation, and future measurements.
+5. Use the [traceability index](traceability.md) to go from any decision to its reasoning, the quantities it consumes and what has validated it, and the [number-provenance audit](number-provenance-audit-2026-09-25.md) to see which numbers are measured, which are read from the source, and which are our judgement.
 
 ## Evidence map
 

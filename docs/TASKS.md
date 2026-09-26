@@ -320,3 +320,20 @@ of letting repository activity make the decision accidentally.
 patent review is being pursued or consults the appropriate university technology-transfer office
 or qualified counsel before adding potentially enabling control, hardware, or configuration
 detail. This task is a process gate, not legal advice.
+
+## Outstanding from the number-provenance audit (2026-09-25)
+
+Ordered by how much each resolves. Ids resolve in [`protocols/quantities.json`](../protocols/quantities.json);
+the gaps are tabulated in [the audit](number-provenance-audit-2026-09-25.md).
+
+| # | task | resolves | how | depends on |
+|---|---|---|---|---|
+| NP-1 | Run the native failsafe oracle once | `Q-RECHARGE`, `Q-DELAY-EPS` move from transcription-checked to differentially checked | one manual dispatch of `native-failsafe-oracle`; a build failure is an environment result and still closes the environment question | nothing; the job is prepared |
+| NP-2 | Bound or abandon `Q-RESIDUAL` | U1 and U4 timing become evaluable, or are declared permanently unevaluable in this apparatus | instrument the runtime at the update boundary for a post-event acknowledgment with stated timestamp semantics, or state a defensible transport bound | NP-1 |
+| NP-3 | Explain the detector running 1.4 to 2.0 s late against `Q-DL-LOSS-T` | T1, T2 and T5 predictions | compare the documented timeout with the pinned source's own detection path, then the oracle | NP-1 |
+| NP-4 | Capture a complete parameter snapshot on a new run | `execution.overrides_readback_complete` can become true | read the full parameter set, not only the overrides this run sets; define the completeness rule first | a new run |
+| NP-5 | Validate `Q-HORIZON` against a recovery that actually happens | the horizon stops being a partial validation | any run that produces a recovery transition bounds it from below | a working stimulus |
+| NP-6 | Calibrate a tolerance prospectively for confirmation runs | replaces `Q-TOL`'s frozen development value for Study A only | a separate calibration design, frozen before any held-out run; historical reports stay under 1.5 s | NP-2 |
+| NP-7 | Resolve the four literature rows with no intent disposition | closes the intent audit completely | L06 needs an identifier; L18, L42 and L50 need their abstracts | none |
+
+None of these is blocked on an owner decision. NP-1 needs one workflow dispatch.
