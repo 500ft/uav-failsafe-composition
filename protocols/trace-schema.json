@@ -200,9 +200,10 @@
       "enum": [
        "vehicle_observation",
        "autopilot_log",
+       "cached_vehicle_observation",
        "host_reconstructed"
       ],
-      "description": "Where t_vehicle_s came from. `vehicle_observation` and `autopilot_log` are readings of the vehicle's own clock. `host_reconstructed` is host time minus the median offset, an estimate: it may not be compared with a vehicle-clock instant without its interval."
+      "description": "Where t_vehicle_s came from. `vehicle_observation` and `autopilot_log` are exact stamps made by the vehicle. `cached_vehicle_observation` is the newest stamp the runner held when it acted: a lower bound on the vehicle clock, not the instant's timestamp. `host_reconstructed` is host time minus the median offset, an estimate."
      },
      "t_vehicle_interval_s": {
       "type": "array",
@@ -214,7 +215,15 @@
         "null"
        ]
       },
-      "description": "Lower and upper vehicle-clock bound on this instant, from the nearest real vehicle-clock readings either side of it in host time. null on a side means no bounding observation exists there and the instant is unbounded in that direction."
+      "description": "Lower and upper vehicle-clock bound. The upper side is null for anything the vehicle did not stamp itself: a received packet can be delayed past the instant, so the next stamp does not bound it above (owner review 2026-09-25, R1). A null side means unbounded, and any comparison that depends on it is inconclusive, never a pass."
+     },
+     "cache_age_host_s": {
+      "type": [
+       "number",
+       "null"
+      ],
+      "minimum": 0,
+      "description": "For a cached_vehicle_observation: how stale the held stamp was in host time when acted on."
      }
     }
    }
@@ -315,9 +324,10 @@
       "enum": [
        "vehicle_observation",
        "autopilot_log",
+       "cached_vehicle_observation",
        "host_reconstructed"
       ],
-      "description": "Where t_vehicle_s came from. `vehicle_observation` and `autopilot_log` are readings of the vehicle's own clock. `host_reconstructed` is host time minus the median offset, an estimate: it may not be compared with a vehicle-clock instant without its interval."
+      "description": "Where t_vehicle_s came from. `vehicle_observation` and `autopilot_log` are exact stamps made by the vehicle. `cached_vehicle_observation` is the newest stamp the runner held when it acted: a lower bound on the vehicle clock, not the instant's timestamp. `host_reconstructed` is host time minus the median offset, an estimate."
      }
     }
    }
@@ -451,6 +461,14 @@
       "minimum": 0
      },
      "description": "How many events carry each clock provenance, so a reader can see how much of a trace is estimated."
+    },
+    "failsafe_flag_channels": {
+     "type": "object",
+     "description": "Per-flag recording coverage, stored apart from the edge events. A channel that was present and never changed is not an absent channel, and an absent channel is not evidence that its flag never rose. A detector verdict must consult this before concluding anything.",
+     "additionalProperties": {
+      "type": "object",
+      "additionalProperties": true
+     }
     }
    }
   },
@@ -511,20 +529,63 @@
    "type": "object",
    "additionalProperties": false,
    "required": [
-    "t_vehicle_s",
-    "flags"
+    "at_or_after",
+    "known"
    ],
-   "description": "Every failsafe flag's state at the first logged sample at or after injection: the state at window entry.",
+   "description": "Failsafe flag state around window entry. `at_or_after` is the first logged sample at or after injection, which may already be a changed state; `before` is the sample preceding it, which is the state entering the window. `known` is false when no preceding sample exists, in which case the entering state is unknown and is not guessed.",
    "properties": {
-    "t_vehicle_s": {
-     "type": "number",
+    "at_or_after": {
+     "type": "object",
+     "required": [
+      "t_vehicle_s",
+      "flags"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "t_vehicle_s": {
+       "type": "number",
+       "minimum": 0
+      },
+      "flags": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "integer"
+       }
+      }
+     }
+    },
+    "before": {
+     "type": [
+      "object",
+      "null"
+     ],
+     "required": [
+      "t_vehicle_s",
+      "flags"
+     ],
+     "additionalProperties": false,
+     "properties": {
+      "t_vehicle_s": {
+       "type": "number",
+       "minimum": 0
+      },
+      "flags": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "integer"
+       }
+      }
+     }
+    },
+    "before_age_s": {
+     "type": [
+      "number",
+      "null"
+     ],
      "minimum": 0
     },
-    "flags": {
-     "type": "object",
-     "additionalProperties": {
-      "type": "boolean"
-     }
+    "known": {
+     "type": "boolean"
     }
    }
   }

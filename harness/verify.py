@@ -53,7 +53,10 @@ def _compare(event: dict, base: dict, want: float) -> tuple[str, float, str | No
     b_lo, b_hi = _span(base)
     point = round(event["t_vehicle_s"] - base["t_vehicle_s"], 3)
     if None in (e_lo, e_hi, b_lo, b_hi):
-        return "inconclusive", point, "an instant is reconstructed from host time with no bounding observation"
+        open_sides = [f"{d['name']} ({d['t_source']})" for d in (event, base)
+                      if None in (d.get("t_vehicle_interval_s") or [None, None])]
+        return "inconclusive", point, ("unbounded on one side: " + ", ".join(open_sides) +
+                                       "; a received stamp does not bound a later instant above")
     lo, hi = round(e_lo - b_hi, 3), round(e_hi - b_lo, 3)
     if abs(lo - want) <= TOLERANCE_S and abs(hi - want) <= TOLERANCE_S:
         return "match", point, None
@@ -128,12 +131,22 @@ def verify(run_dir: Path) -> dict:
     if injection is None:
         return _result("unverified", timeline["id"], observed=observed, expected=expected,
                        reasons=["no injection event in the trace; the stimulus cannot be located"])
+    # The window opens at the injection's LOWER bound, which is the only side this rig can justify. A transition
+    # before it certainly precedes the stimulus. One at or after it may precede or follow, because the true
+    # injection instant is somewhere at or above that bound (owner review 2026-09-25, R1/WP0).
     t0 = injection["t_vehicle_s"]
-    before = [e for e in transitions if e["t_vehicle_s"] < t0]
-    response = [e for e in transitions if e["t_vehicle_s"] >= t0]
+    inj_lo, inj_hi = (injection.get("t_vehicle_interval_s") or [t0, t0])
+    open_at = inj_lo if inj_lo is not None else t0
+    before = [e for e in transitions if e["t_vehicle_s"] < open_at]
+    response = [e for e in transitions if e["t_vehicle_s"] >= open_at]
     observed["state_entering_window"] = before[-1]["detail"]["to"] if before else None
     observed["setup_mode_sequence"] = [e["detail"]["to"] for e in before]
     observed["mode_sequence"] = [e["detail"]["to"] for e in response]
+    # An EMPTY response set is certain even with an open bound: nothing happened after the lower bound, so
+    # nothing happened after the injection either. A non-empty one has uncertain membership until the upper
+    # side is closed, and that uncertainty is stated rather than resolved by a guessed point.
+    observed["window_membership_certain"] = (not response) or (
+        inj_hi is not None and all(e["t_vehicle_s"] >= inj_hi for e in response))
 
     want_flag = (timeline["expected_hazard_flag"] or {}).get("flag")
     rises = [e for e in events if e["name"] == "hazard_flag" and e["detail"].get("flag") == want_flag
@@ -161,6 +174,10 @@ def verify(run_dir: Path) -> dict:
             reasons.append(f"{want_flag} rose at {observed['hazard_flag_t_rel_s']} s after injection, "
                            f"expected {want_t} s" + (f" ({why})" if why else ""))
 
+    if not observed["window_membership_certain"]:
+        verdicts.append("inconclusive")
+        reasons.append("the injection instant is bounded only below, so whether "
+                       f"{observed['mode_sequence']} falls inside the response window is undetermined")
     if observed["mode_sequence"] != timeline["expected_mode_sequence"]:
         verdicts.append("mismatch")
         reasons.append(f"response mode sequence {observed['mode_sequence']} does not match expected "

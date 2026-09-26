@@ -1,5 +1,11 @@
 # The mode hypothesis is eliminated too — 2026-09-23
 
+> **Verdicts below predate the 2026-09-24 measurement repair.** They were produced by a verifier that compared
+> transitions from before the injection against the expected recovery, and by a normaliser that rebuilt the
+> injection instant from host time instead of using the reading the runner took from the vehicle clock. This
+> record is kept exactly as it was written. The re-derivation from the same raw captures is in
+> [task-measurement-repair-2026-09-24](../task-measurement-repair-2026-09-24/README.md); the run re-derives as refuted with an empty response window, and its intended mode is now recovered from the raw capture as `auto_loiter` rather than defaulted to Offboard. The hazard latency moves from 12.1 s to 11.752 s. The conclusion is unchanged.
+
 Branch `task/study-a-mode-discriminator-2026-09-23` off main `3b65482`. This tests the last structural
 hypothesis left by [the 2026-09-22 diagnostics](../task-study-a-diagnostics-2026-09-22/README.md): that
 action selection is suppressed specifically while the user-intended mode is Offboard.

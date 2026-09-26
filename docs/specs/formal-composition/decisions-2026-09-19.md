@@ -81,8 +81,8 @@ failures; and the trace could not distinguish PX4's `Action::None` from not obse
 
 Re-deriving all ten stored captures from their raw data leaves every substantive conclusion in place. The four
 valid control repeats now verify instead of being unassessed; the five injected runs stay refuted, with an
-empty response window rather than a mismatch against takeoff. The finding that no action is selected survives
-the repair.
+empty response window rather than a mismatch against takeoff. The observation survives the repair, at
+its supported strength: No expected post-injection recovery-mode transition was observed and no new failsafe announcement was seen; the internal selected action and its cause remain unresolved. The selector is not on any channel this rig records, so `selected_action` is `unobserved`, and an absent announcement is not a continuous record of selector state (owner review 2026-09-25, R4).
 
 New decisions and open items:
 
@@ -94,3 +94,42 @@ New decisions and open items:
 | **D18** | `T6` added: the Auto Loiter control timeline, whose expected post-takeoff sequence is `AUTO_LOITER` | decided here |
 
 D14 is unchanged and still blocks Study A. D7, D9 and D13 still need owner answers.
+
+## 2026-09-24 addendum 2 — consistency follow-ups
+
+Four places where the repair left the repository saying two different things. None changed a result.
+
+| id | item | decision |
+|---|---|---|
+| **D19** | `protocols/event-semantics.md` described the clock offset as estimated from the first 10 heartbeats, which stopped being true on 2026-09-21 | amended with a dated §7; §2's `native_transition` definition was already correct and the code had disagreed with it |
+| **D20** | The frozen 1.5 s tolerance cited a 0.51 s jitter measured through the old clock conversion; on the vehicle's own clock the same runs give 0.352 s | the **value stays frozen**; only the basis text is corrected. Re-deriving a tolerance downward against the data it must judge is fitting |
+| **D21** | `harness/reproducibility.py` pooled reconstructed and measured instants into one spread, and that spread is what D20's figure came from | spreads are reported per clock source and never pooled; only a `measured` spread may be quoted as apparatus jitter |
+| **D22** | The 21, 22 and 23 September evidence records state pre-repair verdicts | kept verbatim, each given a dated pointer to the re-derivation; historical records are not rewritten |
+
+Still deferred from the critique's TASK 2, and not attempted here: scenario identity including the event
+schedule, the complete applied-parameter hash and the build identity, and compatibility mappings for
+historical case IDs. Only the intended-mode part of that item is done.
+
+## 2026-09-25 addendum — owner review of PR #29, and the decisions it settles
+
+The owner reviewed PR #29, reproduced three defects in it with in-memory probes, and supplied
+`TODAY-CLOSEOUT-PLAN-2026-09-25.txt`. All three reproduce here exactly as reported. They are mine.
+
+| id | decision | status |
+|---|---|---|
+| **D16** | **Revised.** A received stamp bounds a later instant BELOW only. A packet can be delayed past the instant, so the next stamp does not bound it above. D16 as recorded on 2026-09-24 asserted containment and was wrong | corrected here |
+| **D23** | The runner's injection timestamp is a cached telemetry stamp, not a reading taken at the instant. It is `cached_vehicle_observation`, an open-above lower bound, carrying its `cache_age_host_s` | decided here |
+| **D24** | No development run in this apparatus can produce a passing timing verdict, because the injection instant has no defensible upper bound. Discrete comparisons still decide, and an empty response window is still sound | decided here |
+| **D20** | **Revised.** 0.352 s is the observed repeat-to-repeat range of one event over n=4 repeats. It is repeatability, not accuracy, and bounds nothing. "About 4.3 times the measured jitter" and "the safe direction" are withdrawn. 1.5 s stays for re-analysis under the criterion the runs were judged by | corrected here |
+| **D21** | **Revised.** A statistic is formed over a cohort: valid runs, one composite identity including intended mode, one clock source. Gating on clock provenance alone let an invalid, differently configured run report 89 s of "jitter" | corrected here |
+| **D14** | **Resolved: route (b), the repository's existing Ubuntu Actions.** A pinned `ubuntu-24.04` job with a 60-minute budget, ordinary permissions, no GPU and no privileged runner. Existing Linux CI shows the route is available, not that PX4 has ever built on it. No cloud instance is provisioned and the headless host is not rebooted | decided here |
+| **D8** | Unchanged and explicitly pending. The C++ oracle needs no checker. Symbolic verification stays open; Python fixtures are not a model checker | recorded |
+| **D17** | **Resolved by splitting, not by a new number.** U1 is the selector's response obligation after an eligible condition. U4 is commitment to an allowed navigation response. Landing, containment and completion are separate outcomes with their own observables. No speed-limit quotient is used as a deadline. Being already in an allowed response mode can satisfy a state obligation when its preconditions hold | decided here |
+| **D7** | **Replaced.** A deterministic coverage gate, not a pooled binomial one. Every required cell needs a valid, observable, classified result, reported by mechanism, order and boundary. No population claim from a designed set of offsets. An unexplained discrepancy blocks claims for that subdomain | decided here |
+| **D9** | **Replaced.** One supported pair first: neither, A only, B only, A then B, B then A, and one near-boundary schedule. Equal inputs must be realized and observed, not merely requested. A same-update cell is unavailable in SITL unless the apparatus can demonstrate that ordering | decided here |
+| **D13** | Unchanged. RC stimulus stays out of integrated coverage. The native-class oracle may still exercise RC input flags; that is component evidence, not a MAVLink injection | recorded |
+| **D25** | Scenario, execution and analysis identity are three separate records. A case cannot be selected by the hash of a readback that does not exist until launch | decided here |
+
+The owner also corrected an overstatement of mine: the repair does not establish that no action is selected.
+The supported statement is that no expected post-injection recovery-mode transition was observed and no new
+failsafe announcement was seen, with the internal selected action and its cause unresolved.

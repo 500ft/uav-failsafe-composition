@@ -5,8 +5,17 @@
  "not_an_independent_oracle": "The PX4 docs failsafe simulator runs the same code as the vehicle [B2]. It is useful for checking that an extraction is faithful, and it is not independent evidence about the control logic or the physical behaviour.",
  "tolerance": {
   "value_s": 1.5,
-  "basis": "Mode changes are read from the autopilot log's vehicle_status topic, whose resolution is far finer than the 1 Hz HEARTBEAT stream; the dominant terms are the measured apparatus jitter (0.51 s at 112 s of vehicle time, evidence/task-study-a-harness-2026-09-20) and the flag-detection granularity of the failsafe_flags topic. 1.5 s is three times the measured jitter and is frozen here, before the runs.",
-  "applies_to": "every time below, measured relative to the injection instant on the vehicle clock, never to absolute vehicle time"
+  "basis": "Mode changes are read from the autopilot log's vehicle_status topic, whose resolution is far finer than the 1 Hz HEARTBEAT stream. 1.5 s was frozen before the runs, as three times the repeat range then available (0.51 s). It is RETAINED for re-analysis of the development runs under the criterion they were judged by. It is not a calibrated accuracy bound, and nothing here validates it: see jitter_basis_correction_2026_09_24.",
+  "applies_to": "every time below, measured relative to the injection instant on the vehicle clock, never to absolute vehicle time",
+  "jitter_basis_correction_2026_09_24": {
+   "what_the_number_is": "0.352 s is the observed range of horizon_reached's boot-relative timestamps across n=4 valid control repeats from 2026-09-20, re-derived on the vehicle's own clock. Event anchor: horizon_reached. Observation route: vehicle_observation, the vehicle's own stamp. It is repeat-to-repeat REPEATABILITY of one scenario.",
+   "what_the_number_is_not": "Not an accuracy bound and not an upper bound on the error of an injection-relative latency: it can contain start-up, execution, sampling and detection variability, and four repeats establish no tail. Clock provenance alone does not isolate apparatus error.",
+   "superseded_reasoning": "An earlier draft of this record called 1.5 s 'about 4.3 times the measured jitter' and said the direction was 'safe'. Both are withdrawn. A wider tolerance reduces false mismatch alarms and can equally hide a real deviation.",
+   "why_the_value_stays": "It was frozen before the runs it judges. Re-deriving it from those runs, in either direction, is fitting. 1.1 s from multiplying this range would be the same error.",
+   "for_future_confirmation": "A new protocol version may choose a tolerance from separate development calibration, frozen before any held-out run. Historical reports stay under this criterion and are not restated under a new one.",
+   "relation_to_study_a": "Distinct from Study A's proposed median 0.2 s / p95 1.0 s criteria. Neither supersedes the other; this is the development criterion only.",
+   "evidence": "evidence/task-measurement-repair-2026-09-24/README.md"
+  }
  },
  "timelines": [
   {
