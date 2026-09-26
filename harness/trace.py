@@ -32,6 +32,7 @@ from pathlib import Path
 
 from jsonschema.validators import validator_for
 
+from harness.identity import NORMALISER_REVISION, analysis, execution, file_sha256, scenario
 from harness.modes import NAV_STATE, decode_custom_mode
 
 # PX4 does not publish the failsafe framework's selected action over MAVLink, so no sample ever observes one.
@@ -234,8 +235,27 @@ def build_trace(out: Path, case: dict, matrix: dict) -> dict:
             intended_mode_source = "raw_capture_do_set_mode" if intended_mode else "unavailable"
         if intended_mode is None:
             intended_mode_source = "unavailable"
+    # Three identities, kept apart (owner review 2026-09-25, WP1/D25). The scenario is what was requested and
+    # is computable from the case; the execution is what this attempt did; the analysis is how these bytes were
+    # read. Components this capture never recorded stay `unknown` rather than being defaulted.
+    sc = scenario(case, intended_mode=intended_mode or "unrecorded",
+                  restore_after_s=case.get("restore_after_s", 0.0),
+                  applied_overrides=export or case.get("parameters", {}))
+    launch = next((r for r in rows if r.get("kind") == "launch"), None)
+    ex = execution(sc["scenario_id"], repeat=out.name,
+                   executable_sha256=(launch or {}).get("executable_sha256"),
+                   build=(launch or {}).get("build_identity"),
+                   overrides_readback=export or None,
+                   realized_events={e["name"]: e["t_vehicle_s"] for e in events
+                                    if e["name"] in ("arm", "takeoff_complete", "injection", "horizon_reached")},
+                   raw_artifacts={n: h for n, h in
+                                  ((f, file_sha256(out / f)) for f in ("raw.jsonl", "flight.ulg")) if h})
+    an = analysis(ex["execution_id"], inputs=ex["raw_artifacts"] if isinstance(ex["raw_artifacts"], dict) else {},
+                  protocol_version=SCHEMA.get("title", "trace-schema"),
+                  verdict_config=dict(tolerance_source="protocols/expected-timelines.json"))
     trace = dict(
         schema_version="2026-09-24",
+        identity=dict(scenario=sc, execution=ex, analysis=an),
         manifest=dict(configuration_id=case["configuration_id"], firmware_commit=case["firmware_commit"],
                       firmware_tag=case["firmware_tag"], airframe=case["airframe"], simulator="sihsim", lockstep=True,
                       parameters_sha256=params_sha, seed=int(case["seed"]),

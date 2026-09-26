@@ -562,9 +562,9 @@
   {
    "id": "L53",
    "identifier": "doi:10.5626/jok.2024.51.6.528",
-   "recorded_title": "Developement of SITL &amp; HITL System based on PX4-Matlab for VTOL Test",
+   "recorded_title": "Developement of SITL & HITL System based on PX4-Matlab for VTOL Test",
    "status": "match",
-   "similarity": 1.0,
+   "similarity": 0.909,
    "registered_title": "Developement of SITL &amp; HITL System based on PX4-Matlab for VTOL Test",
    "registered_year": 2024,
    "registered_venue": "Journal of KIISE",

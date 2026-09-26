@@ -1,6 +1,6 @@
 {
- "schema_version": "2026-09-19",
- "status": "planned, not executed",
+ "schema_version": "2026-09-25",
+ "status": "Amended 2026-09-25 under the owner review (WP2). Every property now states its antecedent, allowed outputs, deadline origin, exceptions, observables, inconclusive rule, worked examples and its observer. A deadline whose residual bound is unknown is labelled not yet evaluable instead of being filled with a number, and the mode/action part stays evaluable.",
  "model_identity_required": "Every query is evaluated only against a model whose hash matches models/px4-study-a/source-manifest.json; a witness carries both hashes.",
  "clock": {
   "unit": "second",
@@ -37,9 +37,8 @@
  "properties": [
   {
    "id": "U1",
-   "name": "monitor breached, no recovery engaged",
+   "name": "no response to an eligible monitored condition",
    "natural_language": "A failsafe flag stays true past the point where the framework must have acted, while the selected action is still None or Warn.",
-   "bound_s": "hazard_detection_timer + (COM_FAIL_ACT_T if the configured action is delayable else 0) + 1.0",
    "delayable_actions_note": "The Hold-first delay applies only when COM_FAIL_ACT_T > 0.1 s and the action is not Disarm, Terminate or Hold; it is cleared when a failsafe is already active, when Hold cannot run, or on takeover.",
    "source": [
     "framework.cpp L489-500 (delayed Hold)",
@@ -71,11 +70,45 @@
    ],
    "witness_format": "event schedule + expected (flag, t_rise) and (selected_action, t) pairs over the horizon",
    "replayable_in_sitl": true,
-   "known_limitations": "False positive if a flag rises during a mode transition in which the framework has not yet run an update cycle; treat a violation with margin < 1 update period as inconclusive."
+   "known_limitations": "False positive if a flag rises during a mode transition in which the framework has not yet run an update cycle; treat a violation with margin < 1 update period as inconclusive.",
+   "requirement_source": "study-defined obligation; NOT copied from the implementation",
+   "antecedent": "a monitored condition is raised, its configured action is not None or Warn, and no exclusion applies",
+   "allowed_outputs": [
+    "the configured action",
+    "any action of higher precedence for a concurrently active condition"
+   ],
+   "deadline_origin": "the detected flag's rise. The detection timeout (COM_DL_LOSS_T and friends) is spent BEFORE the flag rises, so adding it again after the flag would double-count it.",
+   "deadline": "configured Hold delay drawn from the shared pot, PLUS an update/transport residual that this apparatus cannot bound",
+   "deadline_status": "not_yet_evaluable",
+   "deadline_note": "The source-controlled part is derivable. The residual is not: the injection instant has no defensible upper bound in this rig (D24), so no total is frozen. The mode and action parts of U1 stay evaluable and are checked.",
+   "persistence": "the obligation stands while the condition is raised and the action remains configured",
+   "exceptions": [
+    "X1",
+    "X2",
+    "X3",
+    "X4",
+    "X5",
+    "a None/Warn configuration carries no manoeuvre obligation; warning-only battery behaviour is not a missing response"
+   ],
+   "observables": [
+    "failsafe_flags time series with recording coverage",
+    "nav_state from vehicle_status",
+    "announced action"
+   ],
+   "inconclusive_rule": "unbounded or straddling timing, or a required channel absent per conversion.failsafe_flag_channels",
+   "example_satisfying": "datalink lost, NAV_DLL_ACT=2, AUTO_RTL entered after the Hold delay",
+   "example_violating": "datalink lost, NAV_DLL_ACT=2, no recovery mode for the whole horizon with the flag held true",
+   "example_inconclusive": "the flag rose but the log ends before the deadline could pass",
+   "example_not_triggered": "NAV_DLL_ACT=0, so the antecedent never holds (X2)",
+   "example_disabled_action": "GF_ACTION=0 with a geofence breach: no obligation, and a fired property would be a defect in the property",
+   "antecedent_reachability_query": "is there a run in which the antecedent holds at all",
+   "observer": "harness/verify.py response-window comparison; query Q1",
+   "model_boundary": "the Python selector is a restricted transcription; mode-eligibility fallback is an input, not modelled",
+   "executability": "offline fixture and SITL now; native oracle once D14's job runs; checker pending D8"
   },
   {
    "id": "U2",
-   "name": "priority inconsistency",
+   "name": "arbitration below the highest eligible action",
    "natural_language": "Two or more hazards are active and the engaged action sits lower in the pinned precedence order than the action configured for the highest-precedence active hazard.",
    "precedence": [
     "None",
@@ -108,11 +141,43 @@
    ],
    "witness_format": "two hazard rise times + the engaged action at the evaluation instant",
    "replayable_in_sitl": true,
-   "known_limitations": "Requires at least two simultaneously injectable hazards; the single-event validation matrix does not exercise this property, so predictions on pairs are hypotheses until replayed (see decisions-2026-09-19.md D9)."
+   "known_limitations": "Requires at least two simultaneously injectable hazards; the single-event validation matrix does not exercise this property, so predictions on pairs are hypotheses until replayed (see decisions-2026-09-19.md D9).",
+   "requirement_source": "implementation-derived conformance rule; the precedence order is PX4's own",
+   "antecedent": "two or more conditions are active with different configured actions",
+   "allowed_outputs": [
+    "the maximum configured action over the active set",
+    "Hold while a legitimate shared delay is still running"
+   ],
+   "deadline_origin": "the later of the two flag rises",
+   "deadline": "the shared delay pot's remaining value, not COM_FAIL_ACT_T and not a per-hazard sum",
+   "deadline_status": "source_derived",
+   "persistence": "evaluated only after a COMPLETED framework update, never inside one",
+   "exceptions": [
+    "X1",
+    "X2",
+    "X5",
+    "a pending Hold-first delay is legal and is not an arbitration failure; it becomes one only once the delay has elapsed"
+   ],
+   "observables": [
+    "configured action per condition",
+    "selected action",
+    "delayed action",
+    "committed mode"
+   ],
+   "inconclusive_rule": "the selected action is not on any recorded channel in this apparatus, so U2 is currently unobservable in SITL",
+   "example_satisfying": "RTL and Land active, Land committed after the delay",
+   "example_violating": "RTL and Land active, RTL committed after the delay has elapsed",
+   "example_inconclusive": "both active, delay still running, evaluated mid-delay",
+   "example_not_triggered": "only one condition active",
+   "example_disabled_action": "one of the two configured to None: the set has one eligible member and U2 does not apply",
+   "antecedent_reachability_query": "can two configured conditions be active simultaneously in the supported domain",
+   "observer": "model fixture and native oracle only; query Q3",
+   "model_boundary": "distinguishes configured, eligible, pending, selected and committed; only selected and committed are checked",
+   "executability": "offline fixture and native oracle; NOT executable in SITL while the selector is unobserved"
   },
   {
    "id": "U3",
-   "name": "action flapping",
+   "name": "oscillation between recovery functions",
    "natural_language": "The selected action leaves and re-enters a recovery function more than once within the window while the hazard has not cleared.",
    "window_s": 10.0,
    "window_basis": "COM_DL_LOSS_T default 10 s [B10]; windowed-oracle form follows S2's 7 s route-deviation oracle [B11] \u2014 2026-09-24: this is a chosen study parameter. COM_DL_LOSS_T's default motivates the magnitude; it does not justify 10 s as the oscillation window, and no source does.",
@@ -131,28 +196,50 @@
    ],
    "witness_format": "ordered list of (t, action) toggles with the hazard held true",
    "replayable_in_sitl": true,
-   "known_limitations": "A flapping *input* (link up/down) legitimately produces action changes; the property requires the hazard flag to remain true throughout the window."
+   "known_limitations": "A flapping *input* (link up/down) legitimately produces action changes; the property requires the hazard flag to remain true throughout the window.",
+   "requirement_source": "study-defined; the source's own toggling protection motivates it but does not define the window",
+   "antecedent": "the selected action leaves and re-enters a recovery function while the condition stays raised",
+   "allowed_outputs": [
+    "a monotone escalation such as Hold then RTL then Land",
+    "a single justified de-escalation on clear"
+   ],
+   "deadline_origin": "the first departure from the recovery function",
+   "deadline": "10 s",
+   "deadline_status": "study_parameter",
+   "deadline_note": "Chosen, not derived. COM_DL_LOSS_T's default motivates the magnitude and no source justifies 10 s as an oscillation window. A paper using another window validates nothing here.",
+   "persistence": "the condition must remain raised throughout; a flapping input legitimately produces action changes",
+   "exceptions": [
+    "X1",
+    "X2",
+    "X5",
+    "input flap: the condition itself cleared and re-raised"
+   ],
+   "observables": [
+    "selected action time series",
+    "failsafe flag edges in both directions",
+    "clear and re-raise order"
+   ],
+   "inconclusive_rule": "either series incomplete, or the order of a clear and a re-raise undetermined",
+   "example_satisfying": "Hold then RTL, held to the horizon",
+   "example_violating": "RTL, Hold, RTL, Hold inside 10 s with the flag continuously true",
+   "example_inconclusive": "the flag series has a gap across the window",
+   "example_not_triggered": "the action never changes",
+   "example_disabled_action": "action None: nothing to oscillate between",
+   "antecedent_reachability_query": "can a repeated clear and re-raise drive two action changes inside the window",
+   "observer": "model fixture; query Q4. U3 previously had NO query at all",
+   "model_boundary": "needs the shared delay pot, which the model now carries (WP3)",
+   "executability": "offline fixture now; SITL blocked on the selector channel"
   },
   {
    "id": "U4",
-   "name": "unbounded time to a registered terminal mode",
+   "name": "no commitment to an allowed navigation response",
    "natural_language": "Time from hazard onset to a registered terminal mode exceeds the configured bound.",
-   "bound_s": "hazard_detection_timer + COM_FAIL_ACT_T + expected_manoeuvre_time + 2.0",
    "correction_note": "NOT the sum of every configured delay. PX4 holds a single shared delay counter initialised from COM_FAIL_ACT_T, not one timer per hazard, so summing per-hazard delays over-estimates the bound and would hide real violations.",
    "source": [
     "framework.h L284-286 (_current_start_delay, _current_delay are single values)",
     "framework.cpp L48-51, L143-147 (both initialised from COM_FAIL_ACT_T)"
    ],
-   "expected_manoeuvre_time": "computed per configuration from RTL_RETURN_ALT, RTL_DESCEND_ALT and the SIH speed limits; recorded in the matrix row, not hard-coded",
    "margin_basis": "2.0 s = two MAVLink heartbeat periods [B5]",
-   "terminal_modes": [
-    "AUTO_LOITER",
-    "AUTO_RTL",
-    "AUTO_LAND",
-    "DESCEND",
-    "TERMINATION",
-    "disarmed on ground"
-   ],
    "terminology": "Always 'registered terminal mode'; the banned claim vocabulary in AGENTS.md and docs/claim-ledger.md applies to every statement about this result.",
    "excludes": [
     "X1",
@@ -168,22 +255,92 @@
    "witness_format": "hazard rise time, expected terminal mode, and the horizon at which it was not reached",
    "replayable_in_sitl": true,
    "known_limitations": "Depends on the continuous manoeuvre-time estimate; if the interval abstraction is not conservative for a configuration, the property is inconclusive rather than violated.",
-   "known_defect_2026_09_24": {
-    "what": "`expected_manoeuvre_time` is computed by dividing the return distance by the SIH speed limits. A maximum speed gives the LEAST time a manoeuvre can take, so this is a lower bound used as a deadline, not an upper bound. Every run flying at less than full speed would violate the property.",
-    "consequence": "U4 must not be evaluated against measured runs until the bound is replaced.",
-    "status": "open; the replacement is a protocol amendment and belongs with the rest of the F5 property rewrite",
-    "source": "critique 2026-09-24, F5/U4; the review called it 'not conservative', which understates it"
-   },
-   "known_defect_terminal_modes": {
-    "what": "`terminal_modes` lists AUTO_LOITER, which is the mode a run may already be flying before injection. A generic terminal list lets the pre-existing mode satisfy an RTL obligation.",
-    "consequence": "entry into the intended response mode must be stated per timeline, not drawn from this list",
-    "status": "open; harness/verify.py already compares the per-timeline expected sequence and does not use this list",
-    "source": "critique 2026-09-24, F5/U4"
-   }
+   "requirement_source": "study-defined obligation, split from physical completion on 2026-09-25 (D17)",
+   "antecedent": "U1's antecedent holds and a response action has been selected",
+   "allowed_outputs": [
+    "entry into, or continuation in, a navigation mode allowed for that action"
+   ],
+   "deadline_origin": "the selected action, not the flag and not the injection",
+   "deadline": "the same unresolved residual as U1",
+   "deadline_status": "not_yet_evaluable",
+   "persistence": "commitment must hold while the condition is raised",
+   "exceptions": [
+    "X1",
+    "X2",
+    "X5",
+    "already being in an allowed response mode satisfies the state obligation when its preconditions hold; a fresh transition is required only where the requirement calls for one"
+   ],
+   "observables": [
+    "nav_state",
+    "the mode allowed for the selected action",
+    "preconditions of that mode"
+   ],
+   "inconclusive_rule": "window membership undetermined, or the allowed set depends on an unobserved precondition",
+   "example_satisfying": "RTL selected, AUTO_RTL committed",
+   "example_violating": "RTL selected, the vehicle stays in OFFBOARD",
+   "example_inconclusive": "the transition falls inside the injection's unbounded interval",
+   "example_not_triggered": "no action was selected because the antecedent failed",
+   "example_disabled_action": "action None: no commitment is owed",
+   "antecedent_reachability_query": "is a selected action ever observed in this apparatus",
+   "observer": "harness/verify.py per-timeline expected sequence; query Q2",
+   "model_boundary": "physical completion is OUT. Landing, containment and descent need dynamics the discrete model does not represent. No speed-limit quotient is used as a deadline: distance over a maximum speed is the LEAST time a manoeuvre can take, so it is a lower bound, and using it as a deadline would fire on every run flying below full speed.",
+   "executability": "offline fixture and SITL for mode commitment; physical completion not evaluated anywhere",
+   "deadline_note": "Shares U1's unresolved residual. The source-controlled delay is derivable; the update and transport component is not bounded in this apparatus, so no total is frozen and the mode-commitment part is checked on its own."
   }
  ],
  "not_properties": [
   "Containment (leaving the flight geography or contingency volume) is recorded in the trace but not decided by the checker at this stage; the model has no position dynamics. [B7]",
   "Reconnection behaviour is observed-but-out-of-model until it has its own automaton, property and validation test."
- ]
+ ],
+ "verdict_vocabularies": {
+  "why_two": "A simulation pass and a symbolic proof are different claims and must never share a status field. The first is about one run; the second is about a model.",
+  "per_run_observation": {
+   "satisfied": "the required observation exists, is complete, and meets the obligation",
+   "violated": "the required observation exists, is complete, and contradicts the obligation",
+   "inconclusive": "the observation exists but its uncertainty does not decide the obligation",
+   "unverified": "the comparison could not be made: identity, validity, or a missing required channel",
+   "not_applicable": "the antecedent did not hold in this run",
+   "must_carry": "reason and component boundary (detector, selector, or mode entry)"
+  },
+  "study_or_checker_claim": {
+   "no_violation_observed_in_tests": "the registered suite ran and nothing violated",
+   "no_violation_within_checked_bounds": "a bounded check completed inside stated limits",
+   "established_over_the_abstract_model": "symbolic checking completed; initial states, assumptions and encoding reported",
+   "unknown": "timeout, memory limit, unsupported semantics, unreachable antecedent, inadequate observation, or unjustified abstraction"
+  },
+  "reporting_rule": "Missing recovery is a discrete failure when a valid, complete window establishes it. Missing or truncated observation is uncertainty. Neither disappears from the latency denominator. Detector, selector and mode-entry latencies are reported separately, and physical completion is reported as not evaluated."
+ },
+ "query_map": {
+  "why": "Requirement ids and diagnostic queries are different things. Every in-scope obligation needs one or a declared gap.",
+  "Q1": {
+   "property": "U1",
+   "kind": "response obligation",
+   "status": "specified; timing component not yet evaluable"
+  },
+  "Q2": {
+   "property": "U4",
+   "kind": "mode commitment",
+   "status": "specified and executable for mode entry"
+  },
+  "Q3": {
+   "property": "U2",
+   "kind": "arbitration",
+   "status": "specified; unobservable in SITL"
+  },
+  "Q4": {
+   "property": "U3",
+   "kind": "oscillation",
+   "status": "specified; previously missing entirely"
+  },
+  "D1": {
+   "property": null,
+   "kind": "deadlock diagnostic",
+   "status": "diagnostic only, never a substitute for U1-U4"
+  },
+  "D2": {
+   "property": null,
+   "kind": "non-vacuity",
+   "status": "diagnostic only; a property that never triggers is not a pass"
+  }
+ }
 }

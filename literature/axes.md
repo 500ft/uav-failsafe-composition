@@ -302,8 +302,9 @@ venue unrecorded, 2023 · `doi:10.2139/ssrn.4346428` · not read · identity unv
 *Why it is on the list.* Real-time reachability for safety assurance of autonomous vehicles, evaluated empirically.  
 *What reading it would settle.* Whether reachability is fast enough to run online, which decides whether a Study B result could become a monitor.
 
-**L53. Developement of SITL &amp; HITL System based on PX4-Matlab for VTOL Test**  
+**L53. Developement of SITL & HITL System based on PX4-Matlab for VTOL Test**  
 Journal of KIISE, 2024 · `doi:10.5626/jok.2024.51.6.528` · not read · identity unverified  
+*Corrected 2026-09-24.* This entry previously read `doi:10.5626/jok.2024.51.6.528` / "Developement of SITL &amp; HITL System based on PX4-Matlab for VTOL Test" — the same work; the title was stored with an HTML-escaped ampersand. The 2026-09-22 registry response was recorded without unescaping its entities; found by intent audit, 2026-09-25.  
 *Why it is on the list.* A PX4 software- and hardware-in-the-loop test system; the closest published description of the rig built here.  
 *What reading it would settle.* What fidelity claims are normally made for SITL, and the accepted evidence for them.
 

@@ -234,5 +234,57 @@
  "streams_at_injection": {
   "gcs_heartbeat": false,
   "offboard_setpoints": true
+ },
+ "identity": {
+  "scenario": {
+   "schema": "scenario/2026-09-25",
+   "firmware": {
+    "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "tag": "v1.17.0"
+   },
+   "vehicle": {
+    "airframe": "10040_sihsim_quadx",
+    "simulator": "sihsim",
+    "lockstep": true
+   },
+   "configuration_id": "px4-v1.17.0-sih-quadx-defaults",
+   "intended_mode": "offboard",
+   "schedule": {
+    "event": "datalink_loss",
+    "seed": 1,
+    "inject_at_vehicle_ms": 30000,
+    "restore_after_ms": 0,
+    "horizon_ms": 45000,
+    "time_origin": "vehicle clock, the runner's held telemetry stamp (D6, D23)"
+   },
+   "requested_overrides": {
+    "NAV_DLL_ACT": 2.0
+   },
+   "scenario_id": "f151b8915f82a458525bddb3d5d6f303776618fe384a3de8c40db634e83399c5"
+  },
+  "execution": {
+   "schema": "execution/2026-09-25",
+   "scenario_id": "f151b8915f82a458525bddb3d5d6f303776618fe384a3de8c40db634e83399c5",
+   "repeat": "fixture-valid-001",
+   "executable_sha256": "unknown",
+   "build": "unknown",
+   "overrides_readback_sha256": "b54e23c62eb7d9ab588879270c767310069fcb88d3cf7755ef92db4f163aaee4",
+   "overrides_readback_complete": false,
+   "overrides_readback_scope": "parameters explicitly set by this run; the rest of the vehicle is unrecorded",
+   "realized_events_ms": {
+    "injection": 30000
+   },
+   "raw_artifacts": "unknown",
+   "execution_id": "f232bc48009258c4f918660930b1ccb6696acc7c4039fa6aa17b518fe13eccec"
+  },
+  "analysis": {
+   "schema": "analysis/2026-09-25",
+   "execution_id": "f232bc48009258c4f918660930b1ccb6696acc7c4039fa6aa17b518fe13eccec",
+   "normaliser_revision": "2026-09-25-open-upper-bound",
+   "inputs": {},
+   "protocol_version": "fixture",
+   "verdict_config": {},
+   "analysis_id": "351f0a468c16f80bf26d9148c7fab3cc95091e9ba7a58a907232a0db9c5487ef"
+  }
  }
 }
