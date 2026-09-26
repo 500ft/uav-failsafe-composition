@@ -51,17 +51,46 @@ if ! make -C "$PX4" tests TESTFILTER=failsafe > "$OUT/build_and_run.log" 2>&1; t
 fi
 
 # 4. A filter that selected nothing is a failure, not a pass.
-if ! grep -qE "tests passed|Test +#" "$OUT/build_and_run.log"; then
-  fail "ctest reported no tests; TESTFILTER=failsafe selected an empty set"
-fi
-ran=$(grep -cE "^ *[0-9]+/[0-9]+ Test +#" "$OUT/build_and_run.log" || true)
-[ "${ran:-0}" -gt 0 ] || fail "no ctest case lines in the log; the filter matched nothing"
+ctest_entries=$(grep -cE "^ *[0-9]+/[0-9]+ Test +#" "$OUT/build_and_run.log" || true)
+[ "${ctest_entries:-0}" -gt 0 ] || fail "no ctest case lines in the log; TESTFILTER=failsafe matched nothing"
 
-# 5. Record the outcome as data, not as a claim.
+# 5. ctest runs the whole gtest binary as ONE entry and hides its output on success, so "1/1 Test passed" in
+#    0.00 s is NOT evidence that the nine cases ran. Run the binary directly and count what it reports.
+#    The first oracle dispatch (run 36221992524) was green on the ctest line alone and proved nothing.
+binary=$(find "$PX4/build/px4_sitl_test" -type f -name "$CTEST_NAME" -perm -u+x 2>/dev/null | head -1)
+[ -n "$binary" ] || fail "built $CTEST_NAME but cannot find its executable under build/px4_sitl_test"
+echo "gtest_binary=$binary" >> "$OUT/environment.txt"
+echo "gtest_binary_sha256=$(sha256sum "$binary" | cut -d" " -f1)" >> "$OUT/environment.txt"
+
+"$binary" --gtest_list_tests > "$OUT/gtest_listed.txt" 2>&1 \
+  || fail "the test binary could not even list its cases"
+listed=$(grep -cE "^  [A-Za-z0-9_]+" "$OUT/gtest_listed.txt" || true)
+[ "${listed:-0}" -eq "$declared" ] \
+  || fail "the binary lists $listed cases but the source declares $declared; the filter or the build is wrong"
+
+# PX4 warns that repeated setup in one process may not clean up fully, so run each case in its own process.
+passed=0
+: > "$OUT/gtest_per_case.log"
+while read -r case_name; do
+  [ -n "$case_name" ] || continue
+  if "$binary" --gtest_filter="FailsafeTest.$case_name" >> "$OUT/gtest_per_case.log" 2>&1; then
+    passed=$((passed + 1))
+    echo "PASS FailsafeTest.$case_name" >> "$OUT/per_case_result.txt"
+  else
+    echo "FAIL FailsafeTest.$case_name" >> "$OUT/per_case_result.txt"
+  fi
+done < "$OUT/declared_cases.txt"
+
+# 6. Record the outcome as data, not as a claim.
 {
   echo "ctest_target=$CTEST_NAME"
-  echo "ctest_cases_run=$ran"
+  echo "ctest_entries=$ctest_entries"
   echo "declared_cases=$declared"
+  echo "listed_by_binary=$listed"
+  echo "cases_run_in_own_process=$declared"
+  echo "cases_passed=$passed"
   grep -E "tests passed|tests failed" "$OUT/build_and_run.log" | tail -2
 } > "$OUT/result.txt"
-echo "ORACLE RAN: $ran ctest case(s); see $OUT/result.txt"
+[ "$passed" -eq "$declared" ] \
+  || fail "$passed of $declared cases passed; see per_case_result.txt. This is a PX4 result, not an environment one."
+echo "ORACLE RAN: $passed/$declared gtest cases passed, each in its own process; see $OUT/result.txt"

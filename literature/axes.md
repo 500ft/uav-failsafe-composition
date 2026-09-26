@@ -239,7 +239,8 @@ AIAA Scitech 2019 Forum, 2019 · `doi:10.2514/6.2019-1961` · not read · identi
 *What reading it would settle.* How contingency selection is specified when several conditions hold at once.
 
 **L42. Reconfigurable Mission Plans for RPAS**  
-Aerospace Science and Technology, 2019 · `doi:10.1016/j.ast.2019.105528` · not read · identity unverified · repository record: `prior-art intake row 227`  
+Aerospace Science and Technology, 2020 · `doi:10.1016/j.ast.2019.105528` · not read · identity unverified · repository record: `prior-art intake row 227`  
+*Corrected 2026-09-24.* This entry previously read `doi:10.1016/j.ast.2019.105528` / "Reconfigurable Mission Plans for RPAS" — the same work; Crossref records the year as 2020, not 2019. The 2026-09-22 acquisition recorded an online-first or preprint year; found by intent audit, 2026-09-26.  
 *Why it is on the list.* Reconfigurable mission plans for remotely piloted aircraft; surfaced by the earlier intake, still unread.  
 *What reading it would settle.* Whether mission reconfiguration already covers the command-return phase this project measures.
 

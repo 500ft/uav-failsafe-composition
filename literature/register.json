@@ -133,10 +133,15 @@
     "checked_on": "2026-09-24",
     "intent_audit": {
      "disposition": "unresolved",
-     "reason": "no identifier was ever resolved, so there is no registered work to compare against.",
-     "checked_on": "2026-09-25",
+     "reason": "no identifier was ever resolved, so there is no registered work to compare against. Resolution attempted 2026-09-26 through the routes listed; still unresolved, and the routes are recorded so they are not repeated.",
+     "checked_on": "2026-09-26",
      "basis": "registered title and venue compared with why_selected; full text not read",
-     "access_scope": "identifier_unresolved"
+     "access_scope": "identifier_unresolved",
+     "resolution_attempted": [
+      "Crossref bibliographic query, 2026-09-26: returns construction-accident papers, not this work",
+      "DBLP API, 2026-09-26: blocked by a bot check, not attempted further",
+      "OpenAlex search, 2026-09-26: does not return this work"
+     ]
     }
    }
   },
@@ -397,10 +402,14 @@
     "checked_on": "2026-09-24",
     "intent_audit": {
      "disposition": "unresolved",
-     "reason": "a QP-based development and verification framework; whether it covers failsafe mode logic rather than control synthesis is not decidable from the title.",
-     "checked_on": "2026-09-25",
+     "reason": "a QP-based development and verification framework; whether it covers failsafe mode logic rather than control synthesis is not decidable from the title. Resolution attempted 2026-09-26 through the routes listed; still unresolved, and the routes are recorded so they are not repeated.",
+     "checked_on": "2026-09-26",
      "basis": "registered title and venue compared with why_selected; full text not read",
-     "access_scope": "metadata_only"
+     "access_scope": "metadata_only",
+     "resolution_attempted": [
+      "OpenAlex by DOI, 2026-09-26: record exists, no abstract",
+      "Crossref by DOI, 2026-09-26: record exists, no abstract deposited"
+     ]
     }
    }
   },
@@ -962,7 +971,7 @@
    "relates_to_repository_record": "prior-art intake row 227",
    "identifier": "doi:10.1016/j.ast.2019.105528",
    "title": "Reconfigurable Mission Plans for RPAS",
-   "year": 2019,
+   "year": 2020,
    "venue": "Aerospace Science and Technology",
    "identifier_source": "2026-09-11 canonical export row 227",
    "identity": {
@@ -971,11 +980,23 @@
     "checked_on": "2026-09-24",
     "intent_audit": {
      "disposition": "unresolved",
-     "reason": "reconfigurable mission plans for RPAS; whether it addresses recovery obligations or mission replanning only is not decidable from the title.",
-     "checked_on": "2026-09-25",
+     "reason": "reconfigurable mission plans for RPAS; whether it addresses recovery obligations or mission replanning only is not decidable from the title. Resolution attempted 2026-09-26 through the routes listed; still unresolved, and the routes are recorded so they are not repeated.",
+     "checked_on": "2026-09-26",
      "basis": "registered title and venue compared with why_selected; full text not read",
-     "access_scope": "metadata_only"
+     "access_scope": "metadata_only",
+     "resolution_attempted": [
+      "OpenAlex by DOI, 2026-09-26: record exists, no abstract",
+      "Crossref by DOI, 2026-09-26: record exists, no abstract deposited"
+     ]
     }
+   },
+   "quarantined_identifier": {
+    "identifier": "doi:10.1016/j.ast.2019.105528",
+    "title": "Reconfigurable Mission Plans for RPAS",
+    "what_it_actually_is": "the same work; Crossref records the year as 2020, not 2019",
+    "how_it_got_here": "the 2026-09-22 acquisition recorded an online-first or preprint year",
+    "found_by": "intent audit, 2026-09-26",
+    "kept_because": "a year drift is part of the acquisition record"
    }
   },
   {
@@ -1155,14 +1176,17 @@
    "identifier_source": "Crossref bibliographic query, 2026-09-22",
    "identity": {
     "identifier_resolved": "resolved",
-    "intended_work_matched": "unresolved",
+    "intended_work_matched": "matches_intended_work",
     "checked_on": "2026-09-24",
     "intent_audit": {
-     "disposition": "unresolved",
-     "reason": "integration under emergent constraints; the abstract is needed to tell whether the constraints are timing or resource ones.",
-     "checked_on": "2026-09-25",
-     "basis": "registered title and venue compared with why_selected; full text not read",
-     "access_scope": "metadata_only"
+     "disposition": "matches_intended_work",
+     "reason": "the OpenAlex abstract confirms automated software composition of embedded components under non-functional requirements, which is the emergent-composition framing why_selected describes",
+     "checked_on": "2026-09-26",
+     "basis": "registered abstract compared with why_selected; full text not read",
+     "access_scope": "metadata_only",
+     "resolution_attempted": [
+      "OpenAlex by DOI, 2026-09-26: abstract retrieved"
+     ]
     }
    }
   },
