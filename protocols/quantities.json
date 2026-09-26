@@ -1,0 +1,431 @@
+{
+ "schema_version": "2026-09-25",
+ "what_this_is": "The canonical definition of every quantity in this repository whose value could change a verdict, a gate, or a claim. One definition per quantity, cross-referenced from wherever it is used, so the same number cannot drift into two values. This is NOT an inventory of every literal: incidental constants (ports, retry counts, buffer sizes) are deliberately absent.",
+ "consequential_test": "A quantity belongs here if changing it could change a run's verdict, a property's outcome, whether a claim is supportable, or whether the apparatus is judged valid.",
+ "provenance": {
+  "requirement": "imposed by the owner or by scope; not derived from anything in the repository",
+  "sourced": "read from PX4 source, vendor documentation or a standard, with a locator",
+  "measured_input": "measured from the apparatus and used as an input to something else",
+  "calculated": "derived from other quantities in this register by a stated model",
+  "selected": "chosen by us; the choice is defensible but not forced by any of the above",
+  "measured_result": "observed in a run; an outcome, not an input",
+  "provisional": "a placeholder that has no support yet and is marked for resolution"
+ },
+ "evidence_status": {
+  "frozen": "fixed before the runs it judges and not revisable against them",
+  "source_verified": "checked against the cited locator",
+  "observed": "seen in recorded data",
+  "unresolved": "no support yet; the dependent conclusion is open",
+  "superseded": "kept for the record; no longer in force"
+ },
+ "quantities": [
+  {
+   "id": "Q-TOL",
+   "name": "development timing tolerance",
+   "value": 1.5,
+   "unit": "s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "protocols/expected-timelines.json tolerance.value_s",
+   "used_by": [
+    "harness/verify.py TOLERANCE_S",
+    "every T-timeline comparison"
+   ],
+   "rationale": "Frozen before the runs as three times the repeat range then available (Q-REPEAT-OLD). That multiplier is not a validation, and the basis has since been corrected.",
+   "what_it_is_not": "Not an accuracy bound and not derived from Q-REPEAT-NEW. Re-deriving it from the runs it judges would be fitting. Distinct from Study A's proposed 0.2 s median / 1.0 s p95.",
+   "depends_on": [
+    "Q-REPEAT-OLD"
+   ],
+   "sensitivity": "a wider value suppresses false alarms and hides real deviations equally",
+   "validation": "none possible from these runs; a future protocol version may calibrate prospectively"
+  },
+  {
+   "id": "Q-REPEAT-OLD",
+   "name": "repeat range used to set the tolerance",
+   "value": 0.51,
+   "unit": "s",
+   "provenance": "measured_result",
+   "evidence_status": "superseded",
+   "defined_in": "protocols/expected-timelines.json tolerance.jitter_basis_correction_2026_09_24",
+   "used_by": [
+    "Q-TOL, historically"
+   ],
+   "rationale": "range of horizon_reached over the 2026-09-20 control repeats, computed through the pre-repair clock",
+   "what_it_is_not": "not measured on the vehicle's own clock; it folded per-run offset-estimation variance in",
+   "depends_on": [],
+   "sensitivity": "n/a",
+   "validation": "superseded by Q-REPEAT-NEW"
+  },
+  {
+   "id": "Q-REPEAT-NEW",
+   "name": "repeat-to-repeat range, vehicle clock",
+   "value": 0.352,
+   "unit": "s",
+   "provenance": "measured_result",
+   "evidence_status": "observed",
+   "defined_in": "evidence/task-measurement-repair-2026-09-24/README.md",
+   "used_by": [
+    "nothing; it is reported, not consumed"
+   ],
+   "rationale": "range of horizon_reached across n=4 valid control repeats, re-derived on vehicle_observation stamps",
+   "what_it_is_not": "NOT accuracy, NOT a tail bound, NOT a bound on injection-relative latency error. Four repeats of one scenario say how far that scenario moved, nothing more.",
+   "depends_on": [],
+   "sample_size": 4,
+   "sensitivity": "unknown; no tail was estimated",
+   "validation": "observed; would need a calibration design to become a bound"
+  },
+  {
+   "id": "Q-RESIDUAL",
+   "name": "update and transport residual on any latency",
+   "value": null,
+   "unit": "s",
+   "provenance": "provisional",
+   "evidence_status": "unresolved",
+   "defined_in": "protocols/unsafe-composition-properties.json U1.deadline_note",
+   "used_by": [
+    "U1 deadline",
+    "U4 deadline"
+   ],
+   "rationale": "The injection instant is a cached telemetry stamp with no defensible upper bound, so no total deadline can be formed. The source-controlled part is derivable; this part is not.",
+   "what_it_is_not": "not zero, and not to be assumed small",
+   "depends_on": [],
+   "sensitivity": "dominates: while unresolved, no timing verdict in this rig can pass",
+   "validation": "needs a transport or timebase bound, or a causally post-event acknowledgment"
+  },
+  {
+   "id": "Q-U3-WINDOW",
+   "name": "oscillation window",
+   "value": 10.0,
+   "unit": "s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "protocols/unsafe-composition-properties.json U3.window_s",
+   "used_by": [
+    "U3 / query Q4"
+   ],
+   "rationale": "COM_DL_LOSS_T's default (Q-DL-LOSS-T) motivates the magnitude",
+   "what_it_is_not": "NOT derived and NOT literature-validated. No source justifies 10 s as an oscillation window, and a paper using another window validates nothing here.",
+   "depends_on": [
+    "Q-DL-LOSS-T"
+   ],
+   "sensitivity": "a shorter window misses slow flapping; a longer one admits legitimate escalation",
+   "validation": "none; it is a study parameter and is labelled as one"
+  },
+  {
+   "id": "Q-U4-MARGIN",
+   "name": "U4 observation margin",
+   "value": 2.0,
+   "unit": "s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "protocols/unsafe-composition-properties.json U4.margin_basis",
+   "used_by": [
+    "U4, only once Q-RESIDUAL is resolved"
+   ],
+   "rationale": "two MAVLink heartbeat periods at 1 Hz [B5]",
+   "what_it_is_not": "A heartbeat period is the resolution of ONE observation route. It is not the resolution of a battery, estimator or selector event, and it does not substitute for Q-RESIDUAL.",
+   "depends_on": [
+    "Q-HB-RATE"
+   ],
+   "sensitivity": "small next to the unresolved residual",
+   "validation": "inert while U4's deadline is not_yet_evaluable"
+  },
+  {
+   "id": "Q-HORIZON",
+   "name": "observation horizon after injection",
+   "value": 45.0,
+   "unit": "s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "harness/cases.py HORIZON_S",
+   "used_by": [
+    "every case",
+    "scenario identity"
+   ],
+   "rationale": "Must exceed the longest predicted response: detection 10 s plus hold delay 5 s plus the RTL manoeuvre. 45 s leaves margin over the 15 s predicted transition in T1.",
+   "what_it_is_not": "not derived from a completion model; no completion deadline exists (see U4)",
+   "depends_on": [
+    "Q-DL-LOSS-T",
+    "Q-FAIL-ACT-T"
+   ],
+   "sensitivity": "too short would report a false absence of recovery",
+   "validation": "partially observed: the 2026-09-23 run held its mode for the full horizon, so the horizon was not the limiting factor in that absence"
+  },
+  {
+   "id": "Q-INJECT-T",
+   "name": "nominal injection time on the vehicle clock",
+   "value": 40.0,
+   "unit": "s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "harness/cases.py NOMINAL_INJECT_T_S",
+   "used_by": [
+    "every case schedule",
+    "scenario identity"
+   ],
+   "rationale": "after takeoff and settling (observed around 18 s) with margin, so the stimulus lands in steady flight",
+   "what_it_is_not": "not the observed injection instant; the realised value is recorded per run and differs",
+   "depends_on": [],
+   "sensitivity": "too early risks injection_before_takeoff, which invalidates the run",
+   "validation": "observed: realised injections landed at 55.4 to 58.1 s vehicle time, all after takeoff"
+  },
+  {
+   "id": "Q-SEED-OFFSETS",
+   "name": "per-seed injection offsets",
+   "value": [
+    -2.0,
+    -1.5,
+    -1.0,
+    0.0,
+    1.0,
+    1.5,
+    2.0
+   ],
+   "unit": "s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "harness/cases.py SEED_OFFSET_S",
+   "used_by": [
+    "case schedules"
+   ],
+   "rationale": "deliberately spread the stimulus across the framework's update phase",
+   "what_it_is_not": "NOT independent random worlds. SIH is deterministic given the same parameters, so these are designed coverage offsets and carry no sampling interpretation.",
+   "depends_on": [],
+   "sensitivity": "an offset smaller than the update period would not discriminate phase",
+   "validation": "none; the interpretation, not the values, was the defect"
+  },
+  {
+   "id": "Q-HB-GAP",
+   "name": "heartbeat gap that invalidates a run",
+   "value": 2.0,
+   "unit": "s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "harness/trace.py validity check",
+   "used_by": [
+    "trace.validity"
+   ],
+   "rationale": "two missed 1 Hz heartbeats [B5]; a shorter gap is ordinary scheduling",
+   "what_it_is_not": "not the MAVLink link-loss convention of four to five missed beats, which is about the vehicle's own detection",
+   "depends_on": [
+    "Q-HB-RATE"
+   ],
+   "sensitivity": "too tight would invalidate healthy runs; too loose would admit a stalled simulator",
+   "validation": "observed: one 2026-09-20 control repeat was correctly marked simulator_crash by it"
+  },
+  {
+   "id": "Q-TAKEOFF-ALT",
+   "name": "commanded takeoff altitude",
+   "value": 10.0,
+   "unit": "m",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "harness/run_case.py TAKEOFF_ALT_M and MIS_TAKEOFF_ALT",
+   "used_by": [
+    "every flying case",
+    "the settle test Q-SETTLE"
+   ],
+   "rationale": "high enough to be clear of ground effect and the land detector, low enough to keep the RTL climb short",
+   "what_it_is_not": "not a requirement; no property depends on the value",
+   "depends_on": [],
+   "sensitivity": "low: it changes manoeuvre duration, which no live deadline uses",
+   "validation": "observed: takeoff_complete fired at around 18 s in every valid run"
+  },
+  {
+   "id": "Q-SETTLE",
+   "name": "takeoff settle test",
+   "value": {
+    "altitude_within_m": 1.0,
+    "vertical_speed_below_mps": 0.3
+   },
+   "unit": "m and m/s",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "harness/run_case.py takeoff detection",
+   "used_by": [
+    "takeoff_complete, which opens a control run's response window"
+   ],
+   "rationale": "within 1 m of the commanded altitude and nearly stationary vertically",
+   "what_it_is_not": "not the autopilot's own notion of takeoff complete. PX4 leaves AUTO_TAKEOFF slightly later, which is why T6 expects one AUTO_LOITER transition inside the control window.",
+   "depends_on": [
+    "Q-TAKEOFF-ALT"
+   ],
+   "sensitivity": "a tighter test would delay the window and move that transition outside it",
+   "validation": "observed: the offset between this test and the nav_state change is visible in the 2026-09-23 run"
+  },
+  {
+   "id": "Q-COHORT-MIN",
+   "name": "minimum runs for a reproducibility statistic",
+   "value": 2,
+   "unit": "runs",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "harness/reproducibility.py MIN_COHORT",
+   "used_by": [
+    "repeat_range_s",
+    "identical_mode_sequence"
+   ],
+   "rationale": "a range needs two values; below that there is nothing to report",
+   "what_it_is_not": "NOT a sufficient sample for any inference. Two runs give a range and no distribution.",
+   "depends_on": [],
+   "sensitivity": "raising it would suppress the current four-repeat report entirely",
+   "validation": "n/a"
+  },
+  {
+   "id": "Q-TITLE-SIM",
+   "name": "literature title match threshold",
+   "value": 0.6,
+   "unit": "Jaccard word overlap",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": "literature/audit_identity.py SIMILAR",
+   "used_by": [
+    "identity-audit.json status"
+   ],
+   "rationale": "Tuned to separate a paraphrase from a different work. L43 scored 0.188 against its true title and was caught; every correct entry scored above the threshold.",
+   "what_it_is_not": "NOT able to catch L32, whose recorded title matched its wrong identifier exactly. That class of error needs the human intent audit.",
+   "depends_on": [],
+   "sensitivity": "51 of 55 rows currently match; a stricter value would flag correct entries",
+   "validation": "observed over all 55 rows: 1 true positive, 0 false positives"
+  },
+  {
+   "id": "Q-ORACLE-BUDGET",
+   "name": "oracle job time budget",
+   "value": 60,
+   "unit": "minutes",
+   "provenance": "selected",
+   "evidence_status": "frozen",
+   "defined_in": ".github/workflows/oracle.yml timeout-minutes",
+   "used_by": [
+    "the native failsafe oracle job"
+   ],
+   "rationale": "one focused attempt; a longer hunt is a new decision rather than a retry",
+   "what_it_is_not": "not an estimate of how long a PX4 build takes on this runner; no such build has been observed",
+   "depends_on": [],
+   "sensitivity": "a timeout is an environment result and is recorded as one",
+   "validation": "unresolved: the job has never run"
+  },
+  {
+   "id": "Q-FAIL-ACT-T",
+   "name": "COM_FAIL_ACT_T, the hold-delay parameter",
+   "value": 5.0,
+   "unit": "s",
+   "provenance": "sourced",
+   "evidence_status": "source_verified",
+   "defined_in": "docs/baselines/baselines.json B10",
+   "locator": "PX4 v1.17.0 parameter reference; framework.h _param_com_fail_act_t",
+   "used_by": [
+    "the delay pot Q-RECHARGE",
+    "T1 and T2 timelines",
+    "the configuration matrix"
+   ],
+   "rationale": "vendor default",
+   "what_it_is_not": "not a requirement; the matrix also runs it at 0.0",
+   "depends_on": [],
+   "sensitivity": "T2 exists precisely to vary it",
+   "validation": "read back from the vehicle in every run"
+  },
+  {
+   "id": "Q-DL-LOSS-T",
+   "name": "COM_DL_LOSS_T, datalink detection timeout",
+   "value": 10,
+   "unit": "s",
+   "provenance": "sourced",
+   "evidence_status": "source_verified",
+   "defined_in": "docs/baselines/baselines.json B10",
+   "locator": "PX4 v1.17.0 parameter reference",
+   "used_by": [
+    "T1, T2 and T5 predicted hazard times",
+    "Q-U3-WINDOW's magnitude"
+   ],
+   "rationale": "vendor default",
+   "what_it_is_not": "not the deadline for a response; it is spent BEFORE the flag rises and must not be counted twice",
+   "depends_on": [],
+   "sensitivity": "the predicted hazard time moves with it",
+   "validation": "observed at 11.4 to 12.0 s against a predicted 10.0 s; the discrepancy is real and its cause is unresolved, and the timing verdict is now inconclusive rather than refuted"
+  },
+  {
+   "id": "Q-RECHARGE",
+   "name": "delay-pot recharge rate",
+   "value": 0.25,
+   "unit": "dimensionless, fraction of real time",
+   "provenance": "sourced",
+   "evidence_status": "source_verified",
+   "defined_in": "model/px4_failsafe.py Selector._update_start_delay",
+   "locator": "framework.cpp L134 at d6f12ad: _current_start_delay += dt / 4",
+   "used_by": [
+    "the six shared-delay fixtures",
+    "U3's mechanism"
+   ],
+   "rationale": "PX4's own comment: increase the delay slower than it is reduced, so a toggling condition still acts at some point.",
+   "what_it_is_not": "not a tunable of ours; changing it would make the model disagree with the implementation",
+   "depends_on": [
+    "Q-FAIL-ACT-T"
+   ],
+   "sensitivity": "it is the whole mechanism the interaction study targets",
+   "validation": "transcription self-check only; the native oracle has not confirmed it"
+  },
+  {
+   "id": "Q-DELAY-EPS",
+   "name": "threshold below which no hold delay applies",
+   "value": 0.1,
+   "unit": "s",
+   "provenance": "sourced",
+   "evidence_status": "source_verified",
+   "defined_in": "model/px4_failsafe.py raise_hazard",
+   "locator": "framework.cpp L351-362 at d6f12ad",
+   "used_by": [
+    "T2, the COM_FAIL_ACT_T=0 configuration"
+   ],
+   "rationale": "the implementation's own guard",
+   "what_it_is_not": "not chosen by us",
+   "depends_on": [],
+   "sensitivity": "T2's whole prediction turns on it",
+   "validation": "transcription self-check only"
+  },
+  {
+   "id": "Q-HB-RATE",
+   "name": "GCS heartbeat rate",
+   "value": 1.0,
+   "unit": "Hz",
+   "provenance": "sourced",
+   "evidence_status": "source_verified",
+   "defined_in": "docs/baselines/baselines.json B5",
+   "locator": "MAVLink heartbeat convention",
+   "used_by": [
+    "Q-HB-GAP",
+    "Q-U4-MARGIN",
+    "the mode-source resolution argument"
+   ],
+   "rationale": "protocol convention",
+   "what_it_is_not": "The resolution of ONE observation route. It does not set the time resolution of every battery, estimator or selector event, and a universal heartbeat margin was a defect.",
+   "depends_on": [],
+   "sensitivity": "the heartbeat mode source is superseded by the autopilot log where available",
+   "validation": "observed in every capture"
+  },
+  {
+   "id": "Q-WILSON",
+   "name": "Wilson and exact bounds quoted in the review",
+   "value": {
+    "57_of_60_two_sided_95": [
+     0.863,
+     0.9829
+    ],
+    "50_of_50_one_sided_95_lower": 0.94184,
+    "60_of_60_one_sided_95_lower": 0.9513
+   },
+   "unit": "proportion",
+   "provenance": "calculated",
+   "evidence_status": "source_verified",
+   "defined_in": "docs/specs/formal-composition/critique-2026-09-24.md",
+   "used_by": [
+    "the argument that D7's old pooled gate was unsupportable"
+   ],
+   "rationale": "recomputed independently and they agree with the owner's figures to the digits quoted",
+   "what_it_is_not": "These are illustrations under an explicit binomial assumption. The deterministic case matrix is not a Bernoulli sample and no interval applies to it.",
+   "depends_on": [],
+   "sensitivity": "n/a",
+   "validation": "arithmetic verified in session"
+  }
+ ]
+}

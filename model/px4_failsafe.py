@@ -85,6 +85,25 @@ class Selector:
         episode acts sooner than the first. This is state shared across episodes, and it was the omission the
         earlier model carried as a marker (critique 2026-09-24, F6).
         """
+        # Decision: what delay a SECOND episode gets.  [Q-RECHARGE in protocols/quantities.json]
+        #
+        #   Question    After a condition clears and re-raises, how long is the new hold delay?
+        #   Inputs      COM_FAIL_ACT_T = 5 s      sourced [B10, Q-FAIL-ACT-T]
+        #               recharge rate  = dt / 4   sourced, framework.cpp L134 at d6f12ad [Q-RECHARGE]
+        #   Model       pot(t) drains 1:1 while a delayed action is pending, refills at 1/4 real time otherwise,
+        #               capped at COM_FAIL_ACT_T. A new delayable action takes whatever the pot holds.
+        #   Worked      burn 3 s of a 5 s pot, then stay quiet 2 s:  pot = (5 - 3) + 2/4 = 2.5 s
+        #               so the second episode acts 2.5 s after the condition returns, not 5 s.
+        #   Full reset  needs 4 x the drained amount of quiet time: 3 s drained needs 12 s quiet.
+        #   Discretised The stepper lands ONE update late, because the first step after a hazard is raised runs
+        #               before a delayed action is pending and so recharges instead of draining. At dt = 0.1 s
+        #               it returns 2.600 s, at 0.01 s it returns 2.510 s, at 0.001 s it returns 2.501 s. The
+        #               real framework has the same dependence on its own update period; this is a property of
+        #               the semantics, not a rounding artefact, and it is why fixtures assert to within one dt.
+        #   Sensitivity This is the mechanism the interaction study targets. If the divisor is not 4, every
+        #               repeated-hazard prediction moves.
+        #   Validation  Transcription self-check only (tests/test_shared_delay_memory.py). The native C++ class
+        #               has not confirmed it; that is the oracle's job.
         configured = float(self.params.get("COM_FAIL_ACT_T", 5.0))
         if delay_active:
             self.start_delay_s = max(0.0, self.start_delay_s - dt_s)

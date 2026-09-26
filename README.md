@@ -98,6 +98,7 @@ The [full protocol](docs/experiment-01-authority-loss.md) owns the provisional c
 | If you want to… | Start here |
 | --- | --- |
 | Understand the project in five minutes | [Reviewer guide](docs/START_HERE.md) |
+| See why any number has the value it has | [Traceability index](docs/traceability.md), then the [number-provenance audit](docs/number-provenance-audit-2026-09-25.md) |
 | Challenge the proposed contribution | [Current source review](docs/day3-source-review.md), then [prior-art boundary](docs/prior-art.md) |
 | Inspect the study design | [Research plan](docs/research-plan.md) and [Experiment 01](docs/experiment-01-authority-loss.md) |
 | Trace a claim to its evidence | [Claim ledger](docs/claim-ledger.md) and [review index](docs/REVIEW_READY.md) |

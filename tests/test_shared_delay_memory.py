@@ -97,6 +97,33 @@ class SharedDelayMemoryTests(unittest.TestCase):
         advance(sel, 4.0)
         self.assertAlmostEqual(sel.start_delay_s, 1.0, places=2)
 
+    def test_the_worked_example_beside_the_model_converges_to_its_analytic_value(self):
+        """The block in px4_failsafe.py claims 2.5 s. Check it, including the one-update discretisation."""
+        got = {}
+        for step in (0.1, 0.01, 0.001):
+            sel = Selector(dict(RTL_5S))
+            sel.raise_hazard("datalink_loss")
+            advance(sel, 3.0, step=step)
+            sel.clear_hazard("datalink_loss", mode_changed_or_disarmed=True)
+            sel.delay_left_s, sel.delayed, sel.selected = 0.0, "None", "None"
+            advance(sel, 2.0, step=step)
+            sel.raise_hazard("datalink_loss")
+            got[step] = sel.delay_left_s
+        self.assertAlmostEqual(got[0.1], 2.5, delta=0.1 + 1e-9)
+        self.assertAlmostEqual(got[0.001], 2.5, delta=0.001 + 1e-9)
+        self.assertLess(abs(got[0.001] - 2.5), abs(got[0.1] - 2.5), "it must converge as the step shrinks")
+
+    def test_a_full_reset_needs_four_times_the_drained_quiet_time(self):
+        sel = Selector(dict(RTL_5S))
+        sel.raise_hazard("datalink_loss")
+        advance(sel, 3.0)                                       # drain 3 s
+        sel.clear_hazard("datalink_loss", mode_changed_or_disarmed=True)
+        sel.delay_left_s, sel.delayed, sel.selected = 0.0, "None", "None"
+        advance(sel, 11.0)
+        self.assertLess(sel.start_delay_s, 5.0, "11 s of quiet is not yet 4 x 3 s")
+        advance(sel, 2.0)
+        self.assertAlmostEqual(sel.start_delay_s, 5.0, places=3)
+
     def test_this_file_is_a_transcription_check_not_a_differential_result(self):
         """Guard against the docstring drifting into a claim the fixtures do not support."""
         self.assertIn("does not establish that the model matches the pinned C++", __doc__.replace("\n", " "))
