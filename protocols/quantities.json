@@ -303,7 +303,7 @@
    "what_it_is_not": "not an estimate of how long a PX4 build takes on this runner; no such build has been observed",
    "depends_on": [],
    "sensitivity": "a timeout is an environment result and is recorded as one",
-   "validation": "unresolved: the job has never run"
+   "validation": "observed 2026-09-26: the build and full test run took 9 minutes wall clock against the 60-minute budget (run 36222455516), so the budget is generous and was not the limiting factor"
   },
   {
    "id": "Q-FAIL-ACT-T",
@@ -363,7 +363,7 @@
     "Q-FAIL-ACT-T"
    ],
    "sensitivity": "it is the whole mechanism the interaction study targets",
-   "validation": "transcription self-check only; the native oracle has not confirmed it"
+   "validation": "transcription self-check only; the native oracle has not confirmed it. Unchanged by the 2026-09-26 oracle run: PX4's own suite passing is not a comparison against this transcription, and no such comparison has been made"
   },
   {
    "id": "Q-DELAY-EPS",
@@ -381,7 +381,7 @@
    "what_it_is_not": "not chosen by us",
    "depends_on": [],
    "sensitivity": "T2's whole prediction turns on it",
-   "validation": "transcription self-check only"
+   "validation": "transcription self-check only. Unchanged by the 2026-09-26 oracle run: PX4's own suite passing is not a comparison against this transcription, and no such comparison has been made"
   },
   {
    "id": "Q-HB-RATE",

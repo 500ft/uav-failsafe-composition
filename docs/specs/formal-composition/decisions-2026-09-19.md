@@ -133,3 +133,25 @@ The owner reviewed PR #29, reproduced three defects in it with in-memory probes,
 The owner also corrected an overstatement of mine: the repair does not establish that no action is selected.
 The supported statement is that no expected post-injection recovery-mode transition was observed and no new
 failsafe announcement was seen, with the internal selected action and its cause unresolved.
+
+## 2026-09-26 addendum — the oracle runs
+
+**D14 is closed.** Route (b) worked. PX4 v1.17.0 at the pinned commit builds on an ordinary `ubuntu-24.04`
+GitHub runner and its nine failsafe unit tests pass, each in its own process, from a hash-pinned binary. Nine
+minutes wall clock against a 60-minute budget. No WSL, no cloud instance, no reboot of the headless host.
+Evidence: [task-oracle-2026-09-26](../../../evidence/task-oracle-2026-09-26/README.md).
+
+**The first dispatch was green and proved nothing.** ctest ran the gtest binary as one entry, suppressed its
+output, and reported `Passed 0.00 sec`. No case name appeared in the log. The check now asserts the binary
+lists as many cases as the source declares and runs each in its own process. A green job that cannot say what
+it ran is worse than a red one, because it is quotable.
+
+| id | decision | status |
+|---|---|---|
+| **D14** | Closed: the repository's own Ubuntu Actions, run manually, at a recorded toolchain identity | **resolved and executed** |
+| **D26** | PX4's own suite passing is NOT a differential result. `Q-RECHARGE` and `Q-DELAY-EPS` stay transcription-checked until the model's own sequences are driven through this binary | decided here |
+
+What this changes about the open question: the selector logic passes its own tests, so the integration is now
+the more likely location of the fault than the selector. That is where to look next, not a diagnosis. The
+supported statement is unchanged: no expected post-injection recovery-mode transition was observed and no new
+failsafe announcement was seen; the internal selected action and its cause remain unresolved.

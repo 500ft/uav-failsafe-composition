@@ -1,0 +1,13 @@
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:lp_default not available
+ERROR [px4_work_queue] init failed
+FailsafeTest.
+  general
+  takeover
+  takeover_denied
+  can_takeover_degraded_failsafe
+  no_immediate_takeover_when_failsafe_on_mode_switch
+  defer
+  defer_and_clear
+  skip_failsafe
+  user_termination

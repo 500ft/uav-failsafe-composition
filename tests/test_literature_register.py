@@ -122,6 +122,14 @@ class LiteratureRegisterTests(unittest.TestCase):
             if not e["identifier"]:
                 self.assertEqual(e["identity"]["intended_work_matched"], "unresolved", e["id"])
 
+    def test_an_unresolved_row_records_what_was_already_tried(self):
+        """So a later session does not repeat a route that already failed (NP-7)."""
+        for e in self.entries:
+            if e["identity"]["intended_work_matched"] == "unresolved":
+                tried = e["identity"].get("intent_audit", {}).get("resolution_attempted")
+                self.assertTrue(tried, f"{e['id']} is unresolved without saying what was attempted")
+                self.assertGreaterEqual(len(tried), 2, e["id"])
+
     def test_the_stored_identity_audit_matches_the_register(self):
         rows = {r["id"]: r for r in json.loads((ROOT / "literature/identity-audit.json").read_text())["rows"]}
         for e in self.entries:

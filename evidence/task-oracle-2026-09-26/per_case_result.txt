@@ -1,0 +1,9 @@
+PASS FailsafeTest.general
+PASS FailsafeTest.takeover
+PASS FailsafeTest.takeover_denied
+PASS FailsafeTest.can_takeover_degraded_failsafe
+PASS FailsafeTest.no_immediate_takeover_when_failsafe_on_mode_switch
+PASS FailsafeTest.defer
+PASS FailsafeTest.defer_and_clear
+PASS FailsafeTest.skip_failsafe
+PASS FailsafeTest.user_termination

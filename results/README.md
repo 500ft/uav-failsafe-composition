@@ -11,5 +11,11 @@ selected, so they are development evidence about the apparatus, never held-out c
 result. The [2026-09-24 critique](../docs/specs/formal-composition/critique-2026-09-24.md) records why their
 timing and verdicts needed repair before anything is concluded from them.
 
+Since 2026-09-26 there is also one **executed component result**: PX4's own failsafe unit tests, nine of nine
+passing at the pinned commit on an ordinary Ubuntu runner, from a hash-pinned binary
+([evidence](../evidence/task-oracle-2026-09-26/README.md)). That is a statement about the framework's own test
+suite. It is not a study result, it says nothing about why the integrated runtime commits no recovery mode, and
+it does not validate this repository's model of the framework.
+
 When a study result is generated, each one must link to its protocol, inputs, generator, uncertainty treatment,
 and evidence state.

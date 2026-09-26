@@ -1,0 +1,9 @@
+px4_commit=d6f12ad1c4f70ad3230afd7d86e971421e02fef4
+px4_describe=v1.17.0
+uname=Linux 6.17.0-1022-azure x86_64
+cxx=c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+cmake=cmake version 3.31.6
+recorded_at=2026-09-26T06:03:03Z
+declared_cases=9
+gtest_binary=/home/runner/work/uav-failsafe-composition/uav-failsafe-composition/px4/build/px4_sitl_test/functional-failsafe_test
+gtest_binary_sha256=682696ce5168d1ad74ceb252b738eb6ba981f5dc4ddd7c3a78fb31172e976991
